@@ -23,7 +23,7 @@ import com.yiwucheguanjia.carmgr.progress.ProgressFragment;
  * @author
  *
  */
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener{
 
     // 以下四个是底部控件
     private RelativeLayout homeLayout;
@@ -92,6 +92,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         homeImg = (ImageView)findViewById(R.id.tabHomeImg);
         commercialImg = (ImageView)findViewById(R.id.tabCommercialImg);
         progressImg = (ImageView)findViewById(R.id.tabProgressImg);
+        callYiwuImg = (ImageView)findViewById(R.id.tabCallYiwuImg);
+        homeLayout.setOnClickListener(this);
+        commercialLayout.setOnClickListener(this);
+        progressLayout.setOnClickListener(this);
+        callYiwuLayout.setOnClickListener(this);
     }
 
     /**
@@ -109,12 +114,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             // 记录当前Fragment
             currentFragment = homeFragment;
             // 设置图片文本的变化
-            homeImg.setImageResource(R.drawable.btn_home_pre);
-            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
-            commercialImg.setImageResource(R.drawable.btn_forum_nor);
-            commercialTxt.setTextColor(getResources().getColor(R.color.green));
-            callYiwuImg.setImageResource(R.drawable.btn_my_nor);
-            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeImg.setImageResource(R.mipmap.tab_home_img_pre);
+//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
+//            commercialTxt.setTextColor(getResources().getColor(R.color.green));
+            callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
+//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
         }
     }
 
@@ -122,14 +127,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_home: // 首页标签
-
+                Log.e("haha","kkk");
                 clickTab1Layout(0);
                 break;
             case R.id.rl_commercial: // 商户标签
+                Log.e("haha","kkk");
                 clickTab1Layout(1);
                 break;
             case R.id.rl_progress: // 进度标签
+                Log.e("haha","kkk");
                 clickTab1Layout(2);
+                break;
+            case R.id.rl_callyiwu:
+                clickTab1Layout(3);
                 break;
             default:
                 break;
@@ -148,35 +158,49 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
             // 设置底部tab变化
-            homeImg.setImageResource(R.drawable.btn_home_pre);
-            homeTxt.setTextColor(getResources().getColor(R.color.green));
-            commercialImg.setImageResource(R.drawable.btn_forum_nor);
-            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
-            callYiwuImg.setImageResource(R.drawable.btn_my_nor);
-            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeImg.setImageResource(R.mipmap.tab_home_img_pre);
+//            homeTxt.setTextColor(getResources().getColor(R.color.green));
+            commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
+//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
+//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
         } else if (id == 1) {
             if (commercialFragment == null) {
                 commercialFragment = new CommercialFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), commercialFragment);
-            homeImg.setImageResource(R.drawable.btn_home_nor);
-            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
-            commercialImg.setImageResource(R.drawable.btn_forum_pre);
-            commercialTxt.setTextColor(getResources().getColor(R.color.green));
-            callYiwuImg.setImageResource(R.drawable.btn_my_nor);
-            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeImg.setImageResource(R.mipmap.tab_home_img_nor);
+//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialImg.setImageResource(R.mipmap.tab_commercial_img_pre);
+//            commercialTxt.setTextColor(getResources().getColor(R.color.green));
+            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
+//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
         } else if (id == 2) {
             if (progressFragment == null) {
                 progressFragment = new ProgressFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), progressFragment);
-            homeImg.setImageResource(R.drawable.btn_home_nor);
-            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
-            commercialImg.setImageResource(R.drawable.btn_forum_nor);
-            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
-            callYiwuImg.setImageResource(R.drawable.btn_my_pre);
-            callYiwuTxt.setTextColor(getResources().getColor(R.color.green));
-
+            homeImg.setImageResource(R.mipmap.tab_home_img_nor);
+//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
+//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            progressImg.setImageResource(R.mipmap.tab_progress_img_pre);
+            callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
+//            callYiwuTxt.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == 3){
+            if (callYiwuFragment == null) {
+                callYiwuFragment = new ProgressFragment();
+            }
+            addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
+            homeImg.setImageResource(R.mipmap.tab_home_img_nor);
+//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
+//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_pre);
+//            callYiwuTxt.setTextColor(getResources().getColor(R.color.green));
         }
 
     }

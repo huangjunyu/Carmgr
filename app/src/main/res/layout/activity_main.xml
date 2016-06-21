@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/tab_commercial_img_nor"
+                    android:src="@mipmap/tab_commercial_img_nor"
                     android:contentDescription="@null"/>
 
             <TextView
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/tab_progress_img_nor"
+                    android:src="@mipmap/tab_progress_img_nor"
                     android:contentDescription="@null"/>
 
 
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/tab_callyiwu_img_nor"
+                    android:src="@mipmap/tab_callyiwu_img_nor"
                     android:contentDescription="@null"/>
 
 
@@ -130,5 +130,5 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/ll_bottom_tab"
-            android:background="@color/hui"/>
+            android:background="@color/gray"/>
 </RelativeLayout>

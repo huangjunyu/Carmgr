@@ -55,7 +55,7 @@
 
             android:orientation="vertical">
             <EditText
-                android:id="@+id/login_account"
+                android:id="@+id/login_account_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_account_hint"
@@ -69,7 +69,7 @@
                 android:layout_height="0.5px"
                 android:background="@color/gray_divide"></View>
             <EditText
-                android:id="@+id/login_password"
+                android:id="@+id/login_password_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
@@ -103,7 +103,7 @@
             <!--</android.support.design.widget.TextInputLayout>-->
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/login_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

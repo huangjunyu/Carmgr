@@ -17,6 +17,13 @@
     <string name="forgot_password">找回密码</string>
     <string name="login_with_phone">手机号快捷登录</string>
     <string name="login_third_party">使用第三方账号登录</string>
+    <string name="input_phone_number">输入手机号</string>
+    <string name="input_code_txt">输入验证码</string>
+    <string name="setting_password">设置密码</string>
+    <string name="input_register_number">请输入您的手机号</string>
+    <string name="get_code">获取验证码</string>
+    <string name="readed_and_agree">我已阅读并同意</string>
+    <string name="yiwu_agreenment">《易车易宝平台用户协定》</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

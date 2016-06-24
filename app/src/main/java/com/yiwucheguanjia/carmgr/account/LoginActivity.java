@@ -47,7 +47,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
-
+//
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return null;

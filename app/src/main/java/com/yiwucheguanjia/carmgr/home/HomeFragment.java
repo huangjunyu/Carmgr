@@ -61,7 +61,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.home_personal_rl:
                 Intent personalIntent = new Intent(getActivity(),LoginActivity.class);
-                getActivity().startActivity(personalIntent);
+//                getActivity().startActivity(personalIntent);
+                getActivity().startActivityForResult(personalIntent,1);
         }
     }
 }

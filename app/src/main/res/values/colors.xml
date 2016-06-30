@@ -7,5 +7,5 @@
     <color name="white">#FFFFFF</color>
     <color name="orange">#FFA700</color>
     <color name="gray_divide">#ADADAD</color>
-    <color name="gray_login_title">#555555</color>
+    <color name="gray_default">#555555</color>
 </resources>

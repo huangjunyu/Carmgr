@@ -24,6 +24,18 @@
     <string name="get_code">获取验证码</string>
     <string name="readed_and_agree">我已阅读并同意</string>
     <string name="yiwu_agreenment">《易车易宝平台用户协定》</string>
+    <string name="code_sent">验证码短信已发送到</string>
+    <string name="msg_code">请输入短信中的验证码</string>
+    <string name="submit_code">提交验证码</string>
+    <string name="input_password">请输入密码（长度在6-32个字符之间)</string>
+    <string name="input_pwd_again">请再次输入密码</string>
+    <string name="pwd_can_not_null">密码不能为空</string>
+    <string name="acc_can_not_null">账户不能为空</string>
+    <string name="pwd_length_below">密码不能低于</string>
+    <string name="pwd_length_overtop">密码不能高于</string>
+    <string name="string_append">个字符串</string>
+    <string name="pwd_inconsistency">密码不一致</string>
+    <string name="logging">正在登录...</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

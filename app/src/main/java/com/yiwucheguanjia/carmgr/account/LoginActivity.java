@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     //登录状态提示
     private String loginState;
     private Button loginBtn;
+    private ImageButton login_gobackImgBtn;
     private EditText loginUsernameEdit;
     private EditText loginPasswordEdit;
     private TextView loginRegisterTxtBtn;
@@ -71,9 +73,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         loginPasswordEdit = (EditText)findViewById(R.id.login_password_edit);
         loginRegisterTxtBtn = (TextView)findViewById(R.id.login_register_btn);
         loginBtn = (Button)findViewById(R.id.login_button);
+        login_gobackImgBtn = (ImageButton)findViewById(R.id.login_goback_img_btn);
         okHttpClient = new OkHttpClient();
         loginRegisterTxtBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
+        login_gobackImgBtn.setOnClickListener(this);
     }
 
     @Override
@@ -127,6 +131,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 Log.e("kdke","kskskk");
                 Intent registerIntent = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(registerIntent);
+                break;
+            case R.id.login_goback_img_btn:
+                this.finish();
                 break;
             default:
                 break;

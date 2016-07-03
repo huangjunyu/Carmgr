@@ -78,7 +78,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        gobackImgBtn = (ImageButton) findViewById(R.id.register_goback);
+        gobackImgBtn = (ImageButton) findViewById(R.id.register_goback_imgbtn);
         register_number_txt = (TextView) findViewById(R.id.register_number_txt);
         register_first_img = (ImageView) findViewById(R.id.register_first_img);
         register_code_txt = (TextView) findViewById(R.id.register_code_txt);
@@ -92,6 +92,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         register_edit_divide = (View) findViewById(R.id.register_edit_divide);
         register_button = (Button) findViewById(R.id.register_button);
         register_button.setOnClickListener(this);
+        gobackImgBtn.setOnClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -246,6 +247,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.register_button:
                 getPhoneNum();
+                break;
+            case R.id.register_goback_imgbtn:
+                this.finish();
+                break;
+            default:
+                break;
         }
     }
 
@@ -270,24 +277,4 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             SMSSDK.unregisterEventHandler(eventHandler);
         }
     };
-/*
-    @Override
-    public boolean handleMessage(Message msg) {
-        int event = msg.arg1;
-        int result = msg.arg2;
-        Object data = msg.obj;
-        if (result == SMSSDK.RESULT_COMPLETE){
-            Log.e("sendSussessful","succeed");
-            if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE){
-                Log.e("验证成功","yes");
-            }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
-                Log.e("MSG HADE SENDED","SENDED");
-            }
-        }else {
-            Log.e("异常","except" + event);
-            ((Throwable)data).printStackTrace();
-        }
-        SMSSDK.unregisterEventHandler(eventHandler);
-        return false;
-    }*/
 }

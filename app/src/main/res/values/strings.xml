@@ -36,6 +36,14 @@
     <string name="string_append">个字符串</string>
     <string name="pwd_inconsistency">密码不一致</string>
     <string name="logging">正在登录...</string>
+    <string name="all">全部</string>
+    <string name="wait_pay">待付款</string>
+    <string name="wait_use">待使用</string>
+    <string name="underway">进行中</string>
+    <string name="done">已完成</string>
+    <string name="wait_assess">待评价</string>
+    <string name="after_sale">退款/售后</string>
+    <string name="pay_status">支付状态</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

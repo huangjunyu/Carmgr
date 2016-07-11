@@ -37,10 +37,10 @@ public class ProgressAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyadapterHolder myadapterHolder = new MyadapterHolder();
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.merchant_item, null,false);
+            convertView = mInflater.inflate(R.layout.progress_merchant_item, null,false);
             myadapterHolder.merchantNameTxt = (TextView)convertView.findViewById(R.id.merchant_provider_txt);
             myadapterHolder.payStatusTxt = (TextView)convertView.findViewById(R.id.merchant_pay_status);
-            myadapterHolder.serviceTypeTxt = (TextView)convertView.findViewById(R.id.home_car_service_txt);
+            myadapterHolder.serviceTypeTxt = (TextView)convertView.findViewById(R.id.merchant_service_type);
             myadapterHolder.orderNumberTxt = (TextView)convertView.findViewById(R.id.merchant_order_number);
             myadapterHolder.orderTimeText = (TextView)convertView.findViewById(R.id.merchant_order_time);
             myadapterHolder.orderOperate = (TextView)convertView.findViewById(R.id.merchant_operate_order);

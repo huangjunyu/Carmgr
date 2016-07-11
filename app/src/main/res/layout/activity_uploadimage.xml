@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageButton
+            android:id="@+id/upload_goback_imgbtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/register_left_pre" />
+
+
+        <TextView
+            android:id="@+id/publishTopicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:padding="5dp"
+            android:text="@string/car_certification"
+            android:textColor="@color/gray_default"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white">
+    <ImageView
+        android:id="@+id/upload_drive_cred_img"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"/>
+        <Button
+            android:id="@+id/upload_drive_cred_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:text="@string/upload_certification"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/upload_policy_img"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/upload_policy_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="@string/upload_policy"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/upload_drive_policy_data"/>
+    <Button
+        android:id="@+id/upload_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/orange"
+        android:textColor="@color/white"
+        android:text="@string/next"/>
+
+</LinearLayout>

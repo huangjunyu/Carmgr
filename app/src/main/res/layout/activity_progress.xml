@@ -69,7 +69,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/two_dimensional_code"/>
+                android:src="@mipmap/scan"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/home_personal_rl"
@@ -87,15 +87,17 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp">
         <!--左边的Linearlayout-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_weight="1">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_marginRight="1dp"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/progress_all_img"
@@ -117,6 +119,7 @@
                     />
             </RelativeLayout>
         </LinearLayout>
+
         <!--右边LinearLayout-->
         <LinearLayout
             android:layout_width="0dp"
@@ -126,12 +129,13 @@
             <!--右边上面的LinearLayout-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 >
                 <RelativeLayout
                     android:id="@+id/pro_wait_pay_rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
                     android:layout_weight="1">
                     <ImageView
                         android:id="@+id/pro_wait_pay_img"
@@ -148,14 +152,16 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:textSize="12sp"
                         android:layout_below="@+id/pro_wait_pay_img"
                         android:text="@string/wait_pay"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/pro_wait_use_rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1">
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@color/white">
                     <ImageView
                         android:id="@+id/pro_wait_use_img"
                         android:layout_width="30dp"
@@ -163,7 +169,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
+                        android:src="@mipmap/wait_use_nor"
                         />
                     <TextView
                         android:id="@+id/pro_wait_use_txt"
@@ -171,14 +177,16 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:textSize="12sp"
                         android:layout_below="@+id/pro_wait_use_img"
                         android:text="@string/wait_use"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/pro_wait_underway_rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1">
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@color/white">
                     <ImageView
                         android:id="@+id/pro_wait_underway_img"
                         android:layout_width="30dp"
@@ -186,7 +194,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
+                        android:src="@mipmap/going_pre"
                         />
                     <TextView
                         android:id="@+id/pro_wait_underway_txt"
@@ -194,6 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:textSize="12sp"
                         android:layout_below="@+id/pro_wait_underway_img"
                         android:text="@string/underway"/>
                 </RelativeLayout>
@@ -201,35 +210,39 @@
             <!--右边下面的Linearlayout-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:paddingBottom="12dp">
                 <RelativeLayout
                     android:id="@+id/pro_done_use_rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1">
                     <ImageView
                         android:id="@+id/pro_done_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="12dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
+                        android:src="@mipmap/done_nor"
                         />
                     <TextView
                         android:id="@+id/pro_done_use_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textSize="12sp"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:layout_below="@+id/pro_done_img"
                         android:text="@string/done"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/pro_wait_assess_rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1">
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@color/white">
                     <ImageView
                         android:id="@+id/pro_wait_assess_img"
                         android:layout_width="30dp"
@@ -237,12 +250,13 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
+                        android:src="@mipmap/wait_assess_nor"
                         />
                     <TextView
                         android:id="@+id/pro_wait_assess_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="12sp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_below="@+id/pro_wait_assess_img"
@@ -251,8 +265,9 @@
                 <RelativeLayout
                     android:id="@+id/pro_wait__rl"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1">
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@color/white">
                     <ImageView
                         android:id="@+id/pro_after_sale_img"
                         android:layout_width="30dp"
@@ -260,12 +275,13 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
+                        android:src="@mipmap/refund"
                         />
                     <TextView
                         android:id="@+id/pro_after_sale_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="12sp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_below="@+id/pro_after_sale_img"

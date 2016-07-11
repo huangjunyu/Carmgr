@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile name:'SMSSDK-2.1.0',ext:'aar'
     compile name:'SMSSDKGUI-2.1.0',ext:'aar'
+    compile 'junit:junit:4.12'
 }

@@ -35,7 +35,6 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -129,7 +128,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             //当两个编辑框的字符串相同时方可提交数据
         } else if (checkString(register_pwd_edit, register_pwd_again)) {
             try {
-                post("hellpll", "ksjie", "15078888888", UrlString.REGISTER_URL);
+                registerAccount("15078888888", "000", "15078888888", UrlString.REGISTER_URL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -158,10 +157,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             if (accountContain.equals("")) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_can_not_null), Toast.LENGTH_SHORT).show();
                 return false;
-            } else if (accountContain.length() < 6) {
+            } else if (accountContain.length() < 1) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_length_below), Toast.LENGTH_SHORT).show();
                 return false;
-            } else if (accountContain.length() > 32) {
+            } else if (accountContain.length() > 8) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_length_overtop), Toast.LENGTH_SHORT).show();
                 return false;
             } else if (!passwordContain.equals(accountContain)) {
@@ -170,16 +169,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             } else {
                 usernameString = accountContain;
                 passwordString = passwordContain;
-//                setSharePrefrence("18617376560",accountContain,"18617376560");
+                setSharePrefrence(usernameString,passwordString,usernameString);
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     //    /*OkHttpClient client = new OkHttpClient();
 //RequestBody requestBody = new FormBody()
-    private void post(final String username, final String password, final String mobile, final String url) throws IOException {
+    private void registerAccount(final String username, final String password, final String mobile, final String url) throws IOException {
 
         FormBody formBody = new FormBody.Builder()
                 .add("username", username)
@@ -203,7 +203,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Log.e("json", response.body().string());
+//                    Log.e("json", response.body().string());
                     try {
                         JSONObject responseJson = new JSONObject(response.body().string());
                         if (responseJson.getBoolean("opt_state")){

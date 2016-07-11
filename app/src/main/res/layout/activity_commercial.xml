@@ -3,130 +3,192 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/orange"
         android:clipToPadding="true"
+        android:fitsSystemWindows="true"
         android:gravity="center"
-        android:fitsSystemWindows="true">
+        android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/home_position_rl"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/home_position_rl"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1">
+
             <TextView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-
-                android:text="@string/position"
-                android:textSize="16sp"
-
                 android:id="@+id/home_position"
+                android:layout_width="35dp"
+
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+
                 android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:text="@string/position"
+                android:textSize="16sp" />
+
             <ImageView
+                android:id="@+id/home_position_img"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
+                android:layout_centerInParent="true"
                 android:layout_toRightOf="@+id/home_position"
                 android:scaleType="fitCenter"
-                android:id="@+id/home_position_img"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/position"/>
+                android:src="@mipmap/position" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/home_search_txt"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:padding="5dp"
             android:layout_weight="5"
             android:background="@color/white"
-            >
+            android:padding="5dp">
+
             <ImageView
                 android:id="@+id/home_search_img"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/search" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/home_search_img"
-                android:text="@string/home_search_hint"/>
+                android:text="@string/home_search_hint" />
             <!--<TextView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="40dp"-->
             <!--android:layout_centerInParent="true"-->
             <!--android:background="@color/white"/>-->
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/home_QuickMark_rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_weight="1"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/two_dimensional_code"/>
+                android:src="@mipmap/scan" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/home_personal_rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            >
+            android:layout_weight="1">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/user_img"/>
+                android:src="@mipmap/user_img" />
         </RelativeLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-<!--        <Spinner
-            android:id="@+id/business_select_sp"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:spinnerMode="dropdown"
-            android:dropDownWidth="1000dp"
-            android:gravity="center"
-            android:dropDownVerticalOffset="50dp"
-            android:layout_weight="1"></Spinner>
-        <Spinner
-            android:id="@+id/area_select_sp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"></Spinner>
-        <Spinner
-            android:id="@+id/sort_sp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"></Spinner>-->
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
         <RelativeLayout
             android:id="@+id/business_select_rl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
             <TextView
                 android:id="@+id/business_select_txt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/all" />
+
             <ImageView
                 android:id="@+id/business_direction_img"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/business_select_txt"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/pull_dowon"/>
+                android:src="@mipmap/pull_dowon_black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/city_select_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/city_select_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/whole_city" />
+
+            <ImageView
+                android:id="@+id/city_direction_img"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/city_select_txt"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/pull_dowon_black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sort_select_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/sort_select_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/default_sort" />
+
+            <ImageView
+                android:id="@+id/sort_direction_img"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/sort_select_txt"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/pull_dowon_black" />
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/commercial_popup_division"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_divide" />
+    <com.yiwucheguanjia.carmgr.utils.MyListView
+        android:id="@+id/commercial_item_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

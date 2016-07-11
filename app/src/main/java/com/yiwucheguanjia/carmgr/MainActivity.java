@@ -151,7 +151,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 1){
-
+            fragmentManager.beginTransaction().remove(homeFragment).commit();
+            homeFragment = new HomeFragment();
+            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
         }
     }
 

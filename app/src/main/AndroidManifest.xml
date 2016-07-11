@@ -45,6 +45,7 @@
         </activity>
         <activity android:name=".personal.personalActivity" />
         <activity android:name=".account.RegisterActivity"/>
+        <activity android:name=".personal.UploadImage"/>
         <activity
             android:name=".account.LoginActivity"
             android:label="@string/title_activity_login"></activity>

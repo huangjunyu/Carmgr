@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/typeTopic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="40dp"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical" />
+        android:minHeight="40dp"
+        android:gravity="center_vertical"
+        />
 
 </LinearLayout>

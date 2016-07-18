@@ -32,43 +32,20 @@ public final class TestFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("sava","save1");
         if ((savedInstanceState != null) && savedInstanceState.containsKey(KEY_CONTENT)) {
-            Log.e("sava","save");
         	bean.setUrl(savedInstanceState.getString(KEY_CONTENT));
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-//    	NetworkImageView iv = new NetworkImageView(getActivity());
-//    	iv.setDefaultImageResId(R.drawable.p1);
-//    	iv.setErrorImageResId(R.drawable.p1);
-//        iv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-//        //如果图片是网络图片的话改成异步加载
-////        iv.setBackgroundResource(bean.getIds());
-//        iv.setPadding(20, 20, 20, 20);
-////        AsynImageLoader asynImageLoader = new AsynImageLoader();
-////        asynImageLoader.showImageAsyn(iv, bean.getUrl(), R.drawable.p1);
-//        Log.e(bean.getUrl() + "wwww","kwkw");
-//        iv.setImageUrl(bean.getUrl(),App.imageLoader);
-
         LinearLayout layout = new LinearLayout(getActivity());
-
         layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         layout.setGravity(Gravity.CENTER);
-
-//        layout.addView(iv);
-
         ImageView imageView = new ImageView(getActivity());
-//        imageView.setImageResource(R.mipmap.p1);
         Picasso.with(getActivity()).load(bean.getUrl()).into(imageView);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        Log.e("url",bean.getUrl());
         layout.addView(imageView);
-
         //view设置点击事件
         layout.setOnClickListener(new OnClickListener() {
 			

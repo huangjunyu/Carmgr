@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
+import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 
 import org.json.JSONException;
@@ -41,8 +43,8 @@ import okhttp3.Response;
  * Created by Administrator on 2016/6/25.
  */
 public class RegisterActivity extends Activity implements View.OnClickListener {
-    private static final String APP_KEY = "1442cff959563";
-    private static final String APP_SECRET = "0c0b28ae632b7c05021da8881af48aac";
+//    private static final String APP_KEY = "1442cff959563";
+//    private static final String APP_SECRET = "0c0b28ae632b7c05021da8881af48aac";
     private String phoneNumString;
     private ImageButton gobackImgBtn;
     private String usernameString;
@@ -60,6 +62,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText register_number_edit;
     private EditText register_pwd_edit;
     private EditText register_pwd_again;
+    private TextView userAgreement;//用户协议
     private View register_edit_divide;
     private Button register_button;
     OkHttpClient client = new OkHttpClient();
@@ -72,7 +75,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        SMSSDK.initSDK(this, APP_KEY, APP_SECRET, false);
+//        SMSSDK.initSDK(this, APP_KEY, APP_SECRET, false);
         initView();
     }
 
@@ -89,19 +92,28 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         register_pwd_edit = (EditText) findViewById(R.id.register_pwd_edit);
         register_pwd_again = (EditText) findViewById(R.id.register_pwd_again);
         register_edit_divide = (View) findViewById(R.id.register_edit_divide);
+        userAgreement = (TextView) findViewById(R.id.yiwu_agreement_txt);
         register_button = (Button) findViewById(R.id.register_button);
         register_button.setOnClickListener(this);
         gobackImgBtn.setOnClickListener(this);
+        userAgreement.setOnClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private String getPhoneNum() {
-        initSDK();
+//        initSDK();
         //判断是不是手机号码
-        if (!register_number_txt.getText().toString().trim().equals("") && step == 1) {
-//            SMSSDK.submitUserInfo("3",null,null,"china","13666666666");
-            //该方法用于无ui的发送
-//            SMSSDK.getVerificationCode("86","18617376560");
+            String phoneNumberStr = register_number_edit.getText().toString().trim();
+        if (!isMobileNO(phoneNumberStr)) {
+            Toast.makeText(this,"手机号码不符合格式",Toast.LENGTH_SHORT).show();
+            return null;
+        } else if (isMobileNO(phoneNumberStr)){
+            FormBody formBody = new FormBody.Builder()
+                    .add("username",phoneNumberStr)
+                    .add("type","0")
+                    .add("version",UrlString.APP_VERSION)
+                    .build();
+            sendverfCode(formBody);
             step = 2;
             register_code_sent.setVisibility(View.VISIBLE);
             register_number_txt.setTextColor(getResources().getColor(R.color.gray_default));
@@ -113,7 +125,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             register_number_edit.setText("");
             register_number_edit.setHint(R.string.msg_code);
             register_button.setText(R.string.submit_code);
-        } else if (!register_number_txt.getText().toString().trim().equals("") && step == 2) {
+        }
+        if (!register_number_edit.getText().toString().trim().equals("") && step == 2) {
             step = 3;
             register_code_sent.setVisibility(View.GONE);
             register_number_edit.setVisibility(View.GONE);
@@ -138,6 +151,23 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
         return null;
     }
+    /**
+     * 验证手机格式
+     */
+    public static boolean isMobileNO(String mobiles) {
+    /*
+    移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
+    联通：130、131、132、152、155、156、185、186
+    电信：133、153、180、189、（1349卫通）
+    总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
+    */
+        String telRegex = "[1][358]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        if (TextUtils.isEmpty(mobiles)) return false;
+        else return mobiles.matches(telRegex);
+    }
+    private void sendverfCode(FormBody formBody){
+        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_SENDVERF_CODE,handler,formBody,1,2);
+    }
 
     private void setSharePrefrence(String account, String password, String phoneNum) {
         SharedPreferences p = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
@@ -153,7 +183,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private Boolean checkString(EditText accountEdit, EditText checkPasswordEdit) {
         String accountContain = accountEdit.getText().toString().trim();
         String passwordContain = checkPasswordEdit.getText().toString().trim();
-        if (checkUserService) {
+        if (checkUserService && step == 3) {
             if (accountContain.equals("")) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_can_not_null), Toast.LENGTH_SHORT).show();
                 return false;
@@ -227,8 +257,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     //    public boolean handleMessage()
     private void initSDK() {
-
-//        final Handler handler = new Handler((Handler.Callback) RegisterActivity.this);
         eventHandler = new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
                 Message msg = new Message();
@@ -251,6 +279,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             case R.id.register_goback_imgbtn:
                 this.finish();
                 break;
+            case R.id.yiwu_agreement_txt:
+                Intent userAgreementInten = new Intent(RegisterActivity.this,UserAgreement.class);
+                startActivity(userAgreementInten);
+                break;
             default:
                 break;
         }
@@ -260,21 +292,30 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            int event = msg.arg1;
-            int result = msg.arg2;
-            Object data = msg.obj;
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                Log.e("sendSussessful", "succeed");
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    Log.e("验证成功", "yes");
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    Log.e("MSG HADE SENDED", "SENDED");
-                }
-            } else {
-                Log.e("异常", "except" + event);
-                ((Throwable) data).printStackTrace();
+            switch (msg.what){
+                case 1:
+                    Log.e("code",msg.obj.toString());
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
             }
-            SMSSDK.unregisterEventHandler(eventHandler);
+//            int event = msg.arg1;
+//            int result = msg.arg2;
+//            Object data = msg.obj;
+//            if (result == SMSSDK.RESULT_COMPLETE) {
+//                Log.e("sendSussessful", "succeed");
+//                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+//                    Log.e("验证成功", "yes");
+//                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+//                    Log.e("MSG HADE SENDED", "SENDED");
+//                }
+//            } else {
+//                Log.e("异常", "except" + event);
+//                ((Throwable) data).printStackTrace();
+//            }
+//            SMSSDK.unregisterEventHandler(eventHandler);
         }
     };
 }

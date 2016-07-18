@@ -17,6 +17,7 @@ public class personalActivity extends Activity implements View.OnClickListener{
     private ImageView headerImg;
     private TextView userName;
     private ImageView addCarImg;
+    private ImageView settingImg;
     private RelativeLayout personalResidualRl;
     private RelativeLayout personalDataRl;
     private RelativeLayout myCarRl;
@@ -28,9 +29,12 @@ public class personalActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_personal);
         initView();
         addCarImg.setOnClickListener(this);
+        settingImg.setOnClickListener(this);
     }
     private void initView(){
         addCarImg = (ImageView)findViewById(R.id.personal_car_img);
+        settingImg = (ImageView)findViewById(R.id.personal_setting);
+
     }
 
     @Override
@@ -40,6 +44,12 @@ public class personalActivity extends Activity implements View.OnClickListener{
                 Intent intentUploadImage = new Intent(this, UploadImage.class);
                 startActivity(intentUploadImage);
             break;
+            case R.id.personal_setting:
+                Intent intentSetting = new Intent(personalActivity.this,setting.class);
+                startActivity(intentSetting);
+                break;
+            default:
+                break;
         }
     }
 }

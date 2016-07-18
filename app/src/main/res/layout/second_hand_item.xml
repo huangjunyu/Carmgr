@@ -3,9 +3,9 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
     <ImageView
         android:id="@+id/second_hand_img"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/testimg" />
 </RelativeLayout>

@@ -7,9 +7,18 @@ public class MerchantItemBean {
     private String merchantImgUrl;
     private String merchantName;
     private String merchantTag;
-    private String merchantStars;//服务星星数据
+    private double merchantStars;//服务星星数据
+    private String merchantStarsStr;
     private String merchantAddress;
     private String merchantMobile;
+
+    public String getMerchantStarsStr() {
+        return merchantStarsStr;
+    }
+
+    public void setMerchantStarsStr(String merchantStarsStr) {
+        this.merchantStarsStr = merchantStarsStr;
+    }
 
     public String getMerchantImgUrl() {
         return merchantImgUrl;
@@ -35,11 +44,11 @@ public class MerchantItemBean {
         this.merchantTag = merchantTag;
     }
 
-    public String getMerchantStars() {
+    public double getMerchantStars() {
         return merchantStars;
     }
 
-    public void setMerchantStars(String merchantStars) {
+    public void setMerchantStars(double merchantStars) {
         this.merchantStars = merchantStars;
     }
 

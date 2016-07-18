@@ -1,116 +1,116 @@
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/rl_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <!-- 底部tab -->
     <LinearLayout
-            android:id="@+id/ll_bottom_tab"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:baselineAligned="true">
+        android:id="@+id/ll_bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <RelativeLayout
-                android:id="@+id/rl_home"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1.0">
+            android:id="@+id/rl_home"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
 
             <ImageView
-                    android:id="@+id/tabHomeImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/tab_home_img_nor"
-                    android:contentDescription="@null"/>
+                android:id="@+id/tabHomeImg"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/tab_home_img_nor" />
+
             <TextView
-                    android:id="@+id/tabHomeTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tabHomeImg"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/home"
-                    android:textSize="12sp"/>
+                android:id="@+id/tabHomeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tabHomeImg"
+                android:layout_centerHorizontal="true"
+                android:text="@string/home"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/rl_commercial"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1.0">
+            android:id="@+id/rl_commercial"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
 
             <ImageView
-                    android:id="@+id/tabCommercialImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/tab_commercial_img_nor"
-                    android:contentDescription="@null"/>
+                android:id="@+id/tabCommercialImg"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/tab_commercial_img_nor" />
 
             <TextView
-                    android:id="@+id/tabCommercialTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tabCommercialImg"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/commercial"
-                    android:textSize="12sp"/>
+                android:id="@+id/tabCommercialTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tabCommercialImg"
+                android:layout_centerHorizontal="true"
+                android:text="@string/commercial"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/rl_progress"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1.0"
-        >
+            android:id="@+id/rl_progress"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
 
             <ImageView
-                    android:id="@+id/tabProgressImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/tab_progress_img_nor"
-                    android:contentDescription="@null"/>
+                android:id="@+id/tabProgressImg"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/tab_progress_img_nor" />
 
 
             <TextView
-                    android:id="@+id/tabProgressTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tabProgressImg"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/progress"
-                    android:textSize="12sp"/>
+                android:id="@+id/tabProgressTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tabProgressImg"
+                android:layout_centerHorizontal="true"
+                android:text="@string/progress"
+                android:textSize="12sp" />
 
         </RelativeLayout>
+
         <RelativeLayout
-                android:id="@+id/rl_callyiwu"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1.0"
-        >
+            android:id="@+id/rl_callyiwu"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
 
             <ImageView
-                    android:id="@+id/tabCallYiwuImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/tab_callyiwu_img_nor"
-                    android:contentDescription="@null"/>
+                android:id="@+id/tabCallYiwuImg"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/tab_callyiwu_img_nor" />
 
 
             <TextView
-                    android:id="@+id/tabCallYiwutext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tabCallYiwuImg"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/progress"
-                    android:textSize="12sp"/>
+                android:id="@+id/tabCallYiwutext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tabCallYiwuImg"
+                android:layout_centerHorizontal="true"
+                android:text="@string/yiwu"
+                android:textSize="12sp" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -118,17 +118,16 @@
     <!-- 内容部分， fragment切换 -->
 
     <LinearLayout
-            android:id="@+id/content_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/line"
-            android:orientation="vertical">
-    </LinearLayout>
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/line"
+        android:orientation="vertical"></LinearLayout>
 
     <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@id/ll_bottom_tab"
-            android:background="@color/gray"/>
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ll_bottom_tab"
+        android:background="@color/gray" />
 </RelativeLayout>

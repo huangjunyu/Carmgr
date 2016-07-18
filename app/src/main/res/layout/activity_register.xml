@@ -9,8 +9,9 @@
 
         <ImageButton
             android:id="@+id/register_goback_imgbtn"
-            android:layout_width="15dp"
+            android:layout_width="70dp"
             android:layout_height="15dp"
+            android:paddingRight="55dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"

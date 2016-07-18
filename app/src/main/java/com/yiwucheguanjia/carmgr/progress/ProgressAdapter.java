@@ -1,5 +1,6 @@
 package com.yiwucheguanjia.carmgr.progress;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.utils.CircularImage;
+import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,12 @@ import java.util.ArrayList;
 public class ProgressAdapter extends BaseAdapter {
     private ArrayList<MerchantBean> merchantBeenList;
     private LayoutInflater mInflater;
+    private Activity activity;
+    public ProgressAdapter(Activity activity,ArrayList<MerchantBean> merchantBeenList){
+        mInflater = LayoutInflater.from(activity);
+        this.activity = activity;
+        this.merchantBeenList = merchantBeenList;
+    }
     @Override
     public int getCount() {
         return merchantBeenList.size();
@@ -45,19 +53,19 @@ public class ProgressAdapter extends BaseAdapter {
             myadapterHolder.orderTimeText = (TextView)convertView.findViewById(R.id.merchant_order_time);
             myadapterHolder.orderOperate = (TextView)convertView.findViewById(R.id.merchant_operate_order);
             myadapterHolder.urgingProgress = (TextView)convertView.findViewById(R.id.merchat_urgingProgress);
-            myadapterHolder.merchantImg = (CircularImage) convertView.findViewById(R.id.merchant_img);
+            myadapterHolder.merchantImg = (RoundRectImageView) convertView.findViewById(R.id.merchant_img);
             convertView.setTag(myadapterHolder);
         }else {
             myadapterHolder = (MyadapterHolder)convertView.getTag();
         }
         MerchantBean merchantBean = merchantBeenList.get(position);
-        myadapterHolder.merchantNameTxt.setText(merchantBean.getMerchantStr());
+/*        myadapterHolder.merchantNameTxt.setText(merchantBean.getMerchantStr());
         myadapterHolder.payStatusTxt.setText(merchantBean.getPayStatusStr());
         myadapterHolder.serviceTypeTxt.setText(merchantBean.getServicTypeStr());
         myadapterHolder.orderNumberTxt.setText(merchantBean.getOrderNumberStr());
-        myadapterHolder.urgingProgress.setText(merchantBean.getUrgingOrder());
+        myadapterHolder.urgingProgress.setText(merchantBean.getUrgingOrder());*/
 
-        return null;
+        return convertView;
     }
     class MyadapterHolder{
         private TextView merchantNameTxt;//服务商名称
@@ -68,7 +76,7 @@ public class ProgressAdapter extends BaseAdapter {
         private TextView orderOperate;//订单操作
         private TextView urgingProgress;//催进度
 //        talkContent,replies,hits,lastpostUsername,lastpostTime;
-        private CircularImage merchantImg;
+        private RoundRectImageView merchantImg;
         public LinearLayout layout;
     }
 }

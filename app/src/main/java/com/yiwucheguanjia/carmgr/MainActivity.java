@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
 import com.yiwucheguanjia.carmgr.commercial.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.HomeFragment;
 import com.yiwucheguanjia.carmgr.progress.ProgressFragment;
@@ -59,6 +61,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_main);
         initUI();
         initTab();
@@ -116,11 +122,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             currentFragment = homeFragment;
             // 设置图片文本的变化
             homeImg.setImageResource(R.mipmap.tab_home_img_pre);
-//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeTxt.setTextColor(getResources().getColor(R.color.orange));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
-//            commercialTxt.setTextColor(getResources().getColor(R.color.green));
+            commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
+            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
-//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         }
     }
 
@@ -170,48 +178,52 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
             // 设置底部tab变化
             homeImg.setImageResource(R.mipmap.tab_home_img_pre);
-//            homeTxt.setTextColor(getResources().getColor(R.color.green));
+            homeTxt.setTextColor(getResources().getColor(R.color.orange));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
-//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
             progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
-//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         } else if (id == 1) {
             if (commercialFragment == null) {
                 commercialFragment = new CommercialFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), commercialFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
-//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_pre);
-//            commercialTxt.setTextColor(getResources().getColor(R.color.green));
+            commercialTxt.setTextColor(getResources().getColor(R.color.orange));
             progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
-//            callYiwuTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         } else if (id == 2) {
             if (progressFragment == null) {
                 progressFragment = new ProgressFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), progressFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
-//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
-//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
             progressImg.setImageResource(R.mipmap.tab_progress_img_pre);
+            progressTxt.setTextColor(getResources().getColor(R.color.orange));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
-//            callYiwuTxt.setTextColor(getResources().getColor(R.color.green));
+            callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         }else if (id == 3){
             if (callYiwuFragment == null) {
-                callYiwuFragment = new ProgressFragment();
+                callYiwuFragment = new CallYiwu();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
-//            homeTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
-//            commercialTxt.setTextColor(getResources().getColor(R.color.shenhui));
+            commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
             progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_pre);
-//            callYiwuTxt.setTextColor(getResources().getColor(R.color.green));
+            callYiwuTxt.setTextColor(getResources().getColor(R.color.orange));
         }
 
     }
@@ -273,4 +285,3 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
 }
-

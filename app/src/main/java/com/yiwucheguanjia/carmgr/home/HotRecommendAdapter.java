@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.carmgr.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.WaitActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -57,6 +60,13 @@ public class HotRecommendAdapter extends BaseAdapter{
         }else {
             viewHolder = (MyViewholder)convertView.getTag();
         }
+        viewHolder.hotRecommendImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, WaitActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
         return convertView;
     }

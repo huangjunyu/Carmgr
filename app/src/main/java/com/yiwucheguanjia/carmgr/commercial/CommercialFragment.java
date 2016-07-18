@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.carmgr.commercial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -21,12 +22,17 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.account.LoginActivity;
 import com.yiwucheguanjia.carmgr.home.BusinessAdapter;
+import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.utils.MyListView;
 import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
+import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,14 +43,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 
 /**
  * Created by Administrator on 2016/6/20.
  */
-public class CommercialFragment extends Fragment implements View.OnClickListener{
+public class CommercialFragment extends Fragment implements View.OnClickListener {
     private LinearLayout commercialView;
     private RelativeLayout businessSelectRl;
+    private RelativeLayout merchantPersonalRl;
     private Spinner mySpinner;
     private ArrayList<MerchantSelectItemBean> businessSelectItemBeans;
     private MerchantSelectItemBean businessSelectItemBean;
@@ -56,81 +64,94 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private PopupWindowSimpleAdapter popupWindowSimpleAdapter;
     private View popupDivision;
     private TextView businessSelectTxt;
+    private ImageView pullDownImg;
     //盛装所有弹出项的item
     private List<Map<String, String>> listItems = new ArrayList<Map<String, String>>();
     private BusinessAdapter businessAdapter;
     private SharedPreferences sharedPreferences;
     private MyListView myListView;
     private TextView starsTxt;
+    String[] businessArray = {"全部", "上牌", "驾考", "检车", "维修", "租车", "保养", "二手车",
+            "车贷", "新车", "急救", "用品", "停车"};
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         sharedPreferences = getActivity().getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
-        commercialView = (LinearLayout)inflater.inflate(R.layout.activity_commercial,null);
-//        mySpinner = (Spinner)commercialView.findViewById(R.id.business_select_sp);
+        commercialView = (LinearLayout) inflater.inflate(R.layout.activity_commercial, null, false);
         testPopup();
         initView();
         popupwindowinflater = LayoutInflater.from(getActivity());
-        appgetmerchantslist(sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),"1.0",1,2);
+        appgetmerchantslist(sharedPreferences.getString("ACCOUNT", null), "全部", sharedPreferences.getString("TOKEN", null), "1.0", 1, 2);
+        testUtil(UrlString.APP_GET_MERCHANTS_LIST,sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),UrlString.APP_VERSION);
         return commercialView;
     }
-    private void initView(){
+
+    private void initView() {
+        merchantPersonalRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_personal_rl);
         businessSelectItemBeans = new ArrayList<MerchantSelectItemBean>();
         businessSelectItemBeans.add(new MerchantSelectItemBean("kjaja"));
         businessSelectItemBeans.add(new MerchantSelectItemBean("kj44"));
-        businessSelectRl = (RelativeLayout)commercialView.findViewById(R.id.business_select_rl);
-        popupDivision = (View)commercialView.findViewById(R.id.commercial_popup_division);
-        businessSelectTxt = (TextView)commercialView.findViewById(R.id.business_select_txt);
+        businessSelectRl = (RelativeLayout) commercialView.findViewById(R.id.business_select_rl);
+        popupDivision = (View) commercialView.findViewById(R.id.commercial_popup_division);
+        businessSelectTxt = (TextView) commercialView.findViewById(R.id.business_select_txt);
         myListView = (MyListView) commercialView.findViewById(R.id.commercial_item_lv);
-        starsTxt = (TextView)commercialView.findViewById(R.id.merchant_stars_txt);
+        starsTxt = (TextView) commercialView.findViewById(R.id.merchant_stars_txt);
+        pullDownImg = (ImageView) commercialView.findViewById(R.id.business_direction_img);
         businessSelectRl.setOnClickListener(this);
-
+        merchantPersonalRl.setOnClickListener(this);
     }
-    private void addImageView(){
-        RelativeLayout r = new RelativeLayout(getActivity());
+
+    private void addImageView() {
         ImageView mImageView = new ImageView(getActivity());
         mImageView.setImageResource(R.mipmap.heart);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(15, 15);
-//        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-//        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.addRule(RelativeLayout.RIGHT_OF,R.id.merchant_stars_txt);//在stars左边
-        mImageView.setLayoutParams(params);
-//        r.add(mImageView);
-        commercialView.addView(mImageView);
-    }
-    public void testPopup(){
-        Map<String,String> listItem = new HashMap<>();
-        listItem.put("1","ha");
-        Map<String,String> listItem1 = new HashMap<>();
-        listItem1.put("1","wo");
-        listItems.add(listItem);
-        listItems.add(listItem1);
 
     }
-    private void appgetmerchantslist(String username,String filter,String token,
-                                     String version,int success,int fail){
+
+    public void testPopup() {
+
+        for (int i = 0; i < businessArray.length; i++) {
+            Map<String, String> listItem = new HashMap<>();
+            listItem.put("1", businessArray[i]);
+            listItems.add(listItem);
+        }
+//        Map<String,String> listItem1 = new HashMap<>();
+//        listItem1.put("1","wo");
+//        listItems.add(listItem1);
+
+    }
+
+    private void appgetmerchantslist(String username, String filter, String token,
+                                     String version, int success, int fail) {
+        if (username == null || token == null) {
+            username = "username";
+            token = "token";
+        }
+        Log.e("testToken", token);
+
         FormBody formBody = new FormBody.Builder()
                 .add("username", username)
-                .add("filter",filter)
-                .add("token",token)
+                .add("filter", filter)
+                .add("token", token)
                 .add("version", version)
                 .build();
-        OkhttpManager.getInstance().OKhttpPost(UrlString.APPGETMERCHANTSLIST,
-                handler,formBody,success,fail);
+        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_GET_MERCHANTS_LIST,
+                handler, formBody, success, fail);
     }
-    Handler handler = new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
-                    Log.e("commercial",msg.obj.toString());
+                    Log.e("commercial", msg.obj.toString());
                     analysisJson(msg.obj.toString());
                     break;
                 default:
@@ -138,32 +159,26 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             }
         }
     };
+
     //解析JSON数据
-    private void analysisJson(String json){
+    private void analysisJson(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
-            for (int i = 0;i < jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonArray.getJSONObject(i);
-/*                String tags = merchantJson.getString("tags");
-                String imgPath = merchantJson.getString("img_path");
-                String address = merchantJson.getString("address");
-                String stars = merchantJson.getString("stars");
-                String merchantName = merchantJson.getString("merchant_name");
-                String totalRate = merchantJson.getString("total_rate");
-                String serviceItem = merchantJson.getString("service_item");
-                String mobile = merchantJson.getString("mobile");*/
                 merchantItemBean.setMerchantImgUrl(merchantJson.getString("img_path"));
                 merchantItemBean.setMerchantAddress(merchantJson.getString("address"));
                 merchantItemBean.setMerchantMobile(merchantJson.getString("mobile"));
                 merchantItemBean.setMerchantName(merchantJson.getString("merchant_name"));
-                merchantItemBean.setMerchantStars(merchantJson.getString("stars"));
+                merchantItemBean.setMerchantStars(merchantJson.getDouble("stars"));
+                merchantItemBean.setMerchantStarsStr(merchantJson.getString("stars"));
                 merchantItemBean.setMerchantTag(merchantJson.getString("tags"));
                 merchantItemBeens.add(merchantItemBean);
             }
-            MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(),merchantItemBeens);
+            MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
             myListView.setAdapter(merchantItemAdapter);
             addImageView();
         } catch (JSONException e) {
@@ -173,13 +188,13 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.business_select_rl:
                 View view = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
                 popupwindowListView = (ListView) view.findViewById(R.id.mylist);
                 // 创建一个SimpleAdapter
                 popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), listItems, R.layout.commercial_sort,
-                        new String[] { "1" }, new int[] { R.id.typeTopic });
+                        new String[]{"1"}, new int[]{R.id.typeTopic});
                 popupwindowListView.setAdapter(popupWindowSimpleAdapter);
                 popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
                         android.view.WindowManager.LayoutParams.WRAP_CONTENT);
@@ -189,7 +204,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 popupWindow.update();
                 popupWindow.setTouchable(true);
                 popupWindow.setFocusable(true);
-
 //                backgroundAlpha(0.5f);
                 //监听popupWindow消失状态并且实现想要的操作
                 popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -198,6 +212,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onDismiss() {
                         backgroundAlpha(1f);
                         businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                        pullDownImg.setImageResource(R.mipmap.pull_dowon_black);
                     }
                 });
 
@@ -205,16 +220,32 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.e("position",position + "");
+                        Log.e("position", position + "");
+                        businessSelectTxt.setText(businessArray[position]);
+                        popupWindow.dismiss();
                         businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
                     }
                 });
-                if (popupWindow.isShowing()){
+                if (popupWindow.isShowing()) {
                     businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
+                    pullDownImg.setImageResource(R.mipmap.pull_down_pre);
+                }
+                break;
+            case R.id.merchant_personal_rl:
+                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
+                    getActivity().startActivity(intentPersonal);
+                } else {
+                    Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
+                    getActivity().startActivityForResult(personalIntent, 1);
 
                 }
+                ;
+            default:
+                break;
         }
     }
+
     /**
      * 设置添加屏幕的背景透明度
      *
@@ -225,4 +256,34 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         lp.alpha = bgAlpha;// 0.0-1.0
         getActivity().getWindow().setAttributes(lp);
     }
+
+    //一个Okhttputils封装类的示例
+    private void testUtil(String url, String username, String filter, String token, String version) {
+        OkHttpUtils.get().url(url).addParams("username", username)
+                .addParams("filter", filter)
+                .addParams("token", token)
+                .addParams("version", version)
+                .id(101)
+                .build().execute(new StringCallback(){
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                switch (id)
+                {
+                    case 100:
+                        Log.e("response100",response);
+                        break;
+                    case 101:
+                        Log.e("response101",response);
+                        break;
+                }
+            }
+        });
+    }
+
 }

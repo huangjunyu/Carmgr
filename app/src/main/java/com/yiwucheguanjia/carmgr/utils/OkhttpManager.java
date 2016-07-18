@@ -5,6 +5,9 @@ import android.os.Message;
 import android.renderscript.Sampler;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.yiwucheguanjia.carmgr.progress.ProgressAdapter;
+
 import java.io.IOException;
 import java.net.HttpRetryException;
 
@@ -26,11 +29,11 @@ public class OkhttpManager {
     public static OkhttpManager getInstance(){
         OkhttpManager instance = null;
         if (okhttpManager == null){
-//            synchronized (OkhttpManager.class){
+            synchronized (OkhttpManager.class){
                 if (instance == null){
                     instance = new OkhttpManager();
                     okhttpManager = null;
-//                }
+                }
             }
         }
         return instance;
@@ -45,8 +48,6 @@ public class OkhttpManager {
         Request request = new Request.Builder().url(url).post(formBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
-//            handler.sendEmptyMessage(ok_error);
-
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -61,20 +62,6 @@ public class OkhttpManager {
                 msg.obj = resultStr;
                 handler.sendMessage(msg);
             }
-//
-//            @Override
-//            public void onFailure(Request arg0, IOException arg1) {
-//                handler.sendEmptyMessage(ok_error);
-//            }
-//
-//            @Override
-//            public void onResponse(Response arg0) throws IOException {
-//                String resultStr = arg0.body().string();
-//                Message msg = new Message();
-//                msg.what = ok_success;
-//                msg.obj = resultStr;
-//                handler.sendMessage(msg);
-//            }
         });
     }
 
@@ -86,12 +73,37 @@ public class OkhttpManager {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).post(formBody)
                 .build();
-//        Log.e("test",formBody.encodedValue(3));
         client.newCall(request).enqueue(new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
                 handler.sendEmptyMessage(error);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resultStr = response.body().string();
+                Message msg = new Message();
+                msg.what = success;
+                msg.obj = resultStr;
+                handler.sendMessage(msg);
+            }
+
+        });
+    }
+    /**
+     * Post请求的封装
+     */
+    public static void OKhttpPost(String url, final Handler handler,
+                                  final FormBody formBody, final int success) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).post(formBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
             @Override
@@ -137,4 +149,5 @@ public class OkhttpManager {
 
         return result;
     }
+
 }

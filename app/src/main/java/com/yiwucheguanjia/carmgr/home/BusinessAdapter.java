@@ -1,6 +1,8 @@
 package com.yiwucheguanjia.carmgr.home;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.WaitActivity;
+import com.yiwucheguanjia.carmgr.account.RegisterActivity;
+
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2016/7/6.
+ * 热门业务ListView的适配器
  */
 public class BusinessAdapter extends BaseAdapter{
 
@@ -61,6 +66,14 @@ public class BusinessAdapter extends BaseAdapter{
         }else {
             viewHolder = (MyViewholder)convertView.getTag();
         }
+        viewHolder.businessImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("wait","wait");
+                Intent intent = new Intent(activity, WaitActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
         return convertView;
     }

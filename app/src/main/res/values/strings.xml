@@ -3,6 +3,7 @@
     <string name="progress">进度</string>
     <string name="commercial">商户</string>
     <string name="home">首页</string>
+    <string name="yiwu">易务</string>
     <string name="position">地区</string>
     <string name="home_search_hint">输入商家、品类、商圈</string>
     <string name="car_service">车务</string>
@@ -56,10 +57,10 @@
     <string name="number_type">号码类型</string>
     <string name="small_car">小型汽车</string>
     <string name="large_car">大型汽车</string>
-    <string name="car_type">车型</string>
+    <string name="car_type">车　　型</string>
     <string name="select_car">请选择车辆（选填）</string>
     <string name="search_city">查询城市</string>
-    <string name="car_number">车牌</string>
+    <string name="car_number">车牌号码</string>
     <string name="engine_number">发动机号</string>
     <string name="frame_number">车架号码</string>
     <string name="input_car_number">请输入车牌号</string>
@@ -70,7 +71,7 @@
     <string name="first_attendance_date">首次保养日期</string>
     <string name="drive_distance">行驶公里数</string>
     <string name="input_drive_distance">请输入行驶公里数</string>
-    <string name="remark">备注</string>
+    <string name="remark">备　　注</string>
     <string name="input_car_about">请输入爱车（选填）</string>
     <string name="search_begin">开始查询</string>
     <string name="another_name">别称</string>
@@ -83,6 +84,17 @@
     <string name="hot_second_car">热门二手车</string>
     <string name="read_mord">查看更多</string>
     <string name="hot_recommend">热门推荐</string>
+    <string name="contact_merchant">联系商家</string>
+    <string name="setting">设置</string>
+    <string name="use_gprs">移动网络下载图片</string>
+    <string name="clean_cache">清理缓存</string>
+    <string name="about_us">关于我们</string>
+    <string name="canvass_news">招商信息</string>
+    <string name="praise">给个好评</string>
+    <string name="use_help">使用帮助</string>
+    <string name="user_agreement">用户协议</string>
+    <string name="call_yiwu">呼叫易务宝</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

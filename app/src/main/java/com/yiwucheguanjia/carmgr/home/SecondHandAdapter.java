@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class SecondHandAdapter extends BaseAdapter{
 
     private Activity activity;
     private MyViewholder viewHolder;
-    private ArrayList<SecondHandBean> list;
+    private ArrayList<SecondHandBean> secondHandBeans;
     private LayoutInflater layoutInflater;
     /**
      *
@@ -25,19 +26,19 @@ public class SecondHandAdapter extends BaseAdapter{
      * @param list
      */
     public SecondHandAdapter(Activity activity, ArrayList<SecondHandBean> list) {
-        this.list = list;
+        this.secondHandBeans = list;
         this.activity = activity;
         this.layoutInflater = LayoutInflater.from(activity);
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return secondHandBeans.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return secondHandBeans.get(position);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class SecondHandAdapter extends BaseAdapter{
         }else {
             viewHolder = (MyViewholder)convertView.getTag();
         }
-
+        Picasso.with(activity).load(secondHandBeans.get(position).getImgUrl()).error(R.mipmap.picture_default).into(viewHolder.secondHandImg);
         return convertView;
     }
 

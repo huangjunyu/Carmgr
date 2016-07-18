@@ -16,6 +16,14 @@ public class UrlString {
     public static final String APPGETSERVICES = "http://112.74.13.51:8080/carmgr/appgetservices";
     //APP获取二手推荐列表请求
     public static final String APPGETRECOMMEND = "http://112.74.13.51:8080/carmgr/appgetrecommend";
+    //APP获取二手车列表请求
+    public static  final String APPGETSECONDHANDCAR = "http://112.74.13.51:8080/carmgr/appgetsecondhandcar";
     //APP获取全部商户列表请求
-    public static final String APPGETMERCHANTSLIST = "http://112.74.13.51:8080/carmgr/appgetmerchantslist";
+    public static final String APP_GET_MERCHANTS_LIST = "http://112.74.13.51:8080/carmgr/appgetmerchantslist";
+    //APP获取个人进度请求
+    public static final String APP_GET_PROCESS = "http://112.74.13.51:8080/carmgr/appgetprocess";
+    //APP发送验证码
+    public static final String APP_SENDVERF_CODE = "http://112.74.13.51:8080/carmgr/appsendverfcode";
+    //APP版本号
+    public static final String APP_VERSION = "1.0";
 }

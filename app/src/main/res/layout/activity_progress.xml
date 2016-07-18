@@ -3,360 +3,351 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/orange"
-        android:clipToPadding="true"
-        android:gravity="center"
-        android:fitsSystemWindows="true">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/home_position_rl"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
 
-                android:text="@string/position"
-                android:textSize="16sp"
-
-                android:id="@+id/home_position"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"/>
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_toRightOf="@+id/home_position"
-                android:scaleType="fitCenter"
-                android:id="@+id/home_position_img"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/position"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/home_search_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:padding="5dp"
-            android:layout_weight="5"
-            android:background="@color/white"
-            >
-            <ImageView
-                android:id="@+id/home_search_img"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/search" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/home_search_img"
-                android:text="@string/home_search_hint"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/home_QuickMark_rl"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/scan"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/home_personal_rl"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            >
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/user_img"/>
-        </RelativeLayout>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
-        <!--左边的Linearlayout-->
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/orange"
+            android:clipToPadding="true"
+            android:paddingTop="20dp"
+            android:fitsSystemWindows="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <RelativeLayout
+                android:id="@+id/home_position_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/home_position"
+                    android:layout_width="35dp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:text="@string/position"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/home_position_img"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/home_position"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/position" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/home_search_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_weight="5"
+                android:background="@mipmap/search_frame"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/home_search_img"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/home_search_img"
+                    android:text="@string/home_search_hint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/home_QuickMark_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/scan" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_personal_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/user_img" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginRight="1dp"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/progress_all_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/all_nor"/>
-                <TextView
-                    android:id="@+id/progress_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/progress_all_img"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/all"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <!--右边LinearLayout-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical">
-            <!--右边上面的LinearLayout-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                >
-                <RelativeLayout
-                    android:id="@+id/pro_wait_pay_rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/pro_wait_pay_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_pay_nor"
-                        />
-                    <TextView
-                        android:id="@+id/pro_wait_pay_txt"
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="142dp">
+                    <!--左边的Linearlayout-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="142dp"
+                        android:layout_weight="1">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="1dp"
+                            android:background="@color/white"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/progress_all_img"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="1dp"
+                                android:scaleType="fitCenter"
+                                android:src="@mipmap/all_nor" />
+
+                            <TextView
+                                android:id="@+id/progress_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/progress_all_img"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/all" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <!--右边LinearLayout-->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        android:layout_below="@+id/pro_wait_pay_img"
-                        android:text="@string/wait_pay"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/pro_wait_use_rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:background="@color/white">
-                    <ImageView
-                        android:id="@+id/pro_wait_use_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_use_nor"
-                        />
-                    <TextView
-                        android:id="@+id/pro_wait_use_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        android:layout_below="@+id/pro_wait_use_img"
-                        android:text="@string/wait_use"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/pro_wait_underway_rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:background="@color/white">
-                    <ImageView
-                        android:id="@+id/pro_wait_underway_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/going_pre"
-                        />
-                    <TextView
-                        android:id="@+id/pro_wait_underway_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        android:layout_below="@+id/pro_wait_underway_img"
-                        android:text="@string/underway"/>
-                </RelativeLayout>
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+                        <!--右边上面的LinearLayout-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="71dp">
+
+                            <RelativeLayout
+                                android:id="@+id/pro_wait_pay_rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/pro_wait_pay_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/wait_pay_nor" />
+
+                                <TextView
+                                    android:id="@+id/pro_wait_pay_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_wait_pay_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/wait_pay"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/pro_wait_use_rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/pro_wait_use_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/wait_use_nor" />
+
+                                <TextView
+                                    android:id="@+id/pro_wait_use_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_wait_use_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/wait_use"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/pro_wait_underway_rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/pro_wait_underway_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/going_nor" />
+
+                                <TextView
+                                    android:id="@+id/pro_wait_underway_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_wait_underway_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/underway"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <!--右边下面的Linearlayout-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="71dp"
+
+                            android:background="@color/white"
+                            android:paddingBottom="12dp">
+
+                            <RelativeLayout
+                                android:id="@+id/pro_done_use_rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/pro_done_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/done_nor" />
+
+                                <TextView
+                                    android:id="@+id/pro_done_use_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_done_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/done"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/pro_wait_assess_rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/pro_wait_assess_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/wait_assess_nor" />
+
+                                <TextView
+                                    android:id="@+id/pro_wait_assess_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_wait_assess_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/wait_assess"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/pro_wait__rl"
+                                android:layout_width="0dp"
+                                android:layout_height="71dp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
+                                android:gravity="center_vertical">
+
+                                <ImageView
+                                    android:id="@+id/pro_after_sale_img"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/refund" />
+
+                                <TextView
+                                    android:id="@+id/pro_after_sale_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/pro_after_sale_img"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="6dp"
+                                    android:text="@string/after_sale"
+                                    android:textSize="12sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/progress_division"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@null" />
+
+                <com.yiwucheguanjia.carmgr.utils.MyListView
+                    android:id="@+id/progress_item_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-            <!--右边下面的Linearlayout-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white"
-                android:paddingBottom="12dp">
-                <RelativeLayout
-                    android:id="@+id/pro_done_use_rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/pro_done_img"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/done_nor"
-                        />
-                    <TextView
-                        android:id="@+id/pro_done_use_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:textSize="12sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/pro_done_img"
-                        android:text="@string/done"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/pro_wait_assess_rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:background="@color/white">
-                    <ImageView
-                        android:id="@+id/pro_wait_assess_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/wait_assess_nor"
-                        />
-                    <TextView
-                        android:id="@+id/pro_wait_assess_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_below="@+id/pro_wait_assess_img"
-                        android:text="@string/wait_assess"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/pro_wait__rl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:background="@color/white">
-                    <ImageView
-                        android:id="@+id/pro_after_sale_img"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/refund"
-                        />
-                    <TextView
-                        android:id="@+id/pro_after_sale_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_below="@+id/pro_after_sale_img"
-                        android:text="@string/after_sale"/>
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
- <!--   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:id="@+id/pro_business_all_rl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/progress_all_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/all_nor"/>
-            <TextView
-                android:id="@+id/progress_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/all"
-                />
-        </RelativeLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/pro_business_up_rl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp">
-                <ImageView
-                    android:id="@+id/pro_wait_pay_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/wait_pay_nor"
-                    />
-                <TextView
-                    android:id="@+id/pro_wait_pay_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/pro_wait_pay_img"
-                    android:text="@string/wait_pay"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp">
-                <ImageView
-                    android:id="@+id/pro_wait_use_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/wait_pay_nor"
-                    />
-                <TextView
-                    android:id="@+id/pro_wait_use_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/pro_wait_use_img"
-                    android:text="@string/wait_pay"/>
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
--->
+
 </LinearLayout>

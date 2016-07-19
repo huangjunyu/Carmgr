@@ -20,10 +20,13 @@ import com.yiwucheguanjia.carmgr.account.LoginActivity;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.utils.MyListView;
 import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
+import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 
 /**
@@ -44,7 +47,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
         progressView = (LinearLayout)inflater.inflate(R.layout.activity_progress,null);
         initView();
         appGetProcess(sharedPreferences.getString("ACCOUNT",null),"all",sharedPreferences.getString("TOKEN",null),"1.0",1,2);
@@ -87,13 +89,22 @@ public class ProgressFragment extends Fragment implements View.OnClickListener{
             username = "username";
             token = "token";
         }
-        FormBody formBody = new FormBody.Builder()
-                .add("username",username)
-                .add("filter",filter)
-                .add("token",token)
-                .add("version",version)
-                .build();
-        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_GET_PROCESS,handler,formBody,success,fail);
+//        FormBody formBody = new FormBody.Builder()
+//                .add("username",username)
+//                .add("filter",filter)
+//                .add("token",token)
+//                .add("version",version)
+//                .build();
+//        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_GET_PROCESS,handler,formBody,success,fail);
+        OkHttpUtils.get()
+                .url(UrlString.APP_GET_PROCESS)
+                .addParams("username",username)
+                .addParams("filter",filter)
+                .addParams("token",token)
+                .addParams("version",version)
+                .id(1)
+                .build()
+                .execute(new myStringCallback());
     }
 
     /**
@@ -116,6 +127,25 @@ public class ProgressFragment extends Fragment implements View.OnClickListener{
                 break;
             default:
                 break;
+        }
+    }
+    public class myStringCallback extends StringCallback{
+
+        @Override
+        public void onError(Call call, Exception e, int id) {
+
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            switch (id){
+                case 1:
+                    Log.e("responseProgress",response);
+                    getProgressItenJson();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

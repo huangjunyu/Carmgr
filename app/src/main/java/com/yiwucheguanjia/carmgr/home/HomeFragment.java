@@ -2,6 +2,7 @@ package com.yiwucheguanjia.carmgr.home;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
@@ -64,6 +68,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ArrayList<HotRecommendBean> hotRecommendBeens;
     private ArrayList<ImageBean> imageBeans = new ArrayList<ImageBean>();
     private MyListView mListView;
+    private RollPagerView mRollViewPager;
+    private ArrayList<RollViewPagerBean> rollViewPagerBeens;
     private static HomeFragment newInstance(ImageBean bean) {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -117,6 +123,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         appgetrecommend(sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),"1.0",3,4);
         appgetrecommend(sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),"1.0",10,11);
         return homeView;
+    }
+    private class TestNormalAdapter extends StaticPagerAdapter {
+        private int[] imgs = {
+                R.mipmap.testimg,
+                R.mipmap.testimg,
+                R.mipmap.testimg,
+                R.mipmap.testimg,
+        };
+
+
+        @Override
+        public View getView(ViewGroup container, int position) {
+            ImageView view = new ImageView(container.getContext());
+            view.setImageResource(imgs[position]);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            return view;
+        }
+
+
+        @Override
+        public int getCount() {
+            return imgs.length;
+        }
     }
     private void initDatas()
     {
@@ -279,16 +309,35 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
             JSONArray configValueList = jsonObject.getJSONArray("config_value_list");
-            imageBeans.clear();
+            rollViewPagerBeens = new ArrayList<>();
+            rollViewPagerBeens.clear();
             for (int i = 0;i < listSize;i++){
                 JSONObject listItem = configValueList.getJSONObject(i);
                 String configValue = listItem.getString("config_value");
-                ImageBean imageBean = new ImageBean(i + "",configValue,R.mipmap.picture_default);
-                imageBeans.add(imageBean);
+                //点击图片时跳转的url
+                String url = listItem.getString("url");
+                RollViewPagerBean rollViewPagerBean = new RollViewPagerBean();
+                rollViewPagerBean.setRollViewPagerUrl(configValue);
+                rollViewPagerBean.setRollViewPagerClickUrl(url);
+                rollViewPagerBeens.add(rollViewPagerBean);
             }
-            pagerView = new SamplePagerView(getActivity(),imageBeans);
-            homeActionLayout.addView(pagerView,0);
-            pagerView.init();
+//            pagerView = new SamplePagerView(getActivity(),imageBeans);
+//            homeActionLayout.addView(pagerView,0);
+//            pagerView.init();
+            mRollViewPager = (RollPagerView)homeView.findViewById(R.id.roll_view_pager);
+            //设置播放时间间隔
+            mRollViewPager.setPlayDelay(5000);
+            //设置透明度
+            mRollViewPager.setAnimationDurtion(500);
+            //设置适配器
+            mRollViewPager.setAdapter(new RollViewPagerAdapter(getActivity(),rollViewPagerBeens));
+
+            //设置指示器（顺序依次）
+            //自定义指示器图片
+            //设置圆点指示器颜色
+            //设置文字指示器
+            //隐藏指示器
+            mRollViewPager.setHintView(new ColorPointHintView(getActivity(),Color.RED,Color.WHITE));
         } catch (JSONException e) {
             e.printStackTrace();
         }

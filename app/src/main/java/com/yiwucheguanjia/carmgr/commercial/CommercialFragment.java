@@ -63,7 +63,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private ListView popupwindowListView;
     private PopupWindowSimpleAdapter popupWindowSimpleAdapter;
     private View popupDivision;
-    private TextView businessSelectTxt;
+    private TextView businessSelectTxt;//业务选择
     private ImageView pullDownImg;
     //盛装所有弹出项的item
     private List<Map<String, String>> listItems = new ArrayList<Map<String, String>>();
@@ -73,6 +73,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private TextView starsTxt;
     String[] businessArray = {"全部", "上牌", "驾考", "检车", "维修", "租车", "保养", "二手车",
             "车贷", "新车", "急救", "用品", "停车"};
+    String[] sortArray = {"默认排序","离我最近","评价最高","最新发布","人气最高","价格最低",
+            "价格最高"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,10 +123,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             listItem.put("1", businessArray[i]);
             listItems.add(listItem);
         }
-//        Map<String,String> listItem1 = new HashMap<>();
-//        listItem1.put("1","wo");
-//        listItems.add(listItem1);
-
     }
 
     private void appgetmerchantslist(String username, String filter, String token,
@@ -133,8 +131,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             username = "username";
             token = "token";
         }
-        Log.e("testToken", token);
-
         FormBody formBody = new FormBody.Builder()
                 .add("username", username)
                 .add("filter", filter)
@@ -197,6 +193,53 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                         new String[]{"1"}, new int[]{R.id.typeTopic});
                 popupwindowListView.setAdapter(popupWindowSimpleAdapter);
                 popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
+                        android.view.WindowManager.LayoutParams.WRAP_CONTENT);
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+                popupWindow.update();
+                popupWindow.setTouchable(true);
+                popupWindow.setFocusable(true);
+//                backgroundAlpha(0.5f);
+                //监听popupWindow消失状态并且实现想要的操作
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+                    @Override
+                    public void onDismiss() {
+                        backgroundAlpha(1f);
+                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                        pullDownImg.setImageResource(R.mipmap.pull_dowon_black);
+                    }
+                });
+
+                popupWindow.showAsDropDown(popupDivision, 0, 0);
+                popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.e("position", position + "");
+                        businessSelectTxt.setText(businessArray[position]);
+                        popupWindow.dismiss();
+                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                    }
+                });
+                if (popupWindow.isShowing()) {
+                    businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
+                    pullDownImg.setImageResource(R.mipmap.pull_down_pre);
+                }
+                break;
+            //城市选择
+            case R.id.city_select_rl:
+
+                break;
+            //默认排序
+            case R.id.sort_select_rl:
+                View sortView = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
+                popupwindowListView = (ListView) sortView.findViewById(R.id.mylist);
+                // 创建一个SimpleAdapter
+                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), listItems, R.layout.commercial_sort,
+                        new String[]{"3"}, new int[]{R.id.typeTopic});
+                popupwindowListView.setAdapter(popupWindowSimpleAdapter);
+                popupWindow = new PopupWindow(sortView, ViewGroup.LayoutParams.MATCH_PARENT,
                         android.view.WindowManager.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new BitmapDrawable());
                 popupWindow.setOutsideTouchable(true);

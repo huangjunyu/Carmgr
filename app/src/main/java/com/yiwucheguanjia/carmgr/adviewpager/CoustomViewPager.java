@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 
 public class CoustomViewPager extends ViewPager {
 	private SamplePagerView pagerView;
+
 	public SamplePagerView getPagerView() {
 		return pagerView;
 	}

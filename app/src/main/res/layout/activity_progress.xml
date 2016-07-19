@@ -29,15 +29,14 @@
 
                 <TextView
                     android:id="@+id/home_position"
-                    android:layout_width="35dp"
-
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-
                     android:layout_alignParentStart="true"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/position"
-                    android:textSize="16sp" />
+                    android:textSize="14sp"
+                    android:textColor="@color/white"/>
 
                 <ImageView
                     android:id="@+id/home_position_img"
@@ -59,17 +58,21 @@
 
                 <ImageView
                     android:id="@+id/home_search_img"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/search" />
+                    android:src="@mipmap/search"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/home_search_img"
-                    android:text="@string/home_search_hint" />
+                    android:text="@string/home_search_hint"
+                    android:textSize="12sp"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -83,7 +86,8 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@mipmap/scan" />
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/scan"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -97,7 +101,8 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@mipmap/user_img" />
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/user_img"/>
             </RelativeLayout>
         </LinearLayout>
 

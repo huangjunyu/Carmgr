@@ -8,4 +8,5 @@
     <color name="orange">#FFA700</color>
     <color name="gray_divide">#ADADAD</color>
     <color name="gray_default">#555555</color>
+    <color name="black">#000000</color>
 </resources>

@@ -1,5 +1,7 @@
 package com.yiwucheguanjia.carmgr.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
@@ -28,10 +29,9 @@ import com.yiwucheguanjia.carmgr.account.LoginActivity;
 import com.yiwucheguanjia.carmgr.adviewpager.ImageBean;
 import com.yiwucheguanjia.carmgr.adviewpager.SamplePagerView;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
-import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
+import com.yiwucheguanjia.carmgr.utils.MyScrollview;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
-import com.yiwucheguanjia.carmgr.utils.MyListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -41,13 +41,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
-import okhttp3.FormBody;
 
 /**
  * Created by Administrator on 2016/6/20.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout homeView;
     private LinearLayout homeLinearLayout;
     private LinearLayout homeActionLayout;
@@ -55,263 +58,356 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private SamplePagerView pagerView;
     private SharedPreferences sharedPreferences;
     private ArrayList<BusinessBean> businessBeans;
-    private ArrayList<SecondHandBean>secondHandBeens;
+    private ArrayList<FavorabledRecommendBean> favorabledRecommenddBeens;
     private ImageView recommendImg1;//配置资源ZY_0002
     private ImageView recommendImg2;//配置资源ZY_0003
     private ImageView recommendImg3;//配置资源ZY_0004
-    private ArrayList<RecyclerBean> recyclerBeens;//配置资源ZY_0005数据
+    private ArrayList<HotSecondCarBean> hotSecondCarBeens;//配置资源ZY_0005数据
     private MyGridView businessGridView;//业务视图
     private MyGridView secondHandGridView;//二手推荐视图
-    private RecyclerView mRecyclerView;//热门二手车
-    private RecyclerAdapter recyclerAdapter;
+    private RecyclerView hotSecondCarView;//热门二手车
+    private HotSecondCarAdapter recyclerAdapter;
     private ArrayList<Integer> mDatas;
     private ArrayList<HotRecommendBean> hotRecommendBeens;
     private ArrayList<ImageBean> imageBeans = new ArrayList<ImageBean>();
-    private MyListView mListView;
+    private RecyclerView hotRecommendRclV;//热闹推荐
     private RollPagerView mRollViewPager;
     private ArrayList<RollViewPagerBean> rollViewPagerBeens;
-    private static HomeFragment newInstance(ImageBean bean) {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
-    }
+    private MyScrollview myScrollview;
+    //支持下拉刷新的ViewGroup
+    private in.srain.cube.views.ptr.PtrClassicFrameLayout mPtrFrame;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getActivity().getSharedPreferences("CARMGR", getActivity().MODE_WORLD_READABLE);
+        sharedPreferences = getActivity().getSharedPreferences("CARMGR", getActivity().MODE_PRIVATE);
+        isLogin();
+    }
 
+    protected void isLogin() {
+        if (
+                sharedPreferences.getString("TOKEN", null) == null) {
+            dialog();
+        }
+    }
+
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("登录后才能继续");
+
+        builder.setTitle("提示");
+        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
+                getActivity().startActivityForResult(loginActivityIntent, 1);
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                getActivity().finish();
+            }
+        });
+
+        builder.create().show();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = (LinearLayout) inflater.inflate(R.layout.home_view,null);
+        homeView = (LinearLayout) inflater.inflate(R.layout.home_view, null);
         initView();
-        homeActionLayout = (LinearLayout)homeView.findViewById(R.id.home_action_layout);
-
         initDatas();
+        homeActionLayout = (LinearLayout) homeView.findViewById(R.id.home_action_layout);
+        mPtrFrame = (in.srain.cube.views.ptr.PtrClassicFrameLayout) homeView.findViewById(R.id.rotate_header_web_view_frame);
+        myScrollview = (MyScrollview) homeView.findViewById(R.id.home_scrollview);
+        //下拉刷新支持时间
+        mPtrFrame.setLastUpdateTimeRelateObject(this);
+        //下拉刷新一些设置 详情参考文档
+        mPtrFrame.setResistance(1.7f);
+        mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+        mPtrFrame.setDurationToClose(200);
+        mPtrFrame.setDurationToCloseHeader(1000);
+        // default is false
+        mPtrFrame.setPullToRefresh(false);
+        // default is true
+        mPtrFrame.setKeepHeaderWhenRefresh(true);
+        setupViews(mPtrFrame);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+        mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
+            @Override
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                mPtrFrame.refreshComplete();
+            }
 
-        Log.e("sharedpreferences",sharedPreferences.getString("ACCOUNT",null)
-                + sharedPreferences.getString("TOKEN",null));
-        appGetConfig(sharedPreferences.getString("ACCOUNT",null),"ZY_0001",
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                Log.e("refresh", "refresh");
+                mPtrFrame.refreshComplete();
+            }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return super.checkCanDoLoadMore(frame, myScrollview, footer);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return super.checkCanDoRefresh(frame, myScrollview, header);
+            }
+        });
+//        hotRecommendRclV.setLayoutManager(layoutManager);
+        //进入Activity就进行自动下拉刷新
+/*        mPtrFrame.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPtrFrame.autoRefresh();
+            }
+        }, 100);*/
+
+        //下拉刷新
+//        mPtrFrame.setPtrHandler(new MyPtrDefaultHandler());
+
+        hotSecondCarView.setLayoutManager(linearLayoutManager);
+
+        Log.e("sharedpreferences", sharedPreferences.getString("ACCOUNT", null)
+                + sharedPreferences.getString("TOKEN", null));
+        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
                 Tools.getInstance().getScreen(getActivity()),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APP_GET_CONFIG,1);
-        appGetConfig(sharedPreferences.getString("ACCOUNT",null),"ZY_0002",
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
+        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0002",
                 Tools.getInstance().getScreen(getActivity()),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APP_GET_CONFIG,2);
-        appGetConfig(sharedPreferences.getString("ACCOUNT",null),"ZY_0003",
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 2);
+        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0003",
                 Tools.getInstance().getScreen(getActivity()),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APP_GET_CONFIG,3);
-        appGetConfig(sharedPreferences.getString("ACCOUNT",null),"ZY_0004",
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 3);
+        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0004",
                 Tools.getInstance().getScreen(getActivity()),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APP_GET_CONFIG,4);
-        appGetConfig(sharedPreferences.getString("ACCOUNT",null),"ZY_0005",
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 4);
+        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0005",
                 Tools.getInstance().getScreen(getActivity()),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APP_GET_CONFIG,5);
-        getSecondHandcar(sharedPreferences.getString("ACCOUNT",null),
-                sharedPreferences.getString("TOKEN",null),
-                UrlString.APP_VERSION,UrlString.APPGETSECONDHANDCAR,6);
-        appGetServices(sharedPreferences.getString("ACCOUNT",null),"1.0",sharedPreferences.getString("TOKEN",null),1,2);
-        appgetrecommend(sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),"1.0",3,4);
-        appgetrecommend(sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),"1.0",10,11);
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 5);
+        getSecondHandcar(sharedPreferences.getString("ACCOUNT", null),
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APPGETSECONDHANDCAR, 6);
+        appGetServices(sharedPreferences.getString("ACCOUNT", null),
+                UrlString.APP_VERSION, sharedPreferences.getString("TOKEN", null),
+                UrlString.APPGETSERVICES, 7);
+        appgetrecommend(sharedPreferences.getString("ACCOUNT", null),
+                "全部", sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION, UrlString.APPGETRECOMMEND, 8);
         return homeView;
     }
-    private class TestNormalAdapter extends StaticPagerAdapter {
-        private int[] imgs = {
-                R.mipmap.testimg,
-                R.mipmap.testimg,
-                R.mipmap.testimg,
-                R.mipmap.testimg,
-        };
 
+    protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
 
+    }
+
+    public class MyPtrDefaultHandler implements PtrHandler {
+
+        //        @Override
+//        public void onRefreshBegin(PtrFrameLayout frame) {
+//            //模拟联网 延迟更新列表
+//            new Handler().postDelayed(new Runnable() {
+//                public void run() {
+//                        mAdapter.notifyDataSetChanged();
+//                    Log.e("wqhao","not bad");
+//                    mPtrFrame.refreshComplete();
+//                    mPtrFrame.setLoadMoreEnable(true);
+//
+//                }
+//            }, 1000);
+//            handler.sendEmptyMessage(5);
+//        }
         @Override
-        public View getView(ViewGroup container, int position) {
-            ImageView view = new ImageView(container.getContext());
-            view.setImageResource(imgs[position]);
-            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            return view;
+        public boolean checkCanDoRefresh(in.srain.cube.views.ptr.PtrFrameLayout frame, View content, View header) {
+            return in.srain.cube.views.ptr.PtrDefaultHandler.checkContentCanBePulledDown(frame, myScrollview, header);
         }
 
-
         @Override
-        public int getCount() {
-            return imgs.length;
+        public void onRefreshBegin(in.srain.cube.views.ptr.PtrFrameLayout frame) {
+            mPtrFrame.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mPtrFrame.refreshComplete();
+                }
+            }, 100);
         }
     }
-    private void initDatas()
-    {
+
+
+    private void initDatas() {
         mDatas = new ArrayList<>(Arrays.asList(R.mipmap.ic_launcher,
                 R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
                 R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
-    Handler handler = new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1://appGetServices方法请求数据成功
-                    Log.e("appservic",msg.obj.toString());
-                    businessBeans = new ArrayList<>();
-                    for (int i = 0;i < 10;i++){
-                        BusinessBean businessBean = new BusinessBean();
-                        businessBean.setBusinessName("业务");
-                        businessBean.setBusinessImgUrl("www.baidu.com");
-                        businessBeans.add(businessBean);
-                    }
-                    BusinessAdapter businessAdapter = new BusinessAdapter(getActivity(),businessBeans);
-                    businessGridView.setAdapter(businessAdapter);
-                    break;
-                case 2://appGetServices方法请求失败
-                    break;
-                case 3://appgetrecommend方法请求数据成功
 
                     break;
-                case 4://appgetrecommend方法请求数据失败
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
                     break;
                 case 5:
-                    Log.e("config",msg.obj.toString());
                     break;
                 case 6:
-                    Log.e("config0002",msg.obj.toString());
+                    Log.e("config0002", msg.obj.toString());
                     break;
                 case 7:
-                    Log.e("config0003",msg.obj.toString());
+                    Log.e("config0003", msg.obj.toString());
                     break;
                 case 10://appgetrecommend方法请求数据成功
-                    Log.e("apprecommend10",msg.obj.toString());
-                    hotRecommendBeens = new ArrayList<>();
-                    for (int i = 0;i < 7;i++){
-                        HotRecommendBean hotRecommendBean = new HotRecommendBean();
-                        hotRecommendBean.setHotRecommendUrlImg("null");
-                        hotRecommendBeens.add(hotRecommendBean);
-                    }
-                    HotRecommendAdapter hotRecommendAdapter = new HotRecommendAdapter(getActivity(),hotRecommendBeens);
-                    mListView.setAdapter(hotRecommendAdapter);
                     break;
                 case 11://appgetrecommend方法请求数据失败
                     break;
+                case 99:
+                    Log.e("config0003", "kekwkwk");
                 default:
                     break;
             }
         }
     };
-    private void initView(){
-        home_personal_rl = (RelativeLayout)homeView.findViewById(R.id.home_personal_rl);
-        businessGridView = (MyGridView)homeView.findViewById(R.id.business_gridview);
-        secondHandGridView = (MyGridView)homeView.findViewById(R.id.second_hand_gridview);
-        mRecyclerView = (RecyclerView)homeView.findViewById(R.id.id_recyclerview_horizontal);
-        mListView = (MyListView)homeView.findViewById(R.id.home_hot_recommend);
-        recommendImg1 = (ImageView)homeView.findViewById(R.id.recommend_1);
-        recommendImg2 = (ImageView)homeView.findViewById(R.id.recommend_2);
-        recommendImg3 = (ImageView)homeView.findViewById(R.id.recommend_3);
+
+    private void initView() {
+        home_personal_rl = (RelativeLayout) homeView.findViewById(R.id.home_personal_rl);
+        businessGridView = (MyGridView) homeView.findViewById(R.id.business_gridview);
+        secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
+        hotSecondCarView = (RecyclerView) homeView.findViewById(R.id.id_recyclerview_horizontal);
+//        hotRecommendRclV = (RecyclerView) homeView.findViewById(R.id.home_hot_recommend);
+        recommendImg1 = (ImageView) homeView.findViewById(R.id.recommend_1);
+        recommendImg2 = (ImageView) homeView.findViewById(R.id.recommend_2);
+        recommendImg3 = (ImageView) homeView.findViewById(R.id.recommend_3);
         home_personal_rl.setOnClickListener(this);
     }
 
     /**
-     * 热闹业务
+     * 热门业务
+     *
      * @param username 用户名
-     * @param version app版本
-     * @param token 密钥
+     * @param version  app版本
+     * @param token    密钥
      */
-     private void appGetServices(String username,String version,String token,int success,int fail){
-         if (username == null || token == null) {
-             username = "username";
-             token = "token";
-         }
-         Log.e("testToken",token);
-         FormBody formBody = new FormBody.Builder()
-                 .add("username", username)
-                 .add("token",token)
-                 .add("version", version)
-                 .build();
-         OkhttpManager.getInstance().OKhttpPost(UrlString.APPGETSERVICES, handler, formBody, success, fail);
-
-     }
-
-    /**
-     * 热门推荐
-     * @param username 用户名
-     * @param filter 查找条件
-     * @param token 密钥
-     * @param version APP版本
-     */
-    private void appgetrecommend(String username,String filter,String token,String version,
-                                 int success,int fail){
-        if (username == null || token == null){
+    private void appGetServices(String username, String version, String token, String url, int id) {
+        if (username == null || token == null) {
             username = "username";
             token = "token";
         }
-        FormBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .add("filter",filter)
-                .add("token",token)
-                .add("version", version)
-                .build();
-        OkhttpManager.getInstance().OKhttpPost(UrlString.APPGETRECOMMEND, handler, formBody, success, fail);
+        Log.e("testToken", token);
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("username", username)
+                .addParams("token", token)
+                .addParams("version", version)
+                .id(id)
+                .build()
+                .execute(new pagerStringCallback());
+    }
+
+    /**
+     * 热门推荐
+     *
+     * @param username 用户名
+     * @param filter   查找条件
+     * @param token    密钥
+     * @param version  APP版本
+     */
+    private void appgetrecommend(String username, String filter, String token, String version,
+                                 String url, int id) {
+        if (username == null || token == null) {
+            username = "username";
+            token = "token";
+        }
+        OkHttpUtils.get()
+                .url(url)
+                .addParams("username", username)
+                .addParams("filter", filter)
+                .addParams("token", token)
+                .addParams("version", version)
+                .id(id)
+                .build()
+                .execute(new pagerStringCallback());
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.home_personal_rl:
-                if (sharedPreferences.getString("ACCOUNT",null) != null){
-                    Intent intentPersonal = new Intent(getActivity(),personalActivity.class);
+                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
                     getActivity().startActivity(intentPersonal);
-                }else {
-                Intent personalIntent = new Intent(getActivity(),LoginActivity.class);
-                    getActivity().startActivityForResult(personalIntent,1);
+                } else {
+                    Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
+                    getActivity().startActivityForResult(personalIntent, 1);
 
-                };
+                }
+                ;
         }
     }
-    private void appGetConfig(String username,String resouce,String screenSize,String token,
-                              String version,String url,int id){
+
+    private void appGetConfig(String username, String resouce, String screenSize, String token,
+                              String version, String url, int id) {
         if (username == null || token == null) {
             username = "username";
             token = "token";
         }
         OkHttpUtils.get().url(url)
-                .addParams("username",username)
-                .addParams("config_key",resouce)
-                .addParams("screen_size",screenSize)
-                .addParams("token",token)
-                .addParams("version",version)
+                .addParams("username", username)
+                .addParams("config_key", resouce)
+                .addParams("screen_size", screenSize)
+                .addParams("token", token)
+                .addParams("version", version)
                 .id(id)
                 .build()
                 .execute(new pagerStringCallback());
     }
-    private void getSecondHandcar(String username,String token,String version,String url,int id){
+
+    private void getSecondHandcar(String username, String token, String version, String url, int id) {
         if (username == null || token == null) {
             username = "username";
             token = "token";
         }
         OkHttpUtils.get().url(url)
-                .addParams("username",username)
-                .addParams("token",token)
-                .addParams("version",version)
+                .addParams("username", username)
+                .addParams("token", token)
+                .addParams("version", version)
                 .id(id)
                 .build()
                 .execute(new pagerStringCallback());
     }
-    private void parseJson(String response){
-        Log.e("response",response);
+
+    private void parseJson(String response) {
+        Log.e("response", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
             JSONArray configValueList = jsonObject.getJSONArray("config_value_list");
             rollViewPagerBeens = new ArrayList<>();
             rollViewPagerBeens.clear();
-            for (int i = 0;i < listSize;i++){
+            for (int i = 0; i < listSize; i++) {
                 JSONObject listItem = configValueList.getJSONObject(i);
                 String configValue = listItem.getString("config_value");
                 //点击图片时跳转的url
@@ -321,34 +417,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 rollViewPagerBean.setRollViewPagerClickUrl(url);
                 rollViewPagerBeens.add(rollViewPagerBean);
             }
-//            pagerView = new SamplePagerView(getActivity(),imageBeans);
-//            homeActionLayout.addView(pagerView,0);
-//            pagerView.init();
-            mRollViewPager = (RollPagerView)homeView.findViewById(R.id.roll_view_pager);
+            mRollViewPager = (RollPagerView) homeView.findViewById(R.id.roll_view_pager);
             //设置播放时间间隔
             mRollViewPager.setPlayDelay(5000);
             //设置透明度
             mRollViewPager.setAnimationDurtion(500);
             //设置适配器
-            mRollViewPager.setAdapter(new RollViewPagerAdapter(getActivity(),rollViewPagerBeens));
+            mRollViewPager.setAdapter(new RollViewPagerAdapter(getActivity(), rollViewPagerBeens));
 
             //设置指示器（顺序依次）
             //自定义指示器图片
             //设置圆点指示器颜色
             //设置文字指示器
             //隐藏指示器
-            mRollViewPager.setHintView(new ColorPointHintView(getActivity(),Color.RED,Color.WHITE));
+            mRollViewPager.setHintView(new ColorPointHintView(getActivity(), Color.RED, Color.WHITE));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    private void parseJson2(String response,ImageView imageView){
-        Log.e("response",response);
+
+    private void parseJson2(String response, ImageView imageView) {
+        Log.e("response", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
             JSONArray configValueList = jsonObject.getJSONArray("config_value_list");
-            for (int i = 0;i < listSize;i++){
+            for (int i = 0; i < listSize; i++) {
                 JSONObject listItem = configValueList.getJSONObject(i);
                 String configValue = listItem.getString("config_value");
                 Picasso.with(getActivity()).load(configValue).error(R.mipmap.picture_default).into(imageView);
@@ -357,38 +451,88 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             e.printStackTrace();
         }
     }
-    private void parseJson3(String response){
-        Log.e("response7",response);
+
+    private void parseJson3(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
             JSONArray configValueList = jsonObject.getJSONArray("config_value_list");
-            secondHandBeens = new ArrayList<>();
-            for (int i = 0;i < listSize;i++){
-                SecondHandBean secondHandBean = new SecondHandBean();
+            favorabledRecommenddBeens = new ArrayList<>();
+            for (int i = 0; i < listSize; i++) {
+                FavorabledRecommendBean favorabledRecommendBean = new FavorabledRecommendBean();
                 JSONObject listItem = configValueList.getJSONObject(i);
                 String configValue = listItem.getString("config_value");
-                secondHandBean.setImgUrl(configValue);
-                secondHandBeens.add(secondHandBean);
+                favorabledRecommendBean.setImgUrl(configValue);
+                favorabledRecommenddBeens.add(favorabledRecommendBean);
             }
-            SecondHandAdapter secondHandAdapter = new SecondHandAdapter(getActivity(),secondHandBeens);
+            FavorabledRecommendAdapter favorabledRecommendAdapter = new FavorabledRecommendAdapter(getActivity(), favorabledRecommenddBeens);
             //设置适配器
-            secondHandGridView.setAdapter(secondHandAdapter);
+            secondHandGridView.setAdapter(favorabledRecommendAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    private void parseSecondHandCarJson(String response){
-        recyclerBeens = new ArrayList<>();
-        for (int i = 0;i < 10;i++){
-            RecyclerBean recyclerBean = new RecyclerBean();
-            recyclerBean.setImgUrlStr("kksks");
-            recyclerBeens.add(recyclerBean);
+
+    private void parseBusiness(String response) {
+        businessBeans = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            int listSize = jsonObject.getInt("list_size");
+            JSONArray servicesList = jsonObject.getJSONArray("services_list");
+            for (int k = 0; k < listSize; k++) {
+                BusinessBean businessBean = new BusinessBean();
+                JSONObject listItem = servicesList.getJSONObject(k);
+                businessBean.setBusinessImgUrl(listItem.getString("icon_path"));
+                businessBean.setBusinessName(listItem.getString("service_name"));
+                businessBeans.add(businessBean);
+            }
+            BusinessAdapter businessAdapter = new BusinessAdapter(getActivity(), businessBeans);
+            businessGridView.setAdapter(businessAdapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getActivity(),recyclerBeens);
-        mRecyclerView.setAdapter(recyclerAdapter);
     }
-    public class pagerStringCallback extends com.zhy.http.okhttp.callback.StringCallback{
+
+    private void parseHotRecommend(String response) {
+        hotRecommendBeens = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            int listSize = jsonObject.getInt("list_size");
+            JSONArray servicesList = jsonObject.getJSONArray("services_list");
+            for (int n = 0; n < listSize; n++) {
+                HotRecommendBean hotRecommendBean = new HotRecommendBean();
+                JSONObject listItem = servicesList.getJSONObject(n);
+                hotRecommendBean.setHotRecommendUrlImg(listItem.getString("img_path"));
+                hotRecommendBeens.add(hotRecommendBean);
+            }
+//            HotRecommendAdapter hotRecommendAdapter = new HotRecommendAdapter(getActivity(),hotRecommendBeens);
+//            hotRecommendRclV.setAdapter(hotRecommendAdapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parseSecondHandCarJson(String response) {
+        hotSecondCarBeens = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            int listSize = jsonObject.getInt("list_size");
+            JSONArray configValueList = jsonObject.getJSONArray("car_list");
+            for (int j = 0; j < listSize; j++) {
+                HotSecondCarBean hotSecondCarBean = new HotSecondCarBean();
+                JSONObject listItem = configValueList.getJSONObject(j);
+                String configValue = listItem.getString("img_path");
+                hotSecondCarBean.setImgUrlStr(configValue);
+                hotSecondCarBeens.add(hotSecondCarBean);
+            }
+            HotSecondCarAdapter hotSecondCarAdapter = new HotSecondCarAdapter(getActivity(), hotSecondCarBeens);
+            hotSecondCarView.setAdapter(hotSecondCarAdapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public class pagerStringCallback extends com.zhy.http.okhttp.callback.StringCallback {
 
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -397,26 +541,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         @Override
         public void onResponse(String response, int id) {
-            switch (id){
+            switch (id) {
                 case 1:
                     parseJson(response);
                     break;
                 case 2:
-                    parseJson2(response,recommendImg1);
+                    parseJson2(response, recommendImg1);
                     break;
                 case 3:
-                    parseJson2(response,recommendImg2);
+                    parseJson2(response, recommendImg2);
                     break;
                 case 4:
-                    Log.e("4",response);
-                    parseJson2(response,recommendImg3);
+                    Log.e("4", response);
+                    parseJson2(response, recommendImg3);
                     break;
                 case 5:
                     parseJson3(response);
                     break;
                 case 6:
-                    Log.e("second",response);
+                    Log.e("second", response);
                     parseSecondHandCarJson(response);
+                    break;
+                case 7:
+                    Log.e("appservic", response);
+                    parseBusiness(response);
+                    break;
+                case 8:
+                    parseHotRecommend(response);
+                    hotRecommendBeens = new ArrayList<>();
                     break;
                 default:
                     break;

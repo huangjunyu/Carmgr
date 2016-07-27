@@ -3,7 +3,7 @@ package com.yiwucheguanjia.carmgr.home;
 /**
  * Created by Administrator on 2016/7/18.
  */
-public class RecyclerBean {
+public class HotSecondCarBean {
 
     private String imgUrlStr;
     public String getImgUrlStr() {

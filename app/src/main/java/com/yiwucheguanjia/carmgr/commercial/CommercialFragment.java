@@ -22,7 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.LoginActivity;
@@ -53,6 +52,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private LinearLayout commercialView;
     private RelativeLayout businessSelectRl;
     private RelativeLayout merchantPersonalRl;
+    private RelativeLayout sortSelectRl;//排序
     private Spinner mySpinner;
     private ArrayList<MerchantSelectItemBean> businessSelectItemBeans;
     private MerchantSelectItemBean businessSelectItemBean;
@@ -64,9 +64,12 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private PopupWindowSimpleAdapter popupWindowSimpleAdapter;
     private View popupDivision;
     private TextView businessSelectTxt;//业务选择
-    private ImageView pullDownImg;
+    private TextView sortSelectTv;//排序
+    private ImageView businessPullDownImg;
+    private ImageView sortPullDownImg;
     //盛装所有弹出项的item
-    private List<Map<String, String>> listItems = new ArrayList<Map<String, String>>();
+    private List<Map<String, String>> businessList = new ArrayList<Map<String, String>>();
+    private List<Map<String,String>> sortList = new ArrayList<>();
     private BusinessAdapter businessAdapter;
     private SharedPreferences sharedPreferences;
     private MyListView myListView;
@@ -101,13 +104,17 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         businessSelectItemBeans.add(new MerchantSelectItemBean("kjaja"));
         businessSelectItemBeans.add(new MerchantSelectItemBean("kj44"));
         businessSelectRl = (RelativeLayout) commercialView.findViewById(R.id.business_select_rl);
+        sortSelectRl = (RelativeLayout) commercialView.findViewById(R.id.sort_select_rl);
         popupDivision = (View) commercialView.findViewById(R.id.commercial_popup_division);
         businessSelectTxt = (TextView) commercialView.findViewById(R.id.business_select_txt);
         myListView = (MyListView) commercialView.findViewById(R.id.commercial_item_lv);
         starsTxt = (TextView) commercialView.findViewById(R.id.merchant_stars_txt);
-        pullDownImg = (ImageView) commercialView.findViewById(R.id.business_direction_img);
+        businessPullDownImg = (ImageView) commercialView.findViewById(R.id.business_direction_img);
+        sortSelectTv = (TextView)commercialView.findViewById(R.id.sort_select_txt);
+        sortPullDownImg = (ImageView)commercialView.findViewById(R.id.sort_direction_img);
         businessSelectRl.setOnClickListener(this);
         merchantPersonalRl.setOnClickListener(this);
+        sortSelectRl.setOnClickListener(this);
     }
 
     private void addImageView() {
@@ -120,8 +127,13 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
         for (int i = 0; i < businessArray.length; i++) {
             Map<String, String> listItem = new HashMap<>();
-            listItem.put("1", businessArray[i]);
-            listItems.add(listItem);
+            listItem.put("business", businessArray[i]);
+            businessList.add(listItem);
+        }
+        for (int j = 0;j < sortArray.length;j++){
+            Map<String,String> listItem = new HashMap<>();
+            listItem.put("sort",sortArray[j]);
+            sortList.add(listItem);
         }
     }
 
@@ -189,8 +201,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 View view = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
                 popupwindowListView = (ListView) view.findViewById(R.id.mylist);
                 // 创建一个SimpleAdapter
-                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), listItems, R.layout.commercial_sort,
-                        new String[]{"1"}, new int[]{R.id.typeTopic});
+                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), businessList, R.layout.commercial_sort,
+                        new String[]{"business"}, new int[]{R.id.typeTopic});
                 popupwindowListView.setAdapter(popupWindowSimpleAdapter);
                 popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
                         android.view.WindowManager.LayoutParams.WRAP_CONTENT);
@@ -208,7 +220,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onDismiss() {
                         backgroundAlpha(1f);
                         businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
-                        pullDownImg.setImageResource(R.mipmap.pull_dowon_black);
+                        businessPullDownImg.setImageResource(R.mipmap.pull_dowon_black);
                     }
                 });
 
@@ -224,7 +236,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 });
                 if (popupWindow.isShowing()) {
                     businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
-                    pullDownImg.setImageResource(R.mipmap.pull_down_pre);
+                    businessPullDownImg.setImageResource(R.mipmap.pull_down_pre);
                 }
                 break;
             //城市选择
@@ -236,8 +248,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 View sortView = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
                 popupwindowListView = (ListView) sortView.findViewById(R.id.mylist);
                 // 创建一个SimpleAdapter
-                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), listItems, R.layout.commercial_sort,
-                        new String[]{"3"}, new int[]{R.id.typeTopic});
+                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), sortList, R.layout.commercial_sort,
+                        new String[]{"sort"}, new int[]{R.id.typeTopic});
                 popupwindowListView.setAdapter(popupWindowSimpleAdapter);
                 popupWindow = new PopupWindow(sortView, ViewGroup.LayoutParams.MATCH_PARENT,
                         android.view.WindowManager.LayoutParams.WRAP_CONTENT);
@@ -254,8 +266,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onDismiss() {
                         backgroundAlpha(1f);
-                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
-                        pullDownImg.setImageResource(R.mipmap.pull_dowon_black);
+                        sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                        sortPullDownImg.setImageResource(R.mipmap.pull_dowon_black);
                     }
                 });
 
@@ -264,14 +276,14 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.e("position", position + "");
-                        businessSelectTxt.setText(businessArray[position]);
+                        sortSelectTv.setText(businessArray[position]);
                         popupWindow.dismiss();
-                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                        sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
                     }
                 });
                 if (popupWindow.isShowing()) {
-                    businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
-                    pullDownImg.setImageResource(R.mipmap.pull_down_pre);
+                    sortSelectTv.setTextColor(getResources().getColor(R.color.orange));
+                    sortPullDownImg.setImageResource(R.mipmap.pull_down_pre);
                 }
                 break;
             case R.id.merchant_personal_rl:

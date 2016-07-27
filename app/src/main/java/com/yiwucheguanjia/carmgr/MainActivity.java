@@ -3,6 +3,7 @@ package com.yiwucheguanjia.carmgr;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yiwucheguanjia.carmgr.account.LoginActivity;
 import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
 import com.yiwucheguanjia.carmgr.commercial.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.HomeFragment;
@@ -55,6 +57,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     //当前显示的Fragment
     private Fragment currentFragment;
 
+    private SharedPreferences sharedPreferences;
+
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
     private int ft_pos;
 
@@ -66,11 +70,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // 透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_main);
+        sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
+//        isLogin();
         initUI();
         initTab();
     }
-
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         ft_pos = savedInstanceState.getInt("position");
@@ -156,13 +160,41 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        Log.e("activ23ity","activity33456");
+//        fragmentManager.beginTransaction().remove(homeFragment).commit();
+//        homeFragment = new HomeFragment();
+//        commercialFragment = new CommercialFragment();
+//        progressFragment = new ProgressFragment();
+//        callYiwuFragment = new CallYiwu();
+//        addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
         if (requestCode == 1 && resultCode == 1){
+            Log.e("activity","activity");
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
+            commercialFragment = new CommercialFragment();
+            progressFragment = new ProgressFragment();
+            callYiwuFragment = new CallYiwu();
+            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
+        }else if (resultCode == 2 && requestCode == 2){
+            Log.e("activ23ity","activity33");
+            fragmentManager.beginTransaction().remove(homeFragment).commit();
+            homeFragment = new HomeFragment();
+            commercialFragment = new CommercialFragment();
+            progressFragment = new ProgressFragment();
+            callYiwuFragment = new CallYiwu();
+            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
+        }else if (resultCode == 1 && requestCode == 3){
+            Log.e("result = 1","request = 3");
+            fragmentManager.beginTransaction().remove(homeFragment).commit();
+            homeFragment = new HomeFragment();
+            commercialFragment = new CommercialFragment();
+            progressFragment = new ProgressFragment();
+            callYiwuFragment = new CallYiwu();
             addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
         }
+
     }
 
     /**

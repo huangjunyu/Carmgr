@@ -2,6 +2,7 @@ package com.yiwucheguanjia.carmgr.personal;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.account.LoginActivity;
+import com.yiwucheguanjia.carmgr.account.PersonalDataActivity;
 
 /**
  * Created by Administrator on 2016/6/23.
@@ -19,22 +22,46 @@ public class personalActivity extends Activity implements View.OnClickListener{
     private ImageView addCarImg;
     private ImageView settingImg;
     private RelativeLayout personalResidualRl;
-    private RelativeLayout personalDataRl;
     private RelativeLayout myCarRl;
     private RelativeLayout recordsBusiness;
     private RelativeLayout postAddress;
+    private RelativeLayout accountRl;
+    private RelativeLayout personalDataRl;
+    private SharedPreferences sharedPreferences;
+    private TextView userNameTv;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
         setContentView(R.layout.activity_personal);
         initView();
+        setUpAccout();
         addCarImg.setOnClickListener(this);
         settingImg.setOnClickListener(this);
+        accountRl.setOnClickListener(this);
     }
     private void initView(){
         addCarImg = (ImageView)findViewById(R.id.personal_car_img);
         settingImg = (ImageView)findViewById(R.id.personal_setting);
+        accountRl = (RelativeLayout)findViewById(R.id.personal_account_rl);
+        userName = (TextView)findViewById(R.id.personal_header_txt);
+        userNameTv = (TextView)findViewById(R.id.personal_header_txt);
+        personalDataRl = (RelativeLayout)findViewById(R.id.personal_data_rl);
+        personalDataRl.setOnClickListener(this);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1){
+            userNameTv.setText(sharedPreferences.getString("ACCOUNT",null));
+        }
+    }
+    protected void setUpAccout(){
+        if (sharedPreferences.getString("TOKEN",null) != null &&
+                sharedPreferences.getString("ACCOUNT",null) != null){
+            userNameTv.setText(sharedPreferences.getString("ACCOUNT","unknow"));
+        }
     }
 
     @Override
@@ -48,6 +75,14 @@ public class personalActivity extends Activity implements View.OnClickListener{
                 Intent intentSetting = new Intent(personalActivity.this,setting.class);
                 startActivity(intentSetting);
                 break;
+            case R.id.personal_account_rl:
+                if (sharedPreferences.getString("TOKEN",null) == null){
+                    Intent loginIntent = new Intent(personalActivity.this, LoginActivity.class);
+                    startActivityForResult(loginIntent,1);
+                }
+            case R.id.personal_data_rl:
+                Intent personalDataIntent = new Intent(personalActivity.this, PersonalDataActivity.class);
+                startActivity(personalDataIntent);
             default:
                 break;
         }

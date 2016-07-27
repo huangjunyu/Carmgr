@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.utils.CircularImage;
 import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
@@ -59,11 +60,13 @@ public class ProgressAdapter extends BaseAdapter {
             myadapterHolder = (MyadapterHolder)convertView.getTag();
         }
         MerchantBean merchantBean = merchantBeenList.get(position);
-/*        myadapterHolder.merchantNameTxt.setText(merchantBean.getMerchantStr());
-        myadapterHolder.payStatusTxt.setText(merchantBean.getPayStatusStr());
-        myadapterHolder.serviceTypeTxt.setText(merchantBean.getServicTypeStr());
-        myadapterHolder.orderNumberTxt.setText(merchantBean.getOrderNumberStr());
-        myadapterHolder.urgingProgress.setText(merchantBean.getUrgingOrder());*/
+        myadapterHolder.merchantNameTxt.setText(merchantBeenList.get(position).getMerchantNameStr());
+        Picasso.with(activity).load(merchantBeenList.get(position).getMerchantImgUrl())
+                .error(R.mipmap.picture_default).into(myadapterHolder.merchantImg);
+        myadapterHolder.serviceTypeTxt.setText(merchantBeenList.get(position).getServicTypeStr());
+        myadapterHolder.orderNumberTxt.setText(merchantBeenList.get(position).getOrderNumberStr());
+        myadapterHolder.orderTimeText.setText(merchantBeenList.get(position).getTimeStr());
+
 
         return convertView;
     }
@@ -75,7 +78,6 @@ public class ProgressAdapter extends BaseAdapter {
         private TextView orderTimeText;//下单时间
         private TextView orderOperate;//订单操作
         private TextView urgingProgress;//催进度
-//        talkContent,replies,hits,lastpostUsername,lastpostTime;
         private RoundRectImageView merchantImg;
         public LinearLayout layout;
     }

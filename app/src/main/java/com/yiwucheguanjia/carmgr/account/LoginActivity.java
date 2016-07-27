@@ -1,12 +1,10 @@
 package com.yiwucheguanjia.carmgr.account;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -27,28 +25,25 @@ import android.widget.Toast;
 
 
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.home.HomeFragment;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
+import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.util.UUID;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -65,11 +60,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private EditText loginPasswordEdit;
     private TextView loginRegisterTxtBtn;
     private TextView getPassword;
+    private TextView loginPhoneTv;
     private OkHttpClient okHttpClient;
     private DiologLoading diologLoading;
     private int LOGIN_SUSSESS = 3;
     private int LOGIN_ERROR = 4;
     private RequestQueue mQueue;
+    private String flagWhereRequest;//来自于哪个activity发起的登录请求
 
     JSONObject jsonObject = new JSONObject();
     private static final MediaType JSON = MediaType.parse("application/json;charset:utf-8");
@@ -78,9 +75,21 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mQueue = Volley.newRequestQueue(getApplicationContext());
+//        getIntenExtra();
         setContentView(R.layout.activity_login);
         initView();
         diologLoading = new DiologLoading(getResources().getString(R.string.logging));
+    }
+
+    /**
+     *
+     * 接收来自找回密码界面跳到登录界面传递过来的参数
+     */
+    protected void getIntenExtra() {
+        Bundle bundle = getIntent().getExtras();
+        if (!bundle.getString("SETPASSWORD").isEmpty()) {
+            flagWhereRequest = bundle.getString("SETPASSWORD");
+        }
     }
 
     private void initView() {
@@ -89,12 +98,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         loginRegisterTxtBtn = (TextView) findViewById(R.id.login_register_btn);
         loginBtn = (Button) findViewById(R.id.login_button);
         login_gobackImgBtn = (ImageButton) findViewById(R.id.login_goback_img_btn);
-        getPassword = (TextView)findViewById(R.id.login_get_password);
+        getPassword = (TextView) findViewById(R.id.login_get_pwd_tv);
+        loginPhoneTv = (TextView) findViewById(R.id.login_phone_Tv);
         okHttpClient = new OkHttpClient();
         getPassword.setOnClickListener(this);
         loginRegisterTxtBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         login_gobackImgBtn.setOnClickListener(this);
+        loginPhoneTv.setOnClickListener(this);
     }
 
 
@@ -124,40 +135,12 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 case 2:
                     //关闭动画
                     Intent homeFragmentIntent = new Intent(LoginActivity.this, HomeFragment.class);
-//                    startActivityForResult(homeFragmentIntent,1);
                     setResult(1);
                     getCallingActivity();
-                    Display display = getWindowManager().getDefaultDisplay(); //Activity#getWindowManager()
-                    Point size = new Point();
-                    display.getSize(size);
-                    int width = size.x;
-                    int height = size.y;
-                    Log.e("usernameString",usernameString);
-//                    appGetConfig(usernameString, "ZY_0001", width + "x" + height,"1.0");
                     finish();
                     break;
                 case 3://请求成功
-                    if (msg.obj.toString() != null) {
-                        try {
-                            String msgObj = msg.obj.toString();
-                            JSONObject jsonAll = new JSONObject(msgObj);
-                            if (jsonAll.getString("opt_state").equals("fail")) {
-                            Log.e("jsonAll", jsonAll + "");
-                            loginState = jsonAll.getString("opt_info");
-                            handler.sendEmptyMessage(1);
-                            } else if (jsonAll.getString("opt_state").equals("success")) {
-                                Log.e("token",jsonAll.getString("token"));
-                            setSharePrefrence(usernameString, passwordString,jsonAll.getString("token"));
-                                Log.e("login","登录成功" + msgObj);
-                                handler.sendEmptyMessage(2);
-                            }
-                            ;
 
-                        } catch (JSONException e) {
-                            Log.e("ooeo", "kaeee");
-                            e.printStackTrace();
-                        }
-                    }
                     break;
                 case 4://请求失败
                     break;
@@ -176,11 +159,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_button:
-                Log.e("kdke", "kskskk");
                 if (checkString(loginUsernameEdit, loginPasswordEdit)) {
                     usernameString = loginUsernameEdit.getText().toString().trim();
                     passwordString = loginPasswordEdit.getText().toString().trim();
-                    loginAccount(this.usernameString, this.passwordString, "1.0", UrlString.LOGIN_URL);
+                    loginAccount(this.usernameString, this.passwordString, "0", "",
+                            UUID.randomUUID().toString(), "1.0", UrlString.LOGIN_URL, 1);
                 }
                 break;
             case R.id.login_register_btn:
@@ -191,8 +174,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             case R.id.login_goback_img_btn:
                 this.finish();
                 break;
-            case R.id.login_get_password:
-                appGetConfig(usernameString, "ZY_0001", "1080x1920","1.0");
+            case R.id.login_get_pwd_tv:
+                Intent getPasswordIntent = new Intent(LoginActivity.this, GetPassword.class);
+                startActivity(getPasswordIntent);
+                break;
+            case R.id.login_phone_Tv:
+                Intent phoneLogin = new Intent(LoginActivity.this, PhoneLoginActivity.class);
+                startActivityForResult(phoneLogin, 2);
+                finish();
                 break;
             default:
                 break;
@@ -223,46 +212,76 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     }
 
-    /**
-     * APP获取配置请求
-     *
-     * @param username   用户名
-     * @param configKey  该参数指定用户需要获取的图片或者配置资源的编号
-     * @param screenSize 终端屏幕尺寸
-     */
-    private void appGetConfig(final String username, final  String configKey, final String screenSize, final String version) {
-        FormBody formBody = new FormBody.Builder()
-                .add("username", "15014150833")
-                .add("config_key", configKey)
-                .add("screen_size", screenSize)
-                .add("version",version)
-                .build();
-        Log.e("config",username + configKey + screenSize + version);
-        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_GET_CONFIG, handler, formBody, 5, 6);
-//        OkhttpManager.OKhttpPost(UrlString.APP_GET_CONFIG, handler, formBody, 5, 6);
+    private void loginAccount(final String username, final String password,
+                              String type, String verf_code, String uuid, String version, final String url, int id) {
+        OkHttpUtils.get().url(url)
+                .addParams("username", username)
+                .addParams("password", password)
+                .addParams("type", type)
+                .addParams("verf_code", verf_code)
+                .addParams("version", version)
+                .id(id)
+                .build()
+                .execute(new parseStringCallBack());
     }
 
-    private void loginAccount(final String username, final String password, String version, final String url) {
-        FormBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .add("password", password)
-                .add("version", version)
-                .build();
-        OkhttpManager.OKhttpPost(url, handler, formBody, 3, 4);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1) {
+        }
     }
 
-    private void setSharePrefrence(String account, String password,String token) {
+    private class parseStringCallBack extends StringCallback {
+
+        @Override
+        public void onError(Call call, Exception e, int id) {
+
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            switch (id) {
+                case 1:
+                    Log.e("sme", response);
+                    if (response != null) {
+                        try {
+                            JSONObject jsonAll = new JSONObject(response);
+                            if (jsonAll.getString("opt_state").equals("fail")) {
+                                Log.e("jsonAll", jsonAll + "");
+                                loginState = jsonAll.getString("opt_info");
+                                handler.sendEmptyMessage(1);
+                            } else if (jsonAll.getString("opt_state").equals("success")) {
+                                Log.e("token", jsonAll.getString("token"));
+                                setSharePrefrence(usernameString, passwordString, jsonAll.getString("token"));
+                                Log.e("login", "登录成功" + response);
+                                handler.sendEmptyMessage(2);
+                            }
+                            ;
+
+                        } catch (JSONException e) {
+                            Log.e("ooeo", "kaeee");
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case 2:
+                    Log.e("login", response);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void setSharePrefrence(String account, String password, String token) {
         SharedPreferences sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putString("ACCOUNT", account);
         edit.putString("PASSWORD", password);
-        edit.putString("TOKEN",token);
+        edit.putString("TOKEN", token);
         edit.commit();
     }
-    /**
-     * Use an AsyncTask to fetch the user's email addresses on a background thread, and update
-     * the email text field with results on the main UI thread.
-     */
 
 }
 

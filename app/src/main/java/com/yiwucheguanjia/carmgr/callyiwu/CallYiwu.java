@@ -1,21 +1,32 @@
 package com.yiwucheguanjia.carmgr.callyiwu;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.account.LoginActivity;
 
 /**
  * Created by Administrator on 2016/6/20.
@@ -23,7 +34,9 @@ import com.yiwucheguanjia.carmgr.R;
 public class CallYiwu extends Fragment implements View.OnClickListener {
     private LinearLayout callYiWuView;
     private RelativeLayout callYiWuRl;
-
+    private LinearLayout callBackground;
+    private ImageView callyiwuImg;
+    private TextView callYiwuTv;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,32 +56,48 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
-        callYiWuRl = (RelativeLayout) callYiWuView.findViewById(R.id.callyiwu_call_rl);
-        callYiWuRl.setOnClickListener(this);
-    }
+        callBackground = (LinearLayout) callYiWuView.findViewById(R.id.callyiwu_background);
+        callyiwuImg = (ImageView) callYiWuView.findViewById(R.id.callyiwu_img);
+        callYiwuTv = (TextView)callYiWuView.findViewById(R.id.call_yiwu);
+        callyiwuImg.setImageResource(R.mipmap.call_yiwu_img);
+        callYiwuTv.setOnClickListener(this);
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.callyiwu_call_rl:
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "10010"));
+    }
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确认拨打易务宝客服？");
+
+        builder.setPositiveButton("拨打", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4001119665"));
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
+
                     return;
                 }
                 getActivity().startActivity(intent);
-              break;
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.call_yiwu:
+                dialog();
+                break;
           default:
               break;
       }

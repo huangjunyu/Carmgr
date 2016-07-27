@@ -24,6 +24,12 @@ public class UrlString {
     public static final String APP_GET_PROCESS = "http://112.74.13.51:8080/carmgr/appgetprocess";
     //APP发送验证码
     public static final String APP_SENDVERF_CODE = "http://112.74.13.51:8080/carmgr/appsendverfcode";
+    //APP发送找回密码请求
+    public static final String APPRESETPASSWORD = "http://112.74.13.51:8080/carmgr/appresetpassword";
+    //APP校验验证码请求
+    public static final  String APP_CHECK_VERFCODE = "http://112.74.13.51:8080/carmgr/appcheckverfcode";
+    //APP用户操作记录请求
+    public static final  String APP_LOG_USER_OPERATION = "http://112.74.13.51:8080/carmgr/apploguseroperation";
     //APP版本号
     public static final String APP_VERSION = "1.0";
 }

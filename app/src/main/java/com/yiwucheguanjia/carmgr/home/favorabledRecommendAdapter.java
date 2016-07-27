@@ -14,18 +14,18 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/7/6.
  */
-public class SecondHandAdapter extends BaseAdapter{
+public class FavorabledRecommendAdapter extends BaseAdapter{
 
     private Activity activity;
     private MyViewholder viewHolder;
-    private ArrayList<SecondHandBean> secondHandBeans;
+    private ArrayList<FavorabledRecommendBean> secondHandBeans;
     private LayoutInflater layoutInflater;
     /**
      *
      * @param activity
      * @param list
      */
-    public SecondHandAdapter(Activity activity, ArrayList<SecondHandBean> list) {
+    public FavorabledRecommendAdapter(Activity activity, ArrayList<FavorabledRecommendBean> list) {
         this.secondHandBeans = list;
         this.activity = activity;
         this.layoutInflater = LayoutInflater.from(activity);

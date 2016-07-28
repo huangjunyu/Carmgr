@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.utils.CircularImage;
 import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class ProgressAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.progress_merchant_item, null,false);
             myadapterHolder.merchantNameTxt = (TextView)convertView.findViewById(R.id.merchant_provider_txt);
             myadapterHolder.payStatusTxt = (TextView)convertView.findViewById(R.id.merchant_pay_status);
-            myadapterHolder.serviceTypeTxt = (TextView)convertView.findViewById(R.id.merchant_service_type);
+            myadapterHolder.serviceTypeTxt = (TextView)convertView.findViewById(R.id.merchant_service_item);
             myadapterHolder.orderNumberTxt = (TextView)convertView.findViewById(R.id.merchant_order_number);
             myadapterHolder.orderTimeText = (TextView)convertView.findViewById(R.id.merchant_order_time);
             myadapterHolder.orderOperate = (TextView)convertView.findViewById(R.id.merchant_operate_order);

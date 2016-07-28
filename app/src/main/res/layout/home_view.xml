@@ -75,8 +75,9 @@
             android:id="@+id/home_QuickMark_rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:gravity="center"
             android:layout_weight="1">
 
             <ImageView
@@ -90,8 +91,9 @@
             android:id="@+id/home_personal_rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center"
             android:layout_weight="1">
 
             <ImageView

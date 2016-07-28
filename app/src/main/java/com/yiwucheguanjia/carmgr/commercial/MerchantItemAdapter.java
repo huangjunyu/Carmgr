@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -48,22 +46,29 @@ public class MerchantItemAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MyItemViewHolder myItemViewHolder = new MyItemViewHolder();
+
         if (convertView == null){
             convertView = myInflater.inflate(R.layout.merchant_item,null);
-            myItemViewHolder.merchantName = (TextView)convertView.findViewById(R.id.merchant_name_txt);
-            myItemViewHolder.merchantImg = (ImageView)convertView.findViewById(R.id.merchant_img);
-            myItemViewHolder.merchantStars = (TextView) convertView.findViewById(R.id.merchant_stars_txt);
+            myItemViewHolder.merchantDistance = (TextView)convertView.findViewById(R.id.merchant_distance);
+            myItemViewHolder.merchantArea = (TextView)convertView.findViewById(R.id.merchant_area);
+            myItemViewHolder.merchantInstroduce = (TextView)convertView.findViewById(R.id.merchant_introduce_txt);
             myItemViewHolder.merchantStarsLL = (RelativeLayout)convertView.findViewById(R.id.merchant_stars_rl);
+            myItemViewHolder.merchantStars = (TextView) convertView.findViewById(R.id.merchant_stars_txt);
+            myItemViewHolder.merchantName = (TextView)convertView.findViewById(R.id.merchant_name_txt);
+            myItemViewHolder.merchantRoad = (TextView)convertView.findViewById(R.id.merchant_road);
+            myItemViewHolder.merchantImg = (ImageView)convertView.findViewById(R.id.merchant_img);
             myItemViewHolder.merchantNameRl = (RelativeLayout)convertView.findViewById(R.id.merchant_name_rl);
-            myItemViewHolder.merchantAddress = (TextView)convertView.findViewById(R.id.merchant_address);
             convertView.setTag(myItemViewHolder);
         }else {
             myItemViewHolder = (MyItemViewHolder)convertView.getTag();
         }
         MerchantItemBean merchantItemBean = businessItemBeans.get(position);
+        myItemViewHolder.merchantDistance.setText(merchantItemBean.getMerchantDistance());
+        myItemViewHolder.merchantArea.setText(merchantItemBean.getMerchantArea());
+        myItemViewHolder.merchantInstroduce.setText(merchantItemBean.getMerchantIntroduce());
+        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
         myItemViewHolder.merchantName.setText(merchantItemBean.getMerchantName());
-        myItemViewHolder.merchantAddress.setText(merchantItemBean.getMerchantAddress());
-        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + "");
+        myItemViewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
         String numberStr = merchantItemBean.getMerchantStarsStr();
         if (Tools.isInteger(merchantItemBean.getMerchantStarsStr())){
             for (int i = 0;i < Integer.parseInt(numberStr);i++){
@@ -78,14 +83,14 @@ public class MerchantItemAdapter extends BaseAdapter{
             myItemViewHolder.merchantStarsLL.addView(Tools.getInstance().createImageview2(activity,starNumber));
         }
         //动态显示商家提供的服务项目
-        if ((extractString(merchantItemBean.getMerchantTag()).length) >= 1){
-            Log.e("size",extractString(merchantItemBean.getMerchantTag()).length + "");
-            int serviceNum = (extractString(merchantItemBean.getMerchantTag()).length);
-            for (int k = 0;k < serviceNum;k++){
-//                Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k);
-                myItemViewHolder.merchantNameRl.addView(Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k));
-            }
-        }
+//        if ((extractString(merchantItemBean.getMerchantTag()).length) >= 1){
+//            Log.e("size",extractString(merchantItemBean.getMerchantTag()).length + "");
+//            int serviceNum = (extractString(merchantItemBean.getMerchantTag()).length);
+//            for (int k = 0;k < serviceNum;k++){
+////                Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k);
+//                myItemViewHolder.merchantNameRl.addView(Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k));
+//            }
+//        }
 //        extractString(merchantItemBean.getMerchantTag());
 
         Picasso.with(this.activity).load(merchantItemBean.getMerchantImgUrl())
@@ -98,16 +103,19 @@ public class MerchantItemAdapter extends BaseAdapter{
         String string = tags;
         String[] b = string.split("\\|");  //注意这里用两个 \\，而不是一个\
         for (int j = 0;j < b.length;j++){
-        System.out.println("处理结果: "+b[j] + j);   //输出的是: 处理结果: 5678,XYZ
+        System.out.println("处理结果: "+b[j] + j);
         }
         return b;
     }
     class MyItemViewHolder{
         private RelativeLayout merchantStarsLL;
         private RelativeLayout merchantNameRl;
-        private TextView merchantName;
+        private TextView merchantDistance;
+        private TextView merchantArea;
+        private TextView merchantInstroduce;
         private TextView merchantStars;
-        private TextView merchantAddress;
+        private TextView merchantName;
+        private TextView merchantRoad;
         private TextView merchantMobile;
         private ImageView merchantImg;
     }

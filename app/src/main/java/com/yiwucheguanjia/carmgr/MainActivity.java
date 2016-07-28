@@ -162,13 +162,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        Log.e("activ23ity","activity33456");
-//        fragmentManager.beginTransaction().remove(homeFragment).commit();
-//        homeFragment = new HomeFragment();
-//        commercialFragment = new CommercialFragment();
-//        progressFragment = new ProgressFragment();
-//        callYiwuFragment = new CallYiwu();
-//        addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
         if (requestCode == 1 && resultCode == 1){
             Log.e("activity","activity");
             fragmentManager.beginTransaction().remove(homeFragment).commit();

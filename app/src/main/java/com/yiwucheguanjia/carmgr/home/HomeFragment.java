@@ -219,39 +219,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public class MyPtrDefaultHandler implements PtrHandler {
-
-        //        @Override
-//        public void onRefreshBegin(PtrFrameLayout frame) {
-//            //模拟联网 延迟更新列表
-//            new Handler().postDelayed(new Runnable() {
-//                public void run() {
-//                        mAdapter.notifyDataSetChanged();
-//                    Log.e("wqhao","not bad");
-//                    mPtrFrame.refreshComplete();
-//                    mPtrFrame.setLoadMoreEnable(true);
-//
-//                }
-//            }, 1000);
-//            handler.sendEmptyMessage(5);
-//        }
-        @Override
-        public boolean checkCanDoRefresh(in.srain.cube.views.ptr.PtrFrameLayout frame, View content, View header) {
-            return in.srain.cube.views.ptr.PtrDefaultHandler.checkContentCanBePulledDown(frame, myScrollview, header);
-        }
-
-        @Override
-        public void onRefreshBegin(in.srain.cube.views.ptr.PtrFrameLayout frame) {
-            mPtrFrame.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mPtrFrame.refreshComplete();
-                }
-            }, 100);
-        }
-    }
-
-
     private void initDatas() {
         mDatas = new ArrayList<>(Arrays.asList(R.mipmap.ic_launcher,
                 R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
@@ -437,7 +404,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void parseJson2(String response, ImageView imageView) {
-        Log.e("response", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
@@ -505,8 +471,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 hotRecommendBean.setHotRecommendUrlImg(listItem.getString("img_path"));
                 hotRecommendBeens.add(hotRecommendBean);
             }
-//            HotRecommendAdapter hotRecommendAdapter = new HotRecommendAdapter(getActivity(),hotRecommendBeens);
-//            hotRecommendRclV.setAdapter(hotRecommendAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }

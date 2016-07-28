@@ -5,12 +5,69 @@ package com.yiwucheguanjia.carmgr.commercial;
  */
 public class MerchantItemBean {
     private String merchantImgUrl;
-    private String merchantName;
-    private String merchantTag;
+    private String merchantDistance;//离我距离
+    private String merchantArea;
+    private String merchantIntroduce;//介绍
     private double merchantStars;//服务星星数据
     private String merchantStarsStr;
-    private String merchantAddress;
+    private String merchantName;
+    private String province;
+    private String merchantRoad;//所在路
+    private String merchantServiceItem;//经营项目
+    private String city;//广州
+    private String merchantTag;
     private String merchantMobile;
+
+
+    public String getMerchantDistance() {
+        return merchantDistance;
+    }
+
+    public void setMerchantDistance(String merchantDistance) {
+        this.merchantDistance = merchantDistance;
+    }
+
+    public String getMerchantIntroduce() {
+        return merchantIntroduce;
+    }
+
+    public void setMerchantIntroduce(String merchantIntroduce) {
+        this.merchantIntroduce = merchantIntroduce;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getMerchantRoad() {
+        return merchantRoad;
+    }
+
+    public void setMerchantRoad(String merchantRoad) {
+        this.merchantRoad = merchantRoad;
+    }
+
+    public String getMerchantServiceItem() {
+        return merchantServiceItem;
+    }
+
+    public void setMerchantServiceItem(String merchantServiceItem) {
+        this.merchantServiceItem = merchantServiceItem;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+
 
     public String getMerchantStarsStr() {
         return merchantStarsStr;
@@ -52,12 +109,12 @@ public class MerchantItemBean {
         this.merchantStars = merchantStars;
     }
 
-    public String getMerchantAddress() {
-        return merchantAddress;
+    public String getMerchantArea() {
+        return merchantArea;
     }
 
-    public void setMerchantAddress(String merchantAddress) {
-        this.merchantAddress = merchantAddress;
+    public void setMerchantArea(String merchantArea) {
+        this.merchantArea = merchantArea;
     }
 
     public String getMerchantMobile() {

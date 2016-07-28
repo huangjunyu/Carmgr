@@ -86,6 +86,7 @@
     <string name="read_mord">查看更多</string>
     <string name="hot_recommend">热门推荐</string>
     <string name="contact_merchant">联系商家</string>
+    <string name="distance">商家与我距离</string>
     <string name="setting">设置</string>
     <string name="use_gprs">移动网络下载图片</string>
     <string name="clean_cache">清理缓存</string>
@@ -112,6 +113,7 @@
     <string name="nickname">昵称</string>
     <string name="sex">性别</string>
     <string name="local">所在地</string>
+    <string name="point">分</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

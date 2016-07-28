@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -13,8 +14,8 @@ import com.yiwucheguanjia.carmgr.R;
  * Created by Administrator on 2016/7/13.
  */
 public class setting extends Activity implements View.OnClickListener{
-    private ImageView goback;
     private RelativeLayout exitRl;
+    private ImageButton gobackImgBtn;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     @Override
@@ -26,16 +27,11 @@ public class setting extends Activity implements View.OnClickListener{
         initView();
     }
     private void initView(){
-        goback = (ImageView)findViewById(R.id.setting_goback_imgbtn);
         exitRl = (RelativeLayout)findViewById(R.id.setting_exit_rl);
+        gobackImgBtn = (ImageButton)findViewById(R.id.setting_goback_imgbtn);
+        gobackImgBtn.setOnClickListener(this);
         exitRl.setOnClickListener(this);
-        goback.setOnClickListener(this);
     }
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){

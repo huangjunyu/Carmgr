@@ -115,12 +115,9 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
         public void onResponse(String response, int id) {
             switch (id) {
                 case 1:
-                    Log.e("setp", response);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getString("opt_state").equals("success")){
-                            Intent personalActivityIntent = new Intent(SetPasswordActivity.this,personalActivity.class);
-                            startActivity(personalActivityIntent);
                             finish();
                         }else if (jsonObject.getString("opt_state").equals("fail")){
                             Toast.makeText(SetPasswordActivity.this,"reset password fail",Toast.LENGTH_SHORT).show();

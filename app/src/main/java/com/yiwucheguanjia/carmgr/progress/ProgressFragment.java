@@ -37,6 +37,13 @@ import okhttp3.Call;
 public class ProgressFragment extends Fragment implements View.OnClickListener {
     private LinearLayout progressView;
     private RelativeLayout personalRl;
+    private RelativeLayout allRl;
+    private RelativeLayout waitPayRl;
+    private RelativeLayout waitUseRrl;
+    private RelativeLayout goingRl;
+    private RelativeLayout doneRl;
+    private RelativeLayout waitAssessRl;
+    private RelativeLayout afterSale;
     private SharedPreferences sharedPreferences;
     private MyListView myListView;
     private ArrayList<MerchantBean> merchantBeens;
@@ -58,11 +65,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         return progressView;
     }
 
-    private void initView() {
-        myListView = (MyListView) progressView.findViewById(R.id.progress_item_lv);
-        personalRl = (RelativeLayout) progressView.findViewById(R.id.progress_personal_rl);
-        personalRl.setOnClickListener(this);
-    }
+
 
     public Handler handler = new Handler() {
         @Override
@@ -70,8 +73,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    Log.e("progressJson", msg.obj.toString());
-                    getProgressItemJson(msg.obj.toString());
                     break;
                 default:
                     break;
@@ -101,7 +102,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         }
 
         ProgressAdapter progressAdapter = new ProgressAdapter(getActivity(), merchantBeens);
-        Log.e("ksew", "a,we");
         myListView.setAdapter(progressAdapter);
     }
 
@@ -120,7 +120,17 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 .build()
                 .execute(new myStringCallback());
     }
-
+    private void initView() {
+        myListView = (MyListView) progressView.findViewById(R.id.progress_item_lv);
+        personalRl = (RelativeLayout) progressView.findViewById(R.id.progress_personal_rl);
+        allRl = (RelativeLayout) progressView.findViewById(R.id.progress_all_rl);
+        waitPayRl = (RelativeLayout) progressView.findViewById(R.id.pro_wait_pay_rl);
+        waitUseRrl = (RelativeLayout) progressView.findViewById(R.id.pro_wait_use_rl);
+        goingRl = (RelativeLayout) progressView.findViewById(R.id.pro_going_rl);
+        doneRl = (RelativeLayout) progressView.findViewById(R.id.pro_done_rl);
+        waitAssessRl = (RelativeLayout) progressView.findViewById(R.id.pro_wait_assess_rl);
+        personalRl.setOnClickListener(this);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -131,9 +141,19 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 } else {
                     Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivityForResult(personalIntent, 1);
-
-                }
-                ;
+                } ;
+                break;
+            case R.id.progress_all_rl://全部
+                break;
+            case R.id.pro_wait_pay_rl:
+                break;
+            case R.id.pro_wait_use_rl:
+                break;
+            case R.id.pro_going_rl:
+                break;
+            case R.id.pro_done_rl:
+                break;
+            case R.id.pro_wait_assess_rl:
                 break;
             default:
                 break;
@@ -146,7 +166,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         public void onError(Call call, Exception e, int id) {
 
         }
-
         @Override
         public void onResponse(String response, int id) {
             switch (id) {

@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.LoginActivity;
-import com.yiwucheguanjia.carmgr.home.BusinessAdapter;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.utils.MyListView;
 import com.yiwucheguanjia.carmgr.utils.OkhttpManager;
@@ -70,7 +69,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     //盛装所有弹出项的item
     private List<Map<String, String>> businessList = new ArrayList<Map<String, String>>();
     private List<Map<String,String>> sortList = new ArrayList<>();
-    private BusinessAdapter businessAdapter;
     private SharedPreferences sharedPreferences;
     private MyListView myListView;
     private TextView starsTxt;
@@ -88,13 +86,16 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        commercialView = (LinearLayout) inflater.inflate(R.layout.activity_commercial, null, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        commercialView = (LinearLayout) inflater.inflate(R.layout.activity_commercial,
+                null, false);
         testPopup();
         initView();
         popupwindowinflater = LayoutInflater.from(getActivity());
-        appgetmerchantslist(sharedPreferences.getString("ACCOUNT", null), "全部", sharedPreferences.getString("TOKEN", null), "1.0", 1, 2);
-        testUtil(UrlString.APP_GET_MERCHANTS_LIST,sharedPreferences.getString("ACCOUNT",null),"全部",sharedPreferences.getString("TOKEN",null),UrlString.APP_VERSION);
+        getMerchantsList(sharedPreferences.getString("ACCOUNT",null),"广州","全部",
+                sharedPreferences.getString("TOKEN",null),UrlString.APP_VERSION,
+                UrlString.APP_GET_MERCHANTS_LIST,1);
         return commercialView;
     }
 
@@ -137,30 +138,12 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void appgetmerchantslist(String username, String filter, String token,
-                                     String version, int success, int fail) {
-        if (username == null || token == null) {
-            username = "username";
-            token = "token";
-        }
-        FormBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .add("filter", filter)
-                .add("token", token)
-                .add("version", version)
-                .build();
-        OkhttpManager.getInstance().OKhttpPost(UrlString.APP_GET_MERCHANTS_LIST,
-                handler, formBody, success, fail);
-    }
-
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    Log.e("commercial", msg.obj.toString());
-                    analysisJson(msg.obj.toString());
                     break;
                 default:
                     break;
@@ -169,27 +152,33 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     };
 
     //解析JSON数据
-    private void analysisJson(String json) {
+    protected void analysisJson(String response) {
         try {
-            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject = new JSONObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonArray.getJSONObject(i);
                 merchantItemBean.setMerchantImgUrl(merchantJson.getString("img_path"));
-                merchantItemBean.setMerchantAddress(merchantJson.getString("address"));
-                merchantItemBean.setMerchantMobile(merchantJson.getString("mobile"));
+                merchantItemBean.setMerchantDistance(merchantJson.getString("distance"));
+                merchantItemBean.setMerchantArea(merchantJson.getString("area"));
+                merchantItemBean.setMerchantIntroduce(merchantJson.getString("merchant_introduce"));
                 merchantItemBean.setMerchantName(merchantJson.getString("merchant_name"));
+                merchantItemBean.setMerchantRoad(merchantJson.getString("road"));
+                merchantItemBean.setMerchantServiceItem(merchantJson.getString("service_item"));
+                merchantItemBean.setMerchantMobile(merchantJson.getString("mobile"));
                 merchantItemBean.setMerchantStars(merchantJson.getDouble("stars"));
                 merchantItemBean.setMerchantStarsStr(merchantJson.getString("stars"));
-                merchantItemBean.setMerchantTag(merchantJson.getString("tags"));
                 merchantItemBeens.add(merchantItemBean);
             }
+
             MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
             myListView.setAdapter(merchantItemAdapter);
             addImageView();
         } catch (JSONException e) {
+            Log.e("mobile","mobile");
+
             e.printStackTrace();
         }
     }
@@ -276,7 +265,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.e("position", position + "");
-                        sortSelectTv.setText(businessArray[position]);
+                        sortSelectTv.setText(sortArray[position]);
                         popupWindow.dismiss();
                         sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
                     }
@@ -313,32 +302,36 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     }
 
     //一个Okhttputils封装类的示例
-    private void testUtil(String url, String username, String filter, String token, String version) {
-        OkHttpUtils.get().url(url).addParams("username", username)
-                .addParams("filter", filter)
+    private void getMerchantsList(String username,String city_filter,String service_filter, String token,
+                                  String version,String url,int id) {
+        OkHttpUtils.get().url(url)
+                .addParams("username", username)
+                .addParams("city_filter", city_filter)
+                .addParams("service_filter",service_filter)
                 .addParams("token", token)
                 .addParams("version", version)
-                .id(101)
-                .build().execute(new StringCallback(){
+                .id(1)
+                .build()
+                .execute(new CommercialStringCallback());
+    }
+    protected class CommercialStringCallback extends StringCallback{
 
-            @Override
-            public void onError(Call call, Exception e, int id) {
+        @Override
+        public void onError(Call call, Exception e, int id) {
 
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            switch (id){
+                case 1:
+                    Log.e("mer",response);
+                    analysisJson(response);
+                    break;
+                default:
+                    break;
             }
-
-            @Override
-            public void onResponse(String response, int id) {
-                switch (id)
-                {
-                    case 100:
-                        Log.e("response100",response);
-                        break;
-                    case 101:
-                        Log.e("response101",response);
-                        break;
-                }
-            }
-        });
+        }
     }
 
 }

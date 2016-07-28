@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.home.HomeFragment;
@@ -134,13 +135,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                     break;
                 case 2:
                     //关闭动画
-                    Intent homeFragmentIntent = new Intent(LoginActivity.this, HomeFragment.class);
                     setResult(1);
                     getCallingActivity();
                     finish();
                     break;
                 case 3://请求成功
-
                     break;
                 case 4://请求失败
                     break;
@@ -167,7 +166,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 }
                 break;
             case R.id.login_register_btn:
-                Log.e("kdke", "kskskk");
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(registerIntent);
                 break;
@@ -256,9 +254,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                 setSharePrefrence(usernameString, passwordString, jsonAll.getString("token"));
                                 Log.e("login", "登录成功" + response);
                                 handler.sendEmptyMessage(2);
-                            }
-                            ;
-
+                            };
                         } catch (JSONException e) {
                             Log.e("ooeo", "kaeee");
                             e.printStackTrace();

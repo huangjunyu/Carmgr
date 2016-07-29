@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.LoginActivity;
-import com.yiwucheguanjia.carmgr.account.PersonalDataActivity;
+import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.account.view.PersonalDataActivity;
 
 /**
  * Created by Administrator on 2016/6/23.

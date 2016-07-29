@@ -48,7 +48,7 @@ public class UploadImage extends Activity implements View.OnClickListener{
             case R.id.upload_policy_btn:
                 break;
             case R.id.upload_next_btn:
-                Intent addCarIntent = new Intent(UploadImage.this,AddCar.class);
+                Intent addCarIntent = new Intent(UploadImage.this,AddCarActivity.class);
                 startActivity(addCarIntent);
                 break;
             default:

@@ -145,13 +145,14 @@
                                 android:src="@mipmap/all_nor" />
 
                             <TextView
-                                android:id="@+id/progress_all"
+                                android:id="@+id/progress_all_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/progress_all_img"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:text="@string/all" />
+                                android:text="@string/all"
+                                android:textColor="@color/gray_default"/>
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -190,7 +191,8 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/wait_pay"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -219,7 +221,8 @@
                                     android:layout_centerVertical="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/wait_use"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -246,7 +249,8 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/underway"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
                         </LinearLayout>
                         <!--右边下面的Linearlayout-->
@@ -273,14 +277,15 @@
                                     android:src="@mipmap/done_nor" />
 
                                 <TextView
-                                    android:id="@+id/pro_done_use_txt"
+                                    android:id="@+id/pro_done_xt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/pro_done_img"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/done"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -307,7 +312,8 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/wait_assess"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -325,8 +331,7 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
                                     android:scaleType="fitCenter"
-                                    android:src="@mipmap/refund" />
-
+                                    android:src="@mipmap/refund_nor" />
                                 <TextView
                                     android:id="@+id/pro_after_sale_txt"
                                     android:layout_width="wrap_content"
@@ -336,7 +341,8 @@
                                     android:layout_centerVertical="true"
                                     android:layout_marginTop="6dp"
                                     android:text="@string/after_sale"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textColor="@color/gray_default"/>
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

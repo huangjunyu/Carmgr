@@ -2,21 +2,15 @@ package com.yiwucheguanjia.carmgr.utils;
 
 import android.os.Handler;
 import android.os.Message;
-import android.renderscript.Sampler;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.yiwucheguanjia.carmgr.progress.ProgressAdapter;
-
 import java.io.IOException;
-import java.net.HttpRetryException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**

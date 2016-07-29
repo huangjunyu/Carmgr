@@ -16,11 +16,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.yiwucheguanjia.carmgr.account.LoginActivity;
 import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
-import com.yiwucheguanjia.carmgr.commercial.CommercialFragment;
-import com.yiwucheguanjia.carmgr.home.HomeFragment;
-import com.yiwucheguanjia.carmgr.progress.ProgressFragment;
+import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
+import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
+import com.yiwucheguanjia.carmgr.progress.view.ProgressFragment;
 
 /**
  * 主Activity

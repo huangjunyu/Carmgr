@@ -107,7 +107,7 @@
     <string name="appointment_service">预约服务</string>
     <string name="deel_business">业务办理</string>
     <string name="done_business">完成业务</string>
-    <string name="call_after_sale"></string>
+    <string name="call_after_sale">售后跟进</string>
     <string name="new_password">新密码</string>
     <string name="check_new_password">确认新密码</string>
     <string name="check_submit">确认提交</string>

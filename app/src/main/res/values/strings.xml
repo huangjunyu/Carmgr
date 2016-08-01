@@ -105,6 +105,9 @@
     <string name="check_and_login">验证并登录</string>
     <string name="input_msg_code">请输入你接收到的短信验证码</string>
     <string name="appointment_service">预约服务</string>
+    <string name="deel_business">业务办理</string>
+    <string name="done_business">完成业务</string>
+    <string name="call_after_sale"></string>
     <string name="new_password">新密码</string>
     <string name="check_new_password">确认新密码</string>
     <string name="check_submit">确认提交</string>
@@ -118,6 +121,12 @@
     <string name="login_hint">登录后才能继续操作</string>
     <string name="hint">提示</string>
     <string name="cancel">取消</string>
+    <string name="appointment_service_hint">请输入您想办理的业务 如：上牌</string>
+    <string name="business_progress">业务流程</string>
+    <string name="input_suggestion">在此输入</string>
+    <string name="suggestion_title">易务宝正在完善请留下您的宝贵意见</string>
+    <string name="sumbit">点击提交</string>
+    <string name="suggest_submit_hint">你没有输入字符，请输入字符后再提交建议</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

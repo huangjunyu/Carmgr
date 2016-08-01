@@ -10,4 +10,8 @@
     <color name="gray_back">#ADADAD</color>
     <color name="gray_default">#555555</color>
     <color name="black">#000000</color>
+    <color name="main_tab_gray">#b2b2b2</color>
+    <color name="buseness_black">#333333</color>
+    <color name="main_search_gray">#999999</color>
+    <color name="transpan">#00000000</color>
 </resources>

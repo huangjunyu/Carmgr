@@ -12,6 +12,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -58,11 +59,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private TextView userAgreement;//用户协议
     private View register_edit_divide;
     private Button register_button;
-    OkHttpClient client = new OkHttpClient();
+    private CheckBox registerCb;
     private int step = 1;//用来统计注册的第几步骤
     private Boolean checkUserService = true;//用户协定
     private String account;
     private String uuidStr;
+    private Boolean checkBollean = true;//是否同意易务协议标记
     EventHandler eventHandler;
 
     @Override
@@ -86,9 +88,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         register_edit_divide = (View) findViewById(R.id.register_edit_divide);
         userAgreement = (TextView) findViewById(R.id.yiwu_agreement_txt);
         register_button = (Button) findViewById(R.id.register_button);
+        registerCb = (CheckBox)findViewById(R.id.register_agree_check);
         register_button.setOnClickListener(this);
         gobackImgBtn.setOnClickListener(this);
         userAgreement.setOnClickListener(this);
+        registerCb.setOnClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,6 +67,18 @@ public class Tools {
         params.setMargins(i * 50,0,0,0);
         mImageView.setLayoutParams(params);
         return mImageView;
+    }
+    public static Button createButton(Activity activity){
+        Button myBtn = new Button(activity);
+        myBtn.setBackgroundResource(R.color.black);
+//        myBtn.setBackgroundColor();
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(400,100);
+//        params.addRule(RelativeLayout.ABOVE,R.id.pointLL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        params.setMargins(0,0,0,300);
+        myBtn.setLayoutParams(params);
+        return myBtn;
     }
     public static TextView createImageView3(Activity activity,String[] tags,int k){
         ImageView mImageView = new ImageView(activity);

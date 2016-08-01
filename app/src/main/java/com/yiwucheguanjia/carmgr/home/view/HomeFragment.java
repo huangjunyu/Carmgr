@@ -60,10 +60,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout homeView;
     private LinearLayout homeLinearLayout;
     private LinearLayout homeActionLayout;
-    private RelativeLayout home_personal_rl;
     private SharedPreferences sharedPreferences;
     private ArrayList<BusinessBean> businessBeans;
     private ArrayList<FavorabledRecommendBean> favorabledRecommenddBeens;
+    private RelativeLayout personalRl;
     private ImageView recommendImg1;//配置资源ZY_0002
     private ImageView recommendImg2;//配置资源ZY_0003
     private ImageView recommendImg3;//配置资源ZY_0004
@@ -255,15 +255,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     };
 
     private void initView() {
-        home_personal_rl = (RelativeLayout) homeView.findViewById(R.id.home_personal_rl);
+        personalRl = (RelativeLayout) homeView.findViewById(R.id.merchant_personal_rl);
         businessGridView = (MyGridView) homeView.findViewById(R.id.business_gridview);
+        businessGridView.setFocusable(false);
         secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
+        secondHandGridView.setFocusable(false);
         hotSecondCarView = (RecyclerView) homeView.findViewById(R.id.id_recyclerview_horizontal);
 //        hotRecommendRclV = (RecyclerView) homeView.findViewById(R.id.home_hot_recommend);
         recommendImg1 = (ImageView) homeView.findViewById(R.id.recommend_1);
         recommendImg2 = (ImageView) homeView.findViewById(R.id.recommend_2);
         recommendImg3 = (ImageView) homeView.findViewById(R.id.recommend_3);
-        home_personal_rl.setOnClickListener(this);
+        personalRl.setOnClickListener(this);
     }
 
     /**
@@ -317,7 +319,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.home_personal_rl:
+            case R.id.home_personal_img:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
                     Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
                     getActivity().startActivity(intentPersonal);

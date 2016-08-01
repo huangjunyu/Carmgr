@@ -85,17 +85,28 @@ public class BusinessAdapter extends BaseAdapter{
                 Intent intent = new Intent(activity, WaitActivity.class);
                 activity.startActivity(intent);
                 Log.e("logUser",list.get(position).getBusinessName() + "1000_1" + position);
-                postData(sharedPreferences.getString("ACCOUNT",null),"1000_1" + position,
+                postDataOfUserAction(sharedPreferences.getString("ACCOUNT",null),"1000_1" + position,
                         list.get(position).getBusinessName(),
                         sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
-                        UrlString.APPRESETPASSWORD,1);
+                        UrlString.APP_LOG_USER_OPERATION,1);
             }
         });
 
         return convertView;
     }
-    protected void postData(String username,String click_area_id,String detail,String token,
-                            String version,String url,int id){
+
+    /**
+     * 记录用户行为
+     * @param username
+     * @param click_area_id
+     * @param detail
+     * @param token
+     * @param version
+     * @param url
+     * @param id
+     */
+    protected void postDataOfUserAction(String username, String click_area_id, String detail, String token,
+                                        String version, String url, int id){
         if (username == null || token == null) {
             username = "username";
             token = "token";

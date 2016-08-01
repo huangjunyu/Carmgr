@@ -43,7 +43,7 @@ public class RollViewPagerAdapter extends StaticPagerAdapter {
             public void onClick(View v) {
                 postData(sharedPreferences.getString("ACCOUNT",null),"1000_1",
                         "轮播图",sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
-                        UrlString.APPRESETPASSWORD,1);
+                        UrlString.APP_LOG_USER_OPERATION,1);
             }
         });
         return view;

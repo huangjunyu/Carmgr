@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
@@ -40,6 +42,8 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
     private LinearLayout callBackground;
     private ImageView callyiwuImg;
     private TextView callYiwuTv;
+    private Button submitBtn;
+    private EditText suggestEdit;
     private SharedPreferences sharedPreferences;
     private Button appointmentBtn;
     private RelativeLayout personalRl;
@@ -69,9 +73,12 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
         appointmentBtn = (Button) callYiWuView.findViewById(R.id.call_appointment);
         callyiwuImg.setImageResource(R.mipmap.call_yiwu_img);
         personalRl = (RelativeLayout)callYiWuView.findViewById(R.id.call_personal_rl);
+        submitBtn = (Button)callYiWuView.findViewById(R.id.callyiwu_submit);
+        suggestEdit = (EditText)callYiWuView.findViewById(R.id.callyiwu_suggest_edit);
         personalRl.setOnClickListener(this);
         callYiwuTv.setOnClickListener(this);
         appointmentBtn.setOnClickListener(this);
+        submitBtn.setOnClickListener(this);
     }
     protected void dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -117,12 +124,14 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 .build()
                 .execute(new CallYiwuStringCallback());
     }
-    protected void postUerTalk(String username,String advise_text,String token,String version,
+    protected void postUerSuggest(String username,String advise_text,String token,String version,
                                  String url,int id){
         if (username == null || token == null) {
-            username = "username";
-            token = "token";
+            Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT);
+            return;
         }
+        if (advise_text != null || advise_text.equals("")){
+
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("advise_text",advise_text)
@@ -131,6 +140,10 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 .id(id)
                 .build()
                 .execute(new CallYiwuStringCallback());
+        }else {
+            Toast.makeText(getActivity(),getResources().getText(R.string.suggest_submit_hint),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -140,12 +153,12 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 dialog();
                 postData(sharedPreferences.getString("ACCOUNT",null),"4000_2",
                         "拨打电话",sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
-                        UrlString.APPRESETPASSWORD,2);
+                        UrlString.APP_LOG_USER_OPERATION,2);
                 break;
             case R.id.call_appointment:
                 postData(sharedPreferences.getString("ACCOUNT",null),"4000_1",
                         "预约服务",sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
-                        UrlString.APPRESETPASSWORD,1);
+                        UrlString.APP_LOG_USER_OPERATION,1);
                 break;
             case R.id.call_personal_rl:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
@@ -155,6 +168,12 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                     Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivity(personalIntent);
                 }
+                break;
+            case R.id.callyiwu_submit:
+                postUerSuggest(sharedPreferences.getString("ACCOUNT",null),
+                        suggestEdit.getText().toString().trim(),
+                        sharedPreferences.getString("TOKEN",null),UrlString.APP_VERSION,
+                        UrlString.APPADVISE,3);
                 break;
           default:
               break;
@@ -177,6 +196,9 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                     break;
                 case 2:
                     Log.e("call",response);
+                    break;
+                case 3:
+                    Log.e("advise",response);
                     break;
                 default:
                     break;

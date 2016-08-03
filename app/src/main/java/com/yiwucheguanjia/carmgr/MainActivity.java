@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
+import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
 import com.yiwucheguanjia.carmgr.progress.view.ProgressFragment;
@@ -161,16 +162,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //这是登录处返回的请求码与结果码，规定HomeFragment发出的请求码全部是1
         if (requestCode == 1 && resultCode == 1){
-            Log.e("activity","activity");
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
             progressFragment = new ProgressFragment();
             callYiwuFragment = new CallYiwu();
             addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
+        }else if(requestCode == 1 && resultCode == 10){//HomeFragment选择地区
+            homeFragment.onActivityResult(1,2,null);
+        }else if (requestCode == 2 && resultCode == 10){//CommercialFragment选择地区
+            commercialFragment.onActivityResult(2,10,null);
+        }else if (requestCode == 3 && resultCode == 10){//ProgressFragment选择地区
+            progressFragment.onActivityResult(3,10,null);
+        }else if (requestCode == 4 && resultCode == 10){//CallYiwu选择地区
+            callYiwuFragment.onActivityResult(4,10,null);
         }else if (resultCode == 2 && requestCode == 2){
-            Log.e("activ23ity","activity33");
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
@@ -178,7 +186,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             callYiwuFragment = new CallYiwu();
             addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
         }else if (resultCode == 1 && requestCode == 3){
-            Log.e("result = 1","request = 3");
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
@@ -288,16 +295,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private void addOrShowFragment(FragmentTransaction transaction, Fragment fragment) {
         if (currentFragment == fragment) {
-            Log.e("return", "return");
             return;
         }
 
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            Log.e("return1", "return");
             transaction.hide(currentFragment).add(R.id.content_layout, fragment).commit();
         } else {
             transaction.hide(currentFragment).show(fragment).commit();
-            Log.e("return2", "return");
+            fragment.onActivityResult(5,5,null);//跳转到fragment界面后立即更新相关组件
         }
 
         currentFragment = fragment;

@@ -8,21 +8,21 @@
 
     <RelativeLayout
         android:id="@+id/merchant_img_rl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="93dp"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/merchant_img"
-            android:layout_width="70dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitXY" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="93dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="null"
-                android:textColor="@color/black" />
+                android:textSize="14sp"
+                android:textColor="@color/buseness_black" />
 
         </RelativeLayout>
 
@@ -47,6 +48,7 @@
             android:id="@+id/merchant_introduce_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:layout_below="@+id/merchant_name_rl"
             android:paddingLeft="12dp">
 
@@ -54,8 +56,11 @@
                 android:id="@+id/merchant_introduce_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:layout_marginRight="10dp"
-                android:text="null" />
+                android:text="null"
+                android:textSize="12sp"/>
 
         </RelativeLayout>
 
@@ -64,15 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/merchant_introduce_rl"
-            android:paddingLeft="13dp"
-            android:paddingTop="8dp">
+            android:layout_marginTop="5dp"
+            android:paddingLeft="13dp">
 
-            <TextView
-                android:id="@+id/merchant_stars_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="null" />
 
         </RelativeLayout>
 
@@ -80,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/merchant_stars_rl"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="12dp">
 
             <TextView
@@ -87,7 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="null" />
+                android:text="null"
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/merchant_road"
@@ -96,7 +97,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/merchant_area"
                 android:text="@string/contact_merchant"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/merchant_distance"
@@ -105,7 +106,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:text="@string/distance"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/upload_goback_imgbtn"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="#00000000"
+            android:background="@drawable/ripple_goback"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="60dp"
+            android:paddingTop="40dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/register_left_pre" />
 
@@ -21,74 +27,85 @@
         <TextView
             android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:clickable="true"
-            android:padding="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="40dp"
             android:text="@string/car_certification"
             android:textColor="@color/gray_default"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:background="@color/white"
         android:paddingBottom="10dp"
-        android:background="@color/white">
-    <ImageView
-        android:id="@+id/upload_drive_cred_img"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"/>
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/upload_drive_cred_img"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter" />
+
         <Button
             android:id="@+id/upload_drive_cred_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/upload_drive_cred_img"
             android:layout_marginTop="10dp"
-            android:background="@color/orange"
+            android:background="@drawable/ripple_bg"
+            android:text="@string/upload_certification"
             android:textColor="@color/white"
-            android:text="@string/upload_certification"/>
+            android:textSize="12sp"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
+        android:background="@color/white"
         android:paddingBottom="10dp"
-        android:background="@color/white">
+        android:paddingTop="10dp">
+
         <ImageView
             android:id="@+id/upload_policy_img"
             android:layout_width="100dp"
             android:layout_height="200dp"
-            android:scaleType="fitCenter"
-            android:layout_centerHorizontal="true"/>
-        <Button
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter" />
+        <Buttone
             android:id="@+id/upload_policy_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/orange"
-            android:textColor="@color/white"
+            android:layout_height="20dp"
             android:layout_centerHorizontal="true"
-            android:text="@string/upload_policy"/>
+            android:layout_below="@+id/upload_policy_img"
+            android:background="@drawable/ripple_bg"
+            android:text="@string/upload_policy"
+            android:textSize="12sp"
+            android:textColor="@color/white" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/upload_drive_policy_data"/>
+        android:text="@string/upload_drive_policy_data" />
+
     <Button
         android:id="@+id/upload_next_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/orange"
-        android:textColor="@color/white"
-        android:text="@string/next"/>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_bg"
+        android:text="@string/next"
+        android:textColor="@color/white" />
 
 </LinearLayout>

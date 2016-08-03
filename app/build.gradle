@@ -40,4 +40,5 @@ dependencies {
     compile 'in.srain.cube:ptr-load-more:1.0.2'
     compile files('libs/guideshowlib.jar')
     compile 'org.jetbrains:annotations-java5:15.0'
+    compile files('libs/jpinyin-jdk1.6.jar')
 }

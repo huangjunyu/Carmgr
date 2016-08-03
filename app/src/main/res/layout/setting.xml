@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:background="@color/white"
 >
 
@@ -15,11 +15,10 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:paddingRight="60dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:background="@drawable/ripple_goback"
             android:scaleType="fitCenter"
             android:src="@mipmap/register_left_pre" />
@@ -28,14 +27,14 @@
         <TextView
             android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
             android:clickable="true"
-            android:padding="5dp"
             android:text="@string/setting"
             android:textColor="@color/gray_default"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,11 +93,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/about_us" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -116,11 +115,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/canvass_news" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -138,11 +137,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/praise" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -160,11 +159,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/use_help" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -182,11 +181,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/user_agreement" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/setting_exit_rl"
@@ -205,11 +204,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/exit" />
 
-        <ImageView
+<!--        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
+            android:src="@mipmap/go" />-->
     </RelativeLayout>
 
 </LinearLayout>

@@ -53,7 +53,7 @@ public class MerchantItemAdapter extends BaseAdapter{
             myItemViewHolder.merchantArea = (TextView)convertView.findViewById(R.id.merchant_area);
             myItemViewHolder.merchantInstroduce = (TextView)convertView.findViewById(R.id.merchant_introduce_txt);
             myItemViewHolder.merchantStarsLL = (RelativeLayout)convertView.findViewById(R.id.merchant_stars_rl);
-            myItemViewHolder.merchantStars = (TextView) convertView.findViewById(R.id.merchant_stars_txt);
+//            myItemViewHolder.merchantStars = (TextView) convertView.findViewById(R.id.merchant_stars_txt);
             myItemViewHolder.merchantName = (TextView)convertView.findViewById(R.id.merchant_name_txt);
             myItemViewHolder.merchantRoad = (TextView)convertView.findViewById(R.id.merchant_road);
             myItemViewHolder.merchantImg = (ImageView)convertView.findViewById(R.id.merchant_img);
@@ -66,7 +66,7 @@ public class MerchantItemAdapter extends BaseAdapter{
         myItemViewHolder.merchantDistance.setText(merchantItemBean.getMerchantDistance());
         myItemViewHolder.merchantArea.setText(merchantItemBean.getMerchantArea());
         myItemViewHolder.merchantInstroduce.setText(merchantItemBean.getMerchantIntroduce());
-        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
+//        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
         myItemViewHolder.merchantName.setText(merchantItemBean.getMerchantName());
         myItemViewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
         String numberStr = merchantItemBean.getMerchantStarsStr();
@@ -113,7 +113,7 @@ public class MerchantItemAdapter extends BaseAdapter{
         private TextView merchantDistance;
         private TextView merchantArea;
         private TextView merchantInstroduce;
-        private TextView merchantStars;
+//        private TextView merchantStars;
         private TextView merchantName;
         private TextView merchantRoad;
         private TextView merchantMobile;

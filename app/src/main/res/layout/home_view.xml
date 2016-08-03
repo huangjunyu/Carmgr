@@ -16,7 +16,7 @@
         android:paddingTop="20dp">
 
         <RelativeLayout
-            android:id="@+id/home_position_rl"
+            android:id="@+id/progress_position_rl"
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:gravity="center"
@@ -24,7 +24,7 @@
             android:paddingRight="15dp">
 
             <TextView
-                android:id="@+id/home_position"
+                android:id="@+id/progress_position_Tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -39,7 +39,7 @@
                 android:layout_height="10dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/home_position"
+                android:layout_toRightOf="@+id/progress_position_Tv"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/position_pulldown" />
         </RelativeLayout>
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_toLeftOf="@+id/home_scan_rl"
-            android:layout_toRightOf="@+id/home_position_rl"
+            android:layout_toRightOf="@+id/progress_position_rl"
             android:background="@mipmap/search_frame">
 
             <ImageView
@@ -132,6 +132,7 @@
                     android:id="@+id/roll_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:background="@color/white"
                     app:rollviewpager_play_delay="5000" />
 
                 <LinearLayout

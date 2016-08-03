@@ -53,18 +53,18 @@ public class Tools {
     public static ImageView createImageview(Activity activity,int i){
         ImageView mImageView = new ImageView(activity);
         mImageView.setImageResource(R.mipmap.heart);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(33,27);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dipTopx(activity,10),dipTopx(activity,10));
         params.addRule(RelativeLayout.CENTER_VERTICAL);
-        params.setMargins(i * 50,0,0,0);
+        params.setMargins(i * dipTopx(activity,16),0,0,0);
         mImageView.setLayoutParams(params);
         return mImageView;
     }
     public static ImageView createImageview2(Activity activity,int i){
         ImageView mImageView = new ImageView(activity);
         mImageView.setImageResource(R.mipmap.half_heart);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(33,27);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dipTopx(activity,10),dipTopx(activity,10));
         params.addRule(RelativeLayout.CENTER_VERTICAL);
-        params.setMargins(i * 50,0,0,0);
+        params.setMargins(i * dipTopx(activity,16),0,0,0);
         mImageView.setLayoutParams(params);
         return mImageView;
     }

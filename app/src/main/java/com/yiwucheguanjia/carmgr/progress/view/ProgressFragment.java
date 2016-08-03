@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.city.CityActivity;
+import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.progress.model.MerchantBean;
 import com.yiwucheguanjia.carmgr.progress.controller.ProgressAdapter;
@@ -49,6 +51,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout doneRl;
     private RelativeLayout waitAssessRl;
     private RelativeLayout afterSaleRl;
+    private RelativeLayout positionRl;
     private SharedPreferences sharedPreferences;
     private MyListView myListView;
     private ArrayList<MerchantBean> merchantBeens;
@@ -66,6 +69,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
     private TextView doneTv;
     private TextView waitAssessTv;
     private TextView afterSaleTv;
+    private TextView positionTv;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         goingRl = (RelativeLayout) progressView.findViewById(R.id.pro_going_rl);
         doneRl = (RelativeLayout) progressView.findViewById(R.id.pro_done_rl);
         waitAssessRl = (RelativeLayout) progressView.findViewById(R.id.pro_wait_assess_rl);
+        positionRl = (RelativeLayout) progressView.findViewById(R.id.progress_position_rl);
         afterSaleRl = (RelativeLayout) progressView.findViewById(R.id.pro_after_sale__rl);
         allImg = (ImageView)progressView.findViewById(R.id.progress_all_img);
         waitPayImg = (ImageView)progressView.findViewById(R.id.pro_wait_pay_img);
@@ -107,6 +112,9 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         doneTv = (TextView)progressView.findViewById(R.id.pro_done_xt);
         waitAssessTv = (TextView)progressView.findViewById(R.id.pro_wait_assess_txt);
         afterSaleTv = (TextView)progressView.findViewById(R.id.pro_after_sale_txt);
+        positionTv = (TextView)progressView.findViewById(R.id.progress_position_Tv);
+        positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+        positionRl.setOnClickListener(this);
         personalRl.setOnClickListener(this);
         allRl.setOnClickListener(this);
         waitPayRl.setOnClickListener(this);
@@ -129,7 +137,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
-
     private void getProgressItemJson(String response) {
         merchantBeens = new ArrayList<>();
         try {
@@ -169,6 +176,13 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 .id(id)
                 .build()
                 .execute(new myStringCallback());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 5 && resultCode == 5){
+            positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+        }
     }
 
     @Override
@@ -294,6 +308,11 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 waitAssessTv.setTextColor(ContextCompat.getColor(getActivity(),R.color.gray_default));
                 afterSale.setImageResource(R.mipmap.refund_pre);
                 afterSaleTv.setTextColor(ContextCompat.getColor(getActivity(),R.color.orange));
+                break;
+            case R.id.progress_position_rl:
+                Intent intent=new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(intent,3);
+                break;
             default:
                 break;
         }

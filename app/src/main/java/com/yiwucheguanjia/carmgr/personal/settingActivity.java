@@ -1,9 +1,11 @@
 package com.yiwucheguanjia.carmgr.personal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,7 +15,7 @@ import com.yiwucheguanjia.carmgr.R;
 /**
  * Created by Administrator on 2016/7/13.
  */
-public class setting extends Activity implements View.OnClickListener{
+public class settingActivity extends Activity implements View.OnClickListener{
     private RelativeLayout exitRl;
     private ImageButton gobackImgBtn;
     SharedPreferences.Editor editor;
@@ -21,7 +23,11 @@ public class setting extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getSharedPreferences("CARMGR", MODE_WORLD_READABLE);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         setContentView(R.layout.setting);
         initView();
@@ -43,6 +49,9 @@ public class setting extends Activity implements View.OnClickListener{
                 editor.remove("ACCOUNT");
                 editor.remove("PASSWORD");
                 editor.commit();
+                setResult(1);
+                getCallingActivity();
+                finish();
                 break;
             default:
                 break;

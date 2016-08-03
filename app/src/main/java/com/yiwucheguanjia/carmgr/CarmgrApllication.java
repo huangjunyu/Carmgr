@@ -2,9 +2,11 @@ package com.yiwucheguanjia.carmgr;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.yiwucheguanjia.carmgr.city.db.DBManager;
 import com.yiwucheguanjia.carmgr.welcome.WelcomActivity;
 
 /**
@@ -13,19 +15,28 @@ import com.yiwucheguanjia.carmgr.welcome.WelcomActivity;
 public class CarmgrApllication extends Application {
     private SharedPreferences sharedPreferences;
 
+    public String getPositionStr() {
+        return positionStr;
+    }
+
+    public void setPositionStr(String positionStr) {
+        this.positionStr = positionStr;
+    }
+
+    private String positionStr;
     @Override
     public void onCreate() {
         super.onCreate();
-        isFirsLaunch();
+        dbManager = new DBManager(getApplicationContext());
+        dbManager.openDatabase();
     }
-    protected void isFirsLaunch() {
-        sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        //如果版本号为null，则跳到欢迎界面
-        if (sharedPreferences.getString("version", null) == null) {
-//            Intent welcomeInten = new Intent(CarmgrApllication.this, WelcomActivity.class);
-//            this.startActivity(welcomeInten);
-        }
+
+    private DBManager dbManager;
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        dbManager.closeDatabase();
     }
 
 }

@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -26,6 +26,8 @@ import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.city.CityActivity;
+import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.home.controller.BusinessAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.FavorabledRecommendAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.HotSecondCarAdapter;
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<BusinessBean> businessBeans;
     private ArrayList<FavorabledRecommendBean> favorabledRecommenddBeens;
     private RelativeLayout personalRl;
+    private RelativeLayout positionRl;
     private ImageView recommendImg1;//配置资源ZY_0002
     private ImageView recommendImg2;//配置资源ZY_0003
     private ImageView recommendImg3;//配置资源ZY_0004
@@ -78,6 +81,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private RollPagerView mRollViewPager;
     private ArrayList<RollViewPagerBean> rollViewPagerBeens;
     private MyScrollview myScrollview;
+    private TextView positionTv;
     //支持下拉刷新的ViewGroup
     private in.srain.cube.views.ptr.PtrClassicFrameLayout mPtrFrame;
 
@@ -86,7 +90,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR", getActivity().MODE_PRIVATE);
     }
-
     protected void loginDialog(String unlogin,String logintimeout,String title,String positiveTxt,
                                String negativeTxt) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -147,7 +150,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
         mPtrFrame.setDurationToClose(200);
         mPtrFrame.setDurationToCloseHeader(1000);
-
         // default is false
         mPtrFrame.setPullToRefresh(false);
         // default is true
@@ -194,9 +196,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        mPtrFrame.setPtrHandler(new MyPtrDefaultHandler());
 
         hotSecondCarView.setLayoutManager(linearLayoutManager);
-
-        Log.e("sharedpreferences", sharedPreferences.getString("ACCOUNT", null)
-                + sharedPreferences.getString("TOKEN", null));
         appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
                 Tools.getInstance().getScreen(getActivity()),
                 sharedPreferences.getString("TOKEN", null),
@@ -239,48 +238,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
-
     private void initView() {
         personalRl = (RelativeLayout) homeView.findViewById(R.id.merchant_personal_rl);
+        positionRl = (RelativeLayout) homeView.findViewById(R.id.progress_position_rl);
         businessGridView = (MyGridView) homeView.findViewById(R.id.business_gridview);
         businessGridView.setFocusable(false);
         secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
         secondHandGridView.setFocusable(false);
         hotSecondCarView = (RecyclerView) homeView.findViewById(R.id.id_recyclerview_horizontal);
-//        hotRecommendRclV = (RecyclerView) homeView.findViewById(R.id.home_hot_recommend);
         recommendImg1 = (ImageView) homeView.findViewById(R.id.recommend_1);
         recommendImg2 = (ImageView) homeView.findViewById(R.id.recommend_2);
         recommendImg3 = (ImageView) homeView.findViewById(R.id.recommend_3);
+        positionTv = (TextView)homeView.findViewById(R.id.progress_position_Tv);
+        positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));//设置地区
         personalRl.setOnClickListener(this);
+        positionRl.setOnClickListener(this);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1&&resultCode==10){
+            String cityName= SharedPreferencesUtils.getCityName(getActivity());
+            positionTv.setText(cityName);
+        }
     }
 
     /**
      * 热门业务
-     *
      * @param username 用户名
      * @param version  app版本
      * @param token    密钥
      */
     private void appGetServices(String username, String version, String token, String url, int id) {
-        if (username == null || token == null) {
-            username = "username";
-            token = "token";
+        if (TextUtils.isEmpty(token)) {
+            return;
         }
-        Log.e("testToken", token);
         OkHttpUtils.get()
                 .url(url)
                 .addParams("username", username)
@@ -301,9 +292,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      */
     private void appgetrecommend(String username, String filter, String token, String version,
                                  String url, int id) {
-        if (username == null || token == null) {
-            username = "username";
-            token = "token";
+        if (TextUtils.isEmpty(token)) {
+            return;
         }
         OkHttpUtils.get()
                 .url(url)
@@ -319,7 +309,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.home_personal_img:
+            case R.id.merchant_personal_rl:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
                     Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
                     getActivity().startActivity(intentPersonal);
@@ -327,17 +317,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivityForResult(personalIntent, 1);
 
-                }
-                ;
+                };
+                break;
+            case R.id.progress_position_rl:
+                Intent intent=new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(intent,1);
+                break;
+                default:
+                    break;
         }
     }
 
     private void appGetConfig(String username, String resouce, String screenSize, String token,
                               String version, String url, int id) {
-        if (username == null || token == null) {
-            username = "username";
-            token = "token";
-        }
+//        if (TextUtils.isEmpty(token)) {
+//            Toast.makeText(getActivity(), getResources().getText(R.string.login_hint),
+//                    Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("config_key", resouce)
@@ -350,9 +347,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getSecondHandcar(String username, String token, String version, String url, int id) {
-        if (username == null || token == null) {
-            username = "username";
-            token = "token";
+        if (TextUtils.isEmpty(token)) {
+            return;
         }
         OkHttpUtils.get().url(url)
                 .addParams("username", username)

@@ -135,7 +135,7 @@
         android:id="@+id/personal_data_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/ripple_retangle_bg"
         android:layout_marginTop="5dp"
         android:padding="10dp">
 

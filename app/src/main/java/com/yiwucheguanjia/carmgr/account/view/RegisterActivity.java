@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ import okhttp3.OkHttpClient;
 /**
  * Created by Administrator on 2016/6/25.
  */
-public class RegisterActivity extends Activity implements View.OnClickListener {
+public class RegisterActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private String phoneNumString;
     private ImageButton gobackImgBtn;
     private static String usernameString = null;
@@ -65,7 +66,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private String account;
     private String uuidStr;
     private Boolean checkBollean = true;//是否同意易务协议标记
-    EventHandler eventHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_register);
         initView();
     }
+
     private void initView() {
         gobackImgBtn = (ImageButton) findViewById(R.id.register_goback_imgbtn);
         register_number_txt = (TextView) findViewById(R.id.register_number_txt);
@@ -88,11 +89,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         register_edit_divide = (View) findViewById(R.id.register_edit_divide);
         userAgreement = (TextView) findViewById(R.id.yiwu_agreement_txt);
         register_button = (Button) findViewById(R.id.register_button);
-        registerCb = (CheckBox)findViewById(R.id.register_agree_check);
+        registerCb = (CheckBox) findViewById(R.id.register_agree_check);
         register_button.setOnClickListener(this);
         gobackImgBtn.setOnClickListener(this);
         userAgreement.setOnClickListener(this);
-        registerCb.setOnClickListener(this);
+        registerCb.setOnCheckedChangeListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -100,30 +101,29 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         //判断是不是手机号码
         String username = register_number_edit.getText().toString().trim();
         if (!Tools.getInstance().isMobileNO(username) && step == 1) {
-            Toast.makeText(this,"手机号码不符合格式",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "手机号码不符合格式", Toast.LENGTH_SHORT).show();
             return null;
-        } else if (Tools.getInstance().isMobileNO(username) && step == 1){//如果是手机号码，并且是第一步骤
-            usernameString = username;
-            String uuid = UUID.randomUUID().toString();
-            Log.e("uuid",uuid);
-            sendverfCode(usernameString,"0",uuid,UrlString.APP_VERSION,UrlString.APP_SENDVERF_CODE,1);
+        } else if (Tools.getInstance().isMobileNO(username) && step == 1) {//如果是手机号码，并且是第一步骤
+            if (checkBollean == true) {
+                usernameString = username;
+                String uuid = UUID.randomUUID().toString();
+                Log.e("uuid", uuid);
+                sendverfCode(usernameString, "0", uuid, UrlString.APP_VERSION, UrlString.APP_SENDVERF_CODE, 1);
+            }else {
+                Toast.makeText(RegisterActivity.this,getText(R.string.must_checked_agreetment),Toast.LENGTH_SHORT).show();
+                return null;
+            }
 
-        }else if (!register_number_edit.getText().toString().trim().equals("") && step == 2) {
-            Log.e("222",usernameString);
-            checkVerfcode(usernameString,usernameString,
+        } else if (!register_number_edit.getText().toString().trim().equals("") && step == 2) {
+            Log.e("222", usernameString);
+            checkVerfcode(usernameString, usernameString,
                     register_number_edit.getText().toString().trim(),
-                    "1",uuidStr,UrlString.APP_VERSION,UrlString.APP_CHECK_VERFCODE,2);
-
+                    "1", uuidStr, UrlString.APP_VERSION, UrlString.APP_CHECK_VERFCODE, 2);
             //当两个编辑框的字符串相同时方可提交数据
         } else if (checkString(register_pwd_edit, register_pwd_again) && step == 3) {
-//            try {
-            Log.e("333",usernameString);
-            Log.e("iiiw",register_pwd_edit.getText().toString().trim());
-                registerAccount(usernameString, register_pwd_edit.getText().toString().trim(),
-                        usernameString, UrlString.REGISTER_URL,register_number_edit.getText().toString().trim(),"0",3);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+
+            registerAccount(usernameString, register_pwd_edit.getText().toString().trim(),
+                    usernameString, UrlString.REGISTER_URL, register_number_edit.getText().toString().trim(), "0", 3);
         }
 
         // 注册回调监听接口
@@ -133,6 +133,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     /**
      * 发送手机号码
+     *
      * @param username
      * @param type
      * @param uuid
@@ -140,12 +141,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
      * @param url
      * @param id
      */
-    protected void sendverfCode(String username,String type,String uuid,String version,String url,int id){
+    protected void sendverfCode(String username, String type, String uuid, String version, String url, int id) {
         OkHttpUtils.get().url(url)
-                .addParams("username",username)
-                .addParams("type",type)
-                .addParams("uuid",uuid)
-                .addParams("version",version)
+                .addParams("username", username)
+                .addParams("type", type)
+                .addParams("uuid", uuid)
+                .addParams("version", version)
                 .id(id)
                 .build()
                 .execute(new parseRegisterStringCallBack());
@@ -153,6 +154,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     /**
      * 发送接收到的验证码
+     *
      * @param username
      * @param mobile
      * @param verfCode
@@ -162,15 +164,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
      * @param url
      * @param id
      */
-    protected void checkVerfcode(String username,String mobile,String verfCode,String type,
-                                 String uuid,String version,String url,int id){
+    protected void checkVerfcode(String username, String mobile, String verfCode, String type,
+                                 String uuid, String version, String url, int id) {
         OkHttpUtils.get().url(url)
-                .addParams("username",username)
-                .addParams("mobile",mobile)
-                .addParams("verfCode",verfCode)
-                .addParams("type",type)
-                .addParams("uuid",uuid)
-                .addParams("version",version)
+                .addParams("username", username)
+                .addParams("mobile", mobile)
+                .addParams("verfCode", verfCode)
+                .addParams("type", type)
+                .addParams("uuid", uuid)
+                .addParams("version", version)
                 .id(id)
                 .build()
                 .execute(new parseRegisterStringCallBack());
@@ -203,7 +205,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 return false;
             } else {
                 passwordString = passwordContain;
-                setSharePrefrence(usernameString,passwordString,usernameString);
+                setSharePrefrence(usernameString, passwordString, usernameString);
                 return true;
             }
         }
@@ -211,8 +213,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         return false;
     }
 
-    private void registerAccount(String username, String password,String mobile,
-                                 String url,String verf_code,String user_type,int id){
+    private void registerAccount(String username, String password, String mobile,
+                                 String url, String verf_code, String user_type, int id) {
 
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
@@ -220,8 +222,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 .addParams("mobile", mobile)
                 .addParams("terminal_os", "Android")
                 .addParams("terminal_type", Build.MODEL)
-                .addParams("verf_code",verf_code)
-                .addParams("user_type",user_type)
+                .addParams("verf_code", verf_code)
+                .addParams("user_type", user_type)
                 .id(id)
                 .build()
                 .execute(new parseRegisterStringCallBack());
@@ -238,7 +240,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 this.finish();
                 break;
             case R.id.yiwu_agreement_txt:
-                Intent userAgreementInten = new Intent(RegisterActivity.this,UserAgreement.class);
+                Intent userAgreementInten = new Intent(RegisterActivity.this, UserAgreement.class);
                 startActivity(userAgreementInten);
                 break;
             default:
@@ -250,7 +252,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     step = 2;
                     register_code_sent.setVisibility(View.VISIBLE);
@@ -283,7 +285,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
         }
     };
-    protected class parseRegisterStringCallBack extends StringCallback{
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        checkBollean = isChecked;
+    }
+
+    protected class parseRegisterStringCallBack extends StringCallback {
 
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -292,10 +300,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onResponse(String response, int id) {
-            switch (id){
+            switch (id) {
                 //发送手机号码得到了响应
                 case 1:
-                    Log.e("response1",response);
+                    Log.e("response1", response);
                     //到了此步，说明服务器已经响应请求
                     //解析发送手机号码响应
                     parseSendPhoneNumBack(response);
@@ -304,12 +312,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     break;
                 case 2://发送短信验证码的响应
                     //解析发送短信验证码响应
-                    Log.e("response2",response);
+                    Log.e("response2", response);
                     //更改第二步骤的图标与字体颜色
                     handler.sendEmptyMessage(2);
                     break;
                 case 3://注册成功
-                    Log.e("33",response);
+                    Log.e("33", response);
                     //交给handler处理注册成功后的事宜
                     handler.sendEmptyMessage(3);
                     break;
@@ -321,9 +329,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     /**
      * 解析接收到的验证码
+     *
      * @param response
      */
-    protected void parseSendPhoneNumBack(String response){
+    protected void parseSendPhoneNumBack(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             uuidStr = jsonObject.getString("uuid");

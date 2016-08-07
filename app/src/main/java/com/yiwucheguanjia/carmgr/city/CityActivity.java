@@ -1,16 +1,19 @@
 package com.yiwucheguanjia.carmgr.city;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.yiwucheguanjia.carmgr.CarmgrApllication;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.city.adapter.CityGridViewAdapter;
 import com.yiwucheguanjia.carmgr.city.adapter.SortAdapter;
@@ -63,6 +67,10 @@ public class CityActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_city);
         initData();
         initViews();
@@ -72,14 +80,14 @@ public class CityActivity extends Activity {
     private void initData() {
 
         //获取所有的省级城市
-        provinceList= RegionFunction.getProvencesOrCity(1);
+        provinceList = RegionFunction.getProvencesOrCity(1);
         //获取数据库中的所有二级城市信息
         cityList = RegionFunction.getProvencesOrCity(2);
         //获取数据库中所有的三级城市信息
-        countyList=RegionFunction.getProvencesOrCity(3);
+        countyList = RegionFunction.getProvencesOrCity(3);
 
-        provinceName=new ArrayList<>();
-        for(RegionInfo info : provinceList){
+        provinceName = new ArrayList<>();
+        for (RegionInfo info : provinceList) {
             provinceName.add(info.getName().trim());
         }
         //四个直辖市，港、澳、台特殊处理
@@ -104,18 +112,18 @@ public class CityActivity extends Activity {
         cityName.add("台湾");
 
         countyName = new ArrayList<>();
-        for(RegionInfo info : countyList){
+        for (RegionInfo info : countyList) {
             countyName.add(info.getName().trim());
         }
 
         //热门城市的数据初始化
         hotCity = new ArrayList<>();
         //手动设置热城市
-        hotCity.add(new RegionInfo(2, 1, "北京","B"));
-        hotCity.add(new RegionInfo(25, 1, "上海","S"));
-        hotCity.add(new RegionInfo(77, 6, "深圳","S"));
-        hotCity.add(new RegionInfo(76, 6, "广州","G"));
-        hotCity.add(new RegionInfo(343, 1, "天津","T"));
+        hotCity.add(new RegionInfo(2, 1, "北京", "B"));
+        hotCity.add(new RegionInfo(25, 1, "上海", "S"));
+        hotCity.add(new RegionInfo(77, 6, "深圳", "S"));
+        hotCity.add(new RegionInfo(76, 6, "广州", "G"));
+        hotCity.add(new RegionInfo(343, 1, "天津", "T"));
 
         pinyinComparator = new PinyinComparator();
         // 根据a-z进行排序源数据
@@ -169,6 +177,9 @@ public class CityActivity extends Activity {
                     Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
                     KeyBoard.closeSoftKeyboard(CityActivity.this);
                     SharedPreferencesUtils.saveCityName(CityActivity.this, cityName);
+                    Log.e("cityn",cityName + "ew");
+//                    filterData(cityName);
+                    searchKey(cityName);
                     Intent intent = new Intent();
                     setResult(10);
                     new Handler().postDelayed(new Runnable() {
@@ -187,7 +198,8 @@ public class CityActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
-                Log.e("clear",s.toString());
+                Log.e("clear", s.toString());
+//                filterData(s.toString());
                 filterData(s.toString());
             }
 
@@ -210,8 +222,9 @@ public class CityActivity extends Activity {
                     Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
                     KeyBoard.closeSoftKeyboard(CityActivity.this);
                     SharedPreferencesUtils.saveCityName(CityActivity.this, cityName);
+                    searchKey(cityName);
                     Intent intent = new Intent();
-                    setResult(100, intent);
+                    setResult(10);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             finish();
@@ -231,7 +244,7 @@ public class CityActivity extends Activity {
         for (int i = 0; i < date.size(); i++) {
             CityModel cityModel = new CityModel();
             String name = date.get(i).getName();
-            String firstName=date.get(i).getFirstName();
+            String firstName = date.get(i).getFirstName();
             cityModel.setName(name);
             cityModel.setFirstName(firstName);
             mSortList.add(cityModel);
@@ -243,7 +256,7 @@ public class CityActivity extends Activity {
     /**
      * 根据输入框中的值来过滤数据并更新ListView
      */
-    private void filterData(String keyword) {
+    public void filterData(String keyword) {
         List<CityModel> filterDateList = new ArrayList<>();
 
         if (TextUtils.isEmpty(keyword)) {
@@ -252,50 +265,129 @@ public class CityActivity extends Activity {
             if (provinceName.contains(keyword)) {
                 filterDateList.clear();
                 //匹配省级城市的名单
-                for(int i=0;i<provinceList.size();i++) {
-                    String name=provinceList.get(i).getName();
-                    int id=provinceList.get(i).getId();
-                    if(name.startsWith(keyword)){
+                for (int i = 0; i < provinceList.size(); i++) {
+                    String name = provinceList.get(i).getName();
+                    int id = provinceList.get(i).getId();
+                    if (name.startsWith(keyword)) {
                         filterDateList.addAll(filledData(RegionFunction.getProvencesOrCityOnParent(id)));
                     }
                 }
 
-            } else if(cityName.contains(keyword)){
+            } else if (cityName.contains(keyword)) {
                 filterDateList.clear();
                 //匹配二级城市菜单
-                for (int i = 0; i< cityList.size(); i++) {
+                for (int i = 0; i < cityList.size(); i++) {
                     String name = cityList.get(i).getName();
-                    int id=cityList.get(i).getId();
+                    int id = cityList.get(i).getId();
                     if (name.equals(keyword)) {
                         filterDateList.addAll(filledData(RegionFunction.getProvencesOrCityOnParent(id)));
                     }
                 }
-            } else if(!cityName.contains(keyword)&&!provinceName.contains(keyword)){
+            } else if (!cityName.contains(keyword) && !provinceName.contains(keyword)) {
                 filterDateList.clear();
                 //模糊匹配二级城市
                 for (CityModel cityModel : SourceDateList) {
                     String name = cityModel.getName();
-                    String firstName=cityModel.getFirstName().toLowerCase();
+                    String firstName = cityModel.getFirstName().toLowerCase();
                     if (name.indexOf(keyword.toString()) != -1 || firstName.startsWith(keyword.toString())) {
                         filterDateList.add(cityModel);
                     }
                 }
-                if(filterDateList.size()==0){
+                if (filterDateList.size() == 0) {
                     //二级城市匹配失败，匹配县级城市（三级城市）
-                    for(int i=0;i<countyList.size();i++){
-                        String name=countyList.get(i).getName();
-                        String firstName=countyList.get(i).getFirstName();
-                        if(name.startsWith(keyword)){
-                            CityModel model=new CityModel();
+                    for (int i = 0; i < countyList.size(); i++) {
+                        String name = countyList.get(i).getName();
+                        String firstName = countyList.get(i).getFirstName();
+                        if (name.startsWith(keyword)) {
+                            CityModel model = new CityModel();
                             model.setName(name);
                             model.setFirstName(firstName);
                             filterDateList.add(model);
                         }
                     }
-                    if(filterDateList.size()==0){
+                    if (filterDateList.size() == 0) {
                         //数据库中无法找到对应的信息，提示错误信息
-                        Toast.makeText(CityActivity.this,"您输入的关键字有误，请重新输入！",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CityActivity.this, "您输入的关键字有误，请重新输入！", Toast.LENGTH_SHORT).show();
                     }
+                }
+            }
+        }
+
+        // 根据a-z进行排序
+        Collections.sort(filterDateList, pinyinComparator);
+        adapter.updateListView(filterDateList);
+        KeyBoard.closeSoftKeyboard(CityActivity.this);
+    }
+
+    /**
+     * 点击搜索列表项后，获得下属地区
+     *
+     * @param keyword
+     */
+    public void searchKey(String keyword) {
+        List<CityModel> filterDateList = new ArrayList<>();
+
+        if (TextUtils.isEmpty(keyword)) {
+//            filterDateList = SourceDateList;
+            return;
+        } else {
+            if (provinceName.contains(keyword)) {
+                filterDateList.clear();
+                //匹配省级城市的名单
+                for (int i = 0; i < provinceList.size(); i++) {
+                    String name = provinceList.get(i).getName();
+                    int id = provinceList.get(i).getId();
+                    if (name.startsWith(keyword)) {
+                        filterDateList.addAll(filledData(RegionFunction.getProvencesOrCityOnParent(id)));
+                    }
+                }
+
+            } else if (cityName.contains(keyword)) {
+                filterDateList.clear();
+                //匹配二级城市菜单
+                for (int i = 0; i < cityList.size(); i++) {
+                    String name = cityList.get(i).getName();
+                    int id = cityList.get(i).getId();
+                    if (name.equals(keyword)) {
+                        filterDateList.addAll(filledData(RegionFunction.getProvencesOrCityOnParent(id)));
+                    }
+                }
+            } else if (!cityName.contains(keyword) && !provinceName.contains(keyword)) {
+                filterDateList.clear();
+                //模糊匹配二级城市
+                for (CityModel cityModel : SourceDateList) {
+                    String name = cityModel.getName();
+                    String firstName = cityModel.getFirstName().toLowerCase();
+                    if (name.indexOf(keyword.toString()) != -1 || firstName.startsWith(keyword.toString())) {
+                        filterDateList.add(cityModel);
+                    }
+                }
+                if (filterDateList.size() == 0) {
+                    //二级城市匹配失败，匹配县级城市（三级城市）
+                    for (int i = 0; i < countyList.size(); i++) {
+                        String name = countyList.get(i).getName();
+                        String firstName = countyList.get(i).getFirstName();
+                        if (name.startsWith(keyword)) {
+                            CityModel model = new CityModel();
+                            model.setName(name);
+                            model.setFirstName(firstName);
+                            filterDateList.add(model);
+                        }
+                    }
+                    if (filterDateList.size() == 0) {
+                        //数据库中无法找到对应的信息，提示错误信息
+                        Toast.makeText(CityActivity.this, "您输入的关键字有误，请重新输入！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            //选择的城市有数据，将数据记录到全局变量里面
+            if (filterDateList.size() > 0) {
+                ArrayList<String> earList = new ArrayList<>();
+                SharedPreferencesUtils.clearData(CityActivity.this);
+                SharedPreferencesUtils.saveAreaName(CityActivity.this,"全部",0);
+                for (int i = 1; i < filterDateList.size(); i++) {
+                    Log.e("filterDate", filterDateList.get(i).getName() + i);
+                    SharedPreferencesUtils.saveAreaName(CityActivity.this,filterDateList.get(i).getName(),i);
                 }
             }
         }

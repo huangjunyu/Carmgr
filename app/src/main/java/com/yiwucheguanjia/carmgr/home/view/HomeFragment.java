@@ -31,6 +31,7 @@ import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.home.controller.BusinessAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.FavorabledRecommendAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.HotSecondCarAdapter;
+import com.yiwucheguanjia.carmgr.home.controller.PicassoOnScrollListener;
 import com.yiwucheguanjia.carmgr.home.controller.RollViewPagerAdapter;
 import com.yiwucheguanjia.carmgr.home.model.BusinessBean;
 import com.yiwucheguanjia.carmgr.home.model.FavorabledRecommendBean;
@@ -38,6 +39,7 @@ import com.yiwucheguanjia.carmgr.home.model.HotRecommendBean;
 import com.yiwucheguanjia.carmgr.home.model.HotSecondCarBean;
 import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
+import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
 import com.yiwucheguanjia.carmgr.utils.MyScrollview;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<FavorabledRecommendBean> favorabledRecommenddBeens;
     private RelativeLayout personalRl;
     private RelativeLayout positionRl;
+    private RelativeLayout scannerRl;
     private ImageView recommendImg1;//配置资源ZY_0002
     private ImageView recommendImg2;//配置资源ZY_0003
     private ImageView recommendImg3;//配置资源ZY_0004
@@ -103,7 +106,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
                 getActivity().startActivityForResult(loginActivityIntent, 1);
             }
-        });
+        }).setCancelable(false);
         builder.setNegativeButton(negativeTxt, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -158,8 +161,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
@@ -241,6 +247,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void initView() {
         personalRl = (RelativeLayout) homeView.findViewById(R.id.merchant_personal_rl);
         positionRl = (RelativeLayout) homeView.findViewById(R.id.progress_position_rl);
+        scannerRl = (RelativeLayout) homeView.findViewById(R.id.home_scan_rl);
         businessGridView = (MyGridView) homeView.findViewById(R.id.business_gridview);
         businessGridView.setFocusable(false);
         secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
@@ -253,12 +260,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));//设置地区
         personalRl.setOnClickListener(this);
         positionRl.setOnClickListener(this);
+        scannerRl.setOnClickListener(this);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==1&&resultCode==10){
+        if(requestCode == 1&&resultCode == 10){//选择地区返回
             String cityName= SharedPreferencesUtils.getCityName(getActivity());
+            Log.e("gggge",cityName);
             positionTv.setText(cityName);
+        }else if (requestCode == 1 && resultCode == 20){
+            Log.e("scannerResult",data.getStringExtra("scan_result").toString());
         }
     }
 
@@ -320,21 +331,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 };
                 break;
             case R.id.progress_position_rl:
-                Intent intent=new Intent(getActivity(), CityActivity.class);
-                startActivityForResult(intent,1);
+                Intent cityIntent=new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(cityIntent,1);
                 break;
-                default:
-                    break;
+            case R.id.home_scan_rl:
+                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(capterIntent,1);
+                break;
+            default:
+                break;
         }
     }
 
     private void appGetConfig(String username, String resouce, String screenSize, String token,
                               String version, String url, int id) {
-//        if (TextUtils.isEmpty(token)) {
-//            Toast.makeText(getActivity(), getResources().getText(R.string.login_hint),
-//                    Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("config_key", resouce)
@@ -397,7 +408,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         getActivity().getResources().getText(R.string.hint).toString(),
                         getActivity().getResources().getText(R.string.login_account).toString(),
                         getActivity().getResources().getText(R.string.cancel).toString());
-                        ;
             }
 
         } catch (JSONException e) {
@@ -493,6 +503,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
             HotSecondCarAdapter hotSecondCarAdapter = new HotSecondCarAdapter(getActivity(), hotSecondCarBeens);
             hotSecondCarView.setAdapter(hotSecondCarAdapter);
+            hotSecondCarView.addOnScrollListener(new PicassoOnScrollListener(getActivity()));
         } catch (JSONException e) {
             e.printStackTrace();
         }

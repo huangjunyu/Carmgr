@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -59,7 +60,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private DiologLoading diologLoading;
     private int LOGIN_SUSSESS = 3;
     private int LOGIN_ERROR = 4;
-    private RequestQueue mQueue;
     private String flagWhereRequest;//来自于哪个activity发起的登录请求
 
     JSONObject jsonObject = new JSONObject();
@@ -68,8 +68,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQueue = Volley.newRequestQueue(getApplicationContext());
-//        getIntenExtra();
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_login);
         initView();
         diologLoading = new DiologLoading(getResources().getString(R.string.logging));
@@ -125,9 +127,15 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             switch (msg.what) {
                 case 1:
                     Toast.makeText(LoginActivity.this, loginState, Toast.LENGTH_SHORT).show();
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
                     break;
                 case 2:
                     //关闭动画
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
                     setResult(1);
                     getCallingActivity();
                     finish();
@@ -205,6 +213,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     private void loginAccount(final String username, final String password,
                               String type, String verf_code, String uuid, String version, final String url, int id) {
+        diologLoading.show(getSupportFragmentManager(), "login");
+        diologLoading.setCancelable(false);
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("password", password)

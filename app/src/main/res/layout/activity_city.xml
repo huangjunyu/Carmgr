@@ -8,7 +8,7 @@
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary" >
+        android:background="@color/orange" >
 
         <TextView
             android:id="@+id/tv_title"
@@ -47,13 +47,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        >
 
         <ListView
             android:id="@+id/country_lvcountry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:dividerHeight="1px"
             android:divider="@color/gray_divide" />
 
@@ -64,7 +64,7 @@
             android:layout_gravity="center"
             android:background="@color/orange"
             android:gravity="center"
-            android:textColor="#ffffffff"
+            android:textColor="@color/white"
             android:textSize="30.0dip"
             android:visibility="invisible" />
 

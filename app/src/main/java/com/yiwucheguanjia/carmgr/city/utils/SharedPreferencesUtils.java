@@ -1,6 +1,9 @@
 package com.yiwucheguanjia.carmgr.city.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 /**
@@ -18,7 +21,27 @@ public class SharedPreferencesUtils {
 	}
 
 	public static String getCityName(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getString("cityName", "北京");
+		return PreferenceManager.getDefaultSharedPreferences(context).getString("cityName", "广州");
+	}
+	public static void clearData(Context context){
+		String cityName = PreferenceManager.getDefaultSharedPreferences(context).getString("cityName", "广州");
+		PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("cityName", cityName).commit();
+//		int i = 0;
+//		while (true){
+//			if (PreferenceManager.getDefaultSharedPreferences(context).getString(i + "",null) != null){
+//				PreferenceManager.getDefaultSharedPreferences(context).edit().remove(i + "").commit();
+//			}else {
+//				break;
+//			}
+//		}
+	}
+	public static void saveAreaName(Context context, String cityName,int i) {
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString(i + "", cityName).commit();
+
+	}
+	public static String getAreaName(Context context,int j) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(j + "", null);
 	}
 
 }

@@ -16,6 +16,8 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.WaitActivity;
+//import com.yiwucheguanjia.carmgr.commercial.view.MerchantListActivity;
+import com.yiwucheguanjia.carmgr.commercial.view.MerchantListActivity;
 import com.yiwucheguanjia.carmgr.home.model.BusinessBean;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
@@ -35,6 +37,7 @@ public class BusinessAdapter extends BaseAdapter{
     private ArrayList<BusinessBean> list;
     private LayoutInflater layoutInflater;
     private SharedPreferences sharedPreferences;
+    private int position;
     /**
      * @param activity
      * @param list
@@ -63,7 +66,7 @@ public class BusinessAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
+        this.position = position;
         if (convertView == null) { // 获取组件布局
             convertView = layoutInflater.inflate(R.layout.home_business_item, null);
 
@@ -82,13 +85,14 @@ public class BusinessAdapter extends BaseAdapter{
         viewHolder.businessImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, WaitActivity.class);
-                activity.startActivity(intent);
                 Log.e("logUser",list.get(position).getBusinessName() + "1000_1" + position);
                 postDataOfUserAction(sharedPreferences.getString("ACCOUNT",null),"1000_1" + position,
                         list.get(position).getBusinessName(),
                         sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
                         UrlString.APP_LOG_USER_OPERATION,1);
+                Intent intent = new Intent(activity, MerchantListActivity.class);
+                intent.putExtra("business",list.get(position).getBusinessName());
+                activity.startActivity(intent);
             }
         });
 
@@ -110,10 +114,12 @@ public class BusinessAdapter extends BaseAdapter{
         if (username == null || token == null) {
             username = "username";
             token = "token";
+            click_area_id.toString();
         }
+        Log.e("click_area_id", click_area_id + 1);
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
-                .addParams("click_area",click_area_id)
+                .addParams("click_area_id",click_area_id.toString())
                 .addParams("detail",detail)
                 .addParams("token", token)
                 .addParams("version", version)
@@ -121,6 +127,10 @@ public class BusinessAdapter extends BaseAdapter{
                 .build()
                 .execute(new BusinessStringCallback());
     }
+//    postDataOfUserAction(sharedPreferences.getString("ACCOUNT",null),"1000_1" + position,
+//            list.get(position).getBusinessName(),
+//    sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
+//    UrlString.APP_LOG_USER_OPERATION,1);
     class MyViewholder {
         public ImageView businessImg;
         public TextView businessNameTxt;
@@ -139,6 +149,7 @@ public class BusinessAdapter extends BaseAdapter{
             {
                 case 1:
                     Log.e("logu",response);
+
                     break;
                 default:
                     break;

@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -54,6 +57,8 @@
         <activity android:name=".account.view.PhoneLoginActivity"/>
         <activity android:name=".account.view.SetPasswordActivity"/>
         <activity android:name=".account.view.PersonalDataActivity"/>
+        <activity android:name=".commercial.view.MerchantListActivity"/>
+        <activity android:name=".scanner.CaptureActivity"/>
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity

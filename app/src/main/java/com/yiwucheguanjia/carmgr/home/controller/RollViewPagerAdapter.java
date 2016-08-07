@@ -61,7 +61,7 @@ public class RollViewPagerAdapter extends StaticPagerAdapter {
         }
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
-                .addParams("click_area",click_area_id)
+                .addParams("click_area_id",click_area_id.toString())
                 .addParams("detail",detail)
                 .addParams("token", token)
                 .addParams("version", version)

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/ripple_retangle_bg"
     android:orientation="horizontal"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    android:paddingLeft="10dp">
 
     <RelativeLayout
         android:id="@+id/merchant_img_rl"
         android:layout_width="104dp"
-        android:layout_height="93dp"
+        android:layout_height="95dp"
         android:padding="10dp">
 
         <ImageView
@@ -22,7 +23,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="95dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
@@ -30,8 +31,7 @@
         <RelativeLayout
             android:id="@+id/merchant_name_rl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/merchant_name_txt"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="null"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/buseness_black" />
 
         </RelativeLayout>
@@ -49,8 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:layout_below="@+id/merchant_name_rl"
-            android:paddingLeft="12dp">
+            android:layout_below="@+id/merchant_name_rl">
 
             <TextView
                 android:id="@+id/merchant_introduce_txt"
@@ -60,7 +59,7 @@
                 android:ellipsize="end"
                 android:layout_marginRight="10dp"
                 android:text="null"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
 
         </RelativeLayout>
 
@@ -69,9 +68,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/merchant_introduce_rl"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="13dp">
-
+            android:layout_marginTop="7dp">
+            <ImageView
+                android:id="@+id/merchant_star_img"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:scaleType="fitStart"
+                android:layout_alignParentLeft="true"
+                android:src="@mipmap/star_five"/>
 
         </RelativeLayout>
 
@@ -79,8 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/merchant_stars_rl"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="12dp">
+            android:layout_marginTop="7dp">
 
             <TextView
                 android:id="@+id/merchant_area"
@@ -88,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="null"
-                android:textSize="11sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/merchant_road"
@@ -97,7 +100,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/merchant_area"
                 android:text="@string/contact_merchant"
-                android:textSize="11sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/merchant_distance"
@@ -106,7 +109,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:text="@string/distance"
-                android:textSize="11sp" />
+                android:textSize="10sp" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

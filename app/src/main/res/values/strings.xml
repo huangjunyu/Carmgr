@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">易务车宝</string>
     <string name="progress">进度</string>
-    <string name="commercial">商户</string>
+    <string name="commercial">商家</string>
     <string name="home">首页</string>
     <string name="yiwu">易务</string>
     <string name="position">地区</string>
@@ -38,6 +38,11 @@
     <string name="string_append">个字符串</string>
     <string name="pwd_inconsistency">前后密码不一致，请重新输入</string>
     <string name="logging">正在登录...</string>
+    <string name="geting_code">正在获取验证码...</string>
+    <string name="checking">正在验证</string>
+    <string name="reset_password">重置密码失败</string>
+    <string name="reseting">正在重置密码</string>
+    <string name="check_fail">验证失败</string>
     <string name="exit">退出登录</string>
     <string name="all">全部</string>
     <string name="wait_pay">待付款</string>
@@ -47,7 +52,7 @@
     <string name="wait_assess">待评价</string>
     <string name="after_sale">退款/售后</string>
     <string name="pay_status">支付状态</string>
-    <string name="whole_city">全城市</string>
+    <string name="whole_city">全部</string>
     <string name="default_sort">默认排序</string>
     <string name="add_car_hint">添加后能时刻把握爱车信息哦</string>
     <string name="account_residual">账号余额</string>
@@ -129,6 +134,21 @@
     <string name="sumbit">点击提交</string>
     <string name="suggest_submit_hint">你没有输入字符，请输入字符后再提交建议</string>
     <string name="must_checked_agreetment">必须同意易务宝服务协议才能注册</string>
+    <string name="phone_number_registered">手机已经注册，可用登录界面的“找回密码”或用“手机快捷登录”登录即可</string>
+    <string name="ok">确定</string>
+    <string name="placeHolder">placeHolder</string>
+    <string name="seekbar_add">+</string>
+    <string name="seekbar_minus">-</string>
+    <string name="create">生成</string>
+    <string name="scan_failed">扫描失败</string>
+    <string name="bottom_hint">尽量避免逆光和阴影</string>
+    <string name="top_hint">将条形码或二维码置于取景框内系统会自动扫描</string>
+    <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
+    <string name="no_order">您当前没有订单</string>
+    <string name="service_exception">服务器异常</string>
+    <string name="get_data_fail">获取数据失败</string>
+    <string name="login_fail">登录失败，请检查网络以及核对短信验证码</string>
+    <string name="code_error">验证码有误，请核对后再进行</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

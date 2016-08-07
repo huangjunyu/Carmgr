@@ -2,15 +2,19 @@ package com.yiwucheguanjia.carmgr.account.view;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -52,7 +56,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private TextView register_code_txt;
     private ImageView register_second_img;
     private TextView register_setting_pwd;
-    private ImageView register_three_img;
+//    private ImageView register_three_img;
     private TextView register_code_sent;
     private EditText register_number_edit;
     private EditText register_pwd_edit;
@@ -70,6 +74,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_register);
         initView();
     }
@@ -81,7 +89,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         register_code_txt = (TextView) findViewById(R.id.register_code_txt);
         register_second_img = (ImageView) findViewById(R.id.register_second_img);
         register_setting_pwd = (TextView) findViewById(R.id.register_setting_pwd);
-        register_three_img = (ImageView) findViewById(R.id.register_three_img);
+//        register_three_img = (ImageView) findViewById(R.id.register_three_img);
         register_code_sent = (TextView) findViewById(R.id.register_code_sent);
         register_number_edit = (EditText) findViewById(R.id.register_number_edit);
         register_pwd_edit = (EditText) findViewById(R.id.register_pwd_edit);
@@ -275,7 +283,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                     register_code_txt.setTextColor(getResources().getColor(R.color.gray_default));
                     register_second_img.setImageResource(R.mipmap.register_right_nor);
                     register_setting_pwd.setTextColor(getResources().getColor(R.color.orange));
-                    register_three_img.setImageResource(R.mipmap.register_right_pre);
+//                    register_three_img.setImageResource(R.mipmap.register_right_pre);
                     register_button.setText(R.string.register_account);
                     break;
                 default:
@@ -307,8 +315,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                     //到了此步，说明服务器已经响应请求
                     //解析发送手机号码响应
                     parseSendPhoneNumBack(response);
-                    //更改第一步骤的图标与字体颜色
-                    handler.sendEmptyMessage(1);
+
                     break;
                 case 2://发送短信验证码的响应
                     //解析发送短信验证码响应
@@ -336,9 +343,40 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         try {
             JSONObject jsonObject = new JSONObject(response);
             uuidStr = jsonObject.getString("uuid");
-//            usernameString = jsonObject.getString("username");
+            String opt_state = jsonObject.getString("opt_state");
+            if (TextUtils.equals(opt_state,"fail")){
+                registerDialog(getText(R.string.phone_number_registered).toString(),
+                        getText(R.string.hint).toString(),
+                        getText(R.string.ok).toString(),
+                        getText(R.string.cancel).toString());
+            }else if (TextUtils.equals(opt_state,"success")){
+                //更改第一步骤的图标与字体颜色
+                handler.sendEmptyMessage(1);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    protected void registerDialog(String registered,String title,String positiveTxt,
+                               String negativeTxt) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage(registered);
+            builder.setTitle(title);
+            builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+//                    Intent loginActivityIntent = new Intent(RegisterActivity.this,PhoneLoginActivity.class);
+//                    startActivity(loginActivityIntent);
+                    finish();
+                }
+            });
+            builder.setNegativeButton(negativeTxt, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
     }
 }

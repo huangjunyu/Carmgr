@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yiwucheguanjia.carmgr.CarmgrApllication;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
@@ -57,31 +60,39 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private RelativeLayout merchantPersonalRl;
     private RelativeLayout sortSelectRl;//排序
     private RelativeLayout positionRl;
+    private RelativeLayout citySelectRl;//城市选择
     private Spinner mySpinner;
     private ArrayList<MerchantSelectItemBean> businessSelectItemBeans;
     private MerchantSelectItemBean businessSelectItemBean;
     private MerchantItemAdapter itemAdapter;
     private ArrayList<MerchantItemBean> merchantItemBeens;
     private PopupWindow popupWindow;
+    private PopupWindow popupWindowCity;
     private LayoutInflater popupwindowinflater;
     private ListView popupwindowListView;
     private PopupWindowSimpleAdapter popupWindowSimpleAdapter;
     private View popupDivision;
     private TextView businessSelectTxt;//业务选择
     private TextView sortSelectTv;//排序
+    private TextView citySelectTv;//区选择
     private ImageView businessPullDownImg;
     private ImageView sortPullDownImg;
+    private ImageView cityDirection;
     //盛装所有弹出项的item
     private List<Map<String, String>> businessList = new ArrayList<Map<String, String>>();
     private List<Map<String, String>> sortList = new ArrayList<>();
+    private List<Map<String, String>> areaList = new ArrayList<>();
     private SharedPreferences sharedPreferences;
-    private MyListView myListView;
+    private RecyclerView myListView;
     private TextView starsTxt;
     private TextView positionTv;
+    private String businessStr = "全部";//业务类型
+    private String areaStr = "全部";//地区选择
     String[] businessArray = {"全部", "上牌", "驾考", "检车", "维修", "租车", "保养", "二手车",
             "车贷", "新车", "急救", "用品", "停车"};
     String[] sortArray = {"默认排序", "离我最近", "评价最高", "最新发布", "人气最高", "价格最低",
             "价格最高"};
+    String[] areArray = {"全部","天河区", "东山区", "白云区", "海珠区", "荔湾区", "越秀区", "黄埔区", "番禺区", "花都区", "增城区", "从化区", "市郊"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +110,12 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         itemPopupWindow();
         initView();
         popupwindowinflater = LayoutInflater.from(getActivity());
-        getMerchantsList(sharedPreferences.getString("ACCOUNT", null), "广州", "上牌",
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        myListView.setLayoutManager(linearLayoutManager);
+        getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
+                SharedPreferencesUtils.getCityName(getActivity()), "全部",
                 sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
                 UrlString.APP_GET_MERCHANTS_LIST, 1);
         return commercialView;
@@ -109,26 +125,52 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         merchantPersonalRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_personal_rl);
         businessSelectRl = (RelativeLayout) commercialView.findViewById(R.id.business_select_rl);
         sortSelectRl = (RelativeLayout) commercialView.findViewById(R.id.sort_select_rl);
-        positionRl = (RelativeLayout)commercialView.findViewById(R.id.progress_position_rl);
+        positionRl = (RelativeLayout) commercialView.findViewById(R.id.progress_position_rl);
+        citySelectRl = (RelativeLayout)commercialView.findViewById(R.id.city_select_rl);
         popupDivision = (View) commercialView.findViewById(R.id.commercial_popup_division);
         businessSelectTxt = (TextView) commercialView.findViewById(R.id.business_select_txt);
-        myListView = (MyListView) commercialView.findViewById(R.id.commercial_item_lv);
+        myListView = (RecyclerView) commercialView.findViewById(R.id.commercial_item_lv);
 //        starsTxt = (TextView) commercialView.findViewById(R.id.merchant_stars_txt);
         businessPullDownImg = (ImageView) commercialView.findViewById(R.id.business_direction_img);
         sortSelectTv = (TextView) commercialView.findViewById(R.id.sort_select_txt);
         sortPullDownImg = (ImageView) commercialView.findViewById(R.id.sort_direction_img);
+        cityDirection = (ImageView) commercialView.findViewById(R.id.city_direction_img);
         positionTv = (TextView) commercialView.findViewById(R.id.progress_position_Tv);
+        citySelectTv = (TextView) commercialView.findViewById(R.id.city_select_txt);
         positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+        citySelectRl.setOnClickListener(this);
         positionRl.setOnClickListener(this);
         businessSelectRl.setOnClickListener(this);
         merchantPersonalRl.setOnClickListener(this);
         sortSelectRl.setOnClickListener(this);
     }
 
-    private void addImageView() {
-        ImageView mImageView = new ImageView(getActivity());
-        mImageView.setImageResource(R.mipmap.heart);
-
+    private void cityPopupWindow(){
+        if (!TextUtils.equals(SharedPreferencesUtils.getAreaName(getActivity(), 0),"广州")) {
+            int k = 0;
+            areaList.clear();
+            while (true) {
+                if (SharedPreferencesUtils.getAreaName(getActivity(), k) != null) {
+                    Map<String, String> listItem = new HashMap<>();
+                    Log.e("notnull", SharedPreferencesUtils.getAreaName(getActivity(), k));
+                    listItem.put("area", SharedPreferencesUtils.getAreaName(getActivity(), k++));
+                    areaList.add(listItem);
+                }else {
+                    break;
+                }
+            };
+        } else {
+            Log.e("notnull", "that");
+            SharedPreferencesUtils.clearData(getActivity());
+            areaList.clear();
+            for (int n = 0; n < areArray.length; n++) {
+                SharedPreferencesUtils.saveAreaName(getActivity(),areArray[n],n);
+                Map<String, String> listItem = new HashMap<>();
+                listItem.put("area", areArray[n]);
+                Log.e("area",areArray[n]);
+                areaList.add(listItem);
+            }
+        }
     }
 
     public void itemPopupWindow() {
@@ -147,7 +189,10 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 5 && resultCode == 5){
+        if (requestCode == 5 && resultCode == 5) {
+            positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+            Log.e("sett",SharedPreferencesUtils.getCityName(getActivity()));
+        }else if (requestCode == 2 && resultCode == 10){
             positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
         }
     }
@@ -156,11 +201,11 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     protected void analysisJson(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
+//            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonObject.getJSONArray("merchants_list").length(); i++) {
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
-                JSONObject merchantJson = jsonArray.getJSONObject(i);
+                JSONObject merchantJson = jsonObject.getJSONArray("merchants_list").getJSONObject(i);
                 merchantItemBean.setMerchantImgUrl(merchantJson.getString("img_path"));
                 merchantItemBean.setMerchantDistance(merchantJson.getString("distance"));
                 merchantItemBean.setMerchantArea(merchantJson.getString("area"));
@@ -175,9 +220,11 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
             MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
             myListView.setAdapter(merchantItemAdapter);
-            addImageView();
+
         } catch (JSONException e) {
             e.printStackTrace();
+            MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
+            myListView.setAdapter(merchantItemAdapter);
         }
     }
 
@@ -217,12 +264,15 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.e("position", position + "");
                         businessSelectTxt.setText(businessArray[position]);
-                        Log.e("bta",businessArray[position]);
+                        businessStr = businessArray[position];
+                        Log.e("bta", businessArray[position]);
                         //提交筛选方法
-                        getMerchantsList(sharedPreferences.getString("ACCOUNT", null), "广州", businessArray[position].toString(),
-                                sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
+                        getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
+                                areaStr,
+                                businessArray[position].toString(),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION,
                                 UrlString.APP_GET_MERCHANTS_LIST, 1);
-
                         popupWindow.dismiss();
                         businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
                     }
@@ -234,7 +284,62 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 break;
             //城市选择
             case R.id.city_select_rl:
+                cityPopupWindow();
+                Log.e("eeew","ekwn");
+                View cityView = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
+                popupwindowListView = (ListView) cityView.findViewById(R.id.mylist);
+                for (int i = 0;i < areaList.size();i++){
+                    Log.e("aiea",areaList.get(i).toString());
+                }
+                Log.e("eeew","ekw99n");
+                // 创建一个SimpleAdapter
+                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), areaList, R.layout.commercial_sort,
+                        new String[]{"area"}, new int[]{R.id.typeTopic});
+                popupwindowListView.setAdapter(popupWindowSimpleAdapter);
+                popupWindowCity = new PopupWindow(commercialView.findViewById(R.id.commercialLL), ViewGroup.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.MATCH_PARENT);
+                popupWindowCity.setContentView(cityView);
+                popupWindowCity.setBackgroundDrawable(new BitmapDrawable());
+                popupWindowCity.setOutsideTouchable(true);
+                popupWindowCity.setAnimationStyle(android.R.style.Animation_Dialog);
+                popupWindowCity.update();
+                popupWindowCity.setTouchable(true);
+                popupWindowCity.setFocusable(true);
+//                backgroundAlpha(0.5f);
+                //监听popupWindow消失状态并且实现想要的操作
+                popupWindowCity.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
+                    @Override
+                    public void onDismiss() {
+                        backgroundAlpha(1f);
+                        citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                        cityDirection.setImageResource(R.mipmap.pull_dowon_black);
+                    }
+                });
+
+                popupWindowCity.showAsDropDown(popupDivision, 0, 0);
+                popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.e("position", SharedPreferencesUtils.getAreaName(getActivity(),position));
+                        citySelectTv.setText(SharedPreferencesUtils.getAreaName(getActivity(),position));
+                        areaStr = SharedPreferencesUtils.getAreaName(getActivity(),position);
+//                        Log.e("bta", SharedPreferencesUtils.getAreaName(getActivity(),position));
+                        //提交筛选方法
+                        getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
+                                SharedPreferencesUtils.getAreaName(getActivity(),position),
+                                businessStr,
+                                sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
+                                UrlString.APP_GET_MERCHANTS_LIST, 1);
+
+                        popupWindowCity.dismiss();
+                        citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                    }
+                });
+                if (popupWindowCity.isShowing()) {
+                    citySelectTv.setTextColor(getResources().getColor(R.color.orange));
+                    cityDirection.setImageResource(R.mipmap.pull_down_pre);
+                }
                 break;
             //默认排序
             case R.id.sort_select_rl:
@@ -289,8 +394,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 ;
                 break;
             case R.id.progress_position_rl:
-                Intent intent=new Intent(getActivity(), CityActivity.class);
-                startActivityForResult(intent,2);
+                Intent intent = new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(intent, 2);
             default:
                 break;
         }
@@ -321,7 +426,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 .addParams("service_filter", service_filter)
                 .addParams("token", token)
                 .addParams("version", version)
-                .id(1)
+                .id(id)
                 .build()
                 .execute(new CommercialStringCallback());
     }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yiwucheguanjia.carmgr.R;
@@ -29,6 +31,13 @@ public class DiologLoading extends DialogFragment
 		title.setText(typeLoading);
 		Dialog dialog = new Dialog(getActivity(), R.style.dialog);
 		dialog.setContentView(view);
+//		dialog.getWindow().getAttributes();
+
+		WindowManager.LayoutParams lp=dialog.getWindow().getAttributes();
+		lp.dimAmount=0.5f;
+
+		dialog.getWindow().setAttributes(lp);
+		dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 		return dialog;
 	}
 }

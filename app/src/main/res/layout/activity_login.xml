@@ -6,45 +6,52 @@
     android:orientation="vertical"
 
     tools:context=".account.view.LoginActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="70dp"
+        android:background="@color/white"
+        >
 
         <ImageButton
             android:id="@+id/login_goback_img_btn"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingRight="70dp"
+            android:paddingTop="45dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="#00000000"
+            android:background="@drawable/ripple_goback"
             android:scaleType="fitCenter"
-            android:src="@mipmap/goback" />
+            android:src="@mipmap/register_left_pre" />
+
 
         <TextView
-            android:id="@+id/comeFrom"
+            android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
+            android:clickable="true"
             android:text="@string/login_account"
             android:textColor="@color/gray_default"
             android:textSize="18sp" />
-
         <TextView
             android:id="@+id/login_register_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
             android:clickable="true"
-            android:padding="5dp"
             android:text="@string/register_account"
             android:textColor="@color/orange"
             android:textSize="18sp" />
     </RelativeLayout>
+
+
 
 
     <LinearLayout
@@ -52,6 +59,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -92,33 +100,9 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5px"
-            android:background="@color/gray_divide"></View>
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/password"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="@string/login_password_hint"-->
-        <!--android:imeActionId="@+id/login"-->
-        <!--android:imeActionLabel="@string/action_sign_in_short"-->
-        <!--android:imeOptions="actionUnspecified"-->
-        <!--android:inputType="textPassword"-->
-        <!--android:maxLines="1"-->
-        <!--android:singleLine="true" />-->
-
-        <!--</android.support.design.widget.TextInputLayout>-->
 
         <Button
             android:id="@+id/login_button"
-            style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

@@ -1,6 +1,11 @@
 package com.yiwucheguanjia.carmgr.commercial.controller;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,112 +16,186 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.WaitActivity;
 import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
+import com.yiwucheguanjia.carmgr.home.controller.PicassoOnScrollListener;
+import com.yiwucheguanjia.carmgr.home.model.HotSecondCarBean;
+import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
+import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.Tools;
+import com.yiwucheguanjia.carmgr.utils.UrlString;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
+
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2016/7/1.
  */
-public class MerchantItemAdapter extends BaseAdapter{
-    private LayoutInflater myInflater;
-    private Activity activity;
-    private ArrayList<MerchantItemBean> businessItemBeans;
-    public MerchantItemAdapter(Activity activity, ArrayList<MerchantItemBean> businessSelectItemBeen){
-        myInflater = LayoutInflater.from(activity);
-        this.activity = activity;
-        this.businessItemBeans = businessSelectItemBeen;
-    }
-    @Override
-    public int getCount() {
-        return businessItemBeans.size();
-    }
+public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapter.ViewHolder> {
+    private LayoutInflater mInflater;
+    private ArrayList<Integer> mDatas;
+    private ArrayList<MerchantItemBean> recyclerBeens;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
-    @Override
-    public Object getItem(int position) {
-        return businessItemBeans.get(position);
+    public MerchantItemAdapter(Context context, ArrayList<MerchantItemBean> recyclerBeens) {
+        this.recyclerBeens = recyclerBeens;
+        this.context = context;
+        mInflater = LayoutInflater.from(context);
+        sharedPreferences = context.getSharedPreferences("CARMGR", context.MODE_PRIVATE);
     }
 
+
     @Override
-    public long getItemId(int position) {
-        return position;
+    public int getItemCount() {
+
+        return recyclerBeens.size();
     }
 
+    /**
+     * 创建ViewHolder
+     */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        MyItemViewHolder myItemViewHolder = new MyItemViewHolder();
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = mInflater.inflate(R.layout.merchant_item,
+                viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(view);
 
-        if (convertView == null){
-            convertView = myInflater.inflate(R.layout.merchant_item,null);
-            myItemViewHolder.merchantDistance = (TextView)convertView.findViewById(R.id.merchant_distance);
-            myItemViewHolder.merchantArea = (TextView)convertView.findViewById(R.id.merchant_area);
-            myItemViewHolder.merchantInstroduce = (TextView)convertView.findViewById(R.id.merchant_introduce_txt);
-            myItemViewHolder.merchantStarsLL = (RelativeLayout)convertView.findViewById(R.id.merchant_stars_rl);
-//            myItemViewHolder.merchantStars = (TextView) convertView.findViewById(R.id.merchant_stars_txt);
-            myItemViewHolder.merchantName = (TextView)convertView.findViewById(R.id.merchant_name_txt);
-            myItemViewHolder.merchantRoad = (TextView)convertView.findViewById(R.id.merchant_road);
-            myItemViewHolder.merchantImg = (ImageView)convertView.findViewById(R.id.merchant_img);
-            myItemViewHolder.merchantNameRl = (RelativeLayout)convertView.findViewById(R.id.merchant_name_rl);
-            convertView.setTag(myItemViewHolder);
-        }else {
-            myItemViewHolder = (MyItemViewHolder)convertView.getTag();
-        }
-        MerchantItemBean merchantItemBean = businessItemBeans.get(position);
-        myItemViewHolder.merchantDistance.setText(merchantItemBean.getMerchantDistance());
-        myItemViewHolder.merchantArea.setText(merchantItemBean.getMerchantArea());
-        myItemViewHolder.merchantInstroduce.setText(merchantItemBean.getMerchantIntroduce());
+
+        return viewHolder;
+    }
+
+    /**
+     * 设置值
+     */
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+        MerchantItemBean merchantItemBean = recyclerBeens.get(i);
+        viewHolder.merchantDistance.setText(merchantItemBean.getMerchantDistance());
+        viewHolder.merchantArea.setText(merchantItemBean.getMerchantArea());
+        viewHolder.merchantInstroduce.setText(merchantItemBean.getMerchantIntroduce());
 //        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
-        myItemViewHolder.merchantName.setText(merchantItemBean.getMerchantName());
-        myItemViewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
+        viewHolder.merchantName.setText(merchantItemBean.getMerchantName());
+        viewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
         String numberStr = merchantItemBean.getMerchantStarsStr();
-        if (Tools.isInteger(merchantItemBean.getMerchantStarsStr())){
-            for (int i = 0;i < Integer.parseInt(numberStr);i++){
-                myItemViewHolder.merchantStarsLL.addView(Tools.getInstance().createImageview(activity,i));
-            }
-        }else {
-            int starNumber = (int) Math.floor(merchantItemBean.getMerchantStars());
-
-            for (int i = 0;i < starNumber;i++){
-                myItemViewHolder.merchantStarsLL.addView(Tools.getInstance().createImageview(activity,i));
-            }
-            myItemViewHolder.merchantStarsLL.addView(Tools.getInstance().createImageview2(activity,starNumber));
-        }
-        //动态显示商家提供的服务项目
-//        if ((extractString(merchantItemBean.getMerchantTag()).length) >= 1){
-//            Log.e("size",extractString(merchantItemBean.getMerchantTag()).length + "");
-//            int serviceNum = (extractString(merchantItemBean.getMerchantTag()).length);
-//            for (int k = 0;k < serviceNum;k++){
-////                Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k);
-//                myItemViewHolder.merchantNameRl.addView(Tools.getInstance().createImageView3(activity,extractString(merchantItemBean.getMerchantTag()),k));
-//            }
-//        }
-//        extractString(merchantItemBean.getMerchantTag());
-
-        Picasso.with(this.activity).load(merchantItemBean.getMerchantImgUrl())
-                .placeholder(R.mipmap.picture_default)
-                .error(R.mipmap.picture_default).into(myItemViewHolder.merchantImg);
-        return convertView;
+        selectStar(numberStr,viewHolder.merchantStarImg);
+        Picasso.with(context).load(recyclerBeens.get(i).getMerchantImgUrl()).tag(PicassoOnScrollListener.TAG)
+                .error(R.mipmap.picture_default).into(viewHolder.merchantImg);
     }
 
-    public String[] extractString(String tags){
-        String string = tags;
-        String[] b = string.split("\\|");  //注意这里用两个 \\，而不是一个\
-        for (int j = 0;j < b.length;j++){
-        System.out.println("处理结果: "+b[j] + j);
+    protected void postData(String username, String click_area_id, String detail, String token,
+                            String version, String url, int id) {
+        if (username == null || token == null) {
+            username = "username";
+            token = "token";
         }
-        return b;
+        OkHttpUtils.get().url(url)
+                .addParams("username", username)
+                .addParams("click_area_id", click_area_id.toString())
+                .addParams("detail", detail)
+                .addParams("token", token)
+                .addParams("version", version)
+                .id(id)
+                .build()
+                .execute(new HotSecondCarStringCallback());
     }
-    class MyItemViewHolder{
+    protected void selectStar(String starNum,ImageView merchantStarImg){
+        switch (starNum){
+            case "0.5":
+                Picasso.with(this.context).load(R.mipmap.star_half).error(R.mipmap.star_five).into(merchantStarImg);
+
+                break;
+            case "1":
+                Picasso.with(this.context).load(R.mipmap.star).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "1.5":
+                Picasso.with(this.context).load(R.mipmap.star_one_hafl).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "2":
+                Picasso.with(this.context).load(R.mipmap.star_two).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "2.5":
+                Picasso.with(this.context).load(R.mipmap.star_two_half).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "3":
+                Picasso.with(this.context).load(R.mipmap.star_three).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "3.5":
+                Picasso.with(this.context).load(R.mipmap.star_three_half).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "4":
+                Picasso.with(this.context).load(R.mipmap.star_four).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "4.5":
+                Picasso.with(this.context).load(R.mipmap.star_four_half).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            case "5":
+                Picasso.with(this.context).load(R.mipmap.star_five).error(R.mipmap.star_five).into(merchantStarImg);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
         private RelativeLayout merchantStarsLL;
         private RelativeLayout merchantNameRl;
         private TextView merchantDistance;
         private TextView merchantArea;
         private TextView merchantInstroduce;
-//        private TextView merchantStars;
         private TextView merchantName;
         private TextView merchantRoad;
         private TextView merchantMobile;
         private ImageView merchantImg;
+        private ImageView merchantStarImg;
+
+        public ViewHolder(View viewHolder) {
+            super(viewHolder);
+            merchantStarsLL = (RelativeLayout) viewHolder.findViewById(R.id.merchant_stars_rl);
+            merchantNameRl = (RelativeLayout) viewHolder.findViewById(R.id.merchant_name_rl);
+            merchantDistance = (TextView) viewHolder.findViewById(R.id.merchant_distance);
+            merchantArea = (TextView) viewHolder.findViewById(R.id.merchant_area);
+            merchantInstroduce = (TextView) viewHolder.findViewById(R.id.merchant_introduce_txt);
+            merchantName = (TextView) viewHolder.findViewById(R.id.merchant_name_txt);
+            merchantRoad = (TextView) viewHolder.findViewById(R.id.merchant_road);
+            merchantImg = (ImageView) viewHolder.findViewById(R.id.merchant_img);
+            merchantStarImg = (ImageView) viewHolder.findViewById(R.id.merchant_star_img);
+            viewHolder.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+//                    postData(sharedPreferences.getString("ACCOUNT",null),"1000_40",
+//                            "热门二手车",sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
+//                            UrlString.APP_LOG_USER_OPERATION,1);
+//                    Intent intent = new Intent(context, WaitActivity.class);
+//                    context.startActivity(intent);
+                }
+            });
+
+        }
+
+        RoundRectImageView mImg;
+    }
+
+    protected class HotSecondCarStringCallback extends StringCallback {
+
+        @Override
+        public void onError(Call call, Exception e, int id) {
+
+        }
+
+        @Override
+        public void onResponse(String response, int id) {
+            switch (id) {
+                case 1:
+                    Log.e("hotse", response);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

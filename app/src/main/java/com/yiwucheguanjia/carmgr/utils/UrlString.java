@@ -30,6 +30,8 @@ public class UrlString {
     public static final  String APP_CHECK_VERFCODE = "http://112.74.13.51:8080/carmgr/appcheckverfcode";
     //APP用户操作记录请求
     public static final  String APP_LOG_USER_OPERATION = "http://112.74.13.51:8080/carmgr/apploguseroperation";
+    //APP商家请求
+    public static final  String APPGETMERCHANTS = "http://112.74.13.51:8080/carmgr/appgetmerchants";
     //APP版本号
     public static final  String APPADVISE = "http://112.74.13.51:8080/carmgr/appadvise";
     public static final String APP_VERSION = "1.0";

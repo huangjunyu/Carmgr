@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
@@ -43,7 +45,7 @@ import okhttp3.OkHttpClient;
 /**
  * Created by Administrator on 2016/6/25.
  */
-public class RegisterActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class RegisterActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private String phoneNumString;
     private ImageButton gobackImgBtn;
     private static String usernameString = null;
@@ -56,7 +58,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private TextView register_code_txt;
     private ImageView register_second_img;
     private TextView register_setting_pwd;
-//    private ImageView register_three_img;
+    //    private ImageView register_three_img;
     private TextView register_code_sent;
     private EditText register_number_edit;
     private EditText register_pwd_edit;
@@ -70,6 +72,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
     private String account;
     private String uuidStr;
     private Boolean checkBollean = true;//是否同意易务协议标记
+    private DiologLoading diologLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         register_code_txt = (TextView) findViewById(R.id.register_code_txt);
         register_second_img = (ImageView) findViewById(R.id.register_second_img);
         register_setting_pwd = (TextView) findViewById(R.id.register_setting_pwd);
-//        register_three_img = (ImageView) findViewById(R.id.register_three_img);
         register_code_sent = (TextView) findViewById(R.id.register_code_sent);
         register_number_edit = (EditText) findViewById(R.id.register_number_edit);
         register_pwd_edit = (EditText) findViewById(R.id.register_pwd_edit);
@@ -115,18 +117,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
             if (checkBollean == true) {
                 usernameString = username;
                 String uuid = UUID.randomUUID().toString();
-                Log.e("uuid", uuid);
                 sendverfCode(usernameString, "0", uuid, UrlString.APP_VERSION, UrlString.APP_SENDVERF_CODE, 1);
-            }else {
-                Toast.makeText(RegisterActivity.this,getText(R.string.must_checked_agreetment),Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RegisterActivity.this, getText(R.string.must_checked_agreetment), Toast.LENGTH_SHORT).show();
                 return null;
             }
 
-        } else if (!register_number_edit.getText().toString().trim().equals("") && step == 2) {
+        } else if (!TextUtils.isEmpty(register_number_edit.getText().toString().trim()) && step == 2) {
             Log.e("222", usernameString);
             checkVerfcode(usernameString, usernameString,
                     register_number_edit.getText().toString().trim(),
-                    "1", uuidStr, UrlString.APP_VERSION, UrlString.APP_CHECK_VERFCODE, 2);
+                    "0", uuidStr, UrlString.APP_VERSION, UrlString.APP_CHECK_VERFCODE, 2);
             //当两个编辑框的字符串相同时方可提交数据
         } else if (checkString(register_pwd_edit, register_pwd_again) && step == 3) {
 
@@ -150,6 +151,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
      * @param id
      */
     protected void sendverfCode(String username, String type, String uuid, String version, String url, int id) {
+        diologLoading = new DiologLoading(getResources().getString(R.string.checking));
+        diologLoading.show(getSupportFragmentManager(), "register_checking");
+        diologLoading.setCancelable(false);
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("type", type)
@@ -174,10 +178,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
      */
     protected void checkVerfcode(String username, String mobile, String verfCode, String type,
                                  String uuid, String version, String url, int id) {
+        diologLoading = new DiologLoading(getResources().getString(R.string.checking));
+        diologLoading.show(getSupportFragmentManager(), "register_checking");
+        diologLoading.setCancelable(false);
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("mobile", mobile)
-                .addParams("verfCode", verfCode)
+                .addParams("verf_code", verfCode)
                 .addParams("type", type)
                 .addParams("uuid", uuid)
                 .addParams("version", version)
@@ -190,7 +197,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         SharedPreferences p = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
         edit.putString("ACCOUNT", account);
-        edit.putString("PASSWORD", password);
+//        edit.putString("PASSWORD", password);
         edit.putString("PHONE", phoneNum);
         edit.commit();
     }
@@ -199,16 +206,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
         String accountContain = accountEdit.getText().toString().trim();
         String passwordContain = checkPasswordEdit.getText().toString().trim();
         if (checkUserService && step == 3) {
-            if (accountContain.equals("")) {
+            if (TextUtils.isEmpty(accountContain)) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_can_not_null), Toast.LENGTH_SHORT).show();
                 return false;
             } else if (accountContain.length() < 1) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_length_below), Toast.LENGTH_SHORT).show();
                 return false;
-            } else if (accountContain.length() > 8) {
+            } else if (accountContain.length() > 16) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_length_overtop), Toast.LENGTH_SHORT).show();
                 return false;
-            } else if (!passwordContain.equals(accountContain)) {
+            } else if (!TextUtils.equals(passwordContain,accountContain)) {
                 Toast.makeText(RegisterActivity.this, getResources().getText(R.string.pwd_inconsistency), Toast.LENGTH_SHORT).show();
                 return false;
             } else {
@@ -223,7 +230,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
     private void registerAccount(String username, String password, String mobile,
                                  String url, String verf_code, String user_type, int id) {
-
+        diologLoading = new DiologLoading(getResources().getString(R.string.checking));
+        diologLoading.show(getSupportFragmentManager(), "register_checking");
+        diologLoading.setCancelable(false);
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("password", password)
@@ -303,7 +312,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
 
         @Override
         public void onError(Call call, Exception e, int id) {
-
+            if (diologLoading != null) {
+                diologLoading.dismiss();
+            }
+            registerDialog(getText(R.string.request_fail).toString(),
+                    getText(R.string.hint).toString(),
+                    getText(R.string.ok).toString(),
+                    getText(R.string.cancel).toString());
         }
 
         @Override
@@ -314,17 +329,18 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
                     Log.e("response1", response);
                     //到了此步，说明服务器已经响应请求
                     //解析发送手机号码响应
-                    parseSendPhoneNumBack(response);
+                    parseSendPhoneNumBack(response,1);
 
                     break;
                 case 2://发送短信验证码的响应
                     //解析发送短信验证码响应
                     Log.e("response2", response);
-                    //更改第二步骤的图标与字体颜色
-                    handler.sendEmptyMessage(2);
+                    parseSendPhoneNumBack(response,2);
+
                     break;
                 case 3://注册成功
                     Log.e("33", response);
+                    parseSendPhoneNumBack(response,3);
                     //交给handler处理注册成功后的事宜
                     handler.sendEmptyMessage(3);
                     break;
@@ -339,44 +355,94 @@ public class RegisterActivity extends Activity implements View.OnClickListener, 
      *
      * @param response
      */
-    protected void parseSendPhoneNumBack(String response) {
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            uuidStr = jsonObject.getString("uuid");
-            String opt_state = jsonObject.getString("opt_state");
-            if (TextUtils.equals(opt_state,"fail")){
-                registerDialog(getText(R.string.phone_number_registered).toString(),
-                        getText(R.string.hint).toString(),
-                        getText(R.string.ok).toString(),
-                        getText(R.string.cancel).toString());
-            }else if (TextUtils.equals(opt_state,"success")){
-                //更改第一步骤的图标与字体颜色
-                handler.sendEmptyMessage(1);
+    protected void parseSendPhoneNumBack(String response, int num) {
+        if (num == 1) {
+
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                String opt_state = jsonObject.getString("opt_state");
+                if (TextUtils.equals(opt_state, "fail")) {
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    registerDialog(getText(R.string.phone_number_registered).toString(),
+                            getText(R.string.hint).toString(),
+                            getText(R.string.ok).toString(),
+                            getText(R.string.cancel).toString());
+                } else if (TextUtils.equals(opt_state, "success")) {
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    uuidStr = jsonObject.getString("uuid");
+                    //更改第一步骤的图标与字体颜色
+                    handler.sendEmptyMessage(1);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-    protected void registerDialog(String registered,String title,String positiveTxt,
-                               String negativeTxt) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-            builder.setMessage(registered);
-            builder.setTitle(title);
-            builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-//                    Intent loginActivityIntent = new Intent(RegisterActivity.this,PhoneLoginActivity.class);
-//                    startActivity(loginActivityIntent);
+        }else if (num == 2){
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                String opt_state = jsonObject.getString("opt_state");
+                if (TextUtils.equals(opt_state, "fail")) {
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    registerDialog(getText(R.string.check_fail).toString(),
+                            getText(R.string.hint).toString(),
+                            getText(R.string.ok).toString(),
+                            getText(R.string.cancel).toString());
+                } else if (TextUtils.equals(opt_state, "success")) {
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    //更改第二步骤的图标与字体颜色
+                    handler.sendEmptyMessage(2);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else if (num == 3){
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                String opt_state = jsonObject.getString("opt_state");
+                if (TextUtils.equals(opt_state, "fail")) {
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    registerDialog(getText(R.string.check_fail).toString(),
+                            getText(R.string.hint).toString(),
+                            getText(R.string.ok).toString(),
+                            getText(R.string.cancel).toString());
+                } else if (TextUtils.equals(opt_state, "success")) {
+                    //13978957403
+                    if (diologLoading != null) {
+                        diologLoading.dismiss();
+                    }
+                    //更改第二步骤的图标与字体颜色
+//                    handler.sendEmptyMessage(3);
                     finish();
                 }
-            });
-            builder.setNegativeButton(negativeTxt, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.create().show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void registerDialog(String registered, String title, String positiveTxt,
+                                  String negativeTxt) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+        builder.setMessage(registered);
+        builder.setTitle(title);
+        builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 }

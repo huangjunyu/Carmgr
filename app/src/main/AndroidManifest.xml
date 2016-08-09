@@ -59,6 +59,7 @@
         <activity android:name=".account.view.PersonalDataActivity"/>
         <activity android:name=".commercial.view.MerchantListActivity"/>
         <activity android:name=".scanner.CaptureActivity"/>
+        <activity android:name=".merchant_detail.view.view.MerchantDetail"/>
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity

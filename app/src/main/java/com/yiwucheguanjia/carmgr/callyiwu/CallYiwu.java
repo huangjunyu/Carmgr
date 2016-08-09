@@ -28,8 +28,10 @@ import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
+import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -45,6 +47,7 @@ import okhttp3.Call;
 public class CallYiwu extends Fragment implements View.OnClickListener {
     private LinearLayout callYiWuView;
     private RelativeLayout callYiWuRl;
+    private RelativeLayout scanRl;
     private LinearLayout callBackground;
     private ImageView callyiwuImg;
     private TextView callYiwuTv;
@@ -54,6 +57,7 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
     private SharedPreferences sharedPreferences;
     private Button appointmentBtn;
     private RelativeLayout personalRl;
+    private RelativeLayout positionRl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +80,8 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
 
     private void initView() {
         callBackground = (LinearLayout) callYiWuView.findViewById(R.id.callyiwu_background);
+        scanRl = (RelativeLayout) callYiWuView.findViewById(R.id.yiwu_scan_rl);
+        positionRl = (RelativeLayout) callYiWuView.findViewById(R.id.yiwu_position_rl);
         callyiwuImg = (ImageView) callYiWuView.findViewById(R.id.callyiwu_img);
         callYiwuTv = (TextView) callYiWuView.findViewById(R.id.call_yiwu);
         appointmentBtn = (Button) callYiWuView.findViewById(R.id.call_appointment);
@@ -83,12 +89,14 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
         personalRl = (RelativeLayout) callYiWuView.findViewById(R.id.call_personal_rl);
         submitBtn = (Button) callYiWuView.findViewById(R.id.callyiwu_submit);
         suggestEdit = (EditText) callYiWuView.findViewById(R.id.callyiwu_suggest_edit);
-        positionTv = (TextView) callYiWuView.findViewById(R.id.progress_position_Tv);
+        positionTv = (TextView) callYiWuView.findViewById(R.id.yiwu_position_Tv);
         positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
         personalRl.setOnClickListener(this);
+        positionRl.setOnClickListener(this);
         callYiwuTv.setOnClickListener(this);
         appointmentBtn.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
+        scanRl.setOnClickListener(this);
     }
 
     protected void dialog() {
@@ -162,6 +170,8 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 5 && resultCode == 5){
             positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+        }else if (requestCode == 4 && resultCode == 10){//地区选择返回
+            positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -191,11 +201,17 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 break;
             case R.id.callyiwu_submit:
                 String suggestStr = suggestEdit.getText().toString().trim();
-                postUerSuggest(sharedPreferences.getString("ACCOUNT", null),
-                        suggestStr,
+                postUerSuggest(sharedPreferences.getString("ACCOUNT", null),suggestStr,
                         sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
                         UrlString.APPADVISE, 3);
                 break;
+            case R.id.yiwu_scan_rl:
+                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(capterIntent,4);
+                break;
+            case R.id.yiwu_position_rl:
+                Intent cityIntent = new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(cityIntent, 4);
             default:
                 break;
         }

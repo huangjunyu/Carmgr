@@ -113,6 +113,10 @@ public class Tools {
     }
     //获取屏幕分辨率
     public static String getScreen(Activity activity){
+
+
+
+
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

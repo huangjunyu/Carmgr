@@ -25,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yiwucheguanjia.carmgr.CarmgrApllication;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
@@ -35,12 +34,11 @@ import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
 import com.yiwucheguanjia.carmgr.commercial.model.MerchantSelectItemBean;
 import com.yiwucheguanjia.carmgr.commercial.controller.PopupWindowSimpleAdapter;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
-import com.yiwucheguanjia.carmgr.utils.MyListView;
+import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,6 +59,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private RelativeLayout sortSelectRl;//排序
     private RelativeLayout positionRl;
     private RelativeLayout citySelectRl;//城市选择
+    private RelativeLayout scannerRl;//扫描
     private Spinner mySpinner;
     private ArrayList<MerchantSelectItemBean> businessSelectItemBeans;
     private MerchantSelectItemBean businessSelectItemBean;
@@ -83,7 +82,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private List<Map<String, String>> sortList = new ArrayList<>();
     private List<Map<String, String>> areaList = new ArrayList<>();
     private SharedPreferences sharedPreferences;
-    private RecyclerView myListView;
+    private RecyclerView myRecyclerView;
     private TextView starsTxt;
     private TextView positionTv;
     private String businessStr = "全部";//业务类型
@@ -113,7 +112,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        myListView.setLayoutManager(linearLayoutManager);
+        myRecyclerView.setLayoutManager(linearLayoutManager);
         getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
                 SharedPreferencesUtils.getCityName(getActivity()), "全部",
                 sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
@@ -125,11 +124,12 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         merchantPersonalRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_personal_rl);
         businessSelectRl = (RelativeLayout) commercialView.findViewById(R.id.business_select_rl);
         sortSelectRl = (RelativeLayout) commercialView.findViewById(R.id.sort_select_rl);
-        positionRl = (RelativeLayout) commercialView.findViewById(R.id.progress_position_rl);
+        positionRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_position_rl);
         citySelectRl = (RelativeLayout)commercialView.findViewById(R.id.city_select_rl);
         popupDivision = (View) commercialView.findViewById(R.id.commercial_popup_division);
         businessSelectTxt = (TextView) commercialView.findViewById(R.id.business_select_txt);
-        myListView = (RecyclerView) commercialView.findViewById(R.id.commercial_item_lv);
+        myRecyclerView = (RecyclerView) commercialView.findViewById(R.id.commercial_item_lv);
+        scannerRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_scan_rl);
 //        starsTxt = (TextView) commercialView.findViewById(R.id.merchant_stars_txt);
         businessPullDownImg = (ImageView) commercialView.findViewById(R.id.business_direction_img);
         sortSelectTv = (TextView) commercialView.findViewById(R.id.sort_select_txt);
@@ -143,6 +143,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         businessSelectRl.setOnClickListener(this);
         merchantPersonalRl.setOnClickListener(this);
         sortSelectRl.setOnClickListener(this);
+        scannerRl.setOnClickListener(this);
     }
 
     private void cityPopupWindow(){
@@ -219,12 +220,12 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             }
 
             MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
-            myListView.setAdapter(merchantItemAdapter);
+            myRecyclerView.setAdapter(merchantItemAdapter);
 
         } catch (JSONException e) {
             e.printStackTrace();
             MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
-            myListView.setAdapter(merchantItemAdapter);
+            myRecyclerView.setAdapter(merchantItemAdapter);
         }
     }
 
@@ -393,9 +394,14 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 }
                 ;
                 break;
-            case R.id.progress_position_rl:
+            case R.id.merchant_position_rl:
                 Intent intent = new Intent(getActivity(), CityActivity.class);
                 startActivityForResult(intent, 2);
+                break;
+            case R.id.merchant_scan_rl:
+                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(capterIntent,2);
+                break;
             default:
                 break;
         }

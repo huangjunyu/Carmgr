@@ -14,7 +14,7 @@
         android:paddingTop="20dp">
 
         <RelativeLayout
-            android:id="@+id/progress_position_rl"
+            android:id="@+id/yiwu_position_rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:gravity="center"
@@ -22,7 +22,7 @@
             android:paddingRight="15dp">
 
             <TextView
-                android:id="@+id/progress_position_Tv"
+                android:id="@+id/yiwu_position_Tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -32,26 +32,26 @@
                 android:textSize="14sp" />
 
             <ImageView
-                android:id="@+id/home_position_img"
+                android:id="@+id/yiwu_position_img"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/progress_position_Tv"
+                android:layout_toRightOf="@+id/yiwu_position_Tv"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/position_pulldown" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/home_search_txt"
+            android:id="@+id/yiwu_search_Rl"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_toLeftOf="@+id/home_scan_rl"
-            android:layout_toRightOf="@+id/progress_position_rl"
+            android:layout_toLeftOf="@+id/yiwu_scan_rl"
+            android:layout_toRightOf="@+id/yiwu_position_rl"
             android:background="@mipmap/search_frame">
 
             <ImageView
-                android:id="@+id/home_search_img"
+                android:id="@+id/yiwu_search_img"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_centerVertical="true"
@@ -64,14 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/home_search_img"
+                android:layout_toRightOf="@+id/yiwu_search_img"
                 android:text="@string/home_search_hint"
                 android:textColor="@color/main_search_gray"
                 android:textSize="11sp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/home_scan_rl"
+            android:id="@+id/yiwu_scan_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/call_personal_rl"
@@ -79,7 +79,7 @@
             android:paddingRight="7dp">
 
             <ImageView
-                android:id="@+id/home_scan"
+                android:id="@+id/yiwu_scan_img"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:paddingBottom="2dp"
@@ -97,7 +97,7 @@
             android:paddingRight="20dp">
 
             <ImageView
-                android:id="@+id/home_personal_img"
+                android:id="@+id/yiwu_personal_img"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:paddingBottom="2dp"
@@ -149,7 +149,7 @@
                         android:paddingLeft="10dp"
                         android:background="@drawable/edit_sharp_left"
                         android:hint="@string/appointment_service_hint"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -182,7 +182,7 @@
                     android:background="@drawable/ripple_bg"
                     android:text="@string/call_yiwubo"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -196,7 +196,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/business_progress"
-                    android:textSize="16sp" />
+                    android:textColor="@color/buseness_black"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -254,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:id="@+id/call_suggestion"
@@ -264,7 +265,7 @@
                     android:gravity="center"
                     android:text="@string/suggestion_title"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="13sp" />
 
                 <EditText
                     android:id="@+id/callyiwu_suggest_edit"
@@ -282,20 +283,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="50dp">
 
                 <Button
                     android:id="@+id/callyiwu_submit"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/ripple_bg"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="@string/sumbit"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

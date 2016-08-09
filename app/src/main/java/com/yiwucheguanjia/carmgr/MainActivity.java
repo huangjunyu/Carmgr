@@ -192,6 +192,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             progressFragment = new ProgressFragment();
             callYiwuFragment = new CallYiwu();
             addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
+        }else if (requestCode == 1 && resultCode == 20){//扫描界面返回了homeFragment
+
+        }else if (requestCode == 2 && resultCode == 20) {//扫描界面返回了merchantFragment
+
+        }else if (requestCode == 3 && resultCode == 20){//扫描界面返回了progressFragment
+
+        }else if (requestCode == 4 && resultCode == 20){//扫描界面返回了yiwuFragment
+
         }
 
     }

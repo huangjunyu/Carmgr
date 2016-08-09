@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/desc_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4.0dip"
+        android:gravity="center_vertical"
+        android:text="哈哈"
+        android:textColor="#ff000000"
+        android:textSize="14.0dip" />
+
+    <RelativeLayout
+        android:id="@+id/descRl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/desc_op_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4.0dip"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:text="ewefa"
+            android:textColor="#ff576b95"
+            android:textSize="14.0dip" />
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_toRightOf="@+id/desc_op_tv"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/pull_dowon_black" />
+    </RelativeLayout>
+
+</LinearLayout>

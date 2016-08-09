@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +28,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.WaitActivity;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
@@ -40,6 +44,7 @@ import com.yiwucheguanjia.carmgr.home.model.HotSecondCarBean;
 import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
+import com.yiwucheguanjia.carmgr.scanner.common.Runnable;
 import com.yiwucheguanjia.carmgr.utils.MyScrollview;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
@@ -85,6 +90,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<RollViewPagerBean> rollViewPagerBeens;
     private MyScrollview myScrollview;
     private TextView positionTv;
+    private int one = 0;
+    private int two = 0;
+    private int three = 0;
+    private int four = 0;
+    private int five = 0;
+    private int six = 0;
+    private int seven = 0;
+    private int eight = 0;
     //支持下拉刷新的ViewGroup
     private in.srain.cube.views.ptr.PtrClassicFrameLayout mPtrFrame;
 
@@ -93,29 +106,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR", getActivity().MODE_PRIVATE);
     }
-    protected void loginDialog(String unlogin,String logintimeout,String title,String positiveTxt,
+
+    protected void loginDialog(String unlogin, String logintimeout, String title, String positiveTxt,
                                String negativeTxt) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        if (sharedPreferences.getString("TOKEN",null) == null){
-        builder.setMessage(unlogin);
-        builder.setTitle(title);
-        builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
-                getActivity().startActivityForResult(loginActivityIntent, 1);
-            }
-        }).setCancelable(false);
-        builder.setNegativeButton(negativeTxt, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                getActivity().finish();
-            }
-        });
-        builder.create().show();
-        }else {
+        if (sharedPreferences.getString("TOKEN", null) == null) {
+            builder.setMessage(unlogin);
+            builder.setTitle(title);
+            builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
+                    getActivity().startActivityForResult(loginActivityIntent, 1);
+                }
+            }).setCancelable(false);
+            builder.setNegativeButton(negativeTxt, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    getActivity().finish();
+                }
+            });
+            builder.create().show();
+        } else {
             builder.setMessage(logintimeout);
             builder.setTitle(title);
             builder.setPositiveButton(positiveTxt, new DialogInterface.OnClickListener() {
@@ -245,9 +259,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
-        personalRl = (RelativeLayout) homeView.findViewById(R.id.merchant_personal_rl);
-        positionRl = (RelativeLayout) homeView.findViewById(R.id.progress_position_rl);
+        personalRl = (RelativeLayout) homeView.findViewById(R.id.home_personal_rl);
+        positionRl = (RelativeLayout) homeView.findViewById(R.id.home_position_rl);
         scannerRl = (RelativeLayout) homeView.findViewById(R.id.home_scan_rl);
+        mRollViewPager = (RollPagerView) homeView.findViewById(R.id.roll_view_pager);
         businessGridView = (MyGridView) homeView.findViewById(R.id.business_gridview);
         businessGridView.setFocusable(false);
         secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
@@ -256,25 +271,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         recommendImg1 = (ImageView) homeView.findViewById(R.id.recommend_1);
         recommendImg2 = (ImageView) homeView.findViewById(R.id.recommend_2);
         recommendImg3 = (ImageView) homeView.findViewById(R.id.recommend_3);
-        positionTv = (TextView)homeView.findViewById(R.id.progress_position_Tv);
+        positionTv = (TextView) homeView.findViewById(R.id.progress_position_Tv);
         positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));//设置地区
         personalRl.setOnClickListener(this);
         positionRl.setOnClickListener(this);
         scannerRl.setOnClickListener(this);
+        mRollViewPager.setOnClickListener(this);
+        recommendImg1.setOnClickListener(this);
+        recommendImg2.setOnClickListener(this);
+        recommendImg3.setOnClickListener(this);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 1&&resultCode == 10){//选择地区返回
-            String cityName= SharedPreferencesUtils.getCityName(getActivity());
-            Log.e("gggge",cityName);
+        if (requestCode == 5 && resultCode == 5) {
+            positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
+        } else if (requestCode == 1 && resultCode == 10) {//选择地区返回
+            String cityName = SharedPreferencesUtils.getCityName(getActivity());
             positionTv.setText(cityName);
-        }else if (requestCode == 1 && resultCode == 20){
-            Log.e("scannerResult",data.getStringExtra("scan_result").toString());
+        } else if (requestCode == 1 && resultCode == 20) {
+            Log.e("scannerResult", data.getStringExtra("scan_result").toString());
         }
     }
 
     /**
      * 热门业务
+     *
      * @param username 用户名
      * @param version  app版本
      * @param token    密钥
@@ -320,25 +342,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.merchant_personal_rl:
+            case R.id.home_personal_rl:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
                     Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
                     getActivity().startActivity(intentPersonal);
                 } else {
                     Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivityForResult(personalIntent, 1);
-
-                };
+                }
+                ;
                 break;
-            case R.id.progress_position_rl:
-                Intent cityIntent=new Intent(getActivity(), CityActivity.class);
-                startActivityForResult(cityIntent,1);
+            case R.id.home_position_rl:
+                Intent cityIntent = new Intent(getActivity(), CityActivity.class);
+                startActivityForResult(cityIntent, 1);
                 break;
             case R.id.home_scan_rl:
-                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(capterIntent,1);
+                Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(capterIntent, 1);
+                break;
+            case R.id.roll_view_pager:
+                break;
+            case R.id.recommend_1:
+                Intent waitIntent = new Intent(getActivity(), WaitActivity.class);
+                startActivity(waitIntent);
+                break;
+            case R.id.recommend_2:
+                Intent waitIntent2 = new Intent(getActivity(), WaitActivity.class);
+                startActivity(waitIntent2);
+                break;
+            case R.id.recommend_3:
+                Intent waitIntent3 = new Intent(getActivity(), WaitActivity.class);
+                startActivity(waitIntent3);
                 break;
             default:
+
                 break;
         }
     }
@@ -390,7 +427,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     rollViewPagerBean.setRollViewPagerClickUrl(url);
                     rollViewPagerBeens.add(rollViewPagerBean);
                 }
-                mRollViewPager = (RollPagerView) homeView.findViewById(R.id.roll_view_pager);
                 //设置播放时间间隔
                 mRollViewPager.setPlayDelay(5000);
                 mRollViewPager.setAnimationDurtion(500);
@@ -402,7 +438,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //设置文字指示器
                 //隐藏指示器
                 mRollViewPager.setHintView(new ColorPointHintView(getActivity(), Color.TRANSPARENT, Color.WHITE));
-            }else {
+            } else {
                 loginDialog(getActivity().getResources().getText(R.string.login_hint).toString(),
                         getActivity().getResources().getText(R.string.login_timeout).toString(),
                         getActivity().getResources().getText(R.string.hint).toString(),
@@ -513,7 +549,87 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onError(Call call, Exception e, int id) {
+            switch (id) {
+                case 1:
+                    if (one <= 3) {
 
+                        Log.e("kwf", id + "");
+                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+                                Tools.getInstance().getScreen(getActivity()),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
+                    }
+                    one++;
+                    break;
+                case 2:
+                    if (two <= 3) {
+                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0002",
+                                Tools.getInstance().getScreen(getActivity()),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 2);
+
+                    }
+                    two++;
+                    break;
+                case 3:
+                    if (three <= 3) {
+
+                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0003",
+                                Tools.getInstance().getScreen(getActivity()),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 3);
+                    }
+                    three++;
+                    break;
+                case 4:
+                    if (four <= 3) {
+
+                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0004",
+                                Tools.getInstance().getScreen(getActivity()),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 4);
+                    }
+                    four++;
+                    break;
+                case 5:
+                    if (five <= 3) {
+                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0005",
+                                Tools.getInstance().getScreen(getActivity()),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 5);
+
+                    }
+                    five++;
+                    break;
+                case 6:
+                    if (six <= 3) {
+
+                        getSecondHandcar(sharedPreferences.getString("ACCOUNT", null),
+                                sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APPGETSECONDHANDCAR, 6);
+                    }
+                    six++;
+                    break;
+                case 7:
+                    if (seven <= 3) {
+
+                        appGetServices(sharedPreferences.getString("ACCOUNT", null),
+                                UrlString.APP_VERSION, sharedPreferences.getString("TOKEN", null),
+                                UrlString.APPGETSERVICES, 7);
+                    }
+                    seven++;
+                    break;
+                case 8:
+                    if (eight <= 3) {
+
+                        appgetrecommend(sharedPreferences.getString("ACCOUNT", null),
+                                "全部", sharedPreferences.getString("TOKEN", null),
+                                UrlString.APP_VERSION, UrlString.APPGETRECOMMEND, 8);
+                    }
+                    eight++;
+                default:
+                    break;
+            }
         }
 
         @Override

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -32,12 +33,13 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2016/8/5.
  */
-public class MerchantListActivity extends Activity {
+public class MerchantListActivity extends Activity implements View.OnClickListener {
     private SharedPreferences sharedPreferences;
     private ArrayList<MerchantItemBean> merchantItemBeens;
     private RecyclerView recyclerView;
     private ImageButton gobackImgBtn;
     private String business;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +47,10 @@ public class MerchantListActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            setContentView(R.layout.activity_merchantlist);
+        setContentView(R.layout.activity_merchantlist);
         Bundle bundle = getIntent().getExtras();
         if (bundle.getString("business") != null) {
-            business = bundle.getString("business",null);
+            business = bundle.getString("business", null);
         }
         sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
@@ -62,10 +64,13 @@ public class MerchantListActivity extends Activity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
-    protected void initView(){
+
+    protected void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.merchant_list_lv);
         gobackImgBtn = (ImageButton) findViewById(R.id.merchant_list_goback);
+        gobackImgBtn.setOnClickListener(this);
     }
+
     //一个Okhttputils封装类的示例
     private void getMerchantsList(String username, String city_filter, String service_filter, String token,
                                   String version, String url, int id) {
@@ -84,6 +89,7 @@ public class MerchantListActivity extends Activity {
                 .build()
                 .execute(new CommercialStringCallback());
     }
+
     //解析JSON数据
     protected void analysisJson(String response) {
         try {
@@ -112,6 +118,18 @@ public class MerchantListActivity extends Activity {
             recyclerView.setAdapter(merchantItemAdapter);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.merchant_list_goback:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
+
     protected class CommercialStringCallback extends StringCallback {
 
         @Override

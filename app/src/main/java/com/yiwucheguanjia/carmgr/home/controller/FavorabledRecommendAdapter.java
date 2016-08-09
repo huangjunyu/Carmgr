@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.carmgr.home.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.WaitActivity;
 import com.yiwucheguanjia.carmgr.home.model.FavorabledRecommendBean;
 
 import java.util.ArrayList;
@@ -16,14 +18,14 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/7/6.
  */
-public class FavorabledRecommendAdapter extends BaseAdapter{
+public class FavorabledRecommendAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Activity activity;
     private MyViewholder viewHolder;
     private ArrayList<FavorabledRecommendBean> secondHandBeans;
     private LayoutInflater layoutInflater;
+
     /**
-     *
      * @param activity
      * @param list
      */
@@ -55,13 +57,24 @@ public class FavorabledRecommendAdapter extends BaseAdapter{
             convertView = layoutInflater.inflate(R.layout.second_hand_item, null);
 
             viewHolder = new MyViewholder();
-            viewHolder.secondHandImg = (ImageView)convertView.findViewById(R.id.second_hand_img);
+            viewHolder.secondHandImg = (ImageView) convertView.findViewById(R.id.second_hand_img);
             convertView.setTag(viewHolder);
-        }else {
-            viewHolder = (MyViewholder)convertView.getTag();
+        } else {
+            viewHolder = (MyViewholder) convertView.getTag();
         }
         Picasso.with(activity).load(secondHandBeans.get(position).getImgUrl()).error(R.mipmap.picture_default).into(viewHolder.secondHandImg);
+        viewHolder.secondHandImg.setOnClickListener(this);
+
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.second_hand_img:
+                Intent waitIntent = new Intent(activity, WaitActivity.class);
+                activity.startActivity(waitIntent);
+        }
     }
 
     class MyViewholder {

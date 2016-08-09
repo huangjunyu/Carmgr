@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.carmgr.home.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.squareup.picasso.Picasso;
+import com.yiwucheguanjia.carmgr.WaitActivity;
 import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;

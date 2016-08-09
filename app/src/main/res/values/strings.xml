@@ -42,7 +42,7 @@
     <string name="checking">正在验证</string>
     <string name="reset_password">重置密码失败</string>
     <string name="reseting">正在重置密码</string>
-    <string name="check_fail">验证失败</string>
+    <string name="check_fail">验证失败，请检查验证码后重新验证</string>
     <string name="exit">退出登录</string>
     <string name="all">全部</string>
     <string name="wait_pay">待付款</string>
@@ -149,6 +149,11 @@
     <string name="get_data_fail">获取数据失败</string>
     <string name="login_fail">登录失败，请检查网络以及核对短信验证码</string>
     <string name="code_error">验证码有误，请核对后再进行</string>
+    <string name="request_fail">请求失败，请重新点击发送</string>
+    <string name="pay_money">费用支付</string>
+    <string name="desc_shrinkup">收起</string>
+    <string name="desc_spread">显示更多</string>
+    <string name="may_service_type">可办业务</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

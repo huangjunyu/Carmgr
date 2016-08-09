@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/merchant_item_ll"
+    android:id="@+id/detail_item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ripple_retangle_bg"
@@ -9,13 +9,13 @@
     android:paddingLeft="10dp">
 
     <RelativeLayout
-        android:id="@+id/merchant_img_rl"
+        android:id="@+id/detail_rl"
         android:layout_width="104dp"
         android:layout_height="95dp"
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/merchant_img"
+            android:id="@+id/detail_merchant_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -30,12 +30,12 @@
 
 
         <RelativeLayout
-            android:id="@+id/merchant_name_rl"
+            android:id="@+id/detail_merchant_name_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/merchant_name_txt"
+                android:id="@+id/detail_merchant_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -46,14 +46,14 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/merchant_introduce_rl"
+            android:id="@+id/detail_merchant_intro_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:layout_below="@+id/merchant_name_rl">
+            android:layout_below="@+id/detail_merchant_name_rl">
 
             <TextView
-                android:id="@+id/merchant_introduce_txt"
+                android:id="@+id/detail_merchant_intro_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -65,13 +65,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/merchant_stars_rl"
+            android:id="@+id/detail_merchant_stars_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/merchant_introduce_rl"
+            android:layout_below="@+id/detail_merchant_intro_rl"
             android:layout_marginTop="7dp">
             <ImageView
-                android:id="@+id/merchant_star_img"
+                android:id="@+id/detail_merchant_star_img"
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"
                 android:scaleType="fitStart"
@@ -83,11 +83,11 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/merchant_stars_rl"
+            android:layout_below="@+id/detail_merchant_stars_rl"
             android:layout_marginTop="7dp">
 
             <TextView
-                android:id="@+id/merchant_area"
+                android:id="@+id/detail_merchant_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -95,16 +95,16 @@
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/merchant_road"
+                android:id="@+id/detail_merchant_road"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/merchant_area"
-                android:text="@string/contact_merchant"
+                android:text="null"
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/merchant_distance"
+                android:id="@+id/detail_merchant_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

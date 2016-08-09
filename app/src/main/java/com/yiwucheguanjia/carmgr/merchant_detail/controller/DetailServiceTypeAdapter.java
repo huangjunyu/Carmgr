@@ -1,4 +1,8 @@
-package com.yiwucheguanjia.carmgr.commercial.controller;
+package com.yiwucheguanjia.carmgr.merchant_detail.controller;
+
+/**
+ * Created by Administrator on 2016/8/9.
+ */
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,31 +16,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
 import com.yiwucheguanjia.carmgr.home.controller.PicassoOnScrollListener;
+import com.yiwucheguanjia.carmgr.merchant_detail.model.ServiceTypeItemBean;
 import com.yiwucheguanjia.carmgr.merchant_detail.view.MerchantDetail;
 import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.zhy.http.okhttp.OkHttpUtils;
-
 import java.util.ArrayList;
-
 import okhttp3.Call;
 
 /**
  * Created by Administrator on 2016/7/1.
  */
-public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapter.ViewHolder> {
+public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailServiceTypeAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private ArrayList<Integer> mDatas;
-    private ArrayList<MerchantItemBean> recyclerBeens;
+    private ArrayList<ServiceTypeItemBean> recyclerBeens;
     private Context context;
     private SharedPreferences sharedPreferences;
 
-    public MerchantItemAdapter(Context context, ArrayList<MerchantItemBean> recyclerBeens) {
+    public DetailServiceTypeAdapter(Context context, ArrayList<ServiceTypeItemBean> recyclerBeens) {
         this.recyclerBeens = recyclerBeens;
         this.context = context;
         mInflater = LayoutInflater.from(context);
@@ -62,28 +63,24 @@ public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapte
 
         return viewHolder;
     }
-
-    /**
-     * 设置值
-     */
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-        final MerchantItemBean merchantItemBean = recyclerBeens.get(i);
-        viewHolder.merchantDistance.setText(merchantItemBean.getMerchantDistance());
-        viewHolder.merchantArea.setText(merchantItemBean.getMerchantArea());
-        viewHolder.merchantInstroduce.setText(merchantItemBean.getMerchantIntroduce());
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        final ServiceTypeItemBean merchantItemBean = recyclerBeens.get(position);
+        viewHolder.merchantDistance.setText(merchantItemBean.getDetailMerchantDistance());
+        viewHolder.merchantArea.setText(merchantItemBean.getDetailMerchantAddr());
+        viewHolder.merchantInstroduce.setText(merchantItemBean.getDetailMerchantIntroduce());
 //        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
-        viewHolder.merchantName.setText(merchantItemBean.getMerchantName());
-        viewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
-        String numberStr = merchantItemBean.getMerchantStarsStr();
+        viewHolder.merchantName.setText(merchantItemBean.getDetailMerchantName());
+        viewHolder.merchantRoad.setText(merchantItemBean.getDetailMerchantRoad());
+        String numberStr = merchantItemBean.getDetailMerchantStarsStr();
         selectStar(numberStr,viewHolder.merchantStarImg);
-        Picasso.with(context).load(recyclerBeens.get(i).getMerchantImgUrl()).tag(PicassoOnScrollListener.TAG)
+        Picasso.with(context).load(recyclerBeens.get(position).getDetailMerchantImgUrl()).tag(PicassoOnScrollListener.TAG)
                 .error(R.mipmap.picture_default).into(viewHolder.merchantImg);
         viewHolder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
-                merchantDetailInten.putExtra("merchantName",merchantItemBean.getMerchantName());
+                merchantDetailInten.putExtra("merchantName",merchantItemBean.getDetailMerchantName());
                 context.startActivity(merchantDetailInten);
             }
         });
@@ -205,3 +202,4 @@ public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapte
         }
     }
 }
+

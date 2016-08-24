@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 
 /**
@@ -20,7 +20,7 @@ public class UploadImage extends Activity implements View.OnClickListener{
     private ImageView uploadPolicyImg;//保险单
     private Button uploadPolicyBtn;//上传保险
     private Button nextBtn;//下一步
-    private ImageButton goback;
+    private RippleView gobackrpw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class UploadImage extends Activity implements View.OnClickListener{
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_uploadimage);
         initView();
-        goback.setOnClickListener(this);
+        gobackrpw.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
     }
     private void initView(){
@@ -39,13 +39,13 @@ public class UploadImage extends Activity implements View.OnClickListener{
         uploadPolicyImg = (ImageView)findViewById(R.id.upload_policy_img);
         uploadPolicyBtn = (Button)findViewById(R.id.upload_policy_btn);
         nextBtn = (Button)findViewById(R.id.upload_next_btn);
-        goback = (ImageButton)findViewById(R.id.upload_goback_imgbtn);
+        gobackrpw = (RippleView)findViewById(R.id.addcar_goback_rpw);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.upload_goback_imgbtn:
+            case R.id.addcar_goback_rpw:
                 finish();
                 break;
             case R.id.upload_drive_cred_btn:

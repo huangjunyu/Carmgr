@@ -1,9 +1,13 @@
 package com.yiwucheguanjia.carmgr.personal;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -13,6 +17,10 @@ import android.widget.TextView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.account.view.PersonalDataActivity;
+import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
+import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
+import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
+import com.yiwucheguanjia.carmgr.progress.view.ProgressFragment;
 
 /**
  * Created by Administrator on 2016/6/23.
@@ -44,6 +52,10 @@ public class personalActivity extends Activity implements View.OnClickListener{
         addCarImg.setOnClickListener(this);
         settingImg.setOnClickListener(this);
         accountRl.setOnClickListener(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.loginfresh");
+        intentFilter.addAction("action.loginout");
+        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
     private void initView(){
         addCarImg = (ImageView)findViewById(R.id.personal_car_img);
@@ -94,8 +106,30 @@ public class personalActivity extends Activity implements View.OnClickListener{
             case R.id.personal_data_rl:
                 Intent personalDataIntent = new Intent(personalActivity.this, PersonalDataActivity.class);
                 startActivity(personalDataIntent);
+                break;
             default:
                 break;
         }
+    }
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("action.loginfresh"))
+            {
+                //刷新个人中心
+                setUpAccout();
+                Log.e("kdkw","jjw");
+            }else if (action.equals("action.loginout")){
+                personalActivity.this.finish();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mRefreshBroadcastReceiver);
     }
 }

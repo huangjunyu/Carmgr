@@ -136,7 +136,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/business_select_txt"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/pull_dowon_black" />
+                android:src="@mipmap/pull_down_black" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -161,7 +161,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/city_select_txt"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/pull_dowon_black" />
+                android:src="@mipmap/pull_down_black" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -186,7 +186,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/sort_select_txt"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/pull_dowon_black" />
+                android:src="@mipmap/pull_down_black" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -195,7 +195,16 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/gray_divide" />
-
+    <TextView
+        android:id="@+id/commercial_nothing_tv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:text="@string/nothing_bus"
+        android:textColor="@color/gray_default"
+        android:background="@color/white"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

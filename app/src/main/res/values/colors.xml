@@ -6,7 +6,9 @@
     <color name="gray">#EAEAEA</color>
     <color name="white">#FFFFFF</color>
     <color name="orange">#FFA700</color>
+    <color name="orange1">#FFA700</color>
     <color name="gray_divide">#ADADAD</color>
+    <color name="item_gray">#EBEBEB</color>
     <color name="gray_back">#ADADAD</color>
     <color name="gray_default">#555555</color>
     <color name="black">#000000</color>
@@ -14,7 +16,6 @@
     <color name="buseness_black">#333333</color>
     <color name="main_search_gray">#999999</color>
     <color name="transpan">#00000000</color>
-
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
     <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
@@ -28,4 +29,8 @@
     <color name="viewfinder_mask">#00000000</color>
     <color name="capture_text_cover_bg">#99535353</color>
     <color name="seek_bar_text">#fff6f6f6</color>
+    <color name="detail_read_more">#666666</color>
+    <color name="detail_merchant_detail">#333333</color>
+    <color name="detail_merchant_bottom">#fafafa</color>
+    <color name="detail_merchant_bg">#f0f0f0f0</color>
 </resources>

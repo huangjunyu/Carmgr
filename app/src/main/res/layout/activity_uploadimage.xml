@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -9,32 +10,33 @@
         android:layout_height="70dp"
         android:layout_marginBottom="10dp"
         android:background="@color/white">
-
-        <ImageButton
-            android:id="@+id/upload_goback_imgbtn"
+        <com.andexert.library.RippleView
+            android:id="@+id/addcar_goback_rpw"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            app:rv_color="@color/gray_default">
+        <ImageButton
+            android:id="@+id/upload_goback_imgbtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ripple_goback"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="60dp"
-            android:paddingTop="40dp"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:src="@mipmap/register_left_pre" />
-
+        </com.andexert.library.RippleView>
 
         <TextView
             android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:clickable="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="40dp"
             android:text="@string/car_certification"
             android:textColor="@color/gray_default"
-            android:textSize="16sp" />
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,7 +60,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/upload_drive_cred_img"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ripple_bg"
+            android:background="@drawable/item_corner_retangle"
             android:text="@string/upload_certification"
             android:textColor="@color/white"
             android:textSize="12sp"/>
@@ -78,13 +80,13 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter" />
-        <Buttone
+        <Button
             android:id="@+id/upload_policy_btn"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/upload_policy_img"
-            android:background="@drawable/ripple_bg"
+            android:background="@drawable/item_corner_retangle"
             android:text="@string/upload_policy"
             android:textSize="12sp"
             android:textColor="@color/white" />
@@ -104,7 +106,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ripple_bg"
+        android:background="@drawable/item_corner_retangle"
         android:text="@string/next"
         android:textColor="@color/white" />
 

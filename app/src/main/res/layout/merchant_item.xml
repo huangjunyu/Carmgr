@@ -3,15 +3,16 @@
     android:id="@+id/merchant_item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_retangle_bg"
+    android:background="@drawable/item_selector"
     android:orientation="horizontal"
+    android:layout_marginTop="1px"
     android:paddingRight="20dp"
     android:paddingLeft="10dp">
 
     <RelativeLayout
         android:id="@+id/merchant_img_rl"
         android:layout_width="104dp"
-        android:layout_height="95dp"
+        android:layout_height="98dp"
         android:padding="10dp">
 
         <ImageView
@@ -24,8 +25,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:paddingBottom="10dp"
+        android:layout_height="98dp"
         android:paddingTop="10dp">
 
 

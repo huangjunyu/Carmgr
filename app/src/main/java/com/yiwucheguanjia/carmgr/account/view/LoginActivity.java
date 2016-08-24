@@ -1,7 +1,9 @@
 package com.yiwucheguanjia.carmgr.account.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -18,13 +20,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import com.andexert.library.RippleView;
+import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -50,7 +51,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     //登录状态提示
     private String loginState;
     private Button loginBtn;
-    private ImageButton login_gobackImgBtn;
+    private RippleView gobackRpv;
     private EditText loginUsernameEdit;
     private EditText loginPasswordEdit;
     private TextView loginRegisterTxtBtn;
@@ -62,7 +63,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private int LOGIN_ERROR = 4;
     private String flagWhereRequest;//来自于哪个activity发起的登录请求
 
-    JSONObject jsonObject = new JSONObject();
     private static final MediaType JSON = MediaType.parse("application/json;charset:utf-8");
 
     @Override
@@ -75,10 +75,12 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         setContentView(R.layout.activity_login);
         initView();
         diologLoading = new DiologLoading(getResources().getString(R.string.logging));
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.loginfresh");
+        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
     /**
-     *
      * 接收来自找回密码界面跳到登录界面传递过来的参数
      */
     protected void getIntenExtra() {
@@ -93,14 +95,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         loginPasswordEdit = (EditText) findViewById(R.id.login_password_edit);
         loginRegisterTxtBtn = (TextView) findViewById(R.id.login_register_btn);
         loginBtn = (Button) findViewById(R.id.login_button);
-        login_gobackImgBtn = (ImageButton) findViewById(R.id.login_goback_img_btn);
+        gobackRpv = (RippleView) findViewById(R.id.login_back_rl);
         getPassword = (TextView) findViewById(R.id.login_get_pwd_tv);
         loginPhoneTv = (TextView) findViewById(R.id.login_phone_Tv);
         okHttpClient = new OkHttpClient();
         getPassword.setOnClickListener(this);
         loginRegisterTxtBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
-        login_gobackImgBtn.setOnClickListener(this);
+        gobackRpv.setOnClickListener(this);
         loginPhoneTv.setOnClickListener(this);
     }
 
@@ -136,8 +138,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                     if (diologLoading != null) {
                         diologLoading.dismiss();
                     }
-                    setResult(1);
-                    getCallingActivity();
+//                    setResult(1);
+//                    getCallingActivity();
+                    Intent intent = new Intent(
+                            LoginActivity.this,
+                            MainActivity.class);
+                    Log.e("version", "version");
+                    LoginActivity.this.startActivity(intent);
                     finish();
                     break;
                 case 3://请求成功
@@ -170,7 +177,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(registerIntent);
                 break;
-            case R.id.login_goback_img_btn:
+            case R.id.login_back_rl:
                 this.finish();
                 break;
             case R.id.login_get_pwd_tv:
@@ -180,7 +187,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             case R.id.login_phone_Tv:
                 Intent phoneLogin = new Intent(LoginActivity.this, PhoneLoginActivity.class);
                 startActivityForResult(phoneLogin, 2);
-                finish();
+//                finish();
                 break;
             default:
                 break;
@@ -257,7 +264,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                 setSharePrefrence(usernameString, passwordString, jsonAll.getString("token"));
                                 Log.e("login", "登录成功" + response);
                                 handler.sendEmptyMessage(2);
-                            };
+                            }
+                            ;
                         } catch (JSONException e) {
                             Log.e("ooeo", "kaeee");
                             e.printStackTrace();
@@ -280,6 +288,22 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         edit.putString("PASSWORD", password);
         edit.putString("TOKEN", token);
         edit.commit();
+    }
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("action.loginfresh")) {
+                Log.e("ooeo", "ka");
+                LoginActivity.this.finish();
+            }
+        }
+    };
+    @Override
+    protected void onDestroy() { // TODO Auto-generated method stub
+        super.onDestroy();
+        unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
 }

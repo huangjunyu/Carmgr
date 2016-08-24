@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -152,6 +153,10 @@
                         android:textSize="13sp" />
                 </RelativeLayout>
 
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_weight="1">-->
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="40dp"
@@ -161,11 +166,12 @@
                         android:id="@+id/call_appointment"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:background="@drawable/ripple_round_corner_right"
+                        android:background="@drawable/right_corner_selector"
                         android:gravity="center"
                         android:text="@string/appointment_service"
                         android:textColor="@color/white" />
                 </RelativeLayout>
+                <!--</RelativeLayout>-->
             </LinearLayout>
             <!--310 * 150-->
             <LinearLayout
@@ -174,12 +180,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp">
-
                 <Button
                     android:id="@+id/call_yiwu"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/ripple_bg"
+                    android:background="@drawable/item_corner_retangle"
                     android:text="@string/call_yiwubo"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
@@ -261,7 +266,7 @@
                     android:id="@+id/call_suggestion"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:background="@drawable/ripple_round_corner_top"
+                    android:background="@drawable/selector_round_corner_top"
                     android:gravity="center"
                     android:text="@string/suggestion_title"
                     android:textColor="@color/white"
@@ -291,7 +296,7 @@
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/ripple_bg"
+                    android:background="@drawable/item_corner_retangle"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="@string/sumbit"

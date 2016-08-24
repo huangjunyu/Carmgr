@@ -10,9 +10,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 //import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
@@ -37,8 +38,10 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     private SharedPreferences sharedPreferences;
     private ArrayList<MerchantItemBean> merchantItemBeens;
     private RecyclerView recyclerView;
-    private ImageButton gobackImgBtn;
+    private RippleView gobackRpw;
     private String business;
+    private TextView titleTv;
+    private TextView nothingTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,9 +51,11 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
         // 透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_merchantlist);
+        initView();
         Bundle bundle = getIntent().getExtras();
-        if (bundle.getString("business") != null) {
+        if (bundle.getString("business",null) != null) {
             business = bundle.getString("business", null);
+            titleTv.setText(business);
         }
         sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
@@ -58,7 +63,6 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
                 business,
                 sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
                 UrlString.APP_GET_MERCHANTS_LIST, 1);
-        initView();
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MerchantListActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -67,8 +71,10 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
 
     protected void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.merchant_list_lv);
-        gobackImgBtn = (ImageButton) findViewById(R.id.merchant_list_goback);
-        gobackImgBtn.setOnClickListener(this);
+        gobackRpw = (RippleView) findViewById(R.id.merchant_list_goback_rpw);
+        titleTv = (TextView) findViewById(R.id.merchant_list_title);
+        nothingTv = (TextView) findViewById(R.id.merchantlist_nothing_tv);
+        gobackRpw.setOnClickListener(this);
     }
 
     //一个Okhttputils封装类的示例
@@ -94,8 +100,12 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     protected void analysisJson(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-//            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
+            if (jsonObject.getInt("list_size") <= 0){
+                nothingTv.setVisibility(View.VISIBLE);
+                return;
+            }
+            nothingTv.setVisibility(View.GONE);
             for (int i = 0; i < jsonObject.getJSONArray("merchants_list").length(); i++) {
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonObject.getJSONArray("merchants_list").getJSONObject(i);
@@ -122,7 +132,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.merchant_list_goback:
+            case R.id.merchant_list_goback_rpw:
                 finish();
                 break;
             default:

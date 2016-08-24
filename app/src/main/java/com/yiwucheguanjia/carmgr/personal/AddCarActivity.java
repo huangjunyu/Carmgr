@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 
 /**
  * 添加车辆信息
  */
 public class AddCarActivity extends Activity implements View.OnClickListener{
-    private ImageView gobackImg;
+    private RippleView gobackImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
         initView();
     }
     private void initView(){
-        gobackImg = (ImageView) findViewById(R.id.addcar_goback_imgbtn);
+        gobackImg = (RippleView) findViewById(R.id.addcar_goback_rpw);
         gobackImg.setOnClickListener(this);
     }
 
@@ -36,7 +37,7 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.addcar_goback_imgbtn:
+            case R.id.addcar_goback_rpw:
                 this.finish();
         }
     }

@@ -66,8 +66,6 @@ public class ProgressAdapter extends BaseAdapter {
         myadapterHolder.serviceTypeTxt.setText(merchantBeenList.get(position).getServicTypeStr());
         myadapterHolder.orderNumberTxt.setText(merchantBeenList.get(position).getOrderNumberStr());
         myadapterHolder.orderTimeText.setText(merchantBeenList.get(position).getTimeStr());
-
-
         return convertView;
     }
     class MyadapterHolder{

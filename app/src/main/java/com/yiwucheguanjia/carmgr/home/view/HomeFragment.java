@@ -1,14 +1,14 @@
 package com.yiwucheguanjia.carmgr.home.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,16 +22,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.WaitActivity;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
+import com.yiwucheguanjia.carmgr.commercial.view.MerchantListActivity;
 import com.yiwucheguanjia.carmgr.home.controller.BusinessAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.FavorabledRecommendAdapter;
 import com.yiwucheguanjia.carmgr.home.controller.HotSecondCarAdapter;
@@ -44,8 +45,10 @@ import com.yiwucheguanjia.carmgr.home.model.HotSecondCarBean;
 import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
-import com.yiwucheguanjia.carmgr.scanner.common.Runnable;
+import com.yiwucheguanjia.carmgr.utils.ConfiModel;
+import com.yiwucheguanjia.carmgr.utils.JsonModel;
 import com.yiwucheguanjia.carmgr.utils.MyScrollview;
+import com.yiwucheguanjia.carmgr.utils.RequestSerives;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -61,10 +64,13 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import okhttp3.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Administrator on 2016/6/20.
- */
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout homeView;
     private LinearLayout homeLinearLayout;
@@ -90,6 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<RollViewPagerBean> rollViewPagerBeens;
     private MyScrollview myScrollview;
     private TextView positionTv;
+    private final static int requestTimes = 3;
     private int one = 0;
     private int two = 0;
     private int three = 0;
@@ -100,7 +107,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private int eight = 0;
     //支持下拉刷新的ViewGroup
     private in.srain.cube.views.ptr.PtrClassicFrameLayout mPtrFrame;
-
+    final public static int REQUEST_CODE_ASK_CAMERA = 1004;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +188,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
@@ -191,6 +199,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onRefreshBegin(PtrFrameLayout frame) {
                 Log.e("refresh", "refresh");
                 mPtrFrame.refreshComplete();
+                appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+                        Tools.getInstance().getScreen(getActivity()),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
+                appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0002",
+                        Tools.getInstance().getScreen(getActivity()),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 2);
+                appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0003",
+                        Tools.getInstance().getScreen(getActivity()),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 3);
+                appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0004",
+                        Tools.getInstance().getScreen(getActivity()),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 4);
+                appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0005",
+                        Tools.getInstance().getScreen(getActivity()),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 5);
+                getSecondHandcar(sharedPreferences.getString("ACCOUNT", null),
+                        sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APPGETSECONDHANDCAR, 6);
+                appGetServices(sharedPreferences.getString("ACCOUNT", null),
+                        UrlString.APP_VERSION, sharedPreferences.getString("TOKEN", null),
+                        UrlString.APPGETSERVICES, 7);
+                appgetrecommend(sharedPreferences.getString("ACCOUNT", null),
+                        "全部", sharedPreferences.getString("TOKEN", null),
+                        UrlString.APP_VERSION, UrlString.APPGETRECOMMEND, 8);
+
             }
 
             @Override
@@ -357,27 +395,71 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(cityIntent, 1);
                 break;
             case R.id.home_scan_rl:
-                Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(capterIntent, 1);
+                init2();
+                openCamera();
                 break;
             case R.id.roll_view_pager:
                 break;
             case R.id.recommend_1:
-                Intent waitIntent = new Intent(getActivity(), WaitActivity.class);
-                startActivity(waitIntent);
+                Intent intent = new Intent(getActivity(), MerchantListActivity.class);
+                intent.putExtra("business", "保养");
+                getActivity().startActivity(intent);
                 break;
             case R.id.recommend_2:
-                Intent waitIntent2 = new Intent(getActivity(), WaitActivity.class);
-                startActivity(waitIntent2);
+                Intent intent2 = new Intent(getActivity(), MerchantListActivity.class);
+                intent2.putExtra("business", "维修");
+                getActivity().startActivity(intent2);
                 break;
             case R.id.recommend_3:
-                Intent waitIntent3 = new Intent(getActivity(), WaitActivity.class);
-                startActivity(waitIntent3);
+                Intent intent3 = new Intent(getActivity(), MerchantListActivity.class);
+                intent3.putExtra("business", "加油");
+                getActivity().startActivity(intent3);
                 break;
             default:
 
                 break;
         }
+    }
+
+    private void openCamera() {
+        int hasWriteContactsPermission = checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            // 弹窗询问 ，让用户自己判断
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_CAMERA);
+            return;
+        } else {
+            Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+            capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+            startActivityForResult(capterIntent, 1);
+        }
+    }
+
+    /**
+     * 用户进行权限设置后的回调函数 , 来响应用户的操作，无论用户是否同意权限，Activity都会
+     * 执行此回调方法，所以我们可以把具体操作写在这里
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //这里写你需要相关权限的操作
+                    Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+                    capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+                    startActivityForResult(capterIntent, 1);
+                } else {
+                    Toast.makeText(getActivity(), "权限没有开启", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void appGetConfig(String username, String resouce, String screenSize, String token,
@@ -405,6 +487,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .id(id)
                 .build()
                 .execute(new pagerStringCallback());
+    }
+    private void init2() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://112.74.13.51:8080/carmgr/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestSerives requestSerives = retrofit.create(RequestSerives.class);
+        retrofit2.Call<ConfiModel> call = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+                Tools.getInstance().getScreen(getActivity()),
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION);
+//        call.enqueue(new Callback<ConfiModel>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<ConfiModel> call, Response<ConfiModel> response) {
+//                Log.e("成功7",response.body().getUsername());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<ConfiModel> call, Throwable t) {
+//                Log.e("失败",t.getMessage());
+//            }
+//
+//
+//        });
+        call.enqueue(new retrofitCallback<ConfiModel>(2));
+    }
+    //每次传入一个参数，区别于来自哪个方法的请求，统一调用这个回调
+    public class retrofitCallback<T> implements Callback<T> {
+        int num;
+        public retrofitCallback(int num){
+            this.num = num;
+        }
+        @Override
+        public void onResponse(retrofit2.Call call, Response response) {
+            Log.e("call",response.toString());
+        }
+
+        @Override
+        public void onFailure(retrofit2.Call call, Throwable t) {
+
+        }
     }
 
     private void parseJson(String response) {
@@ -545,91 +670,110 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    protected class myRunnable implements java.lang.Runnable {
+        int id;
+
+        public myRunnable(int id) {
+            this.id = id;
+        }
+
+        ;
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+                switch (id) {
+                    case 1:
+                        if (one <= requestTimes) {
+                            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+                                    Tools.getInstance().getScreen(getActivity()),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
+                        }
+                        one++;
+                        break;
+                    case 2:
+                        if (two <= requestTimes) {
+                            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0002",
+                                    Tools.getInstance().getScreen(getActivity()),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 2);
+
+                        }
+                        two++;
+                        break;
+                    case 3:
+                        if (three <= requestTimes) {
+
+                            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0003",
+                                    Tools.getInstance().getScreen(getActivity()),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 3);
+                        }
+                        three++;
+                        break;
+                    case 4:
+                        if (four <= requestTimes) {
+
+                            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0004",
+                                    Tools.getInstance().getScreen(getActivity()),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 4);
+                        }
+                        four++;
+                        break;
+                    case 5:
+                        if (five <= requestTimes) {
+                            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0005",
+                                    Tools.getInstance().getScreen(getActivity()),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 5);
+
+                        }
+                        five++;
+                        break;
+                    case 6:
+                        if (six <= requestTimes) {
+
+                            getSecondHandcar(sharedPreferences.getString("ACCOUNT", null),
+                                    sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APPGETSECONDHANDCAR, 6);
+                        }
+                        six++;
+                        break;
+                    case 7:
+                        if (seven <= requestTimes) {
+
+                            appGetServices(sharedPreferences.getString("ACCOUNT", null),
+                                    UrlString.APP_VERSION, sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APPGETSERVICES, 7);
+                        }
+                        seven++;
+                        break;
+                    case 8:
+                        if (eight <= requestTimes) {
+
+                            appgetrecommend(sharedPreferences.getString("ACCOUNT", null),
+                                    "全部", sharedPreferences.getString("TOKEN", null),
+                                    UrlString.APP_VERSION, UrlString.APPGETRECOMMEND, 8);
+                        }
+                        eight++;
+                    default:
+                        break;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public class pagerStringCallback extends com.zhy.http.okhttp.callback.StringCallback {
 
         @Override
         public void onError(Call call, Exception e, int id) {
-            switch (id) {
-                case 1:
-                    if (one <= 3) {
-
-                        Log.e("kwf", id + "");
-                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
-                                Tools.getInstance().getScreen(getActivity()),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
-                    }
-                    one++;
-                    break;
-                case 2:
-                    if (two <= 3) {
-                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0002",
-                                Tools.getInstance().getScreen(getActivity()),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 2);
-
-                    }
-                    two++;
-                    break;
-                case 3:
-                    if (three <= 3) {
-
-                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0003",
-                                Tools.getInstance().getScreen(getActivity()),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 3);
-                    }
-                    three++;
-                    break;
-                case 4:
-                    if (four <= 3) {
-
-                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0004",
-                                Tools.getInstance().getScreen(getActivity()),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 4);
-                    }
-                    four++;
-                    break;
-                case 5:
-                    if (five <= 3) {
-                        appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0005",
-                                Tools.getInstance().getScreen(getActivity()),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 5);
-
-                    }
-                    five++;
-                    break;
-                case 6:
-                    if (six <= 3) {
-
-                        getSecondHandcar(sharedPreferences.getString("ACCOUNT", null),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APPGETSECONDHANDCAR, 6);
-                    }
-                    six++;
-                    break;
-                case 7:
-                    if (seven <= 3) {
-
-                        appGetServices(sharedPreferences.getString("ACCOUNT", null),
-                                UrlString.APP_VERSION, sharedPreferences.getString("TOKEN", null),
-                                UrlString.APPGETSERVICES, 7);
-                    }
-                    seven++;
-                    break;
-                case 8:
-                    if (eight <= 3) {
-
-                        appgetrecommend(sharedPreferences.getString("ACCOUNT", null),
-                                "全部", sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION, UrlString.APPGETRECOMMEND, 8);
-                    }
-                    eight++;
-                default:
-                    break;
-            }
+            new Thread(new myRunnable(id)).start();
         }
 
         @Override

@@ -4,6 +4,9 @@
     <string name="commercial">商家</string>
     <string name="home">首页</string>
     <string name="yiwu">易务</string>
+    <string name="micromsg_contact">微信</string>
+    <string name="qq_contact">QQ</string>
+    <string name="phone_contact">电话</string>
     <string name="position">地区</string>
     <string name="home_search_hint">输入商家、品类、商圈</string>
     <string name="car_service">车务</string>
@@ -89,7 +92,6 @@
     <string name="confidentiality_of_information">我们将爱车的信息进行保密，请您放心填写</string>
     <string name="upload_drive_policy_data">上传行驶证/保险单确保车辆信息</string>
     <string name="hot_second_car">热门二手车</string>
-    <string name="read_mord">查看更多</string>
     <string name="hot_recommend">热门推荐</string>
     <string name="contact_merchant">联系商家</string>
     <string name="distance">商家与我距离</string>
@@ -111,6 +113,7 @@
     <string name="check_and_login">验证并登录</string>
     <string name="input_msg_code">请输入你接收到的短信验证码</string>
     <string name="appointment_service">预约服务</string>
+    <string name="appointment_business">业务预约</string>
     <string name="deel_business">业务办理</string>
     <string name="done_business">完成业务</string>
     <string name="call_after_sale">售后跟进</string>
@@ -118,6 +121,7 @@
     <string name="check_new_password">确认新密码</string>
     <string name="check_submit">确认提交</string>
     <string name="call_yiwubo">全国咨询电话：400-111-9665</string>
+    <string name="yiwu_call_number">4001119665</string>
     <string name="header">头像</string>
     <string name="nickname">昵称</string>
     <string name="sex">性别</string>
@@ -143,7 +147,7 @@
     <string name="scan_failed">扫描失败</string>
     <string name="bottom_hint">尽量避免逆光和阴影</string>
     <string name="top_hint">将条形码或二维码置于取景框内系统会自动扫描</string>
-    <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
+    <string name="msg_camera_framework_bug">抱歉，相机出现问题。您可能需要重启设备。</string>
     <string name="no_order">您当前没有订单</string>
     <string name="service_exception">服务器异常</string>
     <string name="get_data_fail">获取数据失败</string>
@@ -154,6 +158,8 @@
     <string name="desc_shrinkup">收起</string>
     <string name="desc_spread">显示更多</string>
     <string name="may_service_type">可办业务</string>
+    <string name="read_more">查看更多</string>
+    <string name="nothing_bus">该业务暂时没有任何数据</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

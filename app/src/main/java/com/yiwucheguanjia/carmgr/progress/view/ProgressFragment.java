@@ -1,13 +1,16 @@
 package com.yiwucheguanjia.carmgr.progress.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
@@ -41,6 +45,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import okhttp3.Call;
+
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 /**
  * 进度首页
@@ -75,7 +81,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
     private TextView waitAssessTv;
     private TextView afterSaleTv;
     private TextView positionTv;
-
+    final public static int REQUEST_CODE_ASK_CAMERA = 1003;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,13 +159,12 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
             JSONObject jsonObject = new JSONObject(response);
             String optState = jsonObject.getString("opt_state");
             if (TextUtils.equals(optState, "success")) {
-                JSONArray ordersList = jsonObject.getJSONArray("orders_list");
                 int listSize = jsonObject.getInt("list_size");
                 if (listSize > 0) {
+                JSONArray ordersList = jsonObject.getJSONArray("orders_list");
                     for (int i = 0; i < listSize; i++) {
                         JSONObject listItem = ordersList.getJSONObject(i);
                         MerchantBean merchantBean = new MerchantBean();
-                        Log.e("merch", listItem.getString("merchant_name"));
                         merchantBean.setMerchantNameStr(listItem.getString("merchant_name"));
                         merchantBean.setMerchantImgUrl(listItem.getString("img_path"));
                         merchantBean.setServicTypeStr(listItem.getString("service_name"));
@@ -217,6 +222,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
+        builder.setCancelable(false);
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -360,13 +366,53 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(intent, 3);
                 break;
             case R.id.progress_scan_rl:
-                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(capterIntent,3);
+                openCamera();
                 break;
             default:
                 break;
         }
     }
+    //打开相机，获取权限
+    private void openCamera() {
+        int hasWriteContactsPermission = checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            // 弹窗询问 ，让用户自己判断
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_CAMERA);
+            return;
+        } else {
+            Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+            capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+            startActivityForResult(capterIntent, 3);
+        }
+    }
+    /**
+     * 用户进行权限设置后的回调函数 , 来响应用户的操作，无论用户是否同意权限，Activity都会
+     * 执行此回调方法，所以我们可以把具体操作写在这里
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //这里写你需要相关权限的操作
+                    Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+                    capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+                    startActivityForResult(capterIntent, 3);
+                } else {
+                    Toast.makeText(getActivity(), "权限没有开启", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
     public class myStringCallback extends StringCallback {
 

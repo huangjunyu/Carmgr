@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/orange">
+
+    <ImageButton
+        android:id="@+id/setting_goback_imgbtn"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:background="@color/transparent"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="60dp"
+        android:paddingTop="40dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/goback_white" />
+
+    <ImageButton
+        android:id="@+id/merchant_detail_collect"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/merchant_detail_shared"
+        android:background="@color/transparent"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="5dp"
+        android:paddingTop="40dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/collect_white" />
+
+    <ImageButton
+        android:id="@+id/merchant_detail_shared"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@color/transparent"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="20dp"
+        android:paddingTop="40dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/shared_white" />
+
+</RelativeLayout>

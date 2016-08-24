@@ -29,7 +29,7 @@
         android:textColor="@color/buseness_black"
         android:paddingLeft="10dp"
         android:paddingTop="15dip"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:paddingBottom="15dip"
         android:textSize="16sp"
         />

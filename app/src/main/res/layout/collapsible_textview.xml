@@ -8,17 +8,22 @@
         android:id="@+id/desc_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4.0dip"
+        android:layout_marginTop="16dip"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:lineSpacingExtra="5dp"
         android:gravity="center_vertical"
-        android:text="哈哈"
-        android:textColor="#ff000000"
-        android:textSize="14.0dip" />
+        android:textColor="@color/detail_merchant_detail"
+        android:textSize="12sp" />
 
     <RelativeLayout
         android:id="@+id/descRl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="1px"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@color/white"
         android:gravity="center">
 
@@ -29,17 +34,18 @@
             android:layout_marginTop="4.0dip"
             android:singleLine="true"
             android:layout_centerVertical="true"
-            android:text="ewefa"
-            android:textColor="#ff576b95"
-            android:textSize="14.0dip" />
+            android:text="@string/read_more"
+            android:textColor="@color/detail_read_more"
+            android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/more"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:id="@+id/more_img"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginLeft="6dp"
             android:layout_toRightOf="@+id/desc_op_tv"
             android:layout_centerVertical="true"
-            android:src="@mipmap/pull_dowon_black" />
+            android:src="@mipmap/pull_down_black" />
     </RelativeLayout>
 
 </LinearLayout>

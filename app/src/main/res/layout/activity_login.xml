@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,60 +7,62 @@
     android:orientation="vertical"
 
     tools:context=".account.view.LoginActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/white"
-        >
+        android:paddingTop="20dp"
+        android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/login_goback_img_btn"
+        <com.andexert.library.RippleView
+            android:id="@+id/login_back_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:paddingRight="70dp"
-            android:paddingTop="45dp"
-            android:paddingBottom="10dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ripple_goback"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/register_left_pre" />
+            android:paddingLeft="20dp"
+            ripple:rv_color="@color/gray_default">
 
+            <ImageButton
+                android:id="@+id/login_goback_img_btn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/register_left_pre" />
+        </com.andexert.library.RippleView>
 
         <TextView
             android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:paddingTop="40dp"
-            android:paddingBottom="10dp"
             android:clickable="true"
             android:text="@string/login_account"
             android:textColor="@color/gray_default"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
+
         <TextView
             android:id="@+id/login_register_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:paddingRight="10dp"
             android:clickable="true"
             android:text="@string/register_account"
             android:textColor="@color/orange"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
     </RelativeLayout>
-
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -100,16 +103,20 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-
-        <Button
-            android:id="@+id/login_button"
+        <com.andexert.library.RippleView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/orange"
-            android:text="@string/login_account"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@mipmap/round_rectangle_orange"
+                android:text="@string/login_account"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </com.andexert.library.RippleView>
 
         <RelativeLayout
             android:layout_width="match_parent"

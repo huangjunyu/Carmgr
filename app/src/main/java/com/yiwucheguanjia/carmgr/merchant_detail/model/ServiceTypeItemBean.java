@@ -9,10 +9,19 @@ public class ServiceTypeItemBean {
     private double service_stars;//服务星星数据
     private String detailMerchantImgUrl;
     private String detailMerchantAddr;
-    private String detailMerchantDistance;//离我距离
+
+    public String getServicePrice() {
+        return servicePrice;
+    }
+
+    public void setServicePrice(String servicePrice) {
+        this.servicePrice = servicePrice;
+    }
+
     private String detailMerchantIntroduce;//介绍
-    private String detailMerchantStarsStr;
     private String detailMerchantName;
+    private String detailMerchantDistance;//离我距离
+    private String detailMerchantStarsStr;
     private String detailMrovince;
     private String detailMerchantRoad;//所在路
     private String detailMerchantServiceItem;//经营项目

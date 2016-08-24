@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
@@ -13,12 +13,12 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
@@ -38,12 +38,12 @@ import okhttp3.Call;
  * Created by Administrator on 2016/7/24.
  */
 public class PhoneLoginActivity extends FragmentActivity implements View.OnClickListener {
-    private ImageView goback;
+    private RippleView gobackRpw;
     private EditText phoneNumEdit;
     private EditText msgCodeEdit;
     private Button sendCodeTv;
     private TimeCount timeCount;
-    private Button loginBtn;
+    private RippleView loginRpw;
     private SharedPreferences sharedPreferences;
     private String phoneNumStr;
     private String uuidStr;
@@ -54,6 +54,10 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_phone_login);
         initView();
         timeCount = new TimeCount(60000, 1000);
@@ -61,14 +65,14 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
     }
 
     protected void initView() {
-        goback = (ImageView) findViewById(R.id.phone_login_goback_img);
+        gobackRpw = (RippleView) findViewById(R.id.phone_login_goback_rpw);
         phoneNumEdit = (EditText) findViewById(R.id.phone_num_edit);
         msgCodeEdit = (EditText) findViewById(R.id.phone_code_edit);
         sendCodeTv = (Button) findViewById(R.id.phone_send_code);
-        loginBtn = (Button) findViewById(R.id.phone_check_login);
-        goback.setOnClickListener(this);
+        loginRpw = (RippleView) findViewById(R.id.phone_check_login_rpw);
+        gobackRpw.setOnClickListener(this);
         sendCodeTv.setOnClickListener(this);
-        loginBtn.setOnClickListener(this);
+        loginRpw.setOnClickListener(this);
     }
 
     //获取手机号码，并且判断格式、发送手机号码
@@ -83,6 +87,7 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
                     uuidStr,
                     UrlString.APP_VERSION, UrlString.APP_SENDVERF_CODE, 1);
         } else {
+            diologLoading.dismiss();
             Toast.makeText(PhoneLoginActivity.this, getResources().getText(R.string.phone_num_format), Toast.LENGTH_SHORT).show();
             phoneNumEdit.setText("");
         }
@@ -124,7 +129,7 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.phone_login_goback_img:
+            case R.id.phone_login_goback_rpw:
                 this.finish();
                 break;
             case R.id.phone_code_edit://验证码编辑框
@@ -134,11 +139,10 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
             case R.id.phone_send_code://发送验证码
                 getPhoneNum();
                 break;
-            case R.id.phone_check_login://验证并登录的按钮
+            case R.id.phone_check_login_rpw://验证并登录的按钮
                 String msgCode = msgCodeEdit.getText().toString().trim();
                 checkLogin(phoneNumStr, "1", msgCode, uuidStr,
                         UrlString.APP_VERSION, UrlString.LOGIN_URL, 2);
-
                 break;
             default:
                 break;
@@ -149,13 +153,18 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
 
         @Override
         public void onError(Call call, Exception e, int id) {
-
+            Log.e("kwkw","wknql");
+            if (diologLoading != null) {
+                diologLoading.dismiss();
+            }
+            exceptionDialog(PhoneLoginActivity.this,getText(R.string.request_fail).toString());
         }
 
         @Override
         public void onResponse(String response, int id) {
             switch (id) {
                 case 1:
+                    //此处需要加入发送验证码失败提示
                     Log.e("sme", response);
                     if (diologLoading != null) {
                         diologLoading.dismiss();
@@ -172,11 +181,13 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
                                 Log.e("login", "aewl");
                                 exceptionDialog(PhoneLoginActivity.this,getText(R.string.login_fail).toString());
                             } else if (TextUtils.equals(jsonAll.getString("opt_state"),"success")) {
-                                Log.e("login", "a0ewl");
                                 setSharePrefrence(phoneNumStr, jsonAll.getString("token"));
                                 Log.e("login", "登录成功" + response);
-                                MainActivity activity = new MainActivity();
-                                activity.onActivityResult(2, 2, null);
+                                Intent intent = new Intent();
+                                intent.setAction("action.loginfresh");
+                                sendBroadcast(intent);
+                                Intent mainIntent = new Intent(PhoneLoginActivity.this, MainActivity.class);
+                                startActivity(mainIntent);
                                 finish();
                             }
                             ;

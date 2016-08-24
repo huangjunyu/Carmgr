@@ -2,8 +2,10 @@ package com.yiwucheguanjia.carmgr.merchant_detail.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,11 +18,9 @@ public class CollapsibleTextView extends LinearLayout implements
 
     /** default text show max lines */
     private static final int DEFAULT_MAX_LINE_COUNT = 2;
-
     private static final int COLLAPSIBLE_STATE_NONE = 0;
     private static final int COLLAPSIBLE_STATE_SHRINKUP = 1;
     private static final int COLLAPSIBLE_STATE_SPREAD = 2;
-
     private TextView desc;
     private RelativeLayout descOp;
     private TextView descopTv;
@@ -28,17 +28,21 @@ public class CollapsibleTextView extends LinearLayout implements
     private String spread;
     private int mState;
     private boolean flag;
-
+    private ImageView moreImg;
     public CollapsibleTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         shrinkup = context.getString(R.string.desc_shrinkup);
         spread = context.getString(R.string.desc_spread);
         View view = inflate(context, R.layout.collapsible_textview, this);
         view.setPadding(0, -1, 0, 0);
+        initView(view);
+        descOp.setOnClickListener(this);
+    }
+        private void initView(View view){
         desc = (TextView) view.findViewById(R.id.desc_tv);
         descOp = (RelativeLayout) view.findViewById(R.id.descRl);
         descopTv = (TextView) view.findViewById(R.id.desc_op_tv);
-        descOp.setOnClickListener(this);
+        moreImg = (ImageView) view.findViewById(R.id.more_img);
     }
 
     public CollapsibleTextView(Context context) {
@@ -62,30 +66,31 @@ public class CollapsibleTextView extends LinearLayout implements
         super.onLayout(changed, l, t, r, b);
         if (!flag) {
             flag = true;
+            desc.post(new Runnable() {
+                @Override
+                public void run() {
+
             if (desc.getLineCount() <= DEFAULT_MAX_LINE_COUNT) {
                 mState = COLLAPSIBLE_STATE_NONE;
                 descOp.setVisibility(View.GONE);
                 desc.setMaxLines(DEFAULT_MAX_LINE_COUNT + 1);
             } else {
-                post(new InnerRunnable());
+                if (mState == COLLAPSIBLE_STATE_SPREAD) {
+                    desc.setMaxLines(DEFAULT_MAX_LINE_COUNT);
+                    descOp.setVisibility(View.VISIBLE);
+                    descopTv.setText(spread);
+                    moreImg.setImageResource(R.mipmap.pull_down_black);
+                    mState = COLLAPSIBLE_STATE_SHRINKUP;
+                } else if (mState == COLLAPSIBLE_STATE_SHRINKUP) {
+                    desc.setMaxLines(Integer.MAX_VALUE);
+                    descOp.setVisibility(View.VISIBLE);
+                    descopTv.setText(shrinkup);
+                    moreImg.setImageResource(R.mipmap.pull_up_black);
+                    mState = COLLAPSIBLE_STATE_SPREAD;
+                }
             }
-        }
-    }
-
-    class InnerRunnable implements Runnable {
-        @Override
-        public void run() {
-            if (mState == COLLAPSIBLE_STATE_SPREAD) {
-                desc.setMaxLines(DEFAULT_MAX_LINE_COUNT);
-                descOp.setVisibility(View.VISIBLE);
-                descopTv.setText(spread);
-                mState = COLLAPSIBLE_STATE_SHRINKUP;
-            } else if (mState == COLLAPSIBLE_STATE_SHRINKUP) {
-                desc.setMaxLines(Integer.MAX_VALUE);
-                descOp.setVisibility(View.VISIBLE);
-                descopTv.setText(shrinkup);
-                mState = COLLAPSIBLE_STATE_SPREAD;
-            }
+                }
+            });
         }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.WaitActivity;
+import com.yiwucheguanjia.carmgr.commercial.view.MerchantListActivity;
 import com.yiwucheguanjia.carmgr.home.model.FavorabledRecommendBean;
 
 import java.util.ArrayList;
@@ -18,12 +19,13 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/7/6.
  */
-public class FavorabledRecommendAdapter extends BaseAdapter implements View.OnClickListener {
+public class FavorabledRecommendAdapter extends BaseAdapter {
 
     private Activity activity;
     private MyViewholder viewHolder;
     private ArrayList<FavorabledRecommendBean> secondHandBeans;
     private LayoutInflater layoutInflater;
+    private String[] business = {"二手", "驾考", "保养", "车险", "保养", "保养"};
 
     /**
      * @param activity
@@ -63,18 +65,16 @@ public class FavorabledRecommendAdapter extends BaseAdapter implements View.OnCl
             viewHolder = (MyViewholder) convertView.getTag();
         }
         Picasso.with(activity).load(secondHandBeans.get(position).getImgUrl()).error(R.mipmap.picture_default).into(viewHolder.secondHandImg);
-        viewHolder.secondHandImg.setOnClickListener(this);
-
+        viewHolder.secondHandImg.setOnClickListener(new
+                                                            View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    Intent intent = new Intent(activity, MerchantListActivity.class);
+                                                                    intent.putExtra("business", business[position]);
+                                                                    activity.startActivity(intent);
+                                                                }
+                                                            });
         return convertView;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.second_hand_img:
-                Intent waitIntent = new Intent(activity, WaitActivity.class);
-                activity.startActivity(waitIntent);
-        }
     }
 
     class MyViewholder {

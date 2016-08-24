@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -9,18 +10,25 @@
         android:layout_height="70dp"
         android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/setting_goback_imgbtn"
+        <com.andexert.library.RippleView
+            android:id="@+id/setting_goback_rpv"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ripple_goback"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="60dp"
-            android:paddingTop="40dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/register_left_pre" />
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:gravity="center_vertical"
+            ripple:rv_color="@color/gray_default"
+            >
+
+            <ImageButton
+                android:id="@+id/setting_goback_imgbtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/register_left_pre" />
+        </com.andexert.library.RippleView>
 
 
         <TextView
@@ -28,9 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
+            android:paddingTop="20dp"
+
+            android:gravity="center"
             android:clickable="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="40dp"
             android:text="@string/setting"
             android:textColor="@color/gray_default"
             android:textSize="16sp" />
@@ -40,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -64,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -81,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -104,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -127,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -150,7 +159,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -173,7 +182,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/ripple_retangle_bg"
+        android:background="@drawable/item_selector"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -192,13 +201,14 @@
                     android:src="@mipmap/go" />-->
     </RelativeLayout>
 
-    <RelativeLayout
+    <com.andexert.library.RippleView
         android:id="@+id/setting_exit_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/ripple_retangle_bg"
         android:gravity="center_vertical"
+        android:background="@color/white"
+        ripple:rv_color="@color/gray_default"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -214,6 +224,6 @@
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:src="@mipmap/go" />-->
-    </RelativeLayout>
+    </com.andexert.library.RippleView>
 
 </LinearLayout>

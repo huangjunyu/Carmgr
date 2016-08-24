@@ -1,7 +1,6 @@
 package com.yiwucheguanjia.carmgr.account.view;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,12 +19,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -38,16 +37,14 @@ import org.json.JSONObject;
 
 import java.util.UUID;
 
-import cn.smssdk.EventHandler;
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
 
 /**
  * Created by Administrator on 2016/6/25.
  */
 public class RegisterActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private String phoneNumString;
-    private ImageButton gobackImgBtn;
+    private RippleView gobackImgRpw;
     private static String usernameString = null;
     private static String passwordString = null;
     private RelativeLayout inputPhoneNumRl;
@@ -86,7 +83,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
     }
 
     private void initView() {
-        gobackImgBtn = (ImageButton) findViewById(R.id.register_goback_imgbtn);
+        gobackImgRpw = (RippleView) findViewById(R.id.register_goback_rpw);
         register_number_txt = (TextView) findViewById(R.id.register_number_txt);
         register_first_img = (ImageView) findViewById(R.id.register_first_img);
         register_code_txt = (TextView) findViewById(R.id.register_code_txt);
@@ -101,7 +98,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
         register_button = (Button) findViewById(R.id.register_button);
         registerCb = (CheckBox) findViewById(R.id.register_agree_check);
         register_button.setOnClickListener(this);
-        gobackImgBtn.setOnClickListener(this);
+        gobackImgRpw.setOnClickListener(this);
         userAgreement.setOnClickListener(this);
         registerCb.setOnCheckedChangeListener(this);
     }
@@ -253,7 +250,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
             case R.id.register_button:
                 getPhoneNum();
                 break;
-            case R.id.register_goback_imgbtn:
+            case R.id.register_goback_rpw:
                 this.finish();
                 break;
             case R.id.yiwu_agreement_txt:
@@ -422,8 +419,9 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
                     if (diologLoading != null) {
                         diologLoading.dismiss();
                     }
-                    //更改第二步骤的图标与字体颜色
-//                    handler.sendEmptyMessage(3);
+//                    Intent loginInten = new Intent(RegisterActivity.this, LoginActivity.class);
+//                    startActivity(loginInten);
+                    //结束当前界面，退回到登录界面
                     finish();
                 }
             } catch (JSONException e) {

@@ -1,10 +1,13 @@
 package com.yiwucheguanjia.carmgr.commercial.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +52,8 @@ import java.util.Map;
 
 import okhttp3.Call;
 
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+
 /**
  * Created by Administrator on 2016/6/20.
  */
@@ -85,6 +90,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     private RecyclerView myRecyclerView;
     private TextView starsTxt;
     private TextView positionTv;
+    private TextView nothingTv;
     private String businessStr = "全部";//业务类型
     private String areaStr = "全部";//地区选择
     String[] businessArray = {"全部", "上牌", "驾考", "检车", "维修", "租车", "保养", "二手车",
@@ -92,7 +98,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     String[] sortArray = {"默认排序", "离我最近", "评价最高", "最新发布", "人气最高", "价格最低",
             "价格最高"};
     String[] areArray = {"全部","天河区", "东山区", "白云区", "海珠区", "荔湾区", "越秀区", "黄埔区", "番禺区", "花都区", "增城区", "从化区", "市郊"};
-
+    final public static int REQUEST_CODE_ASK_CAMERA = 1002;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +143,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         cityDirection = (ImageView) commercialView.findViewById(R.id.city_direction_img);
         positionTv = (TextView) commercialView.findViewById(R.id.progress_position_Tv);
         citySelectTv = (TextView) commercialView.findViewById(R.id.city_select_txt);
+        nothingTv = (TextView) commercialView.findViewById(R.id.commercial_nothing_tv);
         positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
         citySelectRl.setOnClickListener(this);
         positionRl.setOnClickListener(this);
@@ -147,7 +154,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     }
 
     private void cityPopupWindow(){
-        if (!TextUtils.equals(SharedPreferencesUtils.getAreaName(getActivity(), 0),"广州")) {
+        if (!TextUtils.equals(SharedPreferencesUtils.getCityName(getActivity()),"广州")) {
             int k = 0;
             areaList.clear();
             while (true) {
@@ -204,6 +211,14 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             JSONObject jsonObject = new JSONObject(response);
 //            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
+            if (jsonObject.getInt("list_size") <= 0){
+                nothingTv.setVisibility(View.VISIBLE);
+                myRecyclerView.removeAllViews();
+                myRecyclerView.setVisibility(View.GONE);
+                return;
+            }
+            nothingTv.setVisibility(View.GONE);
+            myRecyclerView.setVisibility(View.VISIBLE);
             for (int i = 0; i < jsonObject.getJSONArray("merchants_list").length(); i++) {
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonObject.getJSONArray("merchants_list").getJSONObject(i);
@@ -227,6 +242,46 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             MerchantItemAdapter merchantItemAdapter = new MerchantItemAdapter(getActivity(), merchantItemBeens);
             myRecyclerView.setAdapter(merchantItemAdapter);
         }
+    }
+    //打开相机，获取权限
+    private void openCamera() {
+        int hasWriteContactsPermission = checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            // 弹窗询问 ，让用户自己判断
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_ASK_CAMERA);
+            return;
+        } else {
+            Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+            capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+            startActivityForResult(capterIntent, 2);
+        }
+    }
+    /**
+     * 用户进行权限设置后的回调函数 , 来响应用户的操作，无论用户是否同意权限，Activity都会
+     * 执行此回调方法，所以我们可以把具体操作写在这里
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //这里写你需要相关权限的操作
+                    Intent capterIntent = new Intent(getActivity(), CaptureActivity.class);
+                    capterIntent.setAction(Intent.ACTION_CAMERA_BUTTON);
+                    startActivityForResult(capterIntent, 2);
+                } else {
+                    Toast.makeText(getActivity(), "权限没有开启", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -255,7 +310,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onDismiss() {
                         backgroundAlpha(1f);
                         businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
-                        businessPullDownImg.setImageResource(R.mipmap.pull_dowon_black);
+                        businessPullDownImg.setImageResource(R.mipmap.pull_down_black);
                     }
                 });
 
@@ -314,7 +369,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onDismiss() {
                         backgroundAlpha(1f);
                         citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                        cityDirection.setImageResource(R.mipmap.pull_dowon_black);
+                        cityDirection.setImageResource(R.mipmap.pull_down_black);
                     }
                 });
 
@@ -366,7 +421,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     public void onDismiss() {
                         backgroundAlpha(1f);
                         sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                        sortPullDownImg.setImageResource(R.mipmap.pull_dowon_black);
+                        sortPullDownImg.setImageResource(R.mipmap.pull_down_black);
                     }
                 });
 
@@ -399,8 +454,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 startActivityForResult(intent, 2);
                 break;
             case R.id.merchant_scan_rl:
-                Intent capterIntent=new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(capterIntent,2);
+                openCamera();
                 break;
             default:
                 break;

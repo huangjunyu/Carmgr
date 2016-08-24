@@ -1,8 +1,11 @@
 package com.yiwucheguanjia.carmgr;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,20 +18,24 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
-import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
+import com.yiwucheguanjia.carmgr.myrxjava.rxbus.ChangeAnswerEvent;
+import com.yiwucheguanjia.carmgr.myrxjava.rxbus.RxBus;
 import com.yiwucheguanjia.carmgr.progress.view.ProgressFragment;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * 主Activity
  *
  * @author
- *
  */
-public class MainActivity extends FragmentActivity implements View.OnClickListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     // 以下四个是底部控件
     private RelativeLayout homeLayout;
@@ -53,14 +60,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment commercialFragment;
     private Fragment progressFragment;
     private Fragment callYiwuFragment;
-
     //当前显示的Fragment
     private Fragment currentFragment;
-
     private SharedPreferences sharedPreferences;
-
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
     private int ft_pos;
+    Subscription mSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +76,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
-//        isLogin();
+        //联网判断是否登录或登录过期，过期则跳到登录界面，登录界面不可返回
         initUI();
         initTab();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.loginfresh");
+        intentFilter.addAction("action.loginout");
+        intentFilter.addAction("action.appointment");
+        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         ft_pos = savedInstanceState.getInt("position");
@@ -92,18 +104,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * 初始化UI
      */
     private void initUI() {
-        homeLayout = (RelativeLayout)findViewById(R.id.rl_home);
-        commercialLayout = (RelativeLayout)findViewById(R.id.rl_commercial);
-        progressLayout = (RelativeLayout)findViewById(R.id.rl_progress);
-        callYiwuLayout = (RelativeLayout)findViewById(R.id.rl_callyiwu);
-        homeTxt = (TextView)findViewById(R.id.tabHomeTxt);
-        commercialTxt = (TextView)findViewById(R.id.tabCommercialTxt);
-        progressTxt = (TextView)findViewById(R.id.tabProgressTxt);
-        callYiwuTxt = (TextView)findViewById(R.id.tabCallYiwutext);
-        homeImg = (ImageView)findViewById(R.id.tabHomeImg);
-        commercialImg = (ImageView)findViewById(R.id.tabCommercialImg);
-        progressImg = (ImageView)findViewById(R.id.tabProgressImg);
-        callYiwuImg = (ImageView)findViewById(R.id.tabCallYiwuImg);
+        homeLayout = (RelativeLayout) findViewById(R.id.rl_home);
+        commercialLayout = (RelativeLayout) findViewById(R.id.rl_commercial);
+        progressLayout = (RelativeLayout) findViewById(R.id.rl_progress);
+        callYiwuLayout = (RelativeLayout) findViewById(R.id.rl_callyiwu);
+        homeTxt = (TextView) findViewById(R.id.tabHomeTxt);
+        commercialTxt = (TextView) findViewById(R.id.tabCommercialTxt);
+        progressTxt = (TextView) findViewById(R.id.tabProgressTxt);
+        callYiwuTxt = (TextView) findViewById(R.id.tabCallYiwutext);
+        homeImg = (ImageView) findViewById(R.id.tabHomeImg);
+        commercialImg = (ImageView) findViewById(R.id.tabCommercialImg);
+        progressImg = (ImageView) findViewById(R.id.tabProgressImg);
+        callYiwuImg = (ImageView) findViewById(R.id.tabCallYiwuImg);
         homeLayout.setOnClickListener(this);
         commercialLayout.setOnClickListener(this);
         progressLayout.setOnClickListener(this);
@@ -140,15 +152,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_home: // 首页标签
-                Log.e("haha","kkk");
+                Log.e("haha", "kkk");
                 clickTab1Layout(0);
                 break;
             case R.id.rl_commercial: // 商户标签
-                Log.e("haha","kkk");
+                Log.e("haha", "kkk");
                 clickTab1Layout(1);
                 break;
             case R.id.rl_progress: // 进度标签
-                Log.e("haha","kkk");
+                Log.e("haha", "kkk");
                 clickTab1Layout(2);
                 break;
             case R.id.rl_callyiwu:
@@ -163,42 +175,44 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //这是登录处返回的请求码与结果码，规定HomeFragment发出的请求码全部是1
-        if (requestCode == 1 && resultCode == 1){
+        if (requestCode == 1 && resultCode == 1) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
             progressFragment = new ProgressFragment();
             callYiwuFragment = new CallYiwu();
-            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
-        }else if(requestCode == 1 && resultCode == 10){//HomeFragment选择地区
-            homeFragment.onActivityResult(1,2,null);
-        }else if (requestCode == 2 && resultCode == 10){//CommercialFragment选择地区
-            commercialFragment.onActivityResult(2,10,null);
-        }else if (requestCode == 3 && resultCode == 10){//ProgressFragment选择地区
-            progressFragment.onActivityResult(3,10,null);
-        }else if (requestCode == 4 && resultCode == 10){//CallYiwu选择地区
-            callYiwuFragment.onActivityResult(4,10,null);
-        }else if (resultCode == 2 && requestCode == 2){
+            addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
+        } else if (requestCode == 1 && resultCode == 10) {//HomeFragment选择地区
+            homeFragment.onActivityResult(1, 2, null);
+        } else if (requestCode == 2 && resultCode == 10) {//CommercialFragment选择地区
+            commercialFragment.onActivityResult(2, 10, null);
+        } else if (requestCode == 3 && resultCode == 10) {//ProgressFragment选择地区
+            progressFragment.onActivityResult(3, 10, null);
+        } else if (requestCode == 4 && resultCode == 10) {//CallYiwu选择地区
+            callYiwuFragment.onActivityResult(4, 10, null);
+        }
+//        else if (resultCode == 2 && requestCode == 2) {
+//            fragmentManager.beginTransaction().remove(homeFragment).commit();
+//            homeFragment = new HomeFragment();
+//            commercialFragment = new CommercialFragment();
+//            progressFragment = new ProgressFragment();
+//            callYiwuFragment = new CallYiwu();
+//            addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
+//        }
+        else if (resultCode == 1 && requestCode == 3) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
             progressFragment = new ProgressFragment();
             callYiwuFragment = new CallYiwu();
-            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
-        }else if (resultCode == 1 && requestCode == 3){
-            fragmentManager.beginTransaction().remove(homeFragment).commit();
-            homeFragment = new HomeFragment();
-            commercialFragment = new CommercialFragment();
-            progressFragment = new ProgressFragment();
-            callYiwuFragment = new CallYiwu();
-            addOrShowFragment(fragmentManager.beginTransaction(),homeFragment);
-        }else if (requestCode == 1 && resultCode == 20){//扫描界面返回了homeFragment
+            addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
+        } else if (requestCode == 1 && resultCode == 20) {//扫描界面返回了homeFragment
 
-        }else if (requestCode == 2 && resultCode == 20) {//扫描界面返回了merchantFragment
+        } else if (requestCode == 2 && resultCode == 20) {//扫描界面返回了merchantFragment
 
-        }else if (requestCode == 3 && resultCode == 20){//扫描界面返回了progressFragment
+        } else if (requestCode == 3 && resultCode == 20) {//扫描界面返回了progressFragment
 
-        }else if (requestCode == 4 && resultCode == 20){//扫描界面返回了yiwuFragment
+        } else if (requestCode == 4 && resultCode == 20) {//扫描界面返回了yiwuFragment
 
         }
 
@@ -250,7 +264,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             progressTxt.setTextColor(getResources().getColor(R.color.orange));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
-        }else if (id == 3){
+        } else if (id == 3) {
             if (callYiwuFragment == null) {
                 callYiwuFragment = new CallYiwu();
             }
@@ -307,18 +321,57 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            transaction.hide(currentFragment).add(R.id.content_layout, fragment).commit();
+            Log.e("kdkw", "iiiiii");
+            transaction.hide(currentFragment).add(R.id.content_layout, fragment).commitAllowingStateLoss();
         } else {
-            transaction.hide(currentFragment).show(fragment).commit();
-            fragment.onActivityResult(5,5,null);//跳转到fragment界面后立即更新相关组件
+            transaction.hide(currentFragment).show(fragment).commitAllowingStateLoss();
+            fragment.onActivityResult(5, 5, null);//跳转到fragment界面后立即更新相关组件
         }
 
         currentFragment = fragment;
     }
 
+    private void observorRefrsh() {
+        mSubscription = RxBus.getDefault().toObserverable(ChangeAnswerEvent.class)
+                .subscribe(new Action1<ChangeAnswerEvent>() {
+                    @Override
+                    public void call(ChangeAnswerEvent changeAnswerEvent) {
+                        Toast.makeText(MainActivity.this, "I get your answer ~ ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("action.loginfresh")) {
+                fragmentManager.beginTransaction().remove(homeFragment).commitAllowingStateLoss();
+                homeFragment = new HomeFragment();
+                commercialFragment = new CommercialFragment();
+                progressFragment = new ProgressFragment();
+                callYiwuFragment = new CallYiwu();
+                addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
+            } else if (action.equals("action.loginout")) {
+                MainActivity.this.finish();
+            } else if (action.equals("action.appointment")) {
+                Log.e("kdkw", "jjppw");
+                if (callYiwuFragment != null) {
+                    addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
+                    Log.e("kdkw", "jqqqqw");
+                }else {
+                    Log.e("kdkw", "jjppp");
+                    addOrShowFragment(fragmentManager.beginTransaction(), new CallYiwu());
+                }
+            }
+        }
+    };
+
     @Override
     protected void onDestroy() { // TODO Auto-generated method stub
         super.onDestroy();
+        unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
 }

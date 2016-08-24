@@ -1,16 +1,16 @@
 package com.yiwucheguanjia.carmgr.account.view;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -26,7 +26,7 @@ import okhttp3.Call;
  * Created by Administrator on 2016/7/26.
  */
 public class SetPasswordActivity extends FragmentActivity implements View.OnClickListener {
-    private ImageView goback;
+    private RippleView gobackRpw;
     private EditText newPwdEdit;
     private EditText newPwdCheckEdit;
     private Button submit;
@@ -39,15 +39,20 @@ public class SetPasswordActivity extends FragmentActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setpassword);
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         initView();
     }
 
     protected void initView() {
-        goback = (ImageView) findViewById(R.id.setpwd_goback_imgbtn);
+        gobackRpw = (RippleView) findViewById(R.id.setpwd_goback_rpw);
         newPwdEdit = (EditText) findViewById(R.id.setpwd_password_edit);
         newPwdCheckEdit = (EditText) findViewById(R.id.setpwd_password2_edit);
         submit = (Button) findViewById(R.id.setpwd_submit);
         submit.setOnClickListener(this);
+        gobackRpw.setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
         if (!bundle.getString("UUID").isEmpty() && !bundle.getString("PHONENUMBER").isEmpty()) {
             getUuid = bundle.getString("UUID");
@@ -86,7 +91,7 @@ public class SetPasswordActivity extends FragmentActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.setpwd_goback_imgbtn:
+            case R.id.setpwd_goback_rpw:
                 finish();
                 break;
             case R.id.setpwd_password_edit:

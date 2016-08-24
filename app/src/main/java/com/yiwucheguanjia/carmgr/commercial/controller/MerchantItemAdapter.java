@@ -75,8 +75,9 @@ public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapte
 //        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
         viewHolder.merchantName.setText(merchantItemBean.getMerchantName());
         viewHolder.merchantRoad.setText(merchantItemBean.getMerchantRoad());
-        String numberStr = merchantItemBean.getMerchantStarsStr();
+        final String numberStr = merchantItemBean.getMerchantStarsStr();
         selectStar(numberStr,viewHolder.merchantStarImg);
+        final String address = merchantItemBean.getMerchantArea() + merchantItemBean.getMerchantRoad();
         Picasso.with(context).load(recyclerBeens.get(i).getMerchantImgUrl()).tag(PicassoOnScrollListener.TAG)
                 .error(R.mipmap.picture_default).into(viewHolder.merchantImg);
         viewHolder.itemLl.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +85,8 @@ public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapte
             public void onClick(View v) {
                 Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
                 merchantDetailInten.putExtra("merchantName",merchantItemBean.getMerchantName());
+                merchantDetailInten.putExtra("merchantStar",numberStr);
+                merchantDetailInten.putExtra("merchantAddress",address);
                 context.startActivity(merchantDetailInten);
             }
         });

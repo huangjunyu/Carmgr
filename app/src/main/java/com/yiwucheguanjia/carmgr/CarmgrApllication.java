@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 
 import com.yiwucheguanjia.carmgr.city.db.DBManager;
 import com.yiwucheguanjia.carmgr.welcome.WelcomActivity;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 
@@ -15,31 +16,16 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/7/31.
  */
 public class CarmgrApllication extends Application {
-    private SharedPreferences sharedPreferences;
 
-    public ArrayList<String> getEara() {
-        return eara;
-    }
 
-    public void setEara(ArrayList<String> eara) {
-        this.eara = eara;
-    }
 
-    private ArrayList<String> eara;
-    public String getPositionStr() {
-        return positionStr;
-    }
-
-    public void setPositionStr(String positionStr) {
-        this.positionStr = positionStr;
-    }
-
-    private String positionStr;
     @Override
     public void onCreate() {
         super.onCreate();
+
         dbManager = new DBManager(getApplicationContext());
         dbManager.openDatabase();
+//        OkHttpUtils.getInstance().getOkHttpClient().cache();
     }
 
     private DBManager dbManager;

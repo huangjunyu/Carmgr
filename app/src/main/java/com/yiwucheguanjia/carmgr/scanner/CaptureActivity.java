@@ -1,15 +1,20 @@
 package com.yiwucheguanjia.carmgr.scanner;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -33,6 +38,8 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map;
+
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 /**
  * 此Activity所做的事：
@@ -113,9 +120,9 @@ public final class CaptureActivity extends Activity implements
 	 * 图片的路径
 	 */
 	private String photoPath;
-	
+
 	private LinearLayout linearLayout_bottom;//底部提示部分
-	
+
 	private Handler mHandler = new MyHandler(this);
 
 	static class MyHandler extends Handler {
@@ -165,22 +172,24 @@ public final class CaptureActivity extends Activity implements
 		// 透明导航栏
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		setContentView(R.layout.activity_capture);
-
+		initView();
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 		ambientLightManager = new AmbientLightManager(this);
+	}
+	private void initView(){
+		linearLayout_bottom=(LinearLayout) findViewById(R.id.bottom);
 
 		// 监听图片识别按钮
 		findViewById(R.id.capture_scan_photo).setOnClickListener(this);
 
 		findViewById(R.id.capture_flashlight).setOnClickListener(this);
-		
-		findViewById(R.id.capture_button_cancel).setOnClickListener(this);
-		
-		linearLayout_bottom=(LinearLayout) findViewById(R.id.bottom);
 
+		findViewById(R.id.capture_button_cancel).setOnClickListener(this);
 	}
+
+
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -362,7 +371,7 @@ public final class CaptureActivity extends Activity implements
 	/**
 	 * A valid barcode has been found, so give an indication of success and show
 	 * the results.
-	 * 
+	 *
 	 * @param rawResult
 	 *            The contents of the barcode.
 	 * @param scaleFactor
@@ -454,7 +463,7 @@ public final class CaptureActivity extends Activity implements
 
 	/**
 	 * 向CaptureActivityHandler中发送消息，并展示扫描到的图像
-	 * 
+	 *
 	 * @param bitmap
 	 * @param result
 	 */
@@ -507,7 +516,7 @@ public final class CaptureActivity extends Activity implements
 				break;
 			case R.id.capture_button_cancel:
 				linearLayout_bottom.setVisibility(View.GONE);
-				
+
 			default:
 				break;
 		}

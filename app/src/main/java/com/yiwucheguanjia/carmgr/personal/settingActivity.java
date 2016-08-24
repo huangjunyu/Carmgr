@@ -6,18 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 
 /**
  * Created by Administrator on 2016/7/13.
  */
 public class settingActivity extends Activity implements View.OnClickListener{
-    private RelativeLayout exitRl;
-    private ImageButton gobackImgBtn;
+    private RippleView exitRpw;
+    private RippleView gobackRpw;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     @Override
@@ -33,24 +32,28 @@ public class settingActivity extends Activity implements View.OnClickListener{
         initView();
     }
     private void initView(){
-        exitRl = (RelativeLayout)findViewById(R.id.setting_exit_rl);
-        gobackImgBtn = (ImageButton)findViewById(R.id.setting_goback_imgbtn);
-        gobackImgBtn.setOnClickListener(this);
-        exitRl.setOnClickListener(this);
+        exitRpw = (RippleView) findViewById(R.id.setting_exit_rl);
+        gobackRpw = (RippleView) findViewById(R.id.setting_goback_rpv);
+        gobackRpw.setOnClickListener(this);
+        exitRpw.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.setting_goback_imgbtn:
+            case R.id.setting_goback_rpv:
                 this.finish();
                 break;
             case R.id.setting_exit_rl:
                 editor.remove("TOKEN");
                 editor.remove("ACCOUNT");
-                editor.remove("PASSWORD");
                 editor.commit();
-                setResult(1);
-                getCallingActivity();
+//                setResult(1);
+//                getCallingActivity();
+                Intent intent = new Intent();
+                intent.setAction("action.loginout");
+                sendBroadcast(intent);
+                Intent loginInten = new Intent(settingActivity.this, LoginActivity.class);
+                startActivity(loginInten);
                 finish();
                 break;
             default:

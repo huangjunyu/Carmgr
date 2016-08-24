@@ -79,9 +79,9 @@ public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailService
         viewHolder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
-                merchantDetailInten.putExtra("merchantName",merchantItemBean.getDetailMerchantName());
-                context.startActivity(merchantDetailInten);
+//                Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
+//                merchantDetailInten.putExtra("merchantName",merchantItemBean.getDetailMerchantName());
+//                context.startActivity(merchantDetailInten);
             }
         });
     }

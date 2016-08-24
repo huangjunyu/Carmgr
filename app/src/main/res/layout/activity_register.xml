@@ -2,37 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:paddingTop="20dp"
         android:background="@color/white"
         >
-
-        <ImageButton
-            android:id="@+id/register_goback_imgbtn"
+        <com.andexert.library.RippleView
+            android:id="@+id/register_goback_rpw"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:paddingRight="70dp"
-            android:paddingTop="45dp"
-            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            app:rv_color="@color/gray_default"
+            app:rv_rippleDuration="200"
+            app:rv_type="rectangle">
+        <ImageButton
+            android:id="@+id/register_goback_imgbtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ripple_goback"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:src="@mipmap/register_left_pre" />
-
+        </com.andexert.library.RippleView>
 
         <TextView
             android:id="@+id/publishTopicBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:paddingTop="40dp"
-            android:paddingBottom="10dp"
+           android:gravity="center"
             android:clickable="true"
             android:text="@string/register_account"
             android:textColor="@color/gray_default"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <LinearLayout

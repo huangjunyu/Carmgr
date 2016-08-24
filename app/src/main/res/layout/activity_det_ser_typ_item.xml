@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/merchant_area"
+                android:layout_toRightOf="@id/detail_merchant_area"
                 android:text="null"
                 android:textSize="10sp" />
 

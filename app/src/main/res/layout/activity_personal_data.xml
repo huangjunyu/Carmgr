@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/personal_data_goback"
+        <com.andexert.library.RippleView
+            android:id="@+id/personal_data_goback_rpw"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:paddingRight="60dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ripple_goback"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/register_left_pre"
-            />
+            android:layout_height="70dp"
+            android:paddingLeft="20dp"
+            app:rv_color="@color/gray_default"
+            app:rv_rippleDuration="200"
+            app:rv_type="rectangle">
+
+            <ImageButton
+                android:id="@+id/personal_data_goback"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/register_left_pre" />
+        </com.andexert.library.RippleView>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:paddingTop="40dp"
-            android:paddingBottom="10dp"
+            android:gravity="center"
             android:text="@string/personal_data"
             android:textColor="@color/orange"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -47,6 +56,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/header" />
+
         <ImageView
             android:id="@+id/personal_data_go"
             android:layout_width="15dp"
@@ -54,16 +64,18 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/go" />
+
         <ImageView
             android:id="@+id/personal_data_header"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/personal_data_go"
-            android:src="@mipmap/header_img"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:src="@mipmap/header_img" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -86,6 +98,7 @@
             android:layout_alignParentRight="true"
             android:src="@mipmap/go" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -108,6 +121,7 @@
             android:layout_alignParentRight="true"
             android:src="@mipmap/go" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

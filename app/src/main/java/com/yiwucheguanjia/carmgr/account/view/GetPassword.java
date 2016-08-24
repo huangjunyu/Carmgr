@@ -1,6 +1,5 @@
 package com.yiwucheguanjia.carmgr.account.view;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,13 +11,12 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yiwucheguanjia.carmgr.MainActivity;
+import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -37,11 +35,11 @@ import okhttp3.Call;
  * Created by Administrator on 2016/7/22.
  */
 public class GetPassword extends FragmentActivity implements View.OnClickListener {
-    private ImageView goback;
+    private RippleView gobackRpw;
     private EditText phoneNumEdit;
     private EditText msgCodeEdit;
     private Button sendCodeTv;
-    private Button checkBtn;
+    private RippleView checkRpw;
     private TimeCount timeCount;
     private SharedPreferences sharedPreferences;
     private DiologLoading diologLoading;
@@ -53,7 +51,10 @@ public class GetPassword extends FragmentActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
-
+        // 透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         timeCount = new TimeCount(60000, 1000);
         setContentView(R.layout.activity_get_password);
         uuidStr = UUID.randomUUID().toString();
@@ -61,20 +62,20 @@ public class GetPassword extends FragmentActivity implements View.OnClickListene
     }
 
     private void initView() {
-        goback = (ImageView) findViewById(R.id.getpwd_goback_imgbtn);
+        gobackRpw = (RippleView) findViewById(R.id.setpwd_goback_rpw);
         phoneNumEdit = (EditText) findViewById(R.id.getpwd_phone_num_edit);
         msgCodeEdit = (EditText) findViewById(R.id.getpwd_code_edit);
         sendCodeTv = (Button) findViewById(R.id.getpwd_send_code);
-        checkBtn = (Button) findViewById(R.id.getpwd_check_code);
-        goback.setOnClickListener(this);
+        checkRpw = (RippleView) findViewById(R.id.getpwd_check_code_rpw);
+        gobackRpw.setOnClickListener(this);
         sendCodeTv.setOnClickListener(this);
-        checkBtn.setOnClickListener(this);
+        checkRpw.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.getpwd_goback_imgbtn:
+            case R.id.setpwd_goback_rpw:
                 this.finish();
                 break;
             case R.id.getpwd_phone_num_edit:

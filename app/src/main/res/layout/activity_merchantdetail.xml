@@ -1,19 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/detail_merchant_bg"
+    android:orientation="vertical"
+    android:id="@+id/merchantdetail">
 
+    <com.yiwucheguanjia.carmgr.merchant_detail.controller.myScrollView
+        android:id="@+id/merchantdetail_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/detail_bottom_ll"
+        android:background="@color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:background="@mipmap/picture_default"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/detail_title_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/detail_merchant_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@color/buseness_black"/>
+
+                    <ImageView
+                        android:id="@+id/detail_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/detail_merchant_name" />
+
+                    <Button
+                        android:id="@+id/detail_pay"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@color/orange"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/pay_money"
+                        android:textColor="@color/white"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="1px"
+                    android:background="@color/white"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:id="@+id/detail_position_img"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/position" />
+
+                    <TextView
+                        android:id="@+id/detail_position_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/detail_position_img"
+                        android:textSize="12sp"
+                        android:textColor="@color/buseness_black" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/detail_merchant_detail_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/detail_merchant_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/orange"
+                        android:text="商家详情"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="1px"
+                    android:background="@color/white">
+
+
+                    <com.yiwucheguanjia.carmgr.merchant_detail.view.CollapsibleTextView
+                        android:id="@+id/desc_collapse_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:id="@+id/detail_service_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="6dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:text="@string/may_service_type"
+                        android:textSize="14sp"
+                        android:textColor="@color/orange"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/detail_serv_typ_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/detail_service_type" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="1px"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/detail_more_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/detail_read_more"/>
+
+                    <ImageView
+                        android:id="@+id/detail_more_img"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/detail_more_tv"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/detail_rate_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="1px"
+                    android:background="@color/white"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/detail_more_rate_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/detail_read_more"/>
+
+                    <ImageView
+                        android:id="@+id/detail_more_rate_img"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/detail_more_rate_tv"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.yiwucheguanjia.carmgr.merchant_detail.controller.myScrollView>
+    <LinearLayout
+        android:id="@+id/detail_bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/detail_merchant_bottom"
+        android:layout_marginTop="1px"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:id="@+id/detail_micromsg"
+            android:layout_width="0dp"
+            android:layout_height="41dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/detail_micromsg_img"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/micromsg_white" />
+
+            <TextView
+                android:id="@+id/detail_micromsg_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_micromsg_img"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/micromsg_contact"
+                android:textColor="@color/gray_default"
+                android:textSize="11sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/detail_qq_rl"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/detail_qq_img"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/qq_white" />
+
+            <TextView
+                android:id="@+id/detail_qq_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_qq_img"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/qq_contact"
+                android:textColor="@color/gray_default"
+                android:textSize="11sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/detail_call_rl"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/detail_call_img"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/phone_white" />
+
+            <TextView
+                android:id="@+id/detail_call_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_below="@id/detail_call_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/phone_contact"
+                android:textColor="@color/gray_default"
+                android:textSize="11sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="3">
+            <TextView
+                android:id="@+id/detail_appoin_buse_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/appointment_business"
+                android:textColor="@color/orange"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
     <RelativeLayout
+        android:id="@+id/merchantdetail_title"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/gray_default">
+        android:background="@color/orange"
+        >
 
         <ImageButton
-            android:id="@+id/setting_goback_imgbtn"
+            android:id="@+id/detail_goback_imgbtn"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:background="@color/transparent"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="60dp"
@@ -22,104 +338,39 @@
             android:src="@mipmap/goback_white" />
 
         <ImageButton
-            android:id="@+id/merchant_detail_shared"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/shared_white" />
+            android:id="@+id/merchant_detail_collect"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/merchant_detail_shared"
+            android:background="@color/transparent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/collect_white" />
 
         <ImageButton
-            android:id="@+id/merchant_detail_collect"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_toLeftOf="@+id/merchant_detail_shared"
-            android:src="@mipmap/collect_white" />
+            android:id="@+id/merchant_detail_shared"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/transparent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="20dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/shared_white" />
+
     </RelativeLayout>
 
-    <LinearLayout
+    <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/detail_merchant_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车辆" />
-
-            <ImageView
-                android:id="@+id/detail_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/detail_merchant_name"
-                android:src="@mipmap/star_three" />
-
-            <Button
-                android:id="@+id/detail_pay"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:text="@string/pay_money" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/detail_position_img"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/position" />
-
-            <TextView
-                android:id="@+id/detail_position_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/detail_position_img"
-                android:text="null" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/detail_merchant_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="商家详情" />
-            <com.yiwucheguanjia.carmgr.merchant_detail.view.view.CollapsibleTextView
-                android:id="@+id/desc_collapse_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detail_merchant_detail"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@color/white"
-                android:layout_centerHorizontal="true"
-                android:text="@string/may_service_type"/>
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
-    </LinearLayout>
-</LinearLayout>
+        android:layout_height="1px"
+        android:layout_above="@id/detail_bottom_ll"
+        android:background="@color/gray_divide" />
+    <!--<include-->
+        <!--layout="@layout/merchant_detail_title" />-->
+</RelativeLayout>

@@ -3,7 +3,7 @@
     <item type="id" name="resend_request"/>
     <item name="guide_container" type="id"/>
     <item type="id" name="restart_preview"/>
-    <item type="id" name="auto_focus"/>
+    <item type="id" name="auto_focus1"/>
     <item type="id" name="decode"/>
     <item type="id" name="decode_failed"/>
     <item type="id" name="decode_succeeded"/>

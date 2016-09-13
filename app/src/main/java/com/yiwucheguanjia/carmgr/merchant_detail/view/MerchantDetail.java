@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -71,7 +72,7 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
     private static final int START_ALPHA = 0;
     private static final int END_ALPHA = 255;
     private int fadingHeight = 98;   //当ScrollView滑动到什么位置时渐变消失（根据需要进行调整）
-    private ImageButton gobackImgBtn;
+    private RelativeLayout detail_goback_rl;
     private ImageView starImg;
     private int REQUEST_TIMES = 0;
     private int TOTAL_TIMES = 3;
@@ -86,8 +87,11 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         // 透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         setContentView(R.layout.activity_merchantdetail);
         initView();
@@ -168,7 +172,7 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
         readMoredRate = (TextView) findViewById(R.id.detail_more_rate_tv);
         readMoredDetailImg = (ImageView) findViewById(R.id.detail_more_img);
         readMoredRateImg = (ImageView) findViewById(R.id.detail_more_rate_img);
-        gobackImgBtn = (ImageButton) findViewById(R.id.detail_goback_imgbtn);
+        detail_goback_rl = (RelativeLayout) findViewById(R.id.detail_goback_rl);
         merchantNameTv = (TextView) findViewById(R.id.detail_merchant_name);
         starImg = (ImageView)findViewById(R.id.detail_star);
         positionTv = (TextView)findViewById(R.id.detail_position_tv);
@@ -184,7 +188,7 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         rateRView.setLayoutManager(linearLayoutManager2);
-        gobackImgBtn.setOnClickListener(this);
+        detail_goback_rl.setOnClickListener(this);
         appoinBusTv.setOnClickListener(this);
     }
 
@@ -278,7 +282,7 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.detail_goback_imgbtn:
+            case R.id.detail_goback_rl:
                 finish();
                 break;
             case R.id.detail_appoin_buse_tv:

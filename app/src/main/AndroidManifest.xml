@@ -44,6 +44,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".personal.personalActivity" />
@@ -62,12 +80,16 @@
         <activity android:name=".merchant_detail.view.MerchantDetail"/>
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!--<activity-->
+            <!--android:name="com.mob.tools.MobUIShell"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
         <activity android:name=".WaitActivity"></activity>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57c4e666e0f55ae7420000de" >
+        </meta-data>
     </application>
 
 </manifest>

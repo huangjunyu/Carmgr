@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/jion_goback_rl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/enter_goback_imgbtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/publishTopicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/enter"
+            android:textColor="@color/gray_default"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/register_number_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/operator_data"
+                android:textColor="@color/gray_default"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/register_first_img"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/register_number_txt"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/register_right_nor" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/register_code_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/merchant_data"
+                android:textColor="@color/gray_default"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/register_second_img"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/register_code_txt"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/register_right_nor" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/register_setting_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/join_data"
+                android:textColor="@color/orange"
+                android:textSize="16sp" />
+            <!--<ImageView-->
+            <!--android:id="@+id/register_three_img"-->
+            <!--android:layout_width="15dp"-->
+            <!--android:layout_height="15dp"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@+id/register_setting_pwd"-->
+            <!--android:src="@mipmap/register_right_nor"/>-->
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/jion_stor_serv_typ"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="@string/stor_service_type" />
+
+        <TextView
+            android:id="@+id/jion_area_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/jion_stor_serv_typ"
+            android:background="@color/white"
+            android:hint="@string/select"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <TextView
+            android:id="@+id/jion_stor_intro"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/stor_intro" />
+
+        <EditText
+            android:id="@+id/jion_intro_ed"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@+id/jion_stor_intro"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/merchant_service_pho_tv"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/stor_img" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/jion_stor_img1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_default"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/jion_stor_img2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_default"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/jion_stor_img3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_default"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/join_updown_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/merchant_license_img"
+                android:text="@string/upload" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/jion_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/orange"
+        android:text="@string/next"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -57,17 +57,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import butterknife.BindViews;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import okhttp3.Cache;
 import okhttp3.Call;
+import okhttp3.OkHttpClient;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
@@ -489,16 +499,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .execute(new pagerStringCallback());
     }
     private void init2() {
-        Retrofit retrofit = new Retrofit.Builder()
+        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://112.74.13.51:8080/carmgr/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        RequestSerives requestSerives = retrofit.create(RequestSerives.class);
-        retrofit2.Call<ConfiModel> call = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+        final RequestSerives requestSerives = retrofit.create(RequestSerives.class);
+//        retrofit2.Call<ConfiModel> call = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+//                Tools.getInstance().getScreen(getActivity()),
+//                sharedPreferences.getString("TOKEN", null),
+//                UrlString.APP_VERSION);
+        Observable<ConfiModel> confiModel = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
                 Tools.getInstance().getScreen(getActivity()),
                 sharedPreferences.getString("TOKEN", null),
                 UrlString.APP_VERSION);
+        confiModel.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ConfiModel>() {
+                    @Override
+                    public void call(ConfiModel confiModel) {
+                        Log.e("confim",confiModel.getUsername());
+
+                    }
+
+                });
 //        call.enqueue(new Callback<ConfiModel>() {
 //            @Override
 //            public void onResponse(retrofit2.Call<ConfiModel> call, Response<ConfiModel> response) {
@@ -513,7 +538,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //
 //
 //        });
-        call.enqueue(new retrofitCallback<ConfiModel>(2));
+//        call.enqueue(new retrofitCallback<ConfiModel>(2));
     }
     //每次传入一个参数，区别于来自哪个方法的请求，统一调用这个回调
     public class retrofitCallback<T> implements Callback<T> {
@@ -531,8 +556,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-
     private void parseJson(String response) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+
         Log.e("response", response);
         try {
             JSONObject jsonObject = new JSONObject(response);

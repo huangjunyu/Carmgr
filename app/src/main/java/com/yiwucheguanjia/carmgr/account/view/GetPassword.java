@@ -134,7 +134,6 @@ public class GetPassword extends FragmentActivity implements View.OnClickListene
      * 获取手机号码，并且判断格式、发送手机号码
      */
     protected void getPhoneNum() {
-        Log.e("response", "owiewq");
         if (Tools.getInstance().isMobileNO(phoneNumEdit.getText().toString().trim())) {
             phoneNumStr = phoneNumEdit.getText().toString().trim();
             sendCode(phoneNumStr, "2",

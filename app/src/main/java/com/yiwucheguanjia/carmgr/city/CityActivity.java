@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.CarmgrApllication;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.city.adapter.CityGridViewAdapter;
@@ -68,9 +70,7 @@ public class CityActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
         setContentView(R.layout.activity_city);
         initData();
         initViews();

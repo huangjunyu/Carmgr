@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andexert.library.RippleView;
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 //import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
@@ -47,9 +49,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),0);
         setContentView(R.layout.activity_merchantlist);
         initView();
         Bundle bundle = getIntent().getExtras();

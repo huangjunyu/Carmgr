@@ -44,11 +44,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
@@ -76,10 +71,10 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 透明状态栏
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        // 透明状态栏
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        // 透明导航栏
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR", getActivity().MODE_PRIVATE);
     }
 
@@ -272,7 +267,7 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 postData(sharedPreferences.getString("ACCOUNT", null), "4000_1",
                         "预约服务", sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
                         UrlString.APP_LOG_USER_OPERATION, 1);
-                init2();
+//                init2();
                 break;
             case R.id.call_personal_rl:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
@@ -299,25 +294,25 @@ public class CallYiwu extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-    private void init2() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://112.74.13.51:8080/carmgr/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RequestSerives requestSerives = retrofit.create(RequestSerives.class);
-        retrofit2.Call<JsonModel> call = requestSerives.getString("18617376560","ZY_0001",sharedPreferences.getString("TOKEN", null),"1.0");
-        call.enqueue(new Callback<JsonModel>() {
-            @Override
-            public void onResponse(retrofit2.Call<JsonModel> call, Response<JsonModel> response) {
-                Log.e("成功",response.body().getUsername());
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<JsonModel> call, Throwable t) {
-                Log.e("失败",t.getMessage());
-            }
-        });
-    }
+//    private void init2() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://112.74.13.51:8080/carmgr/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        RequestSerives requestSerives = retrofit.create(RequestSerives.class);
+//        retrofit2.Call<JsonModel> call = requestSerives.getString("18617376560","ZY_0001",sharedPreferences.getString("TOKEN", null),"1.0");
+//        call.enqueue(new Callback<JsonModel>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<JsonModel> call, Response<JsonModel> response) {
+//                Log.e("成功",response.body().getUsername());
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<JsonModel> call, Throwable t) {
+//                Log.e("失败",t.getMessage());
+//            }
+//        });
+//    }
 
     protected class CallYiwuStringCallback extends StringCallback {
 

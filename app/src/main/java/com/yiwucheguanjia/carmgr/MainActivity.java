@@ -11,6 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.callyiwu.CallYiwu;
 import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
@@ -66,14 +70,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
     private int ft_pos;
     Subscription mSubscription;
-
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        StatusBarUtil.setColor(this,ContextCompat.getColor(this,R.color.orange),1);
+//        StatusBarUtil.setColorNoTranslucent(this,ContextCompat.getColor(this,R.color.orange));
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
         //联网判断是否登录或登录过期，过期则跳到登录界面，登录界面不可返回
@@ -116,6 +122,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         commercialImg = (ImageView) findViewById(R.id.tabCommercialImg);
         progressImg = (ImageView) findViewById(R.id.tabProgressImg);
         callYiwuImg = (ImageView) findViewById(R.id.tabCallYiwuImg);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
+
         homeLayout.setOnClickListener(this);
         commercialLayout.setOnClickListener(this);
         progressLayout.setOnClickListener(this);
@@ -367,6 +376,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         }
     };
+
 
     @Override
     protected void onDestroy() { // TODO Auto-generated method stub

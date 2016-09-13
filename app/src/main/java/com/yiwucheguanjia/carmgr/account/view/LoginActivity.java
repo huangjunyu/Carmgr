@@ -20,11 +20,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.andexert.library.RippleView;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
@@ -35,6 +39,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
 import java.util.UUID;
 
 import okhttp3.Call;
@@ -57,12 +62,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private TextView loginRegisterTxtBtn;
     private TextView getPassword;
     private TextView loginPhoneTv;
+    private ImageView loginQQ;
     private OkHttpClient okHttpClient;
     private DiologLoading diologLoading;
     private int LOGIN_SUSSESS = 3;
     private int LOGIN_ERROR = 4;
     private String flagWhereRequest;//来自于哪个activity发起的登录请求
-
+    private UMShareAPI mShareAPI = null;
     private static final MediaType JSON = MediaType.parse("application/json;charset:utf-8");
 
     @Override
@@ -72,8 +78,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        /** init auth api**/
         setContentView(R.layout.activity_login);
         initView();
+        mShareAPI = UMShareAPI.get(LoginActivity.this);
         diologLoading = new DiologLoading(getResources().getString(R.string.logging));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.loginfresh");
@@ -98,12 +106,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         gobackRpv = (RippleView) findViewById(R.id.login_back_rl);
         getPassword = (TextView) findViewById(R.id.login_get_pwd_tv);
         loginPhoneTv = (TextView) findViewById(R.id.login_phone_Tv);
+        loginQQ = (ImageView) findViewById(R.id.login_qq);
         okHttpClient = new OkHttpClient();
         getPassword.setOnClickListener(this);
         loginRegisterTxtBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         gobackRpv.setOnClickListener(this);
         loginPhoneTv.setOnClickListener(this);
+        loginQQ.setOnClickListener(this);
     }
 
 
@@ -164,6 +174,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        SHARE_MEDIA platform = null;
         switch (v.getId()) {
             case R.id.login_button:
                 if (checkString(loginUsernameEdit, loginPasswordEdit)) {
@@ -188,6 +199,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 Intent phoneLogin = new Intent(LoginActivity.this, PhoneLoginActivity.class);
                 startActivityForResult(phoneLogin, 2);
 //                finish();
+                break;
+            case R.id.login_qq:
+                Log.e("error","that");
+                platform = SHARE_MEDIA.QQ;
+                /**begin invoke umeng api**/
+
+                mShareAPI.doOauthVerify(LoginActivity.this, platform, umAuthListener);
                 break;
             default:
                 break;
@@ -239,6 +257,26 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         if (requestCode == 1 && resultCode == 1) {
         }
     }
+
+    /** auth callback interface**/
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
+            com.umeng.socialize.utils.Log.d("user info","user info:"+data.toString());
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private class parseStringCallBack extends StringCallback {
 

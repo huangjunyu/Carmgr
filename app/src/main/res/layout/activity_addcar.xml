@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:background="@color/white">
 
         <com.andexert.library.RippleView
@@ -33,325 +34,336 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:clickable="true"
+            android:gravity="center"
             android:text="@string/add_car"
             android:textColor="@color/gray_default"
             android:textSize="17sp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/addcar_number_type_txt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/number_type" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/addcar_small_car_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@+id/addcar_number_type_txt"
-            android:text="@string/small_car" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_small_car_txt"
-            android:text="@string/large_car" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/addcar_number_type_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/number_type" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_small_car_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@+id/addcar_number_type_txt"
+                    android:text="@string/small_car" />
 
-        <TextView
-            android:id="@+id/addcar_car_type_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:text="@string/car_type" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_small_car_txt"
+                    android:text="@string/large_car" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/addcar_select_car_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_car_type_txt"
-            android:background="@null"
-            android:enabled="true"
-            android:hint="@string/select_car"
-            android:textSize="14sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <ImageView
-            android:id="@+id/addcar_select_car_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/addcar_car_type_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/car_type" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <EditText
+                    android:id="@+id/addcar_select_car_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_car_type_txt"
+                    android:background="@null"
+                    android:enabled="true"
+                    android:hint="@string/select_car"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/addcar_search_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/search_city" />
+                <ImageView
+                    android:id="@+id/addcar_select_car_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/go" />
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/addcar_city_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_search_city"
-            android:text="null" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <ImageView
-            android:id="@+id/addcar_city_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/go" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/addcar_search_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/search_city" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_city_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_search_city"
+                    android:text="null" />
 
-        <TextView
-            android:id="@+id/addcar_car_number_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/car_number" />
+                <ImageView
+                    android:id="@+id/addcar_city_go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/go" />
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/addcar_another_name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_car_number_txt"
-            android:text="@string/another_name" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/addcar_car_number_Edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/addcar_another_name_txt"
-            android:background="@null"
-            android:hint="@string/input_car_number"
-            android:textSize="12sp" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/addcar_car_number_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/car_number" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_another_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_car_number_txt"
+                    android:text="@string/another_name" />
 
-        <TextView
-            android:id="@+id/addcar_engine_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/engine_number" />
+                <EditText
+                    android:id="@+id/addcar_car_number_Edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/addcar_another_name_txt"
+                    android:background="@null"
+                    android:hint="@string/input_car_number"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/addcar_engine_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_engine_txt"
-            android:background="@null"
-            android:hint="@string/input_engine_number"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_engine_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/engine_number" />
 
-        <TextView
-            android:id="@+id/addcar_frame_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:text="@string/frame_number" />
+                <EditText
+                    android:id="@+id/addcar_engine_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_engine_txt"
+                    android:background="@null"
+                    android:hint="@string/input_engine_number"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/addcar_frame_num_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/addcar_frame_number"
-            android:background="@null"
-            android:hint="@string/input_frame_number"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_frame_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/frame_number" />
 
-        <TextView
-            android:id="@+id/addcar_insurance_date_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/insurance_date" />
+                <EditText
+                    android:id="@+id/addcar_frame_num_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/addcar_frame_number"
+                    android:background="@null"
+                    android:hint="@string/input_frame_number"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/addcar_insurance_date_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_insurance_date_txt"
-            android:background="@null"
-            android:hint="@string/input_insurance_date"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/addcar_insurance_date_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/insurance_date" />
 
-        <TextView
-            android:id="@+id/first_attendance_date_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+                <EditText
+                    android:id="@+id/addcar_insurance_date_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_insurance_date_txt"
+                    android:background="@null"
+                    android:hint="@string/input_insurance_date"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-            android:layout_marginRight="20dp"
-            android:text="@string/first_attendance_date" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/first_attendance_date_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@+id/first_attendance_date_txt"
-            android:background="@null"
-            android:hint="@string/first_attendance_date"
-            android:textSize="12sp" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/first_attendance_date_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                    android:layout_marginRight="20dp"
+                    android:text="@string/first_attendance_date" />
 
-        <TextView
-            android:id="@+id/drive_distance_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+                <EditText
+                    android:id="@+id/first_attendance_date_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@+id/first_attendance_date_txt"
+                    android:background="@null"
+                    android:hint="@string/first_attendance_date"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-            android:layout_marginRight="20dp"
-            android:text="@string/drive_distance" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/drive_distance_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/drive_distance_txt"
-            android:background="@null"
-            android:hint="@string/input_drive_distance"
-            android:textSize="12sp" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/drive_distance_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                    android:layout_marginRight="20dp"
+                    android:text="@string/drive_distance" />
 
-        <TextView
-            android:id="@+id/addcar_remark_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/remark" />
+                <EditText
+                    android:id="@+id/drive_distance_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/drive_distance_txt"
+                    android:background="@null"
+                    android:hint="@string/input_drive_distance"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/addcar_remark_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/addcar_remark_txt"
-            android:background="@null"
-            android:hint="@string/input_car_about"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <Button
-        android:id="@+id/search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/orange"
-        android:text="@string/search_begin" />
+                <TextView
+                    android:id="@+id/addcar_remark_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/remark" />
 
-    <TextView
-        android:id="@+id/addcar_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/confidentiality_of_information" />
+                <EditText
+                    android:id="@+id/addcar_remark_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/addcar_remark_txt"
+                    android:background="@null"
+                    android:hint="@string/input_car_about"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/search_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/orange"
+                android:text="@string/search_begin" />
+
+            <TextView
+                android:id="@+id/addcar_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/confidentiality_of_information" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

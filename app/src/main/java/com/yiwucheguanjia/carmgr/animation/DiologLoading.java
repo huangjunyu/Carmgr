@@ -31,11 +31,8 @@ public class DiologLoading extends DialogFragment
 		title.setText(typeLoading);
 		Dialog dialog = new Dialog(getActivity(), R.style.dialog);
 		dialog.setContentView(view);
-//		dialog.getWindow().getAttributes();
-
 		WindowManager.LayoutParams lp=dialog.getWindow().getAttributes();
 		lp.dimAmount=0.5f;
-
 		dialog.getWindow().setAttributes(lp);
 		dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 		return dialog;

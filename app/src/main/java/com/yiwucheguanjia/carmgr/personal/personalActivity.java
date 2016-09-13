@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
 import com.yiwucheguanjia.carmgr.account.view.PersonalDataActivity;
@@ -44,8 +46,9 @@ public class personalActivity extends Activity implements View.OnClickListener{
         // 透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
         setContentView(R.layout.activity_personal);
         initView();
         setUpAccout();

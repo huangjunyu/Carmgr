@@ -1,5 +1,6 @@
 package com.yiwucheguanjia.merchantcarmgr.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,13 +14,12 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/9/13.
  */
 public class EnterMerchantDataActivity extends AppCompatActivity {
-    @BindView(R.id.merchant_goback_rl)
-    RelativeLayout gobackRl;
     @BindView(R.id.merchant_name_edit)
     EditText merchantNameEd;
     @BindView(R.id.merchant_area_ed)
@@ -34,10 +34,24 @@ public class EnterMerchantDataActivity extends AppCompatActivity {
     Button updownBtn;
     @BindView(R.id.merchant_next_btn)
     Button nextBtn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getSupportActionBar().hide();
         setContentView(R.layout.enter_merchant_data);
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.merchant_next_btn)
+    void setClick(TextView button) {
+        switch (button.getId()) {
+            case R.id.merchant_next_btn:
+                Intent intentJion = new Intent(EnterMerchantDataActivity.this, JionActivity.class);
+                startActivity(intentJion);
+                break;
+            default:
+                break;
+        }
     }
 }

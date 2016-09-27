@@ -33,5 +33,8 @@
     <string name="business_license">营业执照</string>
     <string name="stor_service_type">店面服务类型</string>
     <string name="stor_intro">店面简介</string>
+    <string name="input">在此输入...</string>
     <string name="stor_img">店面图片</string>
+    <string name="readed_and_agree">我已阅读并同意</string>
+    <string name="yiwu_agreenment">《易车易宝平台用户协定》</string>
 </resources>

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/city_home_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:showDividers="end">
+
     <RelativeLayout
-        android:focusable="true"
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/orange" >
+        android:background="@color/orange"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/tv_title"
@@ -20,43 +23,50 @@
             android:text="选择城市"
             android:textColor="@color/white"
             android:textSize="20sp" />
-
+<Button
+    android:id="@+id/testlocation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="helll"/>
     </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/rl_top"
+    android:background="@color/white"
+    android:showDividers="end"
+    >
 
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px"/>
+        <com.yiwucheguanjia.merchantcarmgr.city.utils.ClearEditText
+            android:id="@+id/filter_edit"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray"
+            android:drawableLeft="@drawable/shape_rectangle_white"
+            android:gravity="center"
+            android:hint="请输入城市名称"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:textSize="15.0dip" />
+</LinearLayout>
 
-    <com.yiwucheguanjia.merchantcarmgr.city.utils.ClearEditText
-        android:id="@+id/filter_edit"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:background="@drawable/edittext_orange"
-        android:drawableLeft="@drawable/shape_rectangle_white"
-        android:hint="请输入城市名称"
-        android:singleLine="true"
-        android:gravity="center"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="15.0dip" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/country_lvcountry"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerHeight="1px"
-            android:divider="@color/gray_divide" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/level_city_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray" />
+
 
         <TextView
             android:id="@+id/dialog"
@@ -69,11 +79,35 @@
             android:textSize="30.0dip"
             android:visibility="invisible" />
 
-        <com.yiwucheguanjia.carmgr.city.widget.SideBar
+
+    <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
+        android:id="@+id/recyclerview_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/city_hotcity_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="国内热门城市"
+            android:textColor="@color/buseness_black"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gridview_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city_hotcity_tv"
+            android:layout_gravity="left"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" />
+    </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
+        <com.yiwucheguanjia.merchantcarmgr.city.widget.SideBar
             android:id="@+id/sidrbar"
             android:layout_width="30.0dip"
             android:layout_height="match_parent"
-            android:layout_gravity="right|center" />
+            android:layout_gravity="right|center"/>
     </FrameLayout>
 
 </LinearLayout>

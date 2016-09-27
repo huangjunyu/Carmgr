@@ -38,6 +38,7 @@ import com.yiwucheguanjia.carmgr.commercial.model.MerchantSelectItemBean;
 import com.yiwucheguanjia.carmgr.commercial.controller.PopupWindowSimpleAdapter;
 import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
+import com.yiwucheguanjia.carmgr.utils.ScreenUtils;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -97,8 +98,9 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             "车贷", "新车", "急救", "用品", "停车"};
     String[] sortArray = {"默认排序", "离我最近", "评价最高", "最新发布", "人气最高", "价格最低",
             "价格最高"};
-    String[] areArray = {"全部","天河区", "东山区", "白云区", "海珠区", "荔湾区", "越秀区", "黄埔区", "番禺区", "花都区", "增城区", "从化区", "市郊"};
+    String[] areArray = {"全部", "天河区", "东山区", "白云区", "海珠区", "荔湾区", "越秀区", "黄埔区", "番禺区", "花都区", "增城区", "从化区", "市郊"};
     final public static int REQUEST_CODE_ASK_CAMERA = 1002;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +133,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         businessSelectRl = (RelativeLayout) commercialView.findViewById(R.id.business_select_rl);
         sortSelectRl = (RelativeLayout) commercialView.findViewById(R.id.sort_select_rl);
         positionRl = (RelativeLayout) commercialView.findViewById(R.id.merchant_position_rl);
-        citySelectRl = (RelativeLayout)commercialView.findViewById(R.id.city_select_rl);
+        citySelectRl = (RelativeLayout) commercialView.findViewById(R.id.city_select_rl);
         popupDivision = (View) commercialView.findViewById(R.id.commercial_popup_division);
         businessSelectTxt = (TextView) commercialView.findViewById(R.id.business_select_txt);
         myRecyclerView = (RecyclerView) commercialView.findViewById(R.id.commercial_item_lv);
@@ -153,8 +155,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         scannerRl.setOnClickListener(this);
     }
 
-    private void cityPopupWindow(){
-        if (!TextUtils.equals(SharedPreferencesUtils.getCityName(getActivity()),"广州")) {
+    private void cityPopupWindow() {
+        if (!TextUtils.equals(SharedPreferencesUtils.getCityName(getActivity()), "广州")) {
             int k = 0;
             areaList.clear();
             while (true) {
@@ -163,19 +165,20 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                     Log.e("notnull", SharedPreferencesUtils.getAreaName(getActivity(), k));
                     listItem.put("area", SharedPreferencesUtils.getAreaName(getActivity(), k++));
                     areaList.add(listItem);
-                }else {
+                } else {
                     break;
                 }
-            };
+            }
+            ;
         } else {
             Log.e("notnull", "that");
             SharedPreferencesUtils.clearData(getActivity());
             areaList.clear();
             for (int n = 0; n < areArray.length; n++) {
-                SharedPreferencesUtils.saveAreaName(getActivity(),areArray[n],n);
+                SharedPreferencesUtils.saveAreaName(getActivity(), areArray[n], n);
                 Map<String, String> listItem = new HashMap<>();
                 listItem.put("area", areArray[n]);
-                Log.e("area",areArray[n]);
+                Log.e("area", areArray[n]);
                 areaList.add(listItem);
             }
         }
@@ -199,8 +202,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 5 && resultCode == 5) {
             positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
-            Log.e("sett",SharedPreferencesUtils.getCityName(getActivity()));
-        }else if (requestCode == 2 && resultCode == 10){
+            Log.e("sett", SharedPreferencesUtils.getCityName(getActivity()));
+        } else if (requestCode == 2 && resultCode == 10) {
             positionTv.setText(SharedPreferencesUtils.getCityName(getActivity()));
         }
     }
@@ -211,7 +214,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             JSONObject jsonObject = new JSONObject(response);
 //            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
-            if (jsonObject.getInt("list_size") <= 0){
+            if (jsonObject.getInt("list_size") <= 0) {
                 nothingTv.setVisibility(View.VISIBLE);
                 myRecyclerView.removeAllViews();
                 myRecyclerView.setVisibility(View.GONE);
@@ -243,6 +246,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             myRecyclerView.setAdapter(merchantItemAdapter);
         }
     }
+
     //打开相机，获取权限
     private void openCamera() {
         int hasWriteContactsPermission = checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
@@ -256,6 +260,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             startActivityForResult(capterIntent, 2);
         }
     }
+
     /**
      * 用户进行权限设置后的回调函数 , 来响应用户的操作，无论用户是否同意权限，Activity都会
      * 执行此回调方法，所以我们可以把具体操作写在这里
@@ -284,160 +289,97 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private void initPopupwindow(String params, List<Map<String, String>> paramsList, final int i) {
+        View view = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
+        popupwindowListView = (ListView) view.findViewById(R.id.mylist);
+        // 创建一个SimpleAdapter
+        popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), paramsList, R.layout.commercial_sort,
+                new String[]{params}, new int[]{R.id.typeTopic});
+        popupwindowListView.setAdapter(popupWindowSimpleAdapter);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
+                android.view.WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+        popupWindow.update();
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setHeight(ScreenUtils.getScreenW(getActivity()) * 2 / 3);
+        popupWindow.setWidth(ScreenUtils.getScreenH(getActivity()));
+//                backgroundAlpha(0.5f);
+        //监听popupWindow消失状态并且实现想要的操作
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+                businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                businessPullDownImg.setImageResource(R.mipmap.pull_down_black);
+            }
+        });
+
+        popupWindow.showAsDropDown(popupDivision, 0, 0);
+        popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //判断点击的是哪个下拉窗口
+                if (i == 1) {
+                    businessSelectTxt.setText(businessArray[position]);
+                    businessStr = businessArray[position];
+                    //提交筛选方法
+                    getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
+                            areaStr,
+                            businessArray[position].toString(),
+                            sharedPreferences.getString("TOKEN", null),
+                            UrlString.APP_VERSION,
+                            UrlString.APP_GET_MERCHANTS_LIST, 1);
+                    popupWindow.dismiss();
+                    businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                } else if (i == 2) {
+                    citySelectTv.setText(SharedPreferencesUtils.getAreaName(getActivity(), position));
+                    areaStr = SharedPreferencesUtils.getAreaName(getActivity(), position);
+                    //提交筛选方法
+                    getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
+                            SharedPreferencesUtils.getAreaName(getActivity(), position),
+                            businessStr,
+                            sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
+                            UrlString.APP_GET_MERCHANTS_LIST, 1);
+
+                    popupWindowCity.dismiss();
+                    citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                } else if (i == 3) {
+                    sortSelectTv.setText(sortArray[position]);
+                    popupWindow.dismiss();
+                    sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                }
+            }
+        });
+        if (popupWindow.isShowing() && i == 1){
+            businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
+            businessPullDownImg.setImageResource(R.mipmap.pull_down_pre);
+        }else if (popupWindow.isShowing() && i == 2){
+            citySelectTv.setTextColor(getResources().getColor(R.color.orange));
+            cityDirection.setImageResource(R.mipmap.pull_down_pre);
+        }else if (popupWindow.isShowing() && i == 3){
+            sortSelectTv.setTextColor(getResources().getColor(R.color.orange));
+            sortPullDownImg.setImageResource(R.mipmap.pull_down_pre);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.business_select_rl:
-                View view = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
-                popupwindowListView = (ListView) view.findViewById(R.id.mylist);
-                // 创建一个SimpleAdapter
-                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), businessList, R.layout.commercial_sort,
-                        new String[]{"business"}, new int[]{R.id.typeTopic});
-                popupwindowListView.setAdapter(popupWindowSimpleAdapter);
-                popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
-                        android.view.WindowManager.LayoutParams.WRAP_CONTENT);
-                popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-                popupWindow.update();
-                popupWindow.setTouchable(true);
-                popupWindow.setFocusable(true);
-//                backgroundAlpha(0.5f);
-                //监听popupWindow消失状态并且实现想要的操作
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-                    @Override
-                    public void onDismiss() {
-                        backgroundAlpha(1f);
-                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
-                        businessPullDownImg.setImageResource(R.mipmap.pull_down_black);
-                    }
-                });
-
-                popupWindow.showAsDropDown(popupDivision, 0, 0);
-                popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.e("position", position + "");
-                        businessSelectTxt.setText(businessArray[position]);
-                        businessStr = businessArray[position];
-                        Log.e("bta", businessArray[position]);
-                        //提交筛选方法
-                        getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
-                                areaStr,
-                                businessArray[position].toString(),
-                                sharedPreferences.getString("TOKEN", null),
-                                UrlString.APP_VERSION,
-                                UrlString.APP_GET_MERCHANTS_LIST, 1);
-                        popupWindow.dismiss();
-                        businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
-                    }
-                });
-                if (popupWindow.isShowing()) {
-                    businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
-                    businessPullDownImg.setImageResource(R.mipmap.pull_down_pre);
-                }
+                initPopupwindow("business", businessList, 1);
                 break;
             //城市选择
             case R.id.city_select_rl:
                 cityPopupWindow();
-                Log.e("eeew","ekwn");
-                View cityView = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
-                popupwindowListView = (ListView) cityView.findViewById(R.id.mylist);
-                for (int i = 0;i < areaList.size();i++){
-                    Log.e("aiea",areaList.get(i).toString());
-                }
-                Log.e("eeew","ekw99n");
-                // 创建一个SimpleAdapter
-                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), areaList, R.layout.commercial_sort,
-                        new String[]{"area"}, new int[]{R.id.typeTopic});
-                popupwindowListView.setAdapter(popupWindowSimpleAdapter);
-                popupWindowCity = new PopupWindow(commercialView.findViewById(R.id.commercialLL), ViewGroup.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.MATCH_PARENT);
-                popupWindowCity.setContentView(cityView);
-                popupWindowCity.setBackgroundDrawable(new BitmapDrawable());
-                popupWindowCity.setOutsideTouchable(true);
-                popupWindowCity.setAnimationStyle(android.R.style.Animation_Dialog);
-                popupWindowCity.update();
-                popupWindowCity.setTouchable(true);
-                popupWindowCity.setFocusable(true);
-//                backgroundAlpha(0.5f);
-                //监听popupWindow消失状态并且实现想要的操作
-                popupWindowCity.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-                    @Override
-                    public void onDismiss() {
-                        backgroundAlpha(1f);
-                        citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                        cityDirection.setImageResource(R.mipmap.pull_down_black);
-                    }
-                });
-
-                popupWindowCity.showAsDropDown(popupDivision, 0, 0);
-                popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.e("position", SharedPreferencesUtils.getAreaName(getActivity(),position));
-                        citySelectTv.setText(SharedPreferencesUtils.getAreaName(getActivity(),position));
-                        areaStr = SharedPreferencesUtils.getAreaName(getActivity(),position);
-//                        Log.e("bta", SharedPreferencesUtils.getAreaName(getActivity(),position));
-                        //提交筛选方法
-                        getMerchantsList(sharedPreferences.getString("ACCOUNT", null),
-                                SharedPreferencesUtils.getAreaName(getActivity(),position),
-                                businessStr,
-                                sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
-                                UrlString.APP_GET_MERCHANTS_LIST, 1);
-
-                        popupWindowCity.dismiss();
-                        citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                    }
-                });
-                if (popupWindowCity.isShowing()) {
-                    citySelectTv.setTextColor(getResources().getColor(R.color.orange));
-                    cityDirection.setImageResource(R.mipmap.pull_down_pre);
-                }
+                initPopupwindow("area", areaList, 2);
                 break;
             //默认排序
             case R.id.sort_select_rl:
-                View sortView = popupwindowinflater.inflate(R.layout.commercial_select_list, null);
-                popupwindowListView = (ListView) sortView.findViewById(R.id.mylist);
-                // 创建一个SimpleAdapter
-                popupWindowSimpleAdapter = new PopupWindowSimpleAdapter(getActivity(), sortList, R.layout.commercial_sort,
-                        new String[]{"sort"}, new int[]{R.id.typeTopic});
-                popupwindowListView.setAdapter(popupWindowSimpleAdapter);
-                popupWindow = new PopupWindow(sortView, ViewGroup.LayoutParams.MATCH_PARENT,
-                        android.view.WindowManager.LayoutParams.WRAP_CONTENT);
-                popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-                popupWindow.update();
-                popupWindow.setTouchable(true);
-                popupWindow.setFocusable(true);
-//                backgroundAlpha(0.5f);
-                //监听popupWindow消失状态并且实现想要的操作
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-                    @Override
-                    public void onDismiss() {
-                        backgroundAlpha(1f);
-                        sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                        sortPullDownImg.setImageResource(R.mipmap.pull_down_black);
-                    }
-                });
-
-                popupWindow.showAsDropDown(popupDivision, 0, 0);
-                popupwindowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        sortSelectTv.setText(sortArray[position]);
-                        popupWindow.dismiss();
-                        sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
-                    }
-                });
-                if (popupWindow.isShowing()) {
-                    sortSelectTv.setTextColor(getResources().getColor(R.color.orange));
-                    sortPullDownImg.setImageResource(R.mipmap.pull_down_pre);
-                }
+                initPopupwindow("sort", sortList, 3);
                 break;
             case R.id.merchant_personal_rl:
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
@@ -501,7 +443,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
         public void onResponse(String response, int id) {
             switch (id) {
                 case 1:
-                    Log.e("mer", response);
                     analysisJson(response);
                     break;
                 default:

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
 
@@ -18,10 +19,8 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/9/13.
  */
 public class JionActivity extends AppCompatActivity {
-    @BindView(R.id.jion_goback_rl)
-    RelativeLayout gobackRl;
     @BindView(R.id.jion_area_ed)
-    EditText areaEdit;
+    TextView areaEdit;
     @BindView(R.id.jion_intro_ed)
     EditText introEd;
     @BindView(R.id.jion_stor_img1)
@@ -37,9 +36,6 @@ public class JionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jion);
         ButterKnife.bind(this);
-    }
-    @OnClick(R.id.jion_goback_rl)void gobackStep(){
-        finish();
     }
     @OnClick(R.id.jion_stor_img1)void setImg1(){
 

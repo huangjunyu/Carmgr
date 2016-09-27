@@ -7,14 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/white"
-        android:paddingTop="20dp">
-
+        android:layout_height="50dp"
+        android:background="@color/white">
         <RelativeLayout
             android:id="@+id/enter_goback_rl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp">
 
             <ImageButton
                 android:id="@+id/getpwd_goback_imgbtn"
@@ -33,7 +32,7 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/get_password"
+            android:text="@string/enter"
             android:textColor="@color/orange"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -75,6 +74,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:background="@color/white">
 
             <EditText
@@ -123,17 +123,58 @@
 
 
 
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:background="@color/white">
+
             <Button
                 android:id="@+id/enter_enter_btn"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/enter"
                 android:background="@color/orange"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
-    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enter_enter_btn"
+        android:layout_marginTop="10dp"
+        >
+        <CheckBox
+            android:id="@+id/register_agree_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:checked="true"/>
+        <TextView
+            android:id="@+id/register_agree_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/register_agree_check"
+            android:text="@string/readed_and_agree"
+            />
+        <TextView
+            android:id="@+id/yiwu_agreement_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/register_agree_txt"
+            android:text="@string/yiwu_agreenment"
+            />
+    </RelativeLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

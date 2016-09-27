@@ -7,16 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.animation.DiologLoading;
 import com.yiwucheguanjia.merchantcarmgr.utils.Tools;
-
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/9/12.
  */
-public class EnterActivity extends AppCompatActivity {
+public class EnterActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     @BindView(R.id.enter_goback_rl)
     RelativeLayout gobackRl;
     @BindView(R.id.enter_account_edit)
@@ -41,15 +41,21 @@ public class EnterActivity extends AppCompatActivity {
     private String phoneNumStr;
     @BindView(R.id.enter_send_code)
     TextView sendCodeTv;
+    @BindView(R.id.register_agree_check)
+    CheckBox checkBox;
+
+
     private DiologLoading diologLoading;
+    private Boolean checkBool = true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),0);
-        setContentView(R.layout.enter_activity);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
+        setContentView(R.layout.activity_enter);
 
         ButterKnife.bind(this);
+        checkBox.setOnCheckedChangeListener(this);
     }
 
     @OnClick(R.id.enter_goback_rl)void goback(){
@@ -61,9 +67,13 @@ public class EnterActivity extends AppCompatActivity {
         diologLoading.setCancelable(false);
     }
     @OnClick(R.id.enter_enter_btn)void enterNext(){
-        Intent intent = new Intent(EnterActivity.this,EnterDataActivity.class);
+        Intent intent = new Intent(EnterActivity.this,MerchantEnter.class);
         startActivity(intent);
     }
+
+//    @OnCheckedChanged(R.id.register_agree_check) void onChecked(){
+//        Log.e("jj","nwkwn");
+//    }
     /**
      * 获取手机号码，并且判断格式、发送手机号码
      */
@@ -79,6 +89,12 @@ public class EnterActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        checkBool = isChecked;
+    }
+
     class TimeCount extends CountDownTimer {
 
         public TimeCount(long millisInFuture, long countDownInterval) {

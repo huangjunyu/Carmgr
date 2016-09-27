@@ -90,26 +90,14 @@ public class UploadImage extends Activity implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-            Log.e("kwq","jwnw");
-
             if (data != null && requestCode == 1) {
-//               ImageItem image = (ImageItem) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 ImageItem image = images.get(0);
-//                MyAdapter adapter = new MyAdapter(images);
-//                gridView.setAdapter(adapter);
-                Log.e("kwq","jwnw");
-
                 imagePicker.getImageLoader().displayImage(UploadImage.this, image.path, uploadDriveCredImg, 300, 300);
-                Log.e("kwq","jwnw");
             } else if (data != null && requestCode == 2){
+                Log.e("no data","no data");
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 ImageItem image = images.get(0);
-//                MyAdapter adapter = new MyAdapter(images);
-//                gridView.setAdapter(adapter);
-                Log.e("kwq","jwnw");
-
-                imagePicker.getImageLoader().displayImage(UploadImage.this, image.path, uploadPolicyImg, 300, 300);
             } else{
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }

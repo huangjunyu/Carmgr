@@ -24,6 +24,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 	public SortAdapter(Context mContext, List<CityModel> list) {
 		this.mContext = mContext;
 		this.list = list;
+		Log.e("list",list.size() + ";");
 	}
 	
 	/**
@@ -52,7 +53,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 		if (view == null) {
 			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(R.layout.item_city_selecter, null);
-			viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
+			viewHolder.tvTitle = (TextView) view.findViewById(R.id.selecter_city_name);
 			viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
 			view.setTag(viewHolder);
 		} else {

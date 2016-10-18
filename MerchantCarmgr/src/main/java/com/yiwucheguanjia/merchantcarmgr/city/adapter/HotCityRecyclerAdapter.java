@@ -32,7 +32,7 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
     private SharedPreferences sharedPreferences;
 
     public HotCityRecyclerAdapter(CityActivity cityActivity, ArrayList<RegionInfo> hotCitys) {
-        Log.e("seze", hotCitys.size() + "kkl");
+        Log.e("seze", hotCitys.size() + "789");
         this.cityActivity = cityActivity;
         this.regionInfos = hotCitys;
         mInflater = LayoutInflater.from(cityActivity);

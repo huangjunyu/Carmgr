@@ -1,43 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:fitsSystemWindows="true"
-    tools:context="com.yiwucheguanjia.merchantcarmgr.account.HomeActivty">
+    >
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="match_parent"-->
-        <!--card_view:cardBackgroundColor="@color/orange"-->
-        <!--card_view:cardCornerRadius="5dp"-->
-        <!--android:layout_height="50dp">-->
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:background="@color/orange"-->
-            <!--android:gravity="center"-->
-            <!--android:text="Cardview" />-->
-    <!--</android.support.v7.widget.CardView>-->
-    <Button
-        android:id="@+id/home_login_btn"
+    <!-- 底部tab -->
+    <LinearLayout
+        android:id="@+id/ll_bottom_tab"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/login"/>
-    <Button
-        android:id="@+id/home_enter_btn"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/home_login_btn"
-        android:text="@string/enter_yiwubao"/>
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/main_workbench_rl"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/main_workbench_img"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/workbench_pre" />
+
+            <TextView
+                android:id="@+id/main_workbench_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_workbench_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/workbench"
+                android:textColor="@color/main_tab_gray"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_commercial_rl"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/main_post_img"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/post_manage_nor" />
+
+            <TextView
+                android:id="@+id/main_post_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_post_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/post"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_progress"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/main_appoint_img"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/appoint_manage_nor" />
+
+
+            <TextView
+                android:id="@+id/main_appoint_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_appoint_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/appointment"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_callyiwu"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@+id/main_my_img"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/my_nor" />
+
+
+            <TextView
+                android:id="@+id/main_my_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_my_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/my"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- 内容部分， fragment切换 -->
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/line"
+        android:orientation="vertical"></LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ll_bottom_tab"
+        android:background="@color/gray" />
 </RelativeLayout>

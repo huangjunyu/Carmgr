@@ -37,6 +37,7 @@ public class RollViewPagerAdapter extends StaticPagerAdapter {
     public View getView(ViewGroup container, final int position) {
         ImageView view = new ImageView(container.getContext());
         Picasso.with(container.getContext()).load(rollViewPagerBeens.get(position).getRollViewPagerUrl()).into(view);
+
 //        view.setImageResource(imgs[position]);
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));

@@ -61,18 +61,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" >
-            <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" >
-                </action>
-            </intent-filter>
-        </service>
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="AwG1TDzUKBYZSefVmk0kZAYhVU6NE6xX" />
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="7ed968e8a42edbbe653583c631066d2e">
+        </meta-data>
+        <service android:name="com.amap.api.location.APSService"></service>
         <activity android:name=".account.HomeActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,6 +79,7 @@
         <activity android:name=".account.MerchantEnter"/>
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>

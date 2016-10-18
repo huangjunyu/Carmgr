@@ -1,15 +1,6 @@
 package com.yiwucheguanjia.merchantcarmgr;
 
 import android.app.Application;
-import android.app.Service;
-import android.os.Vibrator;
-import android.util.Log;
-import android.widget.TextView;
-
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.GeofenceClient;
-import com.baidu.location.LocationClient;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.yiwucheguanjia.merchantcarmgr.city.db.DBManager;

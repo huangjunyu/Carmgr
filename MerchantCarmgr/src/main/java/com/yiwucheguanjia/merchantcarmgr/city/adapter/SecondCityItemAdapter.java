@@ -1,7 +1,9 @@
 package com.yiwucheguanjia.merchantcarmgr.city.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.bean.SecondCityModel;
 import java.util.ArrayList;
@@ -25,13 +28,14 @@ public class SecondCityItemAdapter extends RecyclerView.Adapter<SecondCityItemAd
     private ArrayList<SecondCityModel> recyclerBeens;
     private Context context;
     private SharedPreferences sharedPreferences;
-
-    public SecondCityItemAdapter(Context context, ArrayList<SecondCityModel> recyclerBeens) {
+    private Handler handler;
+    public SecondCityItemAdapter(Context context, ArrayList<SecondCityModel> recyclerBeens, Handler handler) {
         Log.e("seze", "kkl");
         this.recyclerBeens = recyclerBeens;
         this.context = context;
         mInflater = LayoutInflater.from(context);
         sharedPreferences = context.getSharedPreferences("CARMGR", context.MODE_PRIVATE);
+        this.handler = handler;
     }
 
 
@@ -63,17 +67,12 @@ public class SecondCityItemAdapter extends RecyclerView.Adapter<SecondCityItemAd
         viewHolder.cityNameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("re","vc");
+                Log.e("re",merchantItemBean.getSecondCityName().toString());
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                handler.sendEmptyMessage(0);
             }
         });
-    }
-
-    protected void selectStar(String starNum,ImageView merchantStarImg){
-        switch (starNum){
-
-            default:
-                break;
-        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

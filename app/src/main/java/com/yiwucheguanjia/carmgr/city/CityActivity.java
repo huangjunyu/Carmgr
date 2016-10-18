@@ -116,6 +116,8 @@ public class CityActivity extends Activity {
             countyName.add(info.getName().trim());
         }
 
+
+
         //热门城市的数据初始化
         hotCity = new ArrayList<>();
         //手动设置热城市

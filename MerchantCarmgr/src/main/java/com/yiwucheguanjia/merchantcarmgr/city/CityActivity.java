@@ -3,6 +3,10 @@ package com.yiwucheguanjia.merchantcarmgr.city;
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -13,32 +17,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.adapter.CitySortAdapter;
 import com.yiwucheguanjia.merchantcarmgr.city.adapter.HotCityRecyclerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.city.adapter.SecondCityItemAdapter;
+import com.yiwucheguanjia.merchantcarmgr.city.adapter.SortAdapter;
 import com.yiwucheguanjia.merchantcarmgr.city.bean.CityModel;
 import com.yiwucheguanjia.merchantcarmgr.city.bean.RegionInfo;
 import com.yiwucheguanjia.merchantcarmgr.city.bean.SecondCityModel;
 import com.yiwucheguanjia.merchantcarmgr.city.db.RegionFunction;
 import com.yiwucheguanjia.merchantcarmgr.city.utils.ClearEditText;
 import com.yiwucheguanjia.merchantcarmgr.city.utils.KeyBoard;
-import com.yiwucheguanjia.merchantcarmgr.city.utils.LocationPosition;
 import com.yiwucheguanjia.merchantcarmgr.city.utils.PinyinComparator;
 import com.yiwucheguanjia.merchantcarmgr.city.utils.ScreenUtils;
 import com.yiwucheguanjia.merchantcarmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.merchantcarmgr.city.widget.SideBar;
+import com.yiwucheguanjia.merchantcarmgr.utils.CheckPermissionsActivity;
+import com.yiwucheguanjia.merchantcarmgr.utils.RecyclerViewDivider;
+import com.yiwucheguanjia.merchantcarmgr.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,10 +55,13 @@ import java.util.List;
 /**
  * 城市选择的主类
  */
-public class CityActivity extends Activity {
-    private LocationClient mLocationClient;
+public class CityActivity extends CheckPermissionsActivity {
+
+    private AMapLocationClient locationClient = null;
+    private AMapLocationClientOption locationOption = new AMapLocationClientOption();
     //设置布局管理器
-    LinearLayoutManager linearLayoutManager, linearLayoutManager2, linearLayoutManager3;
+    LinearLayoutManager linearLayoutManager, linearLayoutManager2;
+    GridLayoutManager linearLayoutManager3;
     private List<RegionInfo> countyList;//用于存放县一级的城市名
     private List<RegionInfo> cityList;//用于存放城市名（二级城市，省下直接下辖单位）
     private List<RegionInfo> provinceList;//用于存放省级地名（江苏、北京、山东等）
@@ -61,6 +72,8 @@ public class CityActivity extends Activity {
     private SideBar sideBar;
     private TextView dialog;
     private CitySortAdapter citySortAdapter;
+    private SortAdapter adapter;
+    private ListView sortListView;
     private ClearEditText clearEditText;
     private ArrayList<RegionInfo> hotCity;//热门城市列表
     private HotCityRecyclerAdapter hotCityRvAdapter;
@@ -74,48 +87,43 @@ public class CityActivity extends Activity {
     RelativeLayout topRl;
     private ArrayList<SecondCityModel> secondCityModels;
     private RecyclerView hotCityRv;
-    private RecyclerViewHeader rvHeader;
-
-    //定位相关
-
-    public LocationPosition.MyLocationListener myLocationListener;
-    private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Battery_Saving;
-    private final String tempcoor="gcj02";
-    public MyLocationListener mMyLocationListener;
+    private RelativeLayout positionRl;
+    private TextView positionTv;
     private Button testlocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //初始化地图定位功能
+        initMap();
+        initLocation();
+        startLocation();
         // 透明状态栏
-        //StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.orange),0);
         setContentView(R.layout.activity_city);
         testlocation = (Button)findViewById(R.id.testlocation);
         testlocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("nwk","kkw");
-                mLocationClient.start();
             }
         });
         popupwindowinflater = LayoutInflater.from(CityActivity.this);
-        mLocationClient = new LocationClient(CityActivity.this);
-        mMyLocationListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(mMyLocationListener);
         initData();
         initViews();
         setListener();
         setPopupwindow();
         popupwindowRv.setLayoutManager(linearLayoutManager);
         hotCityRv.setLayoutManager(linearLayoutManager2);
-        citySortRv.setLayoutManager(linearLayoutManager3);
-        rvHeader.attachTo(citySortRv, true);
-        InitLocation();
+    }
+
+    private void initMap(){
+        locationOption = new AMapLocationClientOption();
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
     }
 
     private void initData() {
         linearLayoutManager = new LinearLayoutManager(CityActivity.this);
         linearLayoutManager2 = new LinearLayoutManager(CityActivity.this);
-        linearLayoutManager3 = new LinearLayoutManager(CityActivity.this);
+        linearLayoutManager3 = new GridLayoutManager(CityActivity.this,1);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayoutManager3.setOrientation(LinearLayoutManager.VERTICAL);
@@ -171,19 +179,23 @@ public class CityActivity extends Activity {
     }
 
     private void initViews() {
-        rvHeader = (RecyclerViewHeader) findViewById(R.id.recyclerview_header);
-        citySortRv = (RecyclerView) findViewById(R.id.level_city_rv);
-        hotCityRv = (RecyclerView) findViewById(R.id.gridview_hot);
+        View view = View.inflate(this, R.layout.city_rv_header, null);
+        hotCityRv = (RecyclerView) view.findViewById(R.id.header_hot_city_rv);
+        positionRl = (RelativeLayout) view.findViewById(R.id.header_position_rl);
+        positionTv = (TextView) view.findViewById(R.id.header_position_tv);
         sideBar = (SideBar) findViewById(R.id.sidrbar);
         dialog = (TextView) findViewById(R.id.dialog);
         clearEditText = (ClearEditText) findViewById(R.id.filter_edit);
         topRl = (RelativeLayout) findViewById(R.id.rl_top);
         hotCityRvAdapter = new HotCityRecyclerAdapter(this, hotCity);
-        citySortAdapter = new CitySortAdapter(CityActivity.this, SourceDateList);
         hotCityRv.setAdapter(hotCityRvAdapter);
+        hotCityRv.addItemDecoration(new RecyclerViewDivider(this,LinearLayoutManager.HORIZONTAL,1,ContextCompat.getColor(this,R.color.gray_divide)));
+        citySortAdapter = new CitySortAdapter(CityActivity.this, SourceDateList);
+        sortListView = (ListView) findViewById(R.id.country_lvcountry);
+        sortListView.addHeaderView(view);
+        adapter = new SortAdapter(this, SourceDateList);
+        sortListView.setAdapter(adapter);
         sideBar.setTextView(dialog);
-        citySortRv.setAdapter(citySortAdapter);
-
     }
 
     private void setListener() {
@@ -196,9 +208,23 @@ public class CityActivity extends Activity {
                 //该字母首次出现的位置
                 int position = citySortAdapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    citySortRv.scrollToPosition(position);
+                    sortListView.setSelection(position);
                 }
 
+            }
+        });
+        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //这里要利用adapter.getItem(position)来获取当前position所对应的对象
+                String cityName = ((CityModel) adapter.getItem(position - 1)).getName();
+                if (cityName != null && cityName.length() > 0) {
+                    Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
+                    KeyBoard.closeSoftKeyboard(CityActivity.this);
+                    SharedPreferencesUtils.saveCityName(CityActivity.this, cityName);
+                    searchKey(cityName);
+                }
             }
         });
 
@@ -209,7 +235,6 @@ public class CityActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
                 Log.e("clear", s.toString());
-                //filterData(s.toString());
                 filterData(s.toString());
             }
 
@@ -236,7 +261,6 @@ public class CityActivity extends Activity {
         popupWindow.update();
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(false);
-        //backgroundAlpha(0.5f);
         //监听popupWindow消失状态并且实现想要的操作
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
@@ -420,9 +444,9 @@ public class CityActivity extends Activity {
                     secondCityModel.setSecondCityName(filterDateList.get(i).getName());
                     secondCityModels.add(secondCityModel);
                 }
-                SecondCityItemAdapter secondCityItemAdapter = new SecondCityItemAdapter(CityActivity.this, secondCityModels);
+                SecondCityItemAdapter secondCityItemAdapter = new SecondCityItemAdapter(CityActivity.this, secondCityModels,handler);
                 popupwindowRv.setAdapter(secondCityItemAdapter);
-                popupWindow.showAsDropDown(clearEditText, citySortRv.getWidth(), 0);
+                popupWindow.showAsDropDown(clearEditText, sortListView.getWidth(), 0);
                 ArrayList<String> earList = new ArrayList<>();
                 SharedPreferencesUtils.clearData(CityActivity.this);
                 SharedPreferencesUtils.saveAreaName(CityActivity.this, "全部", 0);
@@ -433,33 +457,125 @@ public class CityActivity extends Activity {
         Collections.sort(filterDateList, pinyinComparator);
         KeyBoard.closeSoftKeyboard(CityActivity.this);
     }
-
-    public class MyLocationListener implements BDLocationListener {
+    Handler handler = new Handler(){
         @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-            Log.e("citylo","kkew");
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    Log.e("ke","nn");
+                    //如果不加这行代码，会报错
+                    popupWindow.dismiss();
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 初始化定位
+     *
+     * @since 2.8.0
+     * @author hongming.wang
+     *
+     */
+    private void initLocation(){
+        //初始化client
+        locationClient = new AMapLocationClient(this.getApplicationContext());
+        //设置定位参数
+//        locationClient.setLocationOption(getDefaultOption());
+        // 设置定位监听
+        locationClient.setLocationListener(locationListener);
+        Log.e("location","location");
+
+    }
+
+    /**
+     * 默认的定位参数
+     * @since 2.8.0
+     * @author hongming.wang
+     *
+     */
+//    private AMapLocationClientOption getDefaultOption(){
+//        AMapLocationClientOption mOption = new AMapLocationClientOption();
+//        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+//        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+//        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+//        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+//        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是ture
+//        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
+//        mOption.setOnceLocationLatest(true);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+//        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+//        return mOption;
+//    }
+
+    /**
+     * 定位监听
+     */
+    AMapLocationListener locationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation loc) {
+            if (null != loc) {
+                positionRl.setVisibility(View.VISIBLE);
+                positionTv.setText(loc.getCity());
+                //解析定位结果
+                String result = Utils.getLocationStr(loc);
+//                tvReult.setText(result);
+
+                Log.e("result",result);
+                Log.e("city",loc.getCity());
+
+            } else {
+                Log.e("error","result");
+//                tvReult.setText("定位失败，loc is null");
+            }
+        }
+    };
+
+
+    /**
+     * 开始定位
+     *
+     * @since 2.8.0
+     * @author hongming.wang
+     *
+     */
+    private void startLocation(){
+        locationOption.setOnceLocation(true);
+        locationOption.setOnceLocationLatest(true);
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        locationOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是ture
+        //根据控件的选择，重新设置定位参数
+//        resetOption();
+        // 设置定位参数
+        locationClient.setLocationOption(locationOption);
+        // 启动定位
+        locationClient.startLocation();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyLocation();
+    }
+
+    /**
+     * 销毁定位
+     *
+     * @since 2.8.0
+     * @author hongming.wang
+     *
+     */
+    private void destroyLocation(){
+        if (null != locationClient) {
+            /**
+             * 如果AMapLocationClient是在当前Activity实例化的，
+             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+             */
+            locationClient.onDestroy();
+            locationClient = null;
+            locationOption = null;
         }
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    private void InitLocation(){
-        LocationClientOption option = new LocationClientOption();
-        option.setIsNeedAddress(true);
-        option.setLocationMode(tempMode);//设置定位模式
-        option.setCoorType(tempcoor);//返回的定位结果是百度经纬度，默认值gcj02
-        int span=1000;
-//        try {
-//            span = Integer.valueOf(frequence.getText().toString());
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//        }
-//        option.setScanSpan(span);//设置发起定位请求的间隔时间为5000ms
-        option.setIsNeedAddress(true);
-        mLocationClient.setLocOption(option);
-    }
-
 }

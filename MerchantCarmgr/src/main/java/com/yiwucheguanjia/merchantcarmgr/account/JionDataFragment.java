@@ -17,12 +17,11 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.CityActivity;
-import com.yiwucheguanjia.merchantcarmgr.city.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

@@ -18,7 +18,7 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
         <TextView
-            android:id="@+id/postfragment_post_tv"
+            android:id="@+id/post_manage_post_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -27,34 +27,4 @@
             android:text="@string/postting"
             android:textColor="@color/white"/>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        >
-        <ImageView
-            android:id="@+id/post_ft_empty"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/post_empty"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/post_ft_empty"
-            android:text="@string/nothing_post_service"
-            />
-    </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/post_ft_item_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
-
 </LinearLayout>

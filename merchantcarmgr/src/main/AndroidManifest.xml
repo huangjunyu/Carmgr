@@ -77,9 +77,14 @@
         <activity android:name=".account.EnterMerchantDataActivity"/>
         <activity android:name=".account.JionActivity"/>
         <activity android:name=".account.MerchantEnter"/>
+        <activity android:name=".my.SettingActivity"/>
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".post.PostServic"/>
+        <activity android:name=".my.SystemMsgActivity"/>
+        <activity android:name=".my.MerchantPhotoActivity"/>
+        <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"/>
     </application>
 
 </manifest>

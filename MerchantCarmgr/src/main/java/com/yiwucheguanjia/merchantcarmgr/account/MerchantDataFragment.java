@@ -17,7 +17,7 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.city.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
 
 import java.util.ArrayList;
 

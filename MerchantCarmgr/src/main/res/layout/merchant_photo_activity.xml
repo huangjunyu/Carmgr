@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/setting_goback_rpv"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <ImageButton
+                android:id="@+id/setting_goback_imgbtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/publishTopicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/merchant_photo"
+            android:textColor="@color/gray_default"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+
+        tools:listitem="@layout/list_item_image"/>
+</LinearLayout>

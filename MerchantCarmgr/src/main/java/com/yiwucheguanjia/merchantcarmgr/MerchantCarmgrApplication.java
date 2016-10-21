@@ -4,7 +4,7 @@ import android.app.Application;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.yiwucheguanjia.merchantcarmgr.city.db.DBManager;
-import com.yiwucheguanjia.merchantcarmgr.city.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
 
 /**
  * Created by Administrator on 2016/9/11.

@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.city.utils;
+package com.yiwucheguanjia.merchantcarmgr.utils;
 
 import android.app.Activity;
 import android.net.Uri;

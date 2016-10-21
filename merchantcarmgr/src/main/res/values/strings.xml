@@ -62,4 +62,30 @@
     <string name="merchant_profile">商家简介</string>
     <string name="merchant_photo">商家照片</string>
     <string name="system_msg">系统消息</string>
+    <string name="nothing_post_service">您还没有发布服务，赶紧吧！</string>
+    <string name="input_title">请输入标题</string>
+    <string name="input_content">请输入内容</string>
+    <string name="price">价格</string>
+    <string name="service_type">服务类型</string>
+    <string name="service_limits">服务范围</string>
+    <string name="submit_service">发布</string>
+    <string name="edit">编辑</string>
+    <string name="delte">删除</string>
+    <string name="share">分享</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="push_msg_offon">推送消息开关</string>
+    <string name="account_binding">账号绑定</string>
+    <string name="assess_us">评价我们</string>
+    <string name="suggest">意见反馈</string>
+    <string name="about">关于易务车宝</string>
+    <string name="exit_account">退出当前账号</string>
+    <array name="home_video_tab">
+        <item>全部@dream@0</item>
+        <item>视频@dream@1</item>
+        <item>声音@dream@2</item>
+        <item>图片@dream@3</item>
+        <item>段子@dream@4</item>
+        <item>广告@dream@5</item>
+        <item>剧情@dream@6</item>
+    </array>
 </resources>

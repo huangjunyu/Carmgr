@@ -1,5 +1,6 @@
 package com.yiwucheguanjia.merchantcarmgr.workbench;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,9 @@ import android.widget.RelativeLayout;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.post.PostServic;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RollViewPagerAdapter;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.DataStatisticsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,10 +56,16 @@ public class WorkbenchFragment extends Fragment {
     void onClickView(View view){
         switch (view.getId()){
             case R.id.workbench_post_rl:
+                Intent postIntent = new Intent(getActivity(), PostServic.class);
+                startActivity(postIntent);
                 break;
             case R.id.workbench_data_stat_Rl:
+                Intent dataStatisticsIntent = new Intent(getActivity(), DataStatisticsActivity.class);
+                startActivity(dataStatisticsIntent);
                 break;
             case R.id.user_assess_rl:
+                Intent assessIntent = new Intent(getActivity(),CustomerAssessActivity.class);
+                startActivity(assessIntent);
                 break;
             case R.id.workbench_compliant_rl:
                 break;

@@ -1,7 +1,9 @@
-package com.yiwucheguanjia.merchantcarmgr.appointment;
+package com.yiwucheguanjia.merchantcarmgr.appointment.controller;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.yiwucheguanjia.merchantcarmgr.appointment.view.ContentFragment;
 
 import java.util.List;
 

@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
+    <HorizontalScrollView
+        android:id="@+id/appoint_hscrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorHeight="0dp"
-        app:tabIndicatorColor="@color/orange"
-        app:theme="@style/AlertDialog.AppCompat"
-        app:tabSelectedTextColor="@color/orange"
-        app:tabTextColor="@color/black"
+        android:fillViewport="true"
+        android:scrollbars="none" >
 
-        />
+        <RadioGroup
+            android:id="@+id/appoint_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/buseness_black"
+            android:orientation="horizontal" >
+        </RadioGroup>
+    </HorizontalScrollView>
 
-    <!--可滑动的布局内容-->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_view"
+    <view
+        android:id="@+id/one_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        class="android.support.v4.view.ViewPager" />
 
-        />
 </LinearLayout>

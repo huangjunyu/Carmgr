@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.appointment;
+package com.yiwucheguanjia.merchantcarmgr.appointment.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

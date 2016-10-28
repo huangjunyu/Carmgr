@@ -85,6 +85,8 @@
         <activity android:name=".my.SystemMsgActivity"/>
         <activity android:name=".my.MerchantPhotoActivity"/>
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"/>
+        <activity android:name=".workbench.CustomerAssessActivity"/>
+        <activity android:name=".workbench.model.DataStatisticsActivity"/>
     </application>
 
 </manifest>

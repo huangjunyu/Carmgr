@@ -1,0 +1,122 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/main_item_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- 发送者图像 -->
+                <ImageView
+                    android:id="@+id/senderImg"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY" />
+                <!-- 发送者昵称、发送时间、发送内容 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp">
+                        <!-- 发送者昵称 -->
+                        <TextView
+                            android:id="@+id/senderNickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center_vertical"
+                            android:textColor="#23238E"
+                            android:textSize="12sp" />
+                        <!-- 发送时间 -->
+                        <TextView
+                            android:id="@+id/sendTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp" />
+                    </RelativeLayout>
+                    <!-- 发送内容 -->
+                    <TextView
+                        android:id="@+id/sendContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:maxLines="4"
+                        android:textSize="12sp" />
+                    <!-- 评论、转载、点赞 -->
+
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 评论列表 -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:divider="#00000000" />
+        </LinearLayout>
+    </ScrollView>
+    <!-- 下面的分享、评论、转载、收藏 -->
+
+    <!-- 输入框、留言按钮 -->
+    <LinearLayout
+        android:id="@+id/commentLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/commentEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="left"
+            android:inputType="textMultiLine"
+            android:maxLength="100"
+            android:maxLines="6"
+            android:minHeight="40dp" />
+        <!-- 留言按钮 -->
+        <Button
+            android:id="@+id/commentButton"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="#FFFFFF"
+            android:text="评论"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</LinearLayout>

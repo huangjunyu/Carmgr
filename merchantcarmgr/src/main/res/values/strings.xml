@@ -79,6 +79,22 @@
     <string name="suggest">意见反馈</string>
     <string name="about">关于易务车宝</string>
     <string name="exit_account">退出当前账号</string>
+    <string name="customer_assess">客户评价</string>
+    <string name="all_order">往日订单详情</string>
+    <string name="total_appointment_order">总预约量</string>
+    <string name="month_read">本月浏览量</string>
+    <string name="month_order">本月订单量</string>
+    <string name="withdraw_record">提现记录</string>
+    <string name="withdraw_total">提现总额</string>
+    <string name="total_assess">总评价量</string>
+    <string name="five_star_assess">5星评价</string>
+    <string name="four_star_assess">4星评价</string>
+    <string name="three_star_assess">3星评价</string>
+    <string name="two_star_assess">2星评价</string>
+    <string name="one_star_assess">1星评价</string>
+    <string name="order_number">订单号:</string>
+    <string name="refuse">拒绝</string>
+    <string name="accept">接收</string>
     <array name="home_video_tab">
         <item>全部@dream@0</item>
         <item>视频@dream@1</item>

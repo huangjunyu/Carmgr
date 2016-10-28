@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.appointment;
+package com.yiwucheguanjia.merchantcarmgr.appointment.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.appointment.controller.TestFragmentAdapter;
 
 import java.util.Arrays;
 

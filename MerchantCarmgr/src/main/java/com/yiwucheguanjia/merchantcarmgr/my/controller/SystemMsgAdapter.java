@@ -31,7 +31,6 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
     public SystemMsgAdapter(Activity activity){
         this.activity = activity;
         layoutInflater = LayoutInflater.from(this.activity);
-        Log.e("ht","aaa");
     };
 
     @Override

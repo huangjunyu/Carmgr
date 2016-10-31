@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.appointment.view;
+package com.yiwucheguanjia.merchantcarmgr.workbench;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,29 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.appointment.controller.AppointAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2016/10/27.
+ * Created by Administrator on 2016/10/31.
  */
-public class AllAppointmentFragment extends Fragment {
-
-    View homeView;
-    @BindView(R.id.allappoint_item_rv)
-    RecyclerView itemRv;
-    AppointAdapter appointAdapter;
-
+public class FiveStarFragment extends Fragment {
+    @BindView(R.id.star_rv)
+    RecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = (View)inflater.inflate(R.layout.activity_allapoint_fragment,container,false);
+        View homeView = inflater.inflate(R.layout.fragment_star,container,false);
         ButterKnife.bind(this,homeView);
-//        appointAdapter = new AppointAdapter();
-        itemRv.setAdapter(appointAdapter);
         return homeView;
     }
-
 }

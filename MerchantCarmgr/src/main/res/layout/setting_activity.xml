@@ -190,12 +190,4 @@
         android:text="@string/exit_account"
         android:background="@color/white"
         />
-    <com.yiwucheguanjia.merchantcarmgr.workbench.HistogramView
-        android:id="@+id/data_order_chart"
-        android:layout_margin="16dp"
-        android:padding="16dp"
-        android:layout_width="150dp"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        />
 </LinearLayout>

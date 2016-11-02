@@ -10,28 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RateAdapter;
+import com.yiwucheguanjia.merchantcarmgr.workbench.controller.ComplaintAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2016/10/31.
+ * Created by Administrator on 2016/11/1.
  */
-public class TwoStarFragment extends Fragment {
-    @BindView(R.id.star_rv)
+public class NoFragment extends Fragment {
+    @BindView(R.id.complain_item_rv)
     RecyclerView recyclerView;
-    RateAdapter rateAdapter;
+    ComplaintAdapter complaintAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.fragment_star,container,false);
+        View homeView = inflater.inflate(R.layout.fragment_complain,container,false);
         ButterKnife.bind(this,homeView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        rateAdapter = new RateAdapter(getActivity(),null);
-        recyclerView.setAdapter(rateAdapter);
+        complaintAdapter = new ComplaintAdapter(getActivity(),null);
+        recyclerView.setAdapter(complaintAdapter);
         return homeView;
     }
 }

@@ -1,11 +1,11 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench.model;
+package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.workbench.HistogramView;
+import com.yiwucheguanjia.merchantcarmgr.workbench.view.HistogramView;
 
 import java.util.ArrayList;
 

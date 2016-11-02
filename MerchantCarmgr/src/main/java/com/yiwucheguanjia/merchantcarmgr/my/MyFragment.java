@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.my.view.AccountBalanceActivity;
+import com.yiwucheguanjia.merchantcarmgr.my.view.CashDepositActivity;
+import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantGradeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +81,16 @@ public class MyFragment extends Fragment {
             case R.id.myft_merchant_profile_rl:
                 break;
             case R.id.myft_cash_deposit_rl:
+                Intent depositIntent = new Intent(getActivity(),CashDepositActivity.class);
+                startActivity(depositIntent);
+                break;
+            case R.id.myft_balance_rl:
+                Intent balanceIntent = new Intent(getActivity(),AccountBalanceActivity.class);
+                startActivity(balanceIntent);
+                break;
+            case R.id.myft_grade_rl:
+                Intent gradeIntent = new Intent(getActivity(),MerchantGradeActivity.class);
+                startActivity(gradeIntent);
                 break;
             default:
                 break;

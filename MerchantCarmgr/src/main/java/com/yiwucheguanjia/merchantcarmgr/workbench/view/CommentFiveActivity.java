@@ -1,9 +1,7 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,8 +21,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RecyclerAdapter;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.ReplyBean;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.CommentBean;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.controller;
 
 /**
  * Created by Administrator on 2016/10/25.
@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.CommentBean;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.controller;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,13 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.ReplyBean;
 
 import java.util.List;
 
 public class ReplyAdapter extends BaseAdapter {
 
 	private int resourceId;			
-	private List<ReplyBean> list;		
+	private List<ReplyBean> list;
 	private LayoutInflater inflater;
 	private TextView replyContent;
 	private SpannableString ss;

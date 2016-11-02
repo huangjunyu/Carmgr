@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.model;
 
 public class ReplyBean {
 

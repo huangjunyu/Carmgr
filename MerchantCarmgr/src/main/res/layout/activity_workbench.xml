@@ -162,7 +162,7 @@
                 />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/workbench_compliant_rl"
+            android:id="@+id/workbench_complaint_rl"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"

@@ -1,26 +1,15 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
-import android.app.Activity;
-import android.app.LocalActivityManager;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.workbench.view.OneStarFragment;
-import com.yiwucheguanjia.merchantcarmgr.workbench.view.ThreeStarFragment;
-import com.yiwucheguanjia.merchantcarmgr.workbench.view.TwoStarFragment;
+import com.yiwucheguanjia.merchantcarmgr.workbench.controller.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +40,7 @@ public class CustomerAssessActivity extends FragmentActivity {
 
     public void initView(){
         fragment1 = new FiveStarFragment();
-        fragment2 = new FiveStarFragment();
+        fragment2 = new FourStarFragment();
         fragment3 = new ThreeStarFragment();
         fragment4 = new TwoStarFragment();
         fragment5 = new OneStarFragment();
@@ -75,33 +64,11 @@ public class CustomerAssessActivity extends FragmentActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
 
-        MyFragmentPagerAdapter myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments);
+        MyFragmentPagerAdapter myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments,mTitleList);
         mViewPager.setAdapter(myFragmentPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(myFragmentPagerAdapter);
     }
 
-    class MyFragmentPagerAdapter extends FragmentPagerAdapter{
-        private List<Fragment> fragments;
-        public MyFragmentPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragments){
-            super(fragmentManager);
-            this.fragments = fragments;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position%fragments.size());
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitleList.get(position);
-        }
-    }
 
 }

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.model.RateImgBean;
@@ -15,19 +14,18 @@ import com.yiwucheguanjia.merchantcarmgr.workbench.model.RateImgBean;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2016/10/31.
+ * 用户投诉适配器.
  */
-public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
+public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.HolderView> {
 
     private Activity activity;
     private ArrayList<RateImgBean> rateImgBeens;
     private LayoutInflater layoutInflater;
 
-    public RateAdapter(Activity activity, ArrayList<RateImgBean> rateImgBeens) {
+    public ComplaintAdapter(Activity activity, ArrayList<RateImgBean> rateImgBeens) {
         layoutInflater = LayoutInflater.from(activity);
         this.activity = activity;
         this.rateImgBeens = rateImgBeens;
@@ -36,7 +34,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
     @Override
     public HolderView onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = layoutInflater.inflate(R.layout.rate_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.complain_item, parent, false);
         HolderView holderView = new HolderView(view, this.activity);
         return holderView;
     }
@@ -51,21 +49,19 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
     }
 
     public class HolderView extends RecyclerView.ViewHolder {
-        @BindView(R.id.rate_user_img)
+        @BindView(R.id.complain_user_img)
         ImageView headerImg;
-        @BindView(R.id.rate_item_img_rv)
-        RecyclerView rateImgRv;
         private Activity activity;
 
         public HolderView(View view, Activity activity) {
             super(view);
-            this.activity = activity;
             ButterKnife.bind(this, view);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
-            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            RateImgAdapter rateImgAdapter = new RateImgAdapter(this.activity, null);
-            rateImgRv.setLayoutManager(linearLayoutManager);
-            rateImgRv.setAdapter(rateImgAdapter);
+            this.activity = activity;
+//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+//            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//            RateImgAdapter rateImgAdapter = new RateImgAdapter(this.activity, null);
+//            complainImgRv.setLayoutManager(linearLayoutManager);
+//            complainImgRv.setAdapter(rateImgAdapter);
         }
     }
 }

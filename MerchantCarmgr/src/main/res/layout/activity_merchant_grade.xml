@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cb="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/balance_goback_rl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <ImageButton
+                android:id="@+id/deposit_goback_imgbtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/account_balance"
+            android:textColor="@color/gray_default"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_grade"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        />
+    <com.yiwucheguanjia.merchantcarmgr.my.view.CBProgressBar
+        android:id="@+id/grade_progress"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/white"
+        cb:isHorizonStroke="true"
+        cb:orientation="horizontal"
+        cb:percent_text_color="@color/percent_text_color_2"
+        cb:percent_text_size="@dimen/percent_text_size_large"
+        cb:progressBarBgColor="@color/progressbar_bg_color_1"
+        cb:progressColor="@color/progress_color_1"
+        cb:rect_round="@dimen/horizontal_corner" />
+</LinearLayout>

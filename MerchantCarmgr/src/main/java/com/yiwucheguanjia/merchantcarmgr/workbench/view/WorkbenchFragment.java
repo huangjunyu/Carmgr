@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +16,6 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.post.PostServic;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RollViewPagerAdapter;
-import com.yiwucheguanjia.merchantcarmgr.workbench.model.DataStatisticsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +35,7 @@ public class WorkbenchFragment extends Fragment {
     RelativeLayout dataStatRl;
     @BindView(R.id.user_assess_rl)
     RelativeLayout userAssessRl;
-    @BindView(R.id.workbench_compliant_rl)
+    @BindView(R.id.workbench_complaint_rl)
     RelativeLayout compliantRl;
 
     @Override
@@ -52,7 +51,7 @@ public class WorkbenchFragment extends Fragment {
         initView();
         return workbenchHomeViewLl;
     }
-    @OnClick({R.id.workbench_post_rl,R.id.workbench_data_stat_Rl,R.id.user_assess_rl,R.id.workbench_compliant_rl})
+    @OnClick({R.id.workbench_post_rl,R.id.workbench_data_stat_Rl,R.id.user_assess_rl,R.id.workbench_complaint_rl})
     void onClickView(View view){
         switch (view.getId()){
             case R.id.workbench_post_rl:
@@ -67,7 +66,9 @@ public class WorkbenchFragment extends Fragment {
                 Intent assessIntent = new Intent(getActivity(),CustomerAssessActivity.class);
                 startActivity(assessIntent);
                 break;
-            case R.id.workbench_compliant_rl:
+            case R.id.workbench_complaint_rl:
+                Intent complaintIntent = new Intent(getActivity(),ComplaintDealActivity.class);
+                startActivity(complaintIntent);
                 break;
             default:
                 break;

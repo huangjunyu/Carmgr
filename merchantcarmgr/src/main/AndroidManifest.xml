@@ -85,8 +85,12 @@
         <activity android:name=".my.SystemMsgActivity"/>
         <activity android:name=".my.MerchantPhotoActivity"/>
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"/>
-        <activity android:name=".workbench.CustomerAssessActivity"/>
-        <activity android:name=".workbench.model.DataStatisticsActivity"/>
+        <activity android:name=".workbench.view.CustomerAssessActivity"/>
+        <activity android:name=".workbench.view.DataStatisticsActivity"/>
+        <activity android:name=".workbench.view.ComplaintDealActivity"/>
+        <activity android:name=".my.view.CashDepositActivity"/>
+        <activity android:name=".my.view.AccountBalanceActivity"/>
+        <activity android:name=".my.view.MerchantGradeActivity"/>
     </application>
 
 </manifest>

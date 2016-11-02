@@ -1,7 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.my.controller;
 
 /**
- * Created by Administrator on 2016/10/21.
+ * 系统消息适配器.
  */
 
 import android.app.Activity;

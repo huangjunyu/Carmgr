@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.merchantcarmgr.workbench;
+package com.yiwucheguanjia.merchantcarmgr.workbench.model;
 
 import java.util.ArrayList;
 import java.util.List;

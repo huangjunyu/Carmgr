@@ -28,7 +28,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.appointment.view.AppointmentFragment;
 import com.yiwucheguanjia.merchantcarmgr.my.MyFragment;
 import com.yiwucheguanjia.merchantcarmgr.post.PostFragment;
-import com.yiwucheguanjia.merchantcarmgr.workbench.WorkbenchFragment;
+import com.yiwucheguanjia.merchantcarmgr.workbench.view.WorkbenchFragment;
 
 import rx.Subscription;
 

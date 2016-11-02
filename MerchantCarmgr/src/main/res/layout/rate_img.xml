@@ -5,9 +5,11 @@
 
     <ImageView
         android:id="@+id/rate_img"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
-        android:scaleType="fitCenter" />
+        android:src="@mipmap/defualt_header"
+        android:scaleType="fitCenter"
+        />
 </RelativeLayout>

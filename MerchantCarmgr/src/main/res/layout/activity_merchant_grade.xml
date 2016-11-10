@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cb="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/balance_goback_rl"
+            android:id="@+id/grade_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="10dp">
 
             <ImageButton
-                android:id="@+id/deposit_goback_imgbtn"
+                android:id="@+id/goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
@@ -37,27 +39,155 @@
             android:textSize="16sp" />
 
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/my_grade"
-        android:paddingLeft="20dp"
         android:layout_marginTop="10dp"
-        />
+        android:paddingLeft="15dp"
+        android:text="@string/my_grade" />
+
     <com.yiwucheguanjia.merchantcarmgr.my.view.CBProgressBar
         android:id="@+id/grade_progress"
         android:layout_width="match_parent"
         android:layout_height="15dp"
+        android:paddingTop="2dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/white"
-        cb:isHorizonStroke="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        cb:isHorizonStroke="false"
         cb:orientation="horizontal"
-        cb:percent_text_color="@color/percent_text_color_2"
+        cb:percent_text_color="@color/transparent"
         cb:percent_text_size="@dimen/percent_text_size_large"
-        cb:progressBarBgColor="@color/progressbar_bg_color_1"
-        cb:progressColor="@color/progress_color_1"
+        cb:progressBarBgColor="@color/white"
+
+        cb:progressColor="@color/orange"
         cb:rect_round="@dimen/horizontal_corner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/grade_one" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/grade_one" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/grade_one" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/grade_one" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/grade_one" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="25dp"
+            >
+
+            <TextView
+                android:id="@+id/goole_reputation_fix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goole_reputation" />
+
+            <TextView
+                android:id="@+id/goole_reputation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/goole_reputation_fix"
+                tools:text="235" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/grade_next_upgrade_fix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upgraed_next" />
+
+            <TextView
+                android:id="@+id/grade_next_upgrade_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="56"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
+        <TextView
+            android:id="@+id/grade_mygrade_fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_grade"
+            />
+        <ImageView
+            android:id="@+id/grade_grade_flag"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_toRightOf="@+id/grade_mygrade_fix"
+            android:layout_marginLeft="10dp"
+            tools:src="@mipmap/grade_one"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/grade_help_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:text="@string/grade_help"
+        />
 </LinearLayout>

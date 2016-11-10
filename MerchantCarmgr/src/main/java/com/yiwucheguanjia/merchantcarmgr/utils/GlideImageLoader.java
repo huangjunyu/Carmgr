@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * Created by Administrator on 2016/8/26.
  */
-public class GrideImageLoader implements ImageLoader {
+public class GlideImageLoader implements ImageLoader {
     @Override
     public void displayImage(Activity activity, String path, ImageView imageView, int width, int height) {
         Glide.with(activity)                             //配置上下文

@@ -17,7 +17,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.CityActivity;
-import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class JionDataFragment extends Fragment {
     }
     private void initFunction(){
         imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new GrideImageLoader());
+        imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setMultiMode(false);
     }
     @OnClick({R.id.jion_stor_img1,R.id.jion_stor_img2,R.id.jion_stor_img3})void setImg(View view){
@@ -78,7 +78,7 @@ public class JionDataFragment extends Fragment {
         }
     }
     public void uploadIdCar(int i) {
-        imagePicker.setImageLoader(new GrideImageLoader());
+        imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setCrop(false);
         //打开选择,本次允许选择的数量
         ImagePicker.getInstance().setSelectLimit(5);

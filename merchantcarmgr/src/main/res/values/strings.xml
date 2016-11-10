@@ -95,6 +95,20 @@
     <string name="order_number">订单号:</string>
     <string name="refuse">拒绝</string>
     <string name="accept">接收</string>
+    <string name="complaint_deal">投诉处理</string>
+    <string name="cash_deposit_balance">您保证金余额</string>
+    <string name="your_account_balance">您的账户余额</string>
+    <string name="pay_manager">支付管理</string>
+    <string name="bank_car">银行卡</string>
+    <string name="recharge">充值</string>
+    <string name="withdraw_deposit">提现</string>
+    <string name="what_is_cash_deposit">什么是保证金？</string>
+    <string name="income_detail">收入明细</string>
+    <string name="my_grade">我的等级</string>
+    <string name="goole_reputation">好评量：</string>
+    <string name="upgraed_next">距离下次升级还有：</string>
+    <string name="grade_help">等级有什么用呢？</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
     <array name="home_video_tab">
         <item>全部@dream@0</item>
         <item>视频@dream@1</item>

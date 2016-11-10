@@ -1,21 +1,24 @@
 package com.yiwucheguanjia.merchantcarmgr.workbench.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.workbench.model.RateImgBean;
+import com.yiwucheguanjia.merchantcarmgr.checkpictureutils.ImagePagerActivity;
+import com.yiwucheguanjia.merchantcarmgr.checkpictureutils.ItemEntity;
+import com.yiwucheguanjia.merchantcarmgr.workbench.model.RateBean;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 /**
@@ -24,13 +27,13 @@ import butterknife.ButterKnife;
 public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
 
     private Activity activity;
-    private ArrayList<RateImgBean> rateImgBeens;
+    private ArrayList<ItemEntity> itemEntities;
     private LayoutInflater layoutInflater;
 
-    public RateAdapter(Activity activity, ArrayList<RateImgBean> rateImgBeens) {
+    public RateAdapter(Activity activity, ArrayList<ItemEntity> itemEntities) {
         layoutInflater = LayoutInflater.from(activity);
         this.activity = activity;
-        this.rateImgBeens = rateImgBeens;
+        this.itemEntities = itemEntities;
     }
 
     @Override
@@ -42,12 +45,27 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
     }
 
     @Override
-    public void onBindViewHolder(HolderView holder, int position) {
+    public void onBindViewHolder(HolderView holder, final int position) {
+        Log.e("itementi", itemEntities.size() + "");
+        ItemEntity itemEntity = itemEntities.get(position);
+//        Picasso.with(this.context).load(R.mipmap.star_half).error(R.mipmap.star_five).into(merchantStarImg);
+        Glide.with(activity).load(R.mipmap.defualt_header).error(R.mipmap.default_image).into(holder.headerImg);
+        final ArrayList<String> imageUrls = itemEntity.getImageUrls();
+        if (imageUrls == null || imageUrls.size() == 0) {
+            holder.rateImgRv.setVisibility(View.GONE);
+        } else {
+            for (int i = 0 ;i < imageUrls.size();i++){
+
+                Log.e("item", imageUrls.get(i) + "n");
+
+            }
+            holder.rateImgRv.setAdapter(new RateImgAdapter(activity, imageUrls));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return itemEntities == null ? 0 : itemEntities.size();
     }
 
     public class HolderView extends RecyclerView.ViewHolder {
@@ -67,5 +85,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
             rateImgRv.setLayoutManager(linearLayoutManager);
             rateImgRv.setAdapter(rateImgAdapter);
         }
+
     }
+
 }

@@ -133,7 +133,7 @@ public class CBProgressBar extends View {
             canvas.drawRoundRect(new RectF(centerX - getWidth() / 2, centerY - getHeight() / 2,
                     ((progress * 100 / max) * getWidth()) / 100, centerY + getHeight() / 2), rectRound, rectRound, piant);
         }else{
-            piant.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+//            piant.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             canvas.drawRoundRect(new RectF(centerX - getWidth() / 2, centerY - getHeight() / 2,
                     ((progress * 100 / max) * getWidth()) / 100, centerY + getHeight() / 2),rectRound, rectRound, piant);
             piant.setXfermode(null);

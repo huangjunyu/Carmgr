@@ -91,6 +91,7 @@
         <activity android:name=".my.view.CashDepositActivity"/>
         <activity android:name=".my.view.AccountBalanceActivity"/>
         <activity android:name=".my.view.MerchantGradeActivity"/>
+        <activity android:name=".checkpictureutils.ImagePagerActivity" android:screenOrientation="nosensor" android:theme="@style/Animation"/>
     </application>
 
 </manifest>

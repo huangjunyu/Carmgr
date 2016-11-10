@@ -9,7 +9,6 @@ import com.yiwucheguanjia.merchantcarmgr.R;
  */
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,7 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
-import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 
 import java.util.ArrayList;
 
@@ -48,7 +47,7 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
 
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new GrideImageLoader());   //设置图片加载器
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);                      //显示拍照按钮
         imagePicker.setCrop(false);                           //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true);                   //是否按矩形区域保存

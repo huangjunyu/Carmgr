@@ -4,7 +4,7 @@ import android.app.Application;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.yiwucheguanjia.merchantcarmgr.city.db.DBManager;
-import com.yiwucheguanjia.merchantcarmgr.utils.GrideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 
 /**
  * Created by Administrator on 2016/9/11.
@@ -19,7 +19,7 @@ public class MerchantCarmgrApplication extends Application {
         dbManager = new DBManager(getApplicationContext());
         dbManager.openDatabase();
         ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new GrideImageLoader());   //设置图片加载器
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(true);        //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存

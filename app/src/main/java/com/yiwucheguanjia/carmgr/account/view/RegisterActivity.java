@@ -55,7 +55,6 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
     private TextView register_code_txt;
     private ImageView register_second_img;
     private TextView register_setting_pwd;
-    //    private ImageView register_three_img;
     private TextView register_code_sent;
     private EditText register_number_edit;
     private EditText register_pwd_edit;
@@ -194,7 +193,6 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
         SharedPreferences p = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
         edit.putString("ACCOUNT", account);
-//        edit.putString("PASSWORD", password);
         edit.putString("PHONE", phoneNum);
         edit.commit();
     }

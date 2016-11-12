@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.yiwucheguanjia.merchantcarmgr.account.LoginActivity"
-    android:fitsSystemWindows="true">
+    tools:context="com.yiwucheguanjia.merchantcarmgr.account.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white"
         android:paddingTop="20dp">
-<RelativeLayout
-    android:layout_width="100dp"
-    android:layout_height="match_parent"
-    android:paddingLeft="10dp">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp">
 
 
             <ImageButton
@@ -28,8 +29,8 @@
                 android:layout_centerVertical="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/goback"/>
-</RelativeLayout>
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/publishTopicBtn"
@@ -55,11 +56,11 @@
             android:id="@+id/login_account_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:background="@null"
             android:hint="@string/input_account"
             android:maxLines="1"
             android:minHeight="40dp"
+            android:paddingLeft="10dp"
             android:singleLine="true"
             android:textSize="16sp" />
 
@@ -72,53 +73,45 @@
             android:id="@+id/login_password_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:background="@null"
             android:hint="@string/input_password"
             android:maxLines="1"
             android:minHeight="40dp"
+            android:paddingLeft="10dp"
             android:singleLine="true"
             android:textSize="16sp" />
 
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        >
+        android:paddingRight="10dp">
+
         <TextView
             android:id="@+id/login_contact_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="@string/contact_service"/>
+            android:text="@string/contact_service" />
+
         <TextView
             android:id="@+id/login_password_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/get_password"
-            />
+            android:text="@string/get_password" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/email_login_form"
+
+    <Button
+        android:id="@+id/login_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
-
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/login"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-    </LinearLayout>
 </LinearLayout>

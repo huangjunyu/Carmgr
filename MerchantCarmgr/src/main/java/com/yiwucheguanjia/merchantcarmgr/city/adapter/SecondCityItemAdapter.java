@@ -30,7 +30,6 @@ public class SecondCityItemAdapter extends RecyclerView.Adapter<SecondCityItemAd
     private SharedPreferences sharedPreferences;
     private Handler handler;
     public SecondCityItemAdapter(Context context, ArrayList<SecondCityModel> recyclerBeens, Handler handler) {
-        Log.e("seze", "kkl");
         this.recyclerBeens = recyclerBeens;
         this.context = context;
         mInflater = LayoutInflater.from(context);

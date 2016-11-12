@@ -15,13 +15,6 @@ public interface RequestSerives {
 //                           @Query("advise_text") String advise_text,
 //                           @Query("token") String token,
 //                           @Query("version") String version);
-//
-//    @POST("appgetconfig")
-//    Call<ConfiModel> postData(@Query("username") String username,
-//                              @Query("config_key") String configKey,
-//                              @Query("screen_size") String screenSize,
-//                              @Query("token") String token,
-//                              @Query("version")String version);
 
     //此处用Rxjava替代retrofit的call回调
     @POST("appgetconfig")

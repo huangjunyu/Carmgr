@@ -66,7 +66,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment callYiwuFragment;
     //当前显示的Fragment
     private Fragment currentFragment;
-    private SharedPreferences sharedPreferences;
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
     private int ft_pos;
     Subscription mSubscription;
@@ -81,7 +80,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         StatusBarUtil.setColor(this,ContextCompat.getColor(this,R.color.orange),1);
 //        StatusBarUtil.setColorNoTranslucent(this,ContextCompat.getColor(this,R.color.orange));
         setContentView(R.layout.activity_main);
-        sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
         //联网判断是否登录或登录过期，过期则跳到登录界面，登录界面不可返回
         initUI();
         initTab();
@@ -122,8 +120,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         commercialImg = (ImageView) findViewById(R.id.tabCommercialImg);
         progressImg = (ImageView) findViewById(R.id.tabProgressImg);
         callYiwuImg = (ImageView) findViewById(R.id.tabCallYiwuImg);
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(mToolbar);
 
         homeLayout.setOnClickListener(this);
         commercialLayout.setOnClickListener(this);
@@ -200,14 +196,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else if (requestCode == 4 && resultCode == 10) {//CallYiwu选择地区
             callYiwuFragment.onActivityResult(4, 10, null);
         }
-//        else if (resultCode == 2 && requestCode == 2) {
-//            fragmentManager.beginTransaction().remove(homeFragment).commit();
-//            homeFragment = new HomeFragment();
-//            commercialFragment = new CommercialFragment();
-//            progressFragment = new ProgressFragment();
-//            callYiwuFragment = new CallYiwu();
-//            addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
-//        }
         else if (resultCode == 1 && requestCode == 3) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
@@ -330,7 +318,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            Log.e("kdkw", "iiiiii");
             transaction.hide(currentFragment).add(R.id.content_layout, fragment).commitAllowingStateLoss();
         } else {
             transaction.hide(currentFragment).show(fragment).commitAllowingStateLoss();
@@ -365,12 +352,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             } else if (action.equals("action.loginout")) {
                 MainActivity.this.finish();
             } else if (action.equals("action.appointment")) {
-                Log.e("kdkw", "jjppw");
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
-                    Log.e("kdkw", "jqqqqw");
                 }else {
-                    Log.e("kdkw", "jjppp");
                     addOrShowFragment(fragmentManager.beginTransaction(), new CallYiwu());
                 }
             }

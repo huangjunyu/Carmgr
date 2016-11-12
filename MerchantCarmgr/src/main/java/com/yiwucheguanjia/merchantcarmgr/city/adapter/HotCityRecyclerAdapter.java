@@ -42,7 +42,6 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
 
     @Override
     public int getItemCount() {
-//        Log.e("zi", regionInfos.size() + "");
         return regionInfos.size();
     }
 
@@ -51,7 +50,6 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-//        Log.e("zi"," regionInfos.size()");
         View view = mInflater.inflate(R.layout.item_hot_city,
                 viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -68,13 +66,11 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
 
             @Override
             public void onClick(View v) {
-                //                                    这里要利用adapter.getItem(position)来获取当前position所对应的对象
+                // 这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 String cityName = merchantItemBean.getName();
                 if (cityName != null && cityName.length() > 0) {
-//                    Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
                     KeyBoard.closeSoftKeyboard(cityActivity);
                     SharedPreferencesUtils.saveCityName(cityActivity, cityName);
-                    Log.e("cityn", cityName + "ew");
 //                    cityActivity.filterData(cityName);
                     cityActivity.searchKey(cityName);
 

@@ -2,19 +2,12 @@ package com.yiwucheguanjia.carmgr;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.socialize.PlatformConfig;
 import com.yiwucheguanjia.carmgr.city.db.DBManager;
 import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
-import com.yiwucheguanjia.carmgr.welcome.WelcomActivity;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/7/31.
@@ -42,6 +35,7 @@ public class CarmgrApllication extends Application {
         imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
 //        OkHttpUtils.getInstance().getOkHttpClient().cache();
     }
+
     {
 
         PlatformConfig.setQQZone("1105629466", "fYspq5Wgo6FnrWgW");

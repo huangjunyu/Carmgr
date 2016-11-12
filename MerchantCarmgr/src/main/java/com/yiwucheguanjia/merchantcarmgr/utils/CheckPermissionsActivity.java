@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * @类型名称：PermissionsChecker
  * @since 2.5.0
  */
-public class CheckPermissionsActivity extends Activity
+public class CheckPermissionsActivity extends FragmentActivity
 		implements
 			ActivityCompat.OnRequestPermissionsResultCallback {
 	/**

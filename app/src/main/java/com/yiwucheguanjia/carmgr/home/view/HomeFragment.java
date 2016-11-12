@@ -506,10 +506,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         final RequestSerives requestSerives = retrofit.create(RequestSerives.class);
-//        retrofit2.Call<ConfiModel> call = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
-//                Tools.getInstance().getScreen(getActivity()),
-//                sharedPreferences.getString("TOKEN", null),
-//                UrlString.APP_VERSION);
+
+
+        retrofit2.Call<ConfiModel> call = (retrofit2.Call<ConfiModel>) requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
+                Tools.getInstance().getScreen(getActivity()),
+                sharedPreferences.getString("TOKEN", null),
+                UrlString.APP_VERSION);
+
         Observable<ConfiModel> confiModel = requestSerives.postData(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
                 Tools.getInstance().getScreen(getActivity()),
                 sharedPreferences.getString("TOKEN", null),
@@ -524,21 +527,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
 
                 });
-//        call.enqueue(new Callback<ConfiModel>() {
-//            @Override
-//            public void onResponse(retrofit2.Call<ConfiModel> call, Response<ConfiModel> response) {
-//                Log.e("成功7",response.body().getUsername());
-//
-//            }
-//
-//            @Override
-//            public void onFailure(retrofit2.Call<ConfiModel> call, Throwable t) {
-//                Log.e("失败",t.getMessage());
-//            }
-//
-//
-//        });
-//        call.enqueue(new retrofitCallback<ConfiModel>(2));
+        call.enqueue(new Callback<ConfiModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<ConfiModel> call, Response<ConfiModel> response) {
+                Log.e("成功7",response.body().getUsername());
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ConfiModel> call, Throwable t) {
+                Log.e("失败",t.getMessage());
+            }
+
+
+        });
+        call.enqueue(new retrofitCallback<ConfiModel>(2));
+
     }
     //每次传入一个参数，区别于来自哪个方法的请求，统一调用这个回调
     public class retrofitCallback<T> implements Callback<T> {

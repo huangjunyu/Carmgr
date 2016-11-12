@@ -99,13 +99,6 @@ public class CityActivity extends CheckPermissionsActivity {
         startLocation();
         // 透明状态栏
         setContentView(R.layout.activity_city);
-        testlocation = (Button)findViewById(R.id.testlocation);
-        testlocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("nwk","kkw");
-            }
-        });
         popupwindowinflater = LayoutInflater.from(CityActivity.this);
         initData();
         initViews();
@@ -519,16 +512,12 @@ public class CityActivity extends CheckPermissionsActivity {
         public void onLocationChanged(AMapLocation loc) {
             if (null != loc) {
                 positionRl.setVisibility(View.VISIBLE);
+
+                //将最后一个“市”字去掉，适配对数据库的检索
                 positionTv.setText(loc.getCity());
                 //解析定位结果
                 String result = Utils.getLocationStr(loc);
-//                tvReult.setText(result);
-
-                Log.e("result",result);
-                Log.e("city",loc.getCity());
-
             } else {
-                Log.e("error","result");
 //                tvReult.setText("定位失败，loc is null");
             }
         }

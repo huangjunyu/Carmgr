@@ -2,6 +2,7 @@ package com.yiwucheguanjia.merchantcarmgr.animation;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -12,11 +13,11 @@ import android.widget.TextView;
 import com.yiwucheguanjia.merchantcarmgr.R;
 
 @SuppressLint("ValidFragment")
-public class DiologLoading extends DialogFragment
+public class DialogLoading extends DialogFragment
 {
 
 	private String typeLoading = "Loading";
-	public DiologLoading(String typeLoading) {
+	public DialogLoading(String typeLoading) {
 		// TODO Auto-generated constructor stub
 		this.typeLoading = typeLoading;
 	}

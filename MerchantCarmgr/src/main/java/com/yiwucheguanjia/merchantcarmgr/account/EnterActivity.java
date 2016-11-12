@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.animation.DiologLoading;
+import com.yiwucheguanjia.merchantcarmgr.animation.DialogLoading;
 import com.yiwucheguanjia.merchantcarmgr.utils.Tools;
 
 import butterknife.BindView;
@@ -45,7 +45,7 @@ public class EnterActivity extends AppCompatActivity implements CompoundButton.O
     CheckBox checkBox;
 
 
-    private DiologLoading diologLoading;
+    private DialogLoading diologLoading;
     private Boolean checkBool = true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class EnterActivity extends AppCompatActivity implements CompoundButton.O
         finish();
     }
     @OnClick(R.id.enter_send_code)void sendCode(){
-        diologLoading = new DiologLoading(getResources().getString(R.string.geting_code));
+        diologLoading = new DialogLoading(getResources().getString(R.string.geting_code));
         diologLoading.show(getSupportFragmentManager(), "login");
         diologLoading.setCancelable(false);
     }

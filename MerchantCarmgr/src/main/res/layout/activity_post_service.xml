@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
+
         <RelativeLayout
             android:id="@+id/post_sc_goback"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:paddingLeft="10dp">
+
             <ImageView
                 android:id="@+id/merchant_list_goback"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:scaleType="center"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/goback"
-                />
+                android:scaleType="center"
+                android:src="@mipmap/goback" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -36,82 +40,97 @@
         android:id="@+id/post_sc_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:background="@color/white"
         android:layout_marginTop="1px"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
+        android:background="@color/white"
         android:hint="@string/input_title"
+        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
-        />
+        android:paddingTop="10dp"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/post_sc_content"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:textSize="18sp"
-        android:gravity="top"
-        android:background="@color/white"
         android:layout_marginTop="1px"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="15dp"
+        android:background="@color/white"
+        android:gravity="top"
         android:hint="@string/input_content"
-        />
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:textSize="18sp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
+
         <TextView
             android:id="@+id/post_sc_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="@string/price"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
+
         <EditText
             android:id="@+id/post_sc_price_ed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/post_sc_price"
             android:layout_centerVertical="true"
-            android:background="@color/white"
-            />
+            android:layout_toRightOf="@+id/post_sc_price"
+            android:background="@color/white" />
 
     </RelativeLayout>
-    <TextView
-        android:id="@+id/post_sc_service_type"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="1px"
-        android:paddingLeft="10dp"
-        android:text="@string/service_type"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        />
+        >
+
+        <TextView
+            android:id="@+id/post_sc_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="1px"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/service_type" />
+        <TextView
+            android:id="@+id/post_sc_service_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/post_sc_service_type"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/service_type" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/post_sc_service_limits"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:paddingLeft="10dp"
-        android:text="@string/service_limits"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        />
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="@string/service_limits" />
 
     <Button
         android:id="@+id/post_sc_post_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:background="@color/orange"
         android:text="@string/submit_service"
-        android:textColor="@color/white"
-        />
+        android:textColor="@color/white" />
 </LinearLayout>

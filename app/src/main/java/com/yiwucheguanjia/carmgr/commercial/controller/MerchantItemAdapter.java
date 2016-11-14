@@ -172,21 +172,7 @@ public class MerchantItemAdapter extends RecyclerView.Adapter<MerchantItemAdapte
             merchantRoad = (TextView) viewHolder.findViewById(R.id.merchant_road);
             merchantImg = (ImageView) viewHolder.findViewById(R.id.merchant_img);
             merchantStarImg = (ImageView) viewHolder.findViewById(R.id.merchant_star_img);
-//            viewHolder.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    postData(sharedPreferences.getString("ACCOUNT",null),"1000_40",
-//                            "热门二手车",sharedPreferences.getString("TOKEN",null), UrlString.APP_VERSION,
-//                            UrlString.APP_LOG_USER_OPERATION,1);
-//                    Intent intent = new Intent(context, WaitActivity.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-
         }
-
-        RoundRectImageView mImg;
     }
 
     protected class HotSecondCarStringCallback extends StringCallback {

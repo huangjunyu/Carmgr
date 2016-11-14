@@ -30,7 +30,7 @@ public class HomeActivty extends AppCompatActivity {
         startActivity(intent);
     }
     @OnClick(R.id.home_enter_btn) void enter(){
-        Intent intent = new Intent(HomeActivty.this,EnterActivity.class);
+        Intent intent = new Intent(HomeActivty.this,EnterRegisterActivity.class);
         startActivity(intent);
     }
 }

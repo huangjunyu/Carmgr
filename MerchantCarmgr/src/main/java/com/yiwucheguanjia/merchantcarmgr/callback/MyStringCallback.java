@@ -1,15 +1,20 @@
 package com.yiwucheguanjia.merchantcarmgr.callback;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.Window;
 
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.request.BaseRequest;
+import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.animation.DialogLoading;
 
 import okhttp3.Call;
@@ -56,5 +61,21 @@ public abstract class MyStringCallback extends StringCallback {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onError(Call call, Response response, Exception e) {
+        super.onError(call, response, e);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(activity.getString(R.string.hint))
+                .setMessage(activity.getString(R.string.post_fail))
+                .setPositiveButton(activity.getString(R.string.i_know),
+                        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

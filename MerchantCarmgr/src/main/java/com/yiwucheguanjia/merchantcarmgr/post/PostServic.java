@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ public class PostServic extends Activity {
         setContentView(R.layout.activity_post_service);
         ButterKnife.bind(this);
     }
-    @OnClick({R.id.post_sc_goback,R.id.post_sc_post_btn})
+    @OnClick({R.id.post_sc_goback,R.id.post_sc_post_btn,R.id.post_sc_service_tv})
     void onClickView(View view){
 
         switch (view.getId()){
@@ -54,7 +55,9 @@ public class PostServic extends Activity {
                 break;
             case R.id.post_sc_price_ed:
                 break;
-            case R.id.post_sc_service_type:
+            case R.id.post_sc_service_tv:
+                Intent serviceTypeIntent = new Intent(PostServic.this,ServiceTypeActivity.class);
+                startActivity(serviceTypeIntent);
                 break;
             case R.id.post_sc_service_limits:
                 break;
@@ -65,6 +68,16 @@ public class PostServic extends Activity {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void checkData(){
+        if (!TextUtils.isEmpty(titleEd.getText().toString())
+                && !TextUtils.isEmpty(contentEd.getText().toString().trim())
+                &&!TextUtils.isEmpty(priceEd.getText().toString().trim())
+                ){
+        }else {
+            //填写标题
         }
     }
 }

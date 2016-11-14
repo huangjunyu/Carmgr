@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.yiwucheguanjia.merchantcarmgr.account.LoginActivity"/>
-        <activity android:name=".account.EnterActivity"/>
+        <activity android:name=".account.EnterRegisterActivity"/>
         <activity android:name=".account.EnterDataActivity"/>
         <activity android:name=".account.EnterMerchantDataActivity"/>
         <activity android:name=".account.JionActivity"/>
@@ -91,7 +91,9 @@
         <activity android:name=".my.view.CashDepositActivity"/>
         <activity android:name=".my.view.AccountBalanceActivity"/>
         <activity android:name=".my.view.MerchantGradeActivity"/>
-        <activity android:name=".checkpictureutils.ImagePagerActivity" android:screenOrientation="nosensor" android:theme="@style/Animation"/>
+        <activity android:name=".checkpictureutils.ImagePagerActivity"
+            android:screenOrientation="nosensor" android:theme="@style/Animation"/>
+        <activity android:name=".post.ServiceTypeActivity"/>
     </application>
 
 </manifest>

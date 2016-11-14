@@ -48,7 +48,7 @@ public class PostFragment extends Fragment {
     void onClickView(View view){
         switch (view.getId()){
             case R.id.postfragment_post_tv:
-                Intent postSIntent = new Intent(getActivity(),PostServic.class);
+                Intent postSIntent = new Intent(getActivity(),PostServiceActivity.class);
                 startActivity(postSIntent);
 //                getActivity().finish();
                 break;

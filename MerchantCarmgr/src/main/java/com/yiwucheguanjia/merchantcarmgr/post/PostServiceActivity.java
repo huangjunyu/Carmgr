@@ -3,7 +3,6 @@ package com.yiwucheguanjia.merchantcarmgr.post;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class PostServic extends Activity {
+public class PostServiceActivity extends Activity {
 
     @BindView(R.id.post_sc_goback)
     RelativeLayout postRl;
@@ -56,19 +55,25 @@ public class PostServic extends Activity {
             case R.id.post_sc_price_ed:
                 break;
             case R.id.post_sc_service_tv:
-                Intent serviceTypeIntent = new Intent(PostServic.this,ServiceTypeActivity.class);
+                Intent serviceTypeIntent = new Intent(PostServiceActivity.this,ServiceTypeActivity.class);
                 startActivity(serviceTypeIntent);
+                startActivityForResult(serviceTypeIntent,0);
                 break;
             case R.id.post_sc_service_limits:
                 break;
             case R.id.post_sc_post_btn:
-//                Intent postedMgIntent = new Intent(PostServic.this,PostedManage.class);
+//                Intent postedMgIntent = new Intent(PostServiceActivity.this,PostedManage.class);
 //                startActivity(postedMgIntent);
                 finish();
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void checkData(){

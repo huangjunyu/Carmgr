@@ -81,7 +81,7 @@
         <activity android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".post.PostServic"/>
+        <activity android:name=".post.PostServiceActivity"/>
         <activity android:name=".my.SystemMsgActivity"/>
         <activity android:name=".my.MerchantPhotoActivity"/>
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"/>

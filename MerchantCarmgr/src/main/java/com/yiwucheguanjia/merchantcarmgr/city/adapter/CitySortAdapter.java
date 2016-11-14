@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.CityActivity;
 import com.yiwucheguanjia.merchantcarmgr.city.bean.CityModel;
@@ -28,16 +29,13 @@ public class CitySortAdapter extends RecyclerView.Adapter<CitySortAdapter.ViewHo
     private LayoutInflater mInflater;
     private List<CityModel> cityModels;
     private Context context;
-    private SharedPreferences sharedPreferences;
-private CityActivity cityActivity;
+    private CityActivity cityActivity;
+
     public CitySortAdapter(CityActivity cityActivity, List<CityModel> cityModels) {
-        Log.e("seze", cityModels.size() + "kkl");
         this.cityModels = cityModels;
         this.cityActivity = cityActivity;
         mInflater = LayoutInflater.from(cityActivity);
-        sharedPreferences = cityActivity.getSharedPreferences("CARMGR", cityActivity.MODE_PRIVATE);
     }
-
 
     @Override
     public int getItemCount() {
@@ -56,24 +54,19 @@ private CityActivity cityActivity;
 
         return viewHolder;
     }
+
     /**
      * 当ListView数据发生变化时,调用此方法来更新ListView，动态刷新listview的数据源
      */
-    public void updateListView(List<CityModel> list){
+    public void updateListView(List<CityModel> list) {
         this.cityModels = list;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final CityModel merchantItemBean = cityModels.get(position);
-        Log.e("cityn", "=--ew");
         final CityModel mContent = cityModels.get(position);
-//        holder.cityNameTv.setText(merchantItemBean.getName());
-//        holder.cityNameTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
         //根据position获取分类的首字母的Char ascii值
         int section = getSectionForPosition(position);
 
@@ -85,36 +78,17 @@ private CityActivity cityActivity;
             holder.cityLetterTv.setVisibility(View.GONE);
         }
 
-        Log.e("tvtitle", "kjwiia;;;");
         holder.cityNameTv.setText(this.cityModels.get(position).getName());
 
         holder.cityNameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                                    这里要利用adapter.getItem(position)来获取当前position所对应的对象
+//              这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 String cityName = merchantItemBean.getName();
-                Log.e("citynnn","knwkek");
                 if (cityName != null && cityName.length() > 0) {
-//                    Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
                     KeyBoard.closeSoftKeyboard(cityActivity);
                     SharedPreferencesUtils.saveCityName(cityActivity, cityName);
-                    Log.e("cityn", cityName + "ew");
-//                    cityActivity.filterData(cityName);
                     cityActivity.searchKey(cityName);
-
-//                    Intent intent = new Intent();
-//                    setResult(10);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-////                            finish();
-//                            Log.e("htise","iwiiwiiw");
-//                            setPopupwindow();
-//                            //此处选择地区后进入其他界面
-//
-//
-//                        }
-//                    }, 500);
                 }
             }
         });

@@ -2,11 +2,17 @@ package com.yiwucheguanjia.merchantcarmgr.post;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.SystemMsgAdapter;
 import com.yiwucheguanjia.merchantcarmgr.post.controller.ServiceTypeAdapter;
+import com.yiwucheguanjia.merchantcarmgr.utils.RecyclerViewDivider;
 
 import java.util.ArrayList;
 
@@ -42,8 +48,25 @@ public class ServiceTypeActivity extends Activity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ServiceTypeActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        serviceTypeAdapter = new ServiceTypeAdapter(ServiceTypeActivity.this,typeList);
+        recyclerView.addItemDecoration(new RecyclerViewDivider(ServiceTypeActivity.this,LinearLayoutManager.HORIZONTAL,
+                1,ContextCompat.getColor(ServiceTypeActivity.this,R.color.gray_divide)));
+        serviceTypeAdapter = new ServiceTypeAdapter(ServiceTypeActivity.this,typeList,handler);
         recyclerView.setAdapter(serviceTypeAdapter);
 
     }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    Log.e("ke","nn");
+                    //将选择的内容返回给发起该activity调用者
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }

@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.post.controller;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +24,11 @@ public class ServiceTypeAdapter extends RecyclerView.Adapter<ServiceTypeAdapter.
     private LayoutInflater layoutInflater;
     private Activity activity;
     private ArrayList<String> typeList;
-    public ServiceTypeAdapter(Activity activity,ArrayList<String> typeList){
+    private Handler handler;
+    public ServiceTypeAdapter(Activity activity,ArrayList<String> typeList,Handler handler){
         this.activity = activity;
         this.typeList = typeList;
+        this.handler = handler;
         layoutInflater = LayoutInflater.from(this.activity);
     }
     @Override
@@ -36,12 +39,12 @@ public class ServiceTypeAdapter extends RecyclerView.Adapter<ServiceTypeAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemTv.setText(typeList.get(position));
         holder.itemTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("nn","iiwn");
+                handler.sendEmptyMessage(position);
             }
         });
     }

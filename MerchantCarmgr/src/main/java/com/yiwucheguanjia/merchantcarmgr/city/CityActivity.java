@@ -456,7 +456,6 @@ public class CityActivity extends CheckPermissionsActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    Log.e("ke","nn");
                     //如果不加这行代码，会报错
                     popupWindow.dismiss();
                     finish();

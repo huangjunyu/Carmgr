@@ -142,6 +142,9 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     }
 
     private void checkData(){
+        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnter.class);
+        startActivity(mainIntent);
+        EnterRegisterActivity.this.finish();
         //如果输入的账号与验证的手机号码相同
         if (TextUtils.equals(accountEdit.getText().toString(),phoneNumStr)){
             //如果密码里面不包含空格
@@ -159,7 +162,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 Log.e("sussess",s);
-                                Intent mainIntent = new Intent(EnterRegisterActivity.this,MainActivity.class);
+                                Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnter.class);
                                 startActivity(mainIntent);
                                 EnterRegisterActivity.this.finish();
                             }

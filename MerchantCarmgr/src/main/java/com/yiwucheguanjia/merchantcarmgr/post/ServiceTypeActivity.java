@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.post;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.SystemMsgAdapter;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/11/14.
@@ -25,8 +30,12 @@ import butterknife.ButterKnife;
 public class ServiceTypeActivity extends Activity{
     private ServiceTypeAdapter serviceTypeAdapter;
     private ArrayList<String> typeList;
+    private final static int SELECTED = 0;
+    private final static int NOTHING_SELECT = 1;
     @BindView(R.id.service_type_rv)
     protected RecyclerView recyclerView;
+    @BindView(R.id.type_goback_rl)
+    RelativeLayout gobackRl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,19 +63,31 @@ public class ServiceTypeActivity extends Activity{
         recyclerView.setAdapter(serviceTypeAdapter);
 
     }
+    @OnClick(R.id.type_goback_rl)void onClick(){
+        Intent intent = new Intent();
+        setResult(NOTHING_SELECT,intent);
+        this.finish();
+    }
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
-                case 0:
-                    Log.e("ke","nn");
-                    //将选择的内容返回给发起该activity调用者
-                    finish();
-                    break;
-                default:
-                    break;
-            }
+            String serviceType = typeList.get(msg.what);
+            Intent intent = new Intent();
+            intent.putExtra("serviceType",serviceType);
+            setResult(SELECTED,intent);
+            Log.e("intent","intent");
+            finish();
         }
     };
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent();
+            setResult(NOTHING_SELECT,intent);
+            this.finish();
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

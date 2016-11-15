@@ -67,7 +67,6 @@ public class Guide extends Activity implements OnViewChangeListener {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("VERSION", UrlString.APP_VERSION);
             editor.commit();
-            Log.e("vier", "vier");
         } else {
             //是否登录或登录过期，跳到登录界面
 //            Intent intent = new Intent(

@@ -141,7 +141,6 @@
                 android:layout_width="100dp"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/merchant_license_img"
                 android:background="@color/orange"
                 android:textColor="@color/white"
                 android:text="@string/upload" />

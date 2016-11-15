@@ -14,12 +14,9 @@ import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
  */
 public class CarmgrApllication extends Application {
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
-
         dbManager = new DBManager(getApplicationContext());
         dbManager.openDatabase();
         ImagePicker imagePicker = ImagePicker.getInstance();

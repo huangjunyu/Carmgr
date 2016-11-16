@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +20,26 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.request.BaseRequest;
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/10/19.
@@ -66,6 +76,7 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> imageItems;
+    FileInputStream fileInputStream = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,30 +107,29 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             case R.id.post_sc_service_scope:
                 break;
             case R.id.post_sc_post_btn:
-//                Intent postedMgIntent = new Intent(PostServiceActivity.this,PostedManage.class);
-//                startActivity(postedMgIntent);
-                ArrayList<File> files = new ArrayList<>();
-                if (imageItems != null && imageItems.size() > 0) {
-                    for (int i = 0; i < imageItems.size(); i++) {
-                        files.add(new File(imageItems.get(i).path));
-                    }
-                }
-
-                if (checkData()) {
-                    OkGo.post(UrlString.POST_SERVICE_URL)
-                            .tag(this)
-                            .params("username", "")
-                            .params("name", titleEd.getText().toString().trim())
-                            .params("detail", contentEd.getText().toString().trim())
-                            .params("price", priceEd.getText().toString().trim())
-                            .params("type", serviceType.getText().toString().trim())
-                            .params("scope", serviceScope.getText().toString().trim())
-                    .params("imgpath","")
-                    .params("token","")
-                    .params("version","")
-                    ;
-                }
-                finish();
+//                ArrayList<File> files = new ArrayList<>();
+//                if (imageItems != null && imageItems.size() > 0) {
+//                    for (int i = 0; i < imageItems.size(); i++) {
+//                        files.add(new File(imageItems.get(i).path));
+//                    }
+//                }
+//
+//                if (checkData()) {
+//                    OkGo.post(UrlString.POST_SERVICE_URL)
+//                            .tag(this)
+//                            .params("username", "")
+//                            .params("name", titleEd.getText().toString().trim())
+//                            .params("detail", contentEd.getText().toString().trim())
+//                            .params("price", priceEd.getText().toString().trim())
+//                            .params("type", serviceType.getText().toString().trim())
+//                            .params("scope", serviceScope.getText().toString().trim())
+//                    .params("imgpath","")
+//                    .params("token","")
+//                    .params("version","")
+//                    ;
+//                }
+//                finish();
+                formUpload();
                 break;
             default:
                 break;
@@ -179,6 +189,102 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
                 adapter.setImages(selImageList);
             }
         }
+    }
+    String inputStream2String(InputStream is){
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+        try {
+            while ((line = in.readLine()) != null){
+                buffer.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buffer.toString();
+    }
+    public void formUpload() {
+        ArrayList<File> files = new ArrayList<>();
+        File file = null;
+        InputStream inputStream = null;
+        byte[] data = null;
+        if (imageItems != null && imageItems.size() > 0) {
+            for (int i = 0; i < imageItems.size(); i++) {
+                files.add(new File(imageItems.get(i).path));
+            }
+            file = files.get(0);
+            String fileString = file.toString();
+            Log.e("big",file.length() + "," + fileString);
+
+
+
+            try {
+                fileInputStream = new FileInputStream(file);
+                Log.e("fileInputStream",fileInputStream.toString());
+                fileInputStream.available();
+                data = new byte[fileInputStream.available()];
+                inputStream.read(data);
+                inputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        //拼接参数
+        OkGo.post("http://112.74.13.51:8080/carmgr/mappfileupload")//
+                .tag(this)//
+//                .headers("header1", "headerValue1")//
+//                .headers("header2", "headerValue2")//
+//                .params("resource_file_name", "paramValue1")//
+//                .params("param2", "paramValue2")//
+//                .params("file1",new File("文件路径"))   //这种方式为一个key，对应一个文件
+//                .addFileParams("filedata;", files)           // 这种方式为同一个key，上传多个文件
+                .params("filedata",fileInputStream.toString())
+                .execute(
+//                        new JsonCallback<LzyResponse<ServerModel>>() {
+//                    @Override
+//                    public void onBefore(BaseRequest request) {
+//                        super.onBefore(request);
+//                        btnFormUpload.setText("正在上传中...");
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(LzyResponse<ServerModel> responseData, Call call, Response response) {
+//                        handleResponse(responseData.data, call, response);
+//                        Log.e("hhhh", responseData.msg + "," + responseData.data + "," + responseData.code + "");
+//                        btnFormUpload.setText("上传完成11");
+//                    }
+//
+//                    @Override
+//                    public void onError(Call call, Response response, Exception e) {
+//                        super.onError(call, response, e);
+//                        handleError(call, response);
+//                        Log.e("eeee", e.toString());
+//                        btnFormUpload.setText("上传出错");
+//                    }
+//
+//                    @Override
+//                    public void upProgress(long currentSize, long totalSize, float progress, long networkSpeed) {
+//                        System.out.println("upProgress -- " + totalSize + "  " + currentSize + "  " + progress + "  " + networkSpeed);
+//
+//                        String downloadLength = Formatter.formatFileSize(getApplicationContext(), currentSize);
+//                        String totalLength = Formatter.formatFileSize(getApplicationContext(), totalSize);
+//                        tvDownloadSize.setText(downloadLength + "/" + totalLength);
+//                        String netSpeed = Formatter.formatFileSize(getApplicationContext(), networkSpeed);
+//                        tvNetSpeed.setText(netSpeed + "/S");
+//                        tvProgress.setText((Math.round(progress * 10000) * 1.0f / 100) + "%");
+//                        pbProgress.setMax(100);
+//                        pbProgress.setProgress((int) (progress * 100));
+//                    }
+//                }
+                        new MyStringCallback(PostServiceActivity.this,"test") {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+                                Log.e("string",s);
+                            }
+
+                        }
+                );
     }
 
     private Boolean checkData() {

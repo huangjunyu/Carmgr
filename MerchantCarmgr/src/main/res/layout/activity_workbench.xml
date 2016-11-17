@@ -6,13 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/orange">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/workbench"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/workbench_rollpagerview"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:background="@color/white"
-        app:rollviewpager_play_delay="5000"
-        >
+        app:rollviewpager_play_delay="5000">
 
     </com.jude.rollviewpager.RollPagerView>
 
@@ -30,7 +43,7 @@
                 android:id="@+id/workbench_read_total_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:text="@string/read_total"
                 android:textColor="@color/buseness_black" />
 
@@ -51,7 +64,7 @@
                 android:id="@+id/workbench_appoint_total_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:text="@string/read_total"
                 android:textColor="@color/buseness_black" />
 
@@ -72,7 +85,7 @@
                 android:id="@+id/workbench_talk_total_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:text="@string/read_total"
                 android:textColor="@color/buseness_black" />
 
@@ -86,101 +99,104 @@
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white"
+        android:layout_height="120dp"
         android:layout_marginTop="5dp"
-        >
+        android:background="@color/white">
+
         <RelativeLayout
             android:id="@+id/workbench_post_rl"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:gravity="center"
-            >
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/workbench_post_service_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/post_service"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/post_service" />
+
             <TextView
                 android:id="@+id/workbench_post_service_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_post_service_img"
                 android:layout_marginTop="8dp"
-                android:text="@string/post_service"/>
+                android:text="@string/post_service" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/workbench_data_stat_Rl"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:gravity="center"
-            >
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/workbench_data_stat_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/data_statistics"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/data_statistics" />
+
             <TextView
                 android:id="@+id/workbench_data_stat_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_data_stat_img"
                 android:layout_marginTop="8dp"
-                android:text="@string/data_statistcs"
-                />
+                android:text="@string/data_statistcs" />
         </RelativeLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white"
-        >
+        android:layout_height="120dp"
+        android:background="@color/white">
+
         <RelativeLayout
             android:id="@+id/user_assess_rl"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:gravity="center"
-            >
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/workbench_assess_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_assess"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/user_assess" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_assess_img"
                 android:layout_marginTop="8dp"
-                android:text="@string/user_assess"
-                />
+                android:text="@string/user_assess" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/workbench_complaint_rl"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:gravity="center"
-            >
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/workbench_complaint_set_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/compliant_setting"
-                />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/compliant_setting" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_complaint_set_img"
                 android:layout_marginTop="8dp"
-                android:text="@string/compliant_setting"
-                />
+                android:text="@string/compliant_setting" />
         </RelativeLayout>
 
     </LinearLayout>

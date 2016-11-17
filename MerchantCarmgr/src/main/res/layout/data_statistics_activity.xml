@@ -60,7 +60,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="200dp"
+                android:visibility="visible"
+                >
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -73,7 +75,7 @@
                         android:id="@+id/data_total_appoin_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="总预约量" />
+                        android:text="@string/appointment_total" />
 
                     <TextView
                         android:id="@+id/data_total_appoin"
@@ -87,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_total_appoin"
-                        tools:text="总浏览量" />
+                        android:text="@string/read_total"/>
 
                     <TextView
                         android:id="@+id/data_total_read"
@@ -101,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_total_read"
-                        tools:text="总沟通量" />
+                        android:text="@string/contract_total" />
 
                     <TextView
                         android:id="@+id/data_total_contrack"
@@ -211,7 +213,7 @@
                         android:id="@+id/data_today_order_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="本日订单量" />
+                        android:text="@string/order_today" />
 
                     <TextView
                         android:id="@+id/data_today_order"
@@ -231,7 +233,7 @@
                         android:id="@+id/data_month_order_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="本月订单量" />
+                        android:text="@string/order_today" />
 
                     <TextView
                         android:id="@+id/data_month_order"
@@ -259,7 +261,7 @@
                         android:id="@+id/data_withdraw_total_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/withdraw_total" />
+                        android:text="@string/withdraw_total" />
 
                     <TextView
                         android:id="@+id/data_withdraw_total"
@@ -301,18 +303,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                >
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="200dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
 
                     <TextView
                         android:id="@+id/data_five_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/five_star_assess" />
+                        android:text="@string/five_star_assess" />
 
                     <TextView
                         android:id="@+id/data_five_star"
@@ -326,7 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_five_star"
-                        tools:text="@string/three_star_assess" />
+                        android:text="@string/three_star_assess" />
 
                     <TextView
                         android:id="@+id/data_three_star"
@@ -340,7 +346,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_three_star"
-                        tools:text="@string/one_star_assess" />
+                        android:text="@string/one_star_assess" />
 
                     <TextView
                         android:id="@+id/data_one_star"
@@ -352,14 +358,16 @@
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
 
                     <TextView
                         android:id="@+id/data_four_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/four_star_assess" />
+                        android:text="@string/four_star_assess" />
 
                     <TextView
                         android:id="@+id/data_four_star"
@@ -373,7 +381,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/data_four_star"
-                        tools:text="@string/two_star_assess" />
+                        android:text="@string/two_star_assess" />
 
                     <TextView
                         android:id="@+id/data_two_star"

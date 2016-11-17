@@ -146,6 +146,9 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
             RadioButton rbButton  = (RadioButton) inflater.inflate(R.layout.tab_rb, null);
             rbButton.setId(i);
             rbButton.setText(headTabs.get(i).getName());
+            if (i == 0){
+                rbButton.setTextColor(ContextCompat.getColor(getActivity(),R.color.orange));
+            }
             //加入RadioGroup
             radioGroup.addView(rbButton,radioGroupLayoutParams);
         }

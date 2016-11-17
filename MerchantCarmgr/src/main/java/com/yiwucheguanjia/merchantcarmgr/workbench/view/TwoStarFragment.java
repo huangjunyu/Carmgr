@@ -18,20 +18,20 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/10/31.
  */
-public class TwoStarFragment extends Fragment {
-    @BindView(R.id.star_rv)
-    RecyclerView recyclerView;
-    RateAdapter rateAdapter;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.fragment_star,container,false);
-        ButterKnife.bind(this,homeView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        rateAdapter = new RateAdapter(getActivity(),null);
-        recyclerView.setAdapter(rateAdapter);
-        return homeView;
-    }
+public class TwoStarFragment extends AssessBaseFragment {
+//    @BindView(R.id.star_rv)
+//    RecyclerView recyclerView;
+//    RateAdapter rateAdapter;
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View homeView = inflater.inflate(R.layout.fragment_star,container,false);
+//        ButterKnife.bind(this,homeView);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        rateAdapter = new RateAdapter(getActivity(),null);
+//        recyclerView.setAdapter(rateAdapter);
+//        return homeView;
+//    }
 }

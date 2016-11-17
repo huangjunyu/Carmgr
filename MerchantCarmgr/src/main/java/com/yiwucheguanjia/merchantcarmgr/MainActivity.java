@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 透明导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),1);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
 //        StatusBarUtil.setColorNoTranslucent(this,ContextCompat.getColor(this,R.color.orange));
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);

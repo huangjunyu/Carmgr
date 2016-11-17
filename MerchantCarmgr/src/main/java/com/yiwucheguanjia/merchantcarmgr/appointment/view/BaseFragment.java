@@ -16,11 +16,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2016/10/27.
+ * Created by Administrator on 2016/11/17.
  */
-public class AllAppointmentFragment extends BaseFragment {
-
-/*    View homeView;
+public abstract class BaseFragment extends Fragment {
+    View homeView;
     @BindView(R.id.allappoint_item_rv)
     RecyclerView itemRv;
     AppointAdapter appointAdapter;
@@ -37,6 +36,5 @@ public class AllAppointmentFragment extends BaseFragment {
         itemRv.setLayoutManager(linearLayoutManager);
         itemRv.setAdapter(appointAdapter);
         return homeView;
-    }*/
-
+    }
 }

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yiwucheguanjia.merchantcarmgr.R;
+
 /**
  * Created by Administrator on 2016/10/28.
  */
@@ -20,7 +22,9 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = mInflater.inflate(R.layout.item_appointment,parent,false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class AppointAdapter extends RecyclerView.Adapter<AppointAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 5;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

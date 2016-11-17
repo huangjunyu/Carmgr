@@ -48,7 +48,6 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
     public void onBindViewHolder(HolderView holder, final int position) {
         Log.e("itementi", itemEntities.size() + "");
         ItemEntity itemEntity = itemEntities.get(position);
-//        Picasso.with(this.context).load(R.mipmap.star_half).error(R.mipmap.star_five).into(merchantStarImg);
         Glide.with(activity).load(R.mipmap.defualt_header).error(R.mipmap.default_image).into(holder.headerImg);
         final ArrayList<String> imageUrls = itemEntity.getImageUrls();
         if (imageUrls == null || imageUrls.size() == 0) {

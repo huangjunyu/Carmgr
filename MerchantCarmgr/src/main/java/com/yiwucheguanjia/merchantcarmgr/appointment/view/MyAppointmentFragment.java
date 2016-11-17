@@ -12,13 +12,13 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 /**
  * Created by Administrator on 2016/10/27.
  */
-public class MyAppointmentFragment extends Fragment {
-    View homeView;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = (View)inflater.inflate(R.layout.activity_myappoint_fragment,container,false);
-        return homeView;
-    }
+public class MyAppointmentFragment extends BaseFragment {
+//    View homeView;
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        homeView = (View)inflater.inflate(R.layout.activity_myappoint_fragment,container,false);
+//        return homeView;
+//    }
 }

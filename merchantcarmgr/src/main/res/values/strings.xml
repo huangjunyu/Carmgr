@@ -47,6 +47,8 @@
     <string name="appointment">预约管理</string>
     <string name="my">我的</string>
     <string name="read_total">总浏览量</string>
+    <string name="contract_total">总沟通量</string>
+    <string name="appointment_total">总预约量</string>
     <string name="compliant_setting">投诉处理</string>
     <string name="user_assess">用户评价</string>
     <string name="data_statistcs">数据统计</string>
@@ -86,6 +88,7 @@
     <string name="month_order">本月订单量</string>
     <string name="withdraw_record">提现记录</string>
     <string name="withdraw_total">提现总额</string>
+    <string name="order_today">今日订单</string>
     <string name="total_assess">总评价量</string>
     <string name="five_star_assess">5星评价</string>
     <string name="four_star_assess">4星评价</string>

@@ -30,10 +30,10 @@ public class DataStatisticsActivity extends Activity {
     }
     public void initChartView(){
         ArrayList<HistogramView.Bar> orderBarList = new ArrayList<HistogramView.Bar>();
-        HistogramView.Bar bar1 = orderHistogramView.new Bar(1, 0.8f, ContextCompat.getColor(this,R.color.orange), "one", "");
-        HistogramView.Bar bar2 = orderHistogramView.new Bar(2, 0.65f, ContextCompat.getColor(this,R.color.orange), "two", "");
-        HistogramView.Bar bar3 = orderHistogramView.new Bar(3, 0.8f, ContextCompat.getColor(this,R.color.orange), "three", "");
-        HistogramView.Bar bar4 = orderHistogramView.new Bar(4, 0.8f, ContextCompat.getColor(this,R.color.orange), "four", "");
+        HistogramView.Bar bar1 = orderHistogramView.new Bar(1, 0.8f, ContextCompat.getColor(this,R.color.orange), getResources().getString(R.string.appointment_total), "");
+        HistogramView.Bar bar2 = orderHistogramView.new Bar(2, 0.65f, ContextCompat.getColor(this,R.color.orange), getResources().getString(R.string.read_total), "");
+        HistogramView.Bar bar3 = orderHistogramView.new Bar(3, 0.8f, ContextCompat.getColor(this,R.color.orange), getResources().getString(R.string.contract_total), "");
+        HistogramView.Bar bar4 = orderHistogramView.new Bar(4, 0.8f, ContextCompat.getColor(this,R.color.orange), getResources().getString(R.string.appointment_total), "");
         orderBarList.add(bar1);
         orderBarList.add(bar2);
         orderBarList.add(bar3);

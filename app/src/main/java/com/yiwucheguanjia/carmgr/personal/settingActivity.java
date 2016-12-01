@@ -6,12 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.andexert.library.RippleView;
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
 
 /**
  * Created by Administrator on 2016/7/13.
@@ -36,14 +35,14 @@ public class settingActivity extends Activity implements View.OnClickListener{
     }
     private void initView(){
         exitRpw = (RippleView) findViewById(R.id.setting_exit_rl);
-        gobackRpw = (RippleView) findViewById(R.id.setting_goback_rpv);
+        gobackRpw = (RippleView) findViewById(R.id.setting_goback_rl);
         gobackRpw.setOnClickListener(this);
         exitRpw.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.setting_goback_rpv:
+            case R.id.setting_goback_rl:
                 this.finish();
                 break;
             case R.id.setting_exit_rl:
@@ -55,7 +54,7 @@ public class settingActivity extends Activity implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setAction("action.loginout");
                 sendBroadcast(intent);
-                Intent loginInten = new Intent(settingActivity.this, LoginActivity.class);
+                Intent loginInten = new Intent(settingActivity.this, LoginBaseFragmentActivity.class);
                 startActivity(loginInten);
                 finish();
                 break;

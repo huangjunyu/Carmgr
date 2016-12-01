@@ -39,11 +39,11 @@ public class CustomerAssessActivity extends FragmentActivity {
     }
 
     public void initView(){
-        fragment1 = new FiveStarFragment();
-        fragment2 = new FourStarFragment();
+        fragment5 = new FiveStarFragment();
+        fragment4 = new FourStarFragment();
         fragment3 = new ThreeStarFragment();
-        fragment4 = new TwoStarFragment();
-        fragment5 = new OneStarFragment();
+        fragment2 = new TwoStarFragment();
+        fragment1 = new OneStarFragment();
         fragments.add(fragment1);
         fragments.add(fragment2);
         fragments.add(fragment3);

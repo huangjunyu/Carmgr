@@ -102,7 +102,7 @@
             android:paddingLeft="10dp"
             android:textSize="12sp"
             android:textColor="@color/buseness_black"
-            tools:text="评论"
+            android:text="评论"
             />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rate_item_img_rv"

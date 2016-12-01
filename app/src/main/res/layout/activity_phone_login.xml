@@ -54,7 +54,7 @@
             android:background="@color/white">
 
             <EditText
-                android:id="@+id/phone_num_edit"
+                android:id="@+id/phone_num_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -84,7 +84,7 @@
 
 
         <EditText
-            android:id="@+id/phone_code_edit"
+            android:id="@+id/phone_code_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -109,7 +109,7 @@
             app:rv_type="rectangle">
 
             <Button
-                android:id="@+id/phone_check_login"
+                android:id="@+id/phone_submit_btn"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

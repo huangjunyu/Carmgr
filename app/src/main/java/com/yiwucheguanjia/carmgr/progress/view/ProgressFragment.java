@@ -26,10 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.my.SystemMsgActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
-import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.progress.model.MerchantBean;
 import com.yiwucheguanjia.carmgr.progress.controller.ProgressAdapter;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
@@ -240,14 +239,16 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.progress_personal_rl:
-                if (sharedPreferences.getString("ACCOUNT", null) != null) {
-                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
-                    getActivity().startActivity(intentPersonal);
-                } else {
-                    Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
-                    getActivity().startActivityForResult(personalIntent, 1);
-                }
-                ;
+//                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+//                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
+//                    getActivity().startActivity(intentPersonal);
+//                } else {
+//                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
+//                    getActivity().startActivityForResult(personalIntent, 1);
+//                }
+//                ;
+                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
+                getActivity().startActivityForResult(personalIntent, 1);
                 break;
             case R.id.progress_all_rl://全部
                 allImg.setImageResource(R.mipmap.all_pre);

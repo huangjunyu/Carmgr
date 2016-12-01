@@ -90,6 +90,8 @@
     <string name="withdraw_total">提现总额</string>
     <string name="order_today">今日订单</string>
     <string name="total_assess">总评价量</string>
+    <string name="appoint_today">今日预约量</string>
+    <string name="appoint_month">本月预约量</string>
     <string name="five_star_assess">5星评价</string>
     <string name="four_star_assess">4星评价</string>
     <string name="three_star_assess">3星评价</string>
@@ -116,6 +118,11 @@
     <string name="i_know">知道了</string>
     <string name="loading">加载中...</string>
     <string name="sending">正在发送验证码...</string>
+    <string name="one_star">1星</string>
+    <string name="two_star">2星</string>
+    <string name="three_star">3星</string>
+    <string name="four_star">4星</string>
+    <string name="five_star">5星</string>
 
     <string name="viewpager_indicator">%1$d/%2$d</string>
     <array name="home_video_tab">

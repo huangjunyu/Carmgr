@@ -112,7 +112,7 @@ public class HistogramView extends View{
         //*/
 
         // 设置底部文字属性
-        mPaint.setTextSize(sp2Px(mContext, 11));
+        mPaint.setTextSize(sp2Px(mContext, 10));
         mPaint.setTextAlign(Paint.Align.CENTER);
         FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
         int fontHeight = (int) Math.ceil(fontMetricsInt.bottom - fontMetricsInt.top);
@@ -158,7 +158,7 @@ public class HistogramView extends View{
             mPaint.setColor(Color.BLACK);
             canvas.drawText(bar.topText, mRect.centerX(), baseLine, mPaint);
         }
-        Bar bar = mBarLists.get(1);
+//        Bar bar = mBarLists.get(0);
         // 画线
         mPaint.setColor(Color.alpha(0));
         canvas.drawLine(mLeft, mBottom - fontHeight, mRight, mBottom - fontHeight, mPaint);

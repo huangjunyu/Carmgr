@@ -29,14 +29,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.my.SystemMsgActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
 import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
 import com.yiwucheguanjia.carmgr.commercial.model.MerchantSelectItemBean;
 import com.yiwucheguanjia.carmgr.commercial.controller.PopupWindowSimpleAdapter;
-import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
 import com.yiwucheguanjia.carmgr.utils.ScreenUtils;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -382,14 +381,16 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 initPopupwindow("sort", sortList, 3);
                 break;
             case R.id.merchant_personal_rl:
-                if (sharedPreferences.getString("ACCOUNT", null) != null) {
-                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
-                    getActivity().startActivity(intentPersonal);
-                } else {
-                    Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
-                    getActivity().startActivityForResult(personalIntent, 1);
-                }
+//                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+//                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
+//                    getActivity().startActivity(intentPersonal);
+//                } else {
+//                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
+//                    getActivity().startActivityForResult(personalIntent, 1);
+//                }
                 ;
+                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
+                getActivity().startActivityForResult(personalIntent, 1);
                 break;
             case R.id.merchant_position_rl:
                 Intent intent = new Intent(getActivity(), CityActivity.class);

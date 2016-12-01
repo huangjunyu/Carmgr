@@ -29,7 +29,8 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
+import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
+import com.yiwucheguanjia.carmgr.my.SystemMsgActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
 import com.yiwucheguanjia.carmgr.commercial.view.MerchantListActivity;
@@ -43,10 +44,8 @@ import com.yiwucheguanjia.carmgr.home.model.FavorabledRecommendBean;
 import com.yiwucheguanjia.carmgr.home.model.HotRecommendBean;
 import com.yiwucheguanjia.carmgr.home.model.HotSecondCarBean;
 import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
-import com.yiwucheguanjia.carmgr.personal.personalActivity;
 import com.yiwucheguanjia.carmgr.scanner.CaptureActivity;
 import com.yiwucheguanjia.carmgr.utils.ConfiModel;
-import com.yiwucheguanjia.carmgr.utils.JsonModel;
 import com.yiwucheguanjia.carmgr.utils.MyScrollview;
 import com.yiwucheguanjia.carmgr.utils.RequestSerives;
 import com.yiwucheguanjia.carmgr.utils.Tools;
@@ -57,15 +56,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import butterknife.BindViews;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import retrofit2.Callback;
@@ -74,7 +70,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -118,6 +113,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     //支持下拉刷新的ViewGroup
     private in.srain.cube.views.ptr.PtrClassicFrameLayout mPtrFrame;
     final public static int REQUEST_CODE_ASK_CAMERA = 1004;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +130,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
+                    Intent loginActivityIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
                     getActivity().startActivityForResult(loginActivityIntent, 1);
                 }
             }).setCancelable(false);
@@ -153,7 +149,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    Intent loginActivityIntent = new Intent(getActivity(), LoginActivity.class);
+                    Intent loginActivityIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
                     getActivity().startActivityForResult(loginActivityIntent, 1);
                 }
             });
@@ -391,14 +387,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_personal_rl:
-                if (sharedPreferences.getString("ACCOUNT", null) != null) {
-                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
-                    getActivity().startActivity(intentPersonal);
-                } else {
-                    Intent personalIntent = new Intent(getActivity(), LoginActivity.class);
-                    getActivity().startActivityForResult(personalIntent, 1);
-                }
-                ;
+//                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+//                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
+//                    getActivity().startActivity(intentPersonal);
+//                } else {
+//                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
+//                    getActivity().startActivityForResult(personalIntent, 1);
+//                }
+//                ;
+                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
+                getActivity().startActivityForResult(personalIntent, 1);
                 break;
             case R.id.home_position_rl:
                 Intent cityIntent = new Intent(getActivity(), CityActivity.class);
@@ -498,6 +496,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .build()
                 .execute(new pagerStringCallback());
     }
+
     private void init2() {
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://112.74.13.51:8080/carmgr/")
@@ -522,7 +521,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .subscribe(new Action1<ConfiModel>() {
                     @Override
                     public void call(ConfiModel confiModel) {
-                        Log.e("confim",confiModel.getUsername());
+                        Log.e("confim", confiModel.getUsername());
 
                     }
 
@@ -530,13 +529,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<ConfiModel>() {
             @Override
             public void onResponse(retrofit2.Call<ConfiModel> call, Response<ConfiModel> response) {
-                Log.e("成功7",response.body().getUsername());
+                Log.e("成功7", response.body().getUsername());
 
             }
 
             @Override
             public void onFailure(retrofit2.Call<ConfiModel> call, Throwable t) {
-                Log.e("失败",t.getMessage());
+                Log.e("失败", t.getMessage());
             }
 
 
@@ -544,15 +543,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new retrofitCallback<ConfiModel>(2));
 
     }
+
     //每次传入一个参数，区别于来自哪个方法的请求，统一调用这个回调
     public class retrofitCallback<T> implements Callback<T> {
         int num;
-        public retrofitCallback(int num){
+
+        public retrofitCallback(int num) {
             this.num = num;
         }
+
         @Override
         public void onResponse(retrofit2.Call call, Response response) {
-            Log.e("call",response.toString());
+            Log.e("call", response.toString());
         }
 
         @Override
@@ -560,6 +562,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
     private void parseJson(String response) {
         OkHttpClient okHttpClient = new OkHttpClient();
 

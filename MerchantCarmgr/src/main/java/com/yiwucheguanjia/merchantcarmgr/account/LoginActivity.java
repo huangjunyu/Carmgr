@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getSharedPreferences("CARMGR", this.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", this.MODE_PRIVATE);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
@@ -56,6 +56,9 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.login_button)
     void loginAccount() {
+//        NewActivityUtil newActivityUtil = new NewActivityUtil(LoginActivity.this,MainActivity.class);
+//        newActivityUtil.newActivity();
+//        finishActivity();
         if (checkString(accountEdit, passwordEdit)) {
             OkGo.post(UrlString.LOGIN_URL)
                     .tag(this)
@@ -119,7 +122,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setSharePrefrence(String account, String token) {
-        SharedPreferences p = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
+        SharedPreferences p = getSharedPreferences("CARMGR_MERCHANT", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
         edit.putString("ACCOUNT", account);
         edit.putString("TOKEN", token);

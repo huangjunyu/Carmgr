@@ -61,6 +61,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:paddingTop="10dp"
                 android:visibility="visible"
                 >
 
@@ -123,11 +124,10 @@
 
                     <com.yiwucheguanjia.merchantcarmgr.workbench.view.HistogramView
                         android:id="@+id/data_order_chart"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:layout_margin="16dp"
                         android:background="@color/white"
-                        android:padding="16dp" />
+                        />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -157,7 +157,7 @@
                         android:id="@+id/data_today_point_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="本日预约量" />
+                        android:text="@string/appoint_today" />
 
                     <TextView
                         android:id="@+id/data_today_point"
@@ -177,7 +177,7 @@
                         android:id="@+id/data_month_point_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="本月预约量" />
+                        android:text="@string/appoint_month" />
 
                     <TextView
                         android:id="@+id/data_month_point"
@@ -304,6 +304,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:background="@color/white"
                 >
 
@@ -398,11 +399,10 @@
 
                     <com.yiwucheguanjia.merchantcarmgr.workbench.view.HistogramView
                         android:id="@+id/data_assess_chart"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:layout_margin="16dp"
                         android:background="@color/white"
-                        android:padding="16dp" />
+                        />
                 </RelativeLayout>
 
             </LinearLayout>

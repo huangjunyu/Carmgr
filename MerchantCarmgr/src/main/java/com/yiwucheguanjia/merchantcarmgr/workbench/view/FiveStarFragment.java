@@ -22,6 +22,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2016/10/31.
  */
 public class FiveStarFragment extends AssessBaseFragment {
+    @Override
+    protected int getStar() {
+        return 4;
+    }
 //    @BindView(R.id.star_rv)
 //    RecyclerView recyclerView;
 //    RateAdapter rateAdapter;

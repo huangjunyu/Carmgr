@@ -72,12 +72,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 透明状态栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
-//        StatusBarUtil.setColorNoTranslucent(this,ContextCompat.getColor(this,R.color.orange));
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
         //联网判断是否登录或登录过期，过期则跳到登录界面，登录界面不可返回

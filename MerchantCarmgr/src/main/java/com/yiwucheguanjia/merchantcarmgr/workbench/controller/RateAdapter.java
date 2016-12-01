@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yiwucheguanjia.merchantcarmgr.R;
@@ -30,7 +31,10 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
     private ArrayList<ItemEntity> itemEntities;
     private LayoutInflater layoutInflater;
 
-    public RateAdapter(Activity activity, ArrayList<ItemEntity> itemEntities) {
+    /*
+    * @param starNum 评价的星数
+    * */
+    public RateAdapter(Activity activity, ArrayList<ItemEntity> itemEntities,int starNum) {
         layoutInflater = LayoutInflater.from(activity);
         this.activity = activity;
         this.itemEntities = itemEntities;
@@ -49,6 +53,8 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
         Log.e("itementi", itemEntities.size() + "");
         ItemEntity itemEntity = itemEntities.get(position);
         Glide.with(activity).load(R.mipmap.defualt_header).error(R.mipmap.default_image).into(holder.headerImg);
+        holder.rateContent.setText(itemEntity.getContent());
+        holder.nickNameTv.setText(itemEntity.getTime());
         final ArrayList<String> imageUrls = itemEntity.getImageUrls();
         if (imageUrls == null || imageUrls.size() == 0) {
             holder.rateImgRv.setVisibility(View.GONE);
@@ -72,6 +78,10 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
         ImageView headerImg;
         @BindView(R.id.rate_item_img_rv)
         RecyclerView rateImgRv;
+        @BindView(R.id.rate_rate_tv)
+        TextView rateContent;
+        @BindView(R.id.rate_user_name_tv)
+        TextView nickNameTv;
         private Activity activity;
 
         public HolderView(View view, Activity activity) {

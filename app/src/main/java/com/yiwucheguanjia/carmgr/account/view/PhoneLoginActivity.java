@@ -66,8 +66,8 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
 
     protected void initView() {
         gobackRpw = (RippleView) findViewById(R.id.phone_login_goback_rpw);
-        phoneNumEdit = (EditText) findViewById(R.id.phone_num_edit);
-        msgCodeEdit = (EditText) findViewById(R.id.phone_code_edit);
+        phoneNumEdit = (EditText) findViewById(R.id.phone_num_et);
+        msgCodeEdit = (EditText) findViewById(R.id.phone_code_et);
         sendCodeTv = (Button) findViewById(R.id.phone_send_code);
         loginRpw = (RippleView) findViewById(R.id.phone_check_login_rpw);
         gobackRpw.setOnClickListener(this);
@@ -132,9 +132,9 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
             case R.id.phone_login_goback_rpw:
                 this.finish();
                 break;
-            case R.id.phone_code_edit://验证码编辑框
+            case R.id.phone_code_et://验证码编辑框
                 break;
-            case R.id.phone_num_edit:
+            case R.id.phone_num_et:
                 break;
             case R.id.phone_send_code://发送验证码
                 getPhoneNum();

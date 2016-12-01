@@ -177,6 +177,7 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
                 imageItems = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                Log.e("imaget",imageItems.get(0).path);
                 selImageList.addAll(imageItems);
                 adapter.setImages(selImageList);
             }
@@ -216,8 +217,6 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             String fileString = file.toString();
             Log.e("big",file.length() + "," + fileString);
 
-
-
             try {
                 fileInputStream = new FileInputStream(file);
                 Log.e("fileInputStream",fileInputStream.toString());
@@ -231,52 +230,17 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
 
         }
         //拼接参数
-        OkGo.post("http://112.74.13.51:8080/carmgr/mappfileupload")//
+        OkGo.post("http://112.74.13.51:8080/carmgr/upload")//
                 .tag(this)//
 //                .headers("header1", "headerValue1")//
 //                .headers("header2", "headerValue2")//
 //                .params("resource_file_name", "paramValue1")//
 //                .params("param2", "paramValue2")//
-//                .params("file1",new File("文件路径"))   //这种方式为一个key，对应一个文件
-//                .addFileParams("filedata;", files)           // 这种方式为同一个key，上传多个文件
-                .params("filedata",fileInputStream.toString())
+                .params("file1",new File("/storage/emulated/0/DCIM/Camera/1480350181412.jpg"))   //这种方式为一个key，对应一个文件
+//                .addFileParams("filedata;", file)           // 这种方式为同一个key，上传多个文件
+
+//                .params("filedata",fileInputStream.toString())
                 .execute(
-//                        new JsonCallback<LzyResponse<ServerModel>>() {
-//                    @Override
-//                    public void onBefore(BaseRequest request) {
-//                        super.onBefore(request);
-//                        btnFormUpload.setText("正在上传中...");
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(LzyResponse<ServerModel> responseData, Call call, Response response) {
-//                        handleResponse(responseData.data, call, response);
-//                        Log.e("hhhh", responseData.msg + "," + responseData.data + "," + responseData.code + "");
-//                        btnFormUpload.setText("上传完成11");
-//                    }
-//
-//                    @Override
-//                    public void onError(Call call, Response response, Exception e) {
-//                        super.onError(call, response, e);
-//                        handleError(call, response);
-//                        Log.e("eeee", e.toString());
-//                        btnFormUpload.setText("上传出错");
-//                    }
-//
-//                    @Override
-//                    public void upProgress(long currentSize, long totalSize, float progress, long networkSpeed) {
-//                        System.out.println("upProgress -- " + totalSize + "  " + currentSize + "  " + progress + "  " + networkSpeed);
-//
-//                        String downloadLength = Formatter.formatFileSize(getApplicationContext(), currentSize);
-//                        String totalLength = Formatter.formatFileSize(getApplicationContext(), totalSize);
-//                        tvDownloadSize.setText(downloadLength + "/" + totalLength);
-//                        String netSpeed = Formatter.formatFileSize(getApplicationContext(), networkSpeed);
-//                        tvNetSpeed.setText(netSpeed + "/S");
-//                        tvProgress.setText((Math.round(progress * 10000) * 1.0f / 100) + "%");
-//                        pbProgress.setMax(100);
-//                        pbProgress.setProgress((int) (progress * 100));
-//                    }
-//                }
                         new MyStringCallback(PostServiceActivity.this,"test") {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {

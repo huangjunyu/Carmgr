@@ -40,7 +40,7 @@
         android:id="@+id/complain_deal_tl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorHeight="0dp"
+        app:tabIndicatorHeight="3dp"
         app:tabIndicatorColor="@color/orange"
         app:theme="@style/AlertDialog.AppCompat"
         app:tabSelectedTextColor="@color/orange"

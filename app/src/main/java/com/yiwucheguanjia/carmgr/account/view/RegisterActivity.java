@@ -417,7 +417,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
                     if (diologLoading != null) {
                         diologLoading.dismiss();
                     }
-//                    Intent loginInten = new Intent(RegisterActivity.this, LoginActivity.class);
+//                    Intent loginInten = new Intent(RegisterActivity.this, LoginBaseFragmentActivity.class);
 //                    startActivity(loginInten);
                     //结束当前界面，退回到登录界面
                     finish();

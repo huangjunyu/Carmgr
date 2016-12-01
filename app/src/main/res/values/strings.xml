@@ -4,6 +4,7 @@
     <string name="commercial">商家</string>
     <string name="home">首页</string>
     <string name="yiwu">易务</string>
+    <string name="my">我的</string>
     <string name="micromsg_contact">微信</string>
     <string name="qq_contact">QQ</string>
     <string name="phone_contact">电话</string>
@@ -59,7 +60,10 @@
     <string name="default_sort">默认排序</string>
     <string name="add_car_hint">添加后能时刻把握爱车信息哦</string>
     <string name="account_residual">账号余额</string>
+    <string name="my_order">我的订单</string>
     <string name="personal_data">个人资料</string>
+    <string name="account_balance">账户余额</string>
+    <string name="my_collect">我的收藏</string>
     <string name="my_car">我的车辆</string>
     <string name="records_business">历史业务</string>
     <string name="post_address">邮寄地址</string>
@@ -96,6 +100,8 @@
     <string name="contact_merchant">联系商家</string>
     <string name="distance">商家与我距离</string>
     <string name="setting">设置</string>
+    <string name="order_num">订单号：</string>
+    <string name="order">订单</string>
     <string name="use_gprs">移动网络下载图片</string>
     <string name="clean_cache">清理缓存</string>
     <string name="about_us">关于我们</string>
@@ -110,6 +116,8 @@
     <string name="check_code">验证</string>
     <string name="phone_num_format">手机号格式不对，请重新输入！</string>
     <string name="phone_login_quick">手机号快捷登录</string>
+    <string name="account_login">账号登录</string>
+    <string name="system_msg">系统消息</string>
     <string name="check_and_login">验证并登录</string>
     <string name="input_msg_code">请输入你接收到的短信验证码</string>
     <string name="appointment_service">预约服务</string>
@@ -160,6 +168,9 @@
     <string name="may_service_type">可办业务</string>
     <string name="read_more">查看更多</string>
     <string name="nothing_bus">该业务暂时没有任何数据</string>
+    <string name="post_fail">请求数据失败，请稍候重试</string>
+    <string name="i_know">知道了</string>
+    <string name="loading">加载中...</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -172,4 +183,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

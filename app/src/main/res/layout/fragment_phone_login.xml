@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/phone_num_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="@string/input_phone_number_get_pwd"
+                android:maxLines="1"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/phone_send_code"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/verification_circle"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/send_code"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/phone_code_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:hint="@string/msg_code"
+            android:maxLines="1"
+            android:minHeight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/phone_check_login_rpw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:rv_color="@color/gray_default"
+            app:rv_rippleDuration="200"
+            app:rv_type="rectangle">
+
+            <Button
+                android:id="@+id/phone_submit_btn"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/round_rectangle_orange"
+                android:text="@string/check_and_login"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+</LinearLayout>

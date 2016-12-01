@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.model.RateImgBean;
@@ -41,16 +42,25 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Hold
 
     @Override
     public void onBindViewHolder(HolderView holder, int position) {
+        holder.usernameTv.setText(rateImgBeens.get(position).getCustom_username());
+        holder.complainTimeTv.setText(rateImgBeens.get(position).getComplaint_date());
+        holder.complainCommentTv.setText(rateImgBeens.get(position).getComplaint_content());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return rateImgBeens.size();
     }
 
     public class HolderView extends RecyclerView.ViewHolder {
         @BindView(R.id.complain_user_img)
         ImageView headerImg;
+        @BindView(R.id.complain_user_name_tv)
+        TextView usernameTv;
+        @BindView(R.id.complain_time)
+        TextView complainTimeTv;
+        @BindView(R.id.complain_comment)
+        TextView complainCommentTv;
         private Activity activity;
 
         public HolderView(View view, Activity activity) {

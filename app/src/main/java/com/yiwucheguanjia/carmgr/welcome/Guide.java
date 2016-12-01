@@ -4,7 +4,6 @@ package com.yiwucheguanjia.carmgr.welcome;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,24 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginActivity;
-import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
-import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
-import com.yiwucheguanjia.carmgr.home.controller.RollViewPagerAdapter;
-import com.yiwucheguanjia.carmgr.home.model.RollViewPagerBean;
+import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import okhttp3.Call;
 
@@ -123,7 +114,7 @@ public class Guide extends Activity implements OnViewChangeListener {
                 case R.id.startBtn:
                     Intent intent = new Intent(
                             Guide.this,
-                            LoginActivity.class);
+                            LoginBaseFragmentActivity.class);
                     Guide.this.startActivity(intent);
                     Guide.this.finish();
             }
@@ -153,6 +144,7 @@ public class Guide extends Activity implements OnViewChangeListener {
 
         @Override
         public void onError(Call call, Exception e, int id) {
+            Log.e("logging","lllog");
         }
 
         @Override
@@ -181,7 +173,7 @@ public class Guide extends Activity implements OnViewChangeListener {
             } else {//跳到登录界面
                 Intent intent = new Intent(
                         Guide.this,
-                        LoginActivity.class);
+                        LoginBaseFragmentActivity.class);
                 Guide.this.startActivity(intent);
                 Guide.this.finish();
             }
@@ -190,7 +182,7 @@ public class Guide extends Activity implements OnViewChangeListener {
             e.printStackTrace();
             Intent intent = new Intent(
                     Guide.this,
-                    LoginActivity.class);
+                    LoginBaseFragmentActivity.class);
             Guide.this.startActivity(intent);
             Guide.this.finish();
         }

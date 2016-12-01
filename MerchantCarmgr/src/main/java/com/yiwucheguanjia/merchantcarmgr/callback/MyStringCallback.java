@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.Window;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.request.BaseRequest;
 import com.yiwucheguanjia.merchantcarmgr.R;
@@ -25,6 +26,7 @@ import okhttp3.Response;
  */
 public abstract class MyStringCallback extends StringCallback {
     private ProgressDialog progressDialog;
+    private SVProgressHUD svProgressHUD;
     private String loadingToast;
     private Activity activity;
     public MyStringCallback(Activity activity,String loadingToast){

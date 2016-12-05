@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
-import com.yiwucheguanjia.carmgr.my.MyFragmetn;
+import com.yiwucheguanjia.carmgr.my.MyFragment;
 import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
 import com.yiwucheguanjia.carmgr.myrxjava.rxbus.ChangeAnswerEvent;
@@ -173,7 +173,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
             progressFragment = new ProgressFragment();
-            callYiwuFragment = new MyFragmetn();
+            callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
         } else if (requestCode == 1 && resultCode == 10) {//HomeFragment选择地区
             homeFragment.onActivityResult(1, 2, null);
@@ -189,7 +189,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
             progressFragment = new ProgressFragment();
-            callYiwuFragment = new MyFragmetn();
+            callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
         } else if (requestCode == 1 && resultCode == 20) {//扫描界面返回了homeFragment
 
@@ -251,7 +251,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         } else if (id == 3) {
             if (callYiwuFragment == null) {
-                callYiwuFragment = new MyFragmetn();
+                callYiwuFragment = new MyFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
@@ -335,7 +335,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 homeFragment = new HomeFragment();
                 commercialFragment = new CommercialFragment();
                 progressFragment = new ProgressFragment();
-                callYiwuFragment = new MyFragmetn();
+                callYiwuFragment = new MyFragment();
                 addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
             } else if (action.equals("action.loginout")) {
                 MainActivity.this.finish();
@@ -343,7 +343,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
                 }else {
-                    addOrShowFragment(fragmentManager.beginTransaction(), new MyFragmetn());
+                    addOrShowFragment(fragmentManager.beginTransaction(), new MyFragment());
                 }
             }
         }

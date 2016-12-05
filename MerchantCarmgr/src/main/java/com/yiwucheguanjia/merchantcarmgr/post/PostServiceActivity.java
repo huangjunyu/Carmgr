@@ -2,6 +2,7 @@ package com.yiwucheguanjia.merchantcarmgr.post;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +22,17 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.BaseRequest;
+import com.lzy.okgo.request.PostRequest;
+import com.yiwucheguanjia.merchantcarmgr.BaseActivity;
+import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,7 +51,7 @@ import okhttp3.Response;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class PostServiceActivity extends Activity implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
+public class PostServiceActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
     private final static int RESULT_SELECTED = 0;
     private final static int RESULT_NOTHING_SELECT = 1;
@@ -77,6 +84,8 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> imageItems;
     FileInputStream fileInputStream = null;
+    private SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,29 +116,11 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             case R.id.post_sc_service_scope:
                 break;
             case R.id.post_sc_post_btn:
-//                ArrayList<File> files = new ArrayList<>();
-//                if (imageItems != null && imageItems.size() > 0) {
-//                    for (int i = 0; i < imageItems.size(); i++) {
-//                        files.add(new File(imageItems.get(i).path));
-//                    }
-//                }
-//
-//                if (checkData()) {
-//                    OkGo.post(UrlString.POST_SERVICE_URL)
-//                            .tag(this)
-//                            .params("username", "")
-//                            .params("name", titleEd.getText().toString().trim())
-//                            .params("detail", contentEd.getText().toString().trim())
-//                            .params("price", priceEd.getText().toString().trim())
-//                            .params("type", serviceType.getText().toString().trim())
-//                            .params("scope", serviceScope.getText().toString().trim())
-//                    .params("imgpath","")
-//                    .params("token","")
-//                    .params("version","")
-//                    ;
-//                }
 //                finish();
-                formUpload();
+                Log.e("kwkw", "ppppp");
+                if (checkData()) {
+                    formUpload();
+                }
                 break;
             default:
                 break;
@@ -168,16 +159,16 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
                 serviceTypeSelTv.setText(data.getExtras().getString("serviceType").toString());
 
             }
-        }else if (requestCode == REQUEST_ZERO && resultCode == RESULT_NOTHING_SELECT){
+        } else if (requestCode == REQUEST_ZERO && resultCode == RESULT_NOTHING_SELECT) {
             //没有选择服务类型
-            Log.e("nnw","kkk");
+            Log.e("nnw", "kkk");
         }
 
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
                 imageItems = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                Log.e("imaget",imageItems.get(0).path);
+                Log.e("imaget", imageItems.get(0).path);
                 selImageList.addAll(imageItems);
                 adapter.setImages(selImageList);
             }
@@ -191,12 +182,13 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             }
         }
     }
-    String inputStream2String(InputStream is){
+
+    String inputStream2String(InputStream is) {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         StringBuffer buffer = new StringBuffer();
         String line = "";
         try {
-            while ((line = in.readLine()) != null){
+            while ((line = in.readLine()) != null) {
                 buffer.append(line);
             }
         } catch (IOException e) {
@@ -204,7 +196,9 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
         }
         return buffer.toString();
     }
+
     public void formUpload() {
+        sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         ArrayList<File> files = new ArrayList<>();
         File file = null;
         InputStream inputStream = null;
@@ -215,11 +209,11 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             }
             file = files.get(0);
             String fileString = file.toString();
-            Log.e("big",file.length() + "," + fileString);
+            Log.e("big", file.length() + "," + fileString);
 
             try {
                 fileInputStream = new FileInputStream(file);
-                Log.e("fileInputStream",fileInputStream.toString());
+                Log.e("fileInputStream", fileInputStream.toString());
                 fileInputStream.available();
                 data = new byte[fileInputStream.available()];
                 inputStream.read(data);
@@ -229,33 +223,46 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
             }
 
         }
+
         //拼接参数
-        OkGo.post("http://112.74.13.51:8080/carmgr/upload")//
-                .tag(this)//
-//                .headers("header1", "headerValue1")//
-//                .headers("header2", "headerValue2")//
-//                .params("resource_file_name", "paramValue1")//
-//                .params("param2", "paramValue2")//
-                .params("file1",new File("/storage/emulated/0/DCIM/Camera/1480350181412.jpg"))   //这种方式为一个key，对应一个文件
-//                .addFileParams("filedata;", file)           // 这种方式为同一个key，上传多个文件
-
-//                .params("filedata",fileInputStream.toString())
-                .execute(
-                        new MyStringCallback(PostServiceActivity.this,"test") {
-                            @Override
-                            public void onSuccess(String s, Call call, Response response) {
-                                Log.e("string",s);
+        PostRequest okGo = OkGo.post("http://112.74.13.51:8080/carmgr/upload")//
+                .tag(this);//
+        okGo.params("username", "13560102795")
+                .params("token", sharedPreferences.getString("TOKEN", "null"))
+                .params("version", UrlString.APP_VERSION)
+                .params("file_count", files.size());
+        for (int i = 0; i < files.size(); i++) {
+            okGo.params("file" + i, files.get(i));
+        }
+        okGo.execute(
+                new MyStringCallback(PostServiceActivity.this, "test") {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("string", s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            if (TextUtils.equals(jsonObject.getString("opt_state"),"success")){
+                                Intent intent = new Intent();
+                                intent.setAction("action.post_manage");
+                                sendBroadcast(intent);
+                                Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
+                                startActivity(loginInten);
+                                finish();
                             }
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                );
+//                        if ()
+                    }
+
+                }
+        );
     }
 
     private Boolean checkData() {
         if (!TextUtils.isEmpty(titleEd.getText().toString())
                 && !TextUtils.isEmpty(contentEd.getText().toString().trim())
                 && !TextUtils.isEmpty(priceEd.getText().toString().trim())
-                && !TextUtils.isEmpty(serviceTypeSelTv.getText().toString())
                 && !TextUtils.isEmpty(serviceTypeSelTv.getText().toString())
                 && !TextUtils.isEmpty(serviceScope.getText().toString())) {
             return true;
@@ -268,7 +275,7 @@ public class PostServiceActivity extends Activity implements ImagePickerAdapter.
     public void onItemClick(View view, int position) {
         switch (position) {
             case IMAGE_ITEM_ADD:
-                Log.e("kwq","jwnw");
+                Log.e("kwq", "jwnw");
                 //打开选择,本次允许选择的数量
                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
                 Intent intent = new Intent(this, ImageGridActivity.class);

@@ -70,18 +70,36 @@
             tools:text="0"/>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/balance_pay_manager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:gravity="center_vertical"
-        android:text="@string/pay_manager"
-        android:paddingLeft="20dp"
         android:background="@color/white"
-        />
+        >
+        <TextView
+            android:id="@+id/balance_pay_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="1px"
+            android:gravity="center_vertical"
+            android:text="@string/pay_manager"
+            android:paddingLeft="20dp"
+            android:background="@color/white"
+            />
+        <ImageView
+            android:id="@+id/balance_cash_go"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/go"
+            />
+    </RelativeLayout>
+
     <Button
-        android:id="@+id/bank_car_Btn"
+        android:id="@+id/balance_bank_car_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"

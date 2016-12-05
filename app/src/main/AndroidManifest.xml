@@ -85,6 +85,7 @@
         <activity android:name=".account.view.LoginBaseFragmentActivity" />
         <activity android:name=".my.SystemMsgActivity" />
         <activity android:name=".order.OrderActivity"/>
+        <activity android:name=".my.AccountBalanceActivity"/>
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->

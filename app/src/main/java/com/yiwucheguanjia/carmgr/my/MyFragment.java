@@ -21,7 +21,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/6/20.
  */
-public class MyFragmetn extends Fragment{
+public class MyFragment extends Fragment {
 
     private View homeView;
 
@@ -45,6 +45,8 @@ public class MyFragmetn extends Fragment{
     RelativeLayout waitUseRl;
     @BindView(R.id.pro_going_rl)
     RelativeLayout gingRl;
+    @BindView(R.id.my_account_balance_rl)
+    RelativeLayout balanceRl;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +56,23 @@ public class MyFragmetn extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = inflater.inflate(R.layout.activity_my,container,false);
-        ButterKnife.bind(this,homeView);
+        homeView = inflater.inflate(R.layout.fragment_my, container, false);
+        ButterKnife.bind(this, homeView);
         return homeView;
     }
-    @OnClick({R.id.my_setting_img,R.id.my_msg_img,R.id.my_account_rl,R.id.my_header_img,
-            R.id.my_header_tv,R.id.my_mycar_rl,R.id.my_addcar_img,R.id.my_order_rl,
-            R.id.progress_all_rl,R.id.pro_wait_pay_rl,R.id.pro_wait_use_rl,R.id.pro_going_rl,R.id.pro_done_rl,R.id.pro_wait_assess_rl,R.id.pro_after_sale__rl})
-    public void onClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.my_setting_img, R.id.my_msg_img, R.id.my_account_rl, R.id.my_header_img,
+            R.id.my_header_tv, R.id.my_mycar_rl, R.id.my_addcar_img, R.id.my_order_rl,
+            R.id.progress_all_rl, R.id.pro_wait_pay_rl, R.id.pro_wait_use_rl, R.id.pro_going_rl,
+            R.id.pro_done_rl, R.id.pro_wait_assess_rl, R.id.pro_after_sale__rl,R.id.my_account_balance_rl})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.my_setting_img:
                 break;
             case R.id.my_msg_img:
                 break;
             case R.id.my_account_rl:
+
                 break;
             case R.id.my_header_img:
                 break;
@@ -96,6 +101,8 @@ public class MyFragmetn extends Fragment{
             case R.id.pro_after_sale__rl://退款/售后
                 break;
             case R.id.my_account_balance_rl://账户余额
+                Intent accountBalanceIntent = new Intent(getActivity(), AccountBalanceActivity.class);
+                startActivity(accountBalanceIntent);
                 break;
             case R.id.my_collect_rl://我的收藏
                 break;

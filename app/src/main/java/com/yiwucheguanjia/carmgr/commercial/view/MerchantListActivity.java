@@ -80,6 +80,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     //一个Okhttputils封装类的示例
     private void getMerchantsList(String username, String city_filter, String service_filter, String token,
                                   String version, String url, int id) {
+
         if (TextUtils.isEmpty(token)) {
             Toast.makeText(MerchantListActivity.this, getResources().getText(R.string.login_hint),
                     Toast.LENGTH_SHORT).show();
@@ -93,11 +94,13 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
                 .addParams("version", version)
                 .id(1)
                 .build()
-                .execute(new CommercialStringCallback());
+        .execute(new CommercialStringCallback());
+
     }
 
     //解析JSON数据
     protected void analysisJson(String response) {
+
         try {
             JSONObject jsonObject = new JSONObject(response);
             merchantItemBeens = new ArrayList<>();
@@ -141,7 +144,6 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     }
 
     protected class CommercialStringCallback extends StringCallback {
-
         @Override
         public void onError(Call call, Exception e, int id) {
         }

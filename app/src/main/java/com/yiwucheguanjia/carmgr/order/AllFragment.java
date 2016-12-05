@@ -1,12 +1,8 @@
 package com.yiwucheguanjia.carmgr.order;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +20,7 @@ public class AllFragment extends BaseOrderFragment {
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_base_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_order, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

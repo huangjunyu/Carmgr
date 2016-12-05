@@ -69,6 +69,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int ft_pos;
     Subscription mSubscription;
     private Toolbar mToolbar;
+    private int POST_MANAGE_REQUEST = 20;//发布服务后的请求码
+    private int POST_MANAGE_RESULT = 20;//发布服务后的结果码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +83,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initTab();
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("action.loginfresh");
-        intentFilter.addAction("action.loginout");
-        intentFilter.addAction("action.appointment");
+        intentFilter.addAction("action.post_manage");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
     }
 
@@ -335,17 +336,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals("action.loginfresh")) {
-                fragmentManager.beginTransaction().remove(workbenchFragment).commitAllowingStateLoss();
-                workbenchFragment = new WorkbenchFragment();
-                postFragment = new PostFragment();
-                progressFragment = new AppointmentFragment();
-                callYiwuFragment = new MyFragment();
-                addOrShowFragment(fragmentManager.beginTransaction(), workbenchFragment);
+            if (action.equals("action.post_manage")) {
+                Log.e("kdkw", "jjppw");
+                postFragment.onActivityResult(1,10,null);//此处实现跳转，用名称变量比较好
+
+//                fragmentManager.beginTransaction().remove(workbenchFragment).commitAllowingStateLoss();
+//                workbenchFragment = new WorkbenchFragment();
+//                postFragment = new PostFragment();
+//                progressFragment = new AppointmentFragment();
+//                callYiwuFragment = new MyFragment();
+//                addOrShowFragment(fragmentManager.beginTransaction(), workbenchFragment);
             } else if (action.equals("action.loginout")) {
                 MainActivity.this.finish();
             } else if (action.equals("action.appointment")) {
-                Log.e("kdkw", "jjppw");
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
                     Log.e("kdkw", "jqqqqw");

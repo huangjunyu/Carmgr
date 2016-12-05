@@ -63,6 +63,11 @@
     <string name="my_order">我的订单</string>
     <string name="personal_data">个人资料</string>
     <string name="account_balance">账户余额</string>
+    <string name="income_detail">收入明细</string>
+    <string name="your_account_balance">您的账户余额</string>
+    <string name="pay_manager">支付管理</string>
+    <string name="bank_car">银行卡</string>
+    <string name="withdraw_deposit">提现</string>
     <string name="my_collect">我的收藏</string>
     <string name="my_car">我的车辆</string>
     <string name="records_business">历史业务</string>

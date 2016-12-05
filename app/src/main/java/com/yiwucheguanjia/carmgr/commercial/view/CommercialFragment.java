@@ -209,6 +209,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
     //解析JSON数据
     protected void analysisJson(String response) {
+        Log.e("mer", response);
+
         try {
             JSONObject jsonObject = new JSONObject(response);
 //            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");

@@ -28,7 +28,9 @@ public class PostFragment extends Fragment {
     TextView postTv;
     @BindView(R.id.post_ft_item_rv)
     RecyclerView postItemRv;
-    PostServiceItemAdapter postServiceItemAdapter;
+    PostServiceItemAdapter postServiceItemAdapter;//选择图片后的图片展示列表
+    private int POST_MANAGE_REQUEST = 20;//发布服务后的请求码
+    private int POST_MANAGE_RESULT = 20;//发布服务后的结果码
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,6 +15,7 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.my.view.AccountBalanceActivity;
 import com.yiwucheguanjia.merchantcarmgr.my.view.CashDepositActivity;
 import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantGradeActivity;
+import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantIntroActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/10/17.
  */
 public class MyFragment extends Fragment {
-
+public int anInt;
     LinearLayout myFragmentView;
     @BindView(R.id.myft_user_header_rl)
     RelativeLayout userHeaderRl;
@@ -79,6 +80,8 @@ public class MyFragment extends Fragment {
                 startActivity(merchantPhoIntent);
                 break;
             case R.id.myft_merchant_profile_rl:
+                Intent introIntent = new Intent(getActivity(), MerchantIntroActivity.class);
+                startActivity(introIntent);
                 break;
             case R.id.myft_cash_deposit_rl:
                 Intent depositIntent = new Intent(getActivity(),CashDepositActivity.class);

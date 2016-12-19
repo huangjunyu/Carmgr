@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.my.controller.SystemMsgAdapter;
 import com.yiwucheguanjia.merchantcarmgr.post.controller.ServiceTypeAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.RecyclerViewDivider;
 

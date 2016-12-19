@@ -19,13 +19,9 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.animation.AlertDialog;
-import com.yiwucheguanjia.merchantcarmgr.animation.DialogLoading;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.utils.NewActivityUtil;
 import com.yiwucheguanjia.merchantcarmgr.utils.Tools;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
@@ -94,7 +90,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
             default:
                 break;
         }
-//        Intent intent = new Intent(EnterRegisterActivity.this, MerchantEnter.class);
+//        Intent intent = new Intent(EnterRegisterActivity.this, MerchantEnterFragmentActivity.class);
 //        startActivity(intent);
     }
 
@@ -142,7 +138,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     }
 
     private void checkData(){
-        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnter.class);
+        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
         startActivity(mainIntent);
         EnterRegisterActivity.this.finish();
         //如果输入的账号与验证的手机号码相同
@@ -162,7 +158,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 Log.e("sussess",s);
-                                Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnter.class);
+                                Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
                                 startActivity(mainIntent);
                                 EnterRegisterActivity.this.finish();
                             }

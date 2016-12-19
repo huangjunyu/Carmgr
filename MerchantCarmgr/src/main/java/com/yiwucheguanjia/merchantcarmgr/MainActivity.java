@@ -338,8 +338,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             String action = intent.getAction();
             if (action.equals("action.post_manage")) {
                 Log.e("kdkw", "jjppw");
-                postFragment.onActivityResult(1,10,null);//此处实现跳转，用名称变量比较好
-
+                if (postFragment == null) {
+                    postFragment = new PostFragment();
+                }
+                postFragment.onActivityResult(POST_MANAGE_REQUEST,POST_MANAGE_RESULT,null);//此处实现跳转，用名称变量比较好
+                addOrShowFragment(fragmentManager.beginTransaction(), postFragment);
 //                fragmentManager.beginTransaction().remove(workbenchFragment).commitAllowingStateLoss();
 //                workbenchFragment = new WorkbenchFragment();
 //                postFragment = new PostFragment();
@@ -351,7 +354,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             } else if (action.equals("action.appointment")) {
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
-                    Log.e("kdkw", "jqqqqw");
                 }else {
                     Log.e("kdkw", "jjppp");
                     addOrShowFragment(fragmentManager.beginTransaction(), new MyFragment());

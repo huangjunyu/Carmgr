@@ -5,7 +5,7 @@
     android:background="@color/orange">
 
     <ImageButton
-        android:id="@+id/setting_goback_imgbtn"
+        android:id="@+id/goback_imgbtn"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"

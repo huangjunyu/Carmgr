@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="service_type">
+        <item>上牌</item>
+        <item>驾考</item>
+        <item>检车</item>
+        <item>维修</item>
+        <item>租车</item>
+        <item>保养</item>
+        <item>二手车</item>
+        <item>车贷</item>
+        <item>新车</item>
+        <item>急救</item>
+        <item>用品</item>
+    </string-array>
+</resources>

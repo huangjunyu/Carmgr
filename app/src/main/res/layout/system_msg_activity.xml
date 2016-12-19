@@ -8,14 +8,14 @@
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/setting_goback_rpv"
+            android:id="@+id/add_addr_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="10dp">
 
             <ImageButton
-                android:id="@+id/setting_goback_imgbtn"
+                android:id="@+id/goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
@@ -26,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/publishTopicBtn"
+            android:id="@+id/add_addr_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"

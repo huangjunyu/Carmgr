@@ -11,12 +11,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.carmgr.order.OrderActivity;
+import com.yiwucheguanjia.carmgr.personal.settingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/6/20.
@@ -64,12 +69,25 @@ public class MyFragment extends Fragment {
     @OnClick({R.id.my_setting_img, R.id.my_msg_img, R.id.my_account_rl, R.id.my_header_img,
             R.id.my_header_tv, R.id.my_mycar_rl, R.id.my_addcar_img, R.id.my_order_rl,
             R.id.progress_all_rl, R.id.pro_wait_pay_rl, R.id.pro_wait_use_rl, R.id.pro_going_rl,
-            R.id.pro_done_rl, R.id.pro_wait_assess_rl, R.id.pro_after_sale__rl,R.id.my_account_balance_rl})
+            R.id.pro_done_rl, R.id.pro_wait_assess_rl, R.id.pro_after_sale__rl,R.id.my_records_rl,
+            R.id.my_account_balance_rl,R.id.my_post_rl})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_setting_img:
+                Intent settingIntent = new Intent(getActivity(),settingActivity.class);
+                startActivity(settingIntent);
                 break;
             case R.id.my_msg_img:
+//                Intent intent = new Intent(getActivity(),MapActivity.class);
+//                startActivity(intent);
+                OkGo.get("http://jisunews.market.alicloudapi.com/news/channel")
+                        .tag(this)
+                        .execute(new MyStringCallback(getActivity(),"jjjjj") {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+
+                            }
+                        });
                 break;
             case R.id.my_account_rl:
 
@@ -109,8 +127,12 @@ public class MyFragment extends Fragment {
             case R.id.my_data_rl://个人资料
                 break;
             case R.id.my_records_rl://历史业务
+                Intent recordTradeIntent = new Intent(getActivity(),RecordTradeActivity.class);
+                startActivity(recordTradeIntent);
                 break;
             case R.id.my_post_rl://邮寄地址
+                Intent postAddrIntent = new Intent(getActivity(),PostAddressListActivity.class);
+                startActivity(postAddrIntent);
                 break;
             default:
                 break;

@@ -29,6 +29,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+     
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".CarmgrApllication"
@@ -84,8 +89,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".account.view.LoginBaseFragmentActivity" />
         <activity android:name=".my.SystemMsgActivity" />
-        <activity android:name=".order.OrderActivity"/>
-        <activity android:name=".my.AccountBalanceActivity"/>
+        <activity android:name=".order.OrderActivity" />
+        <activity android:name=".my.AccountBalanceActivity" />
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
@@ -95,9 +100,16 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57c4e666e0f55ae7420000de"></meta-data>
+            android:value="57c4e666e0f55ae7420000de" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="95145000a8ba7721b28caa6fd579a02d" />
 
-        <activity android:name=".order.OrderActivity"></activity>
+        <activity android:name=".order.OrderActivity" />
+        <activity android:name=".my.MapActivity" />
+        <activity android:name=".my.PostAddressListActivity" />
+        <activity android:name=".my.AddAddressActivity" />
+        <activity android:name=".my.RecordTradeActivity"></activity>
     </application>
 
 </manifest>

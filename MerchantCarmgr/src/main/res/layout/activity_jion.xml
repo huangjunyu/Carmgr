@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
 
 
     <RelativeLayout
@@ -23,7 +22,7 @@
             android:text="@string/stor_service_type" />
 
         <TextView
-            android:id="@+id/jion_area_ed"
+            android:id="@+id/jion_service_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/jion_stor_serv_typ"
@@ -38,9 +37,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:paddingLeft="20dp"
         android:layout_marginTop="1px"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingLeft="20dp">
 
         <TextView
             android:id="@+id/jion_stor_intro"
@@ -53,12 +52,12 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_below="@+id/jion_stor_intro"
-            android:gravity="start"
             android:background="@color/white"
+            android:gravity="start"
+            android:hint="@string/input"
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:hint="@string/input"
             android:textSize="14sp" />
     </RelativeLayout>
 
@@ -67,100 +66,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1px"
-        android:paddingTop="10dp"
+        android:background="@color/white"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
-        android:background="@color/white"
+        android:paddingTop="10dp"
         android:text="@string/stor_img" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            >
-
-            <ImageView
-                android:id="@+id/jion_stor_img1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:background="@color/gray"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            >
-
-            <ImageView
-                android:id="@+id/jion_stor_img2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:background="@color/gray"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/jion_stor_img3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:background="@color/gray"
-                />
-        </RelativeLayout>
-    </LinearLayout>
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:paddingTop="30dp"
-            android:background="@color/white"
-            >
-
-            <Button
-                android:id="@+id/join_updown_btn"
-                android:layout_width="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                android:background="@color/orange"
-                android:textColor="@color/white"
-                android:text="@string/upload" />
-        </RelativeLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    >
-
-    <Button
-        android:id="@+id/jion_next_btn"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/jion_img_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/orange"
-        android:text="@string/next"
-        android:textColor="@color/white" />
-</RelativeLayout>
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        android:textColor="@color/buseness_black"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:listitem="@layout/list_item_image" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/white"
+        android:paddingTop="30dp">
+
+        <Button
+            android:id="@+id/join_upload_btn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/orange"
+            android:text="@string/upload"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/jion_next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/orange"
+            android:text="@string/next"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 </LinearLayout>

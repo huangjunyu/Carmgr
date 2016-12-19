@@ -57,7 +57,7 @@
                     android:text="@string/local" />
 
                 <TextView
-                    android:id="@+id/merchant_area_ed"
+                    android:id="@+id/merchant_area_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/merchant_id_car_tv"
@@ -119,6 +119,7 @@
                     android:paddingBottom="10dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp"
+                    android:inputType="phone"
                     android:textSize="14sp" />
             </RelativeLayout>
 
@@ -146,7 +147,7 @@
                     android:background="@color/gray" />
 
                 <Button
-                    android:id="@+id/merchant_updown_btn"
+                    android:id="@+id/merchant_upload_btn"
                     android:layout_width="120dp"
                     android:layout_height="35dp"
                     android:layout_below="@+id/merchant_license_img"

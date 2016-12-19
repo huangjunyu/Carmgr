@@ -31,14 +31,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/picasso-2.5.2.jar')
     //版本号使用 + 可以自动引用最新版
+
     //版本号使用 + 可以自动引用最新版
+
     //    compile 'in.srain.cube:ultra-ptr:1.0.10'
     compile files('libs/guideshowlib.jar')
     compile files('libs/jpinyin-jdk1.6.jar')
     apt 'com.jakewharton:butterknife-compiler:+'
-
     //可以单独使用，不需要依赖下方的扩展包
+
     //RxJava扩展支持，根据需要添加
+
     //下载管理和上传管理扩展，根据需要添加
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'junit:junit:4.12'
@@ -66,4 +69,5 @@ dependencies {
     compile 'com.lzy.net:okgo:2.0.0'
     compile 'com.lzy.net:okrx:0.1.0'
     compile 'com.lzy.net:okserver:1.1.0'
+    compile files('libs/AMapNavi_1.9.4_AMapLocation_3.1.0_20161201.jar')
 }

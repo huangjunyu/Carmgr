@@ -1,10 +1,10 @@
 package com.yiwucheguanjia.merchantcarmgr.account;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,24 +12,32 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
+import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/9/17.
  */
-public class MerchantEnter extends FragmentActivity {
+public class MerchantEnterFragmentActivity extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    private Fragment homeFragment;
-    private Fragment merchantFragment;
-    private Fragment jionFragment;
+    private OperateDataFragment operateDataFragment;
+    private MerchantDataFragment merchantFragment;
+    private JionDataFragment jionFragment;
     private Fragment currentFragment;
     @BindView(R.id.enter_operate_data)
     TextView operateDataTv;
@@ -46,6 +54,7 @@ public class MerchantEnter extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         setContentView(R.layout.activity_merchant_enter);
         ButterKnife.bind(this);
         initTab();
@@ -66,10 +75,11 @@ public class MerchantEnter extends FragmentActivity {
      */
     public void nextStep(int i){
         if(i == 0){
-            if(homeFragment == null){
-                homeFragment = new OperateDataFragment();
+            if(operateDataFragment == null){
+                operateDataFragment = new OperateDataFragment();
+                operateDataFragment.uploadIdCar(2);
             }
-            addShowFragment(fragmentManager.beginTransaction(),homeFragment);
+            addShowFragment(fragmentManager.beginTransaction(), operateDataFragment);
             operateDataTv.setTextColor(ContextCompat.getColor(this,R.color.orange));
             guideImg1.setImageResource(R.mipmap.register_right_pre);
             merchantDataTv.setTextColor(ContextCompat.getColor(this,R.color.buseness_black));
@@ -115,15 +125,15 @@ public class MerchantEnter extends FragmentActivity {
      * 初始化底部标签
      */
     private void initTab() {
-        if (homeFragment == null) {
-            homeFragment = new OperateDataFragment();
+        if (operateDataFragment == null) {
+            operateDataFragment = new OperateDataFragment();
         }
 
-        if (!homeFragment.isAdded()) {
+        if (!operateDataFragment.isAdded()) {
             // 提交事务
-            fragmentManager.beginTransaction().add(R.id.content_layout, homeFragment).commit();
+            fragmentManager.beginTransaction().add(R.id.content_layout, operateDataFragment).commit();
             // 记录当前Fragment
-            currentFragment = homeFragment;
+            currentFragment = operateDataFragment;
         }
     }
     private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
@@ -141,6 +151,34 @@ public class MerchantEnter extends FragmentActivity {
                 }
         }
     };
+    /*
+    * 提交几个fragment填写的数据
+    * */
+    public void postData(){
+       Log.e("post",operateDataFragment.nameEd.getText().toString());
+        OkGo.post(UrlString.SUBMIT_PARKINFO)
+                .tag(this)
+                .params("username",UrlString.USERNAME)
+                .params("operator_name",operateDataFragment.nameEd.getText().toString())
+                .params("operator_id",operateDataFragment.idCarEd.getText().toString().trim())
+                .params("operator_id_img_a",operateDataFragment.imgPathFrontResponse)
+                .params("operator_id_img_b",operateDataFragment.imgPathReverseResponse)
+                .params("shop_introduce",merchantFragment.storeNameEd.getText().toString())
+                .params("shop_imgs",merchantFragment.businessLicensePathResponse)
+                .params("shop_name",merchantFragment.storeNameEd.getText().toString())
+                .params("shop_area",merchantFragment.areaTv.getText().toString())
+                .params("shop_address",merchantFragment.detailAddrEd.getText().toString())
+                .params("shop_mobile",merchantFragment.servicePhoEd.getText().toString().trim())
+                .params("shop_license_img",merchantFragment.businessLicensePathResponse)
+                .params("token",sharedPreferences.getString("TOKEN","null"))
+                .params("version",UrlString.APP_VERSION)
+                .execute(new MyStringCallback(MerchantEnterFragmentActivity.this,getResources().getString(R.string.loading)) {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("enter",s);
+                    }
+                });
+    }
     @Override
     protected void onDestroy() { // TODO Auto-generated method stub
         super.onDestroy();

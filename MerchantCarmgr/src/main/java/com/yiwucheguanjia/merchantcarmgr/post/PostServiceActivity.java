@@ -1,19 +1,18 @@
 package com.yiwucheguanjia.merchantcarmgr.post;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -21,7 +20,6 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.request.BaseRequest;
 import com.lzy.okgo.request.PostRequest;
 import com.yiwucheguanjia.merchantcarmgr.BaseActivity;
 import com.yiwucheguanjia.merchantcarmgr.MainActivity;
@@ -31,15 +29,13 @@ import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -116,7 +112,6 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
             case R.id.post_sc_service_scope:
                 break;
             case R.id.post_sc_post_btn:
-//                finish();
                 Log.e("kwkw", "ppppp");
                 if (checkData()) {
                     formUpload();
@@ -139,6 +134,7 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
         imagePicker.setFocusHeight(800);                      //裁剪框的高度。单位像素（圆形自动取宽高最小值）
         imagePicker.setOutPutX(1000);                         //保存文件的宽度。单位像素
         imagePicker.setOutPutY(1000);                         //保存文件的高度。单位像素
+        imagePicker.setMultiMode(true);
     }
 
     private void initWidget() {
@@ -183,20 +179,6 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
         }
     }
 
-    String inputStream2String(InputStream is) {
-        BufferedReader in = new BufferedReader(new InputStreamReader(is));
-        StringBuffer buffer = new StringBuffer();
-        String line = "";
-        try {
-            while ((line = in.readLine()) != null) {
-                buffer.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return buffer.toString();
-    }
-
     public void formUpload() {
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         ArrayList<File> files = new ArrayList<>();
@@ -211,43 +193,84 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
             String fileString = file.toString();
             Log.e("big", file.length() + "," + fileString);
 
-            try {
-                fileInputStream = new FileInputStream(file);
-                Log.e("fileInputStream", fileInputStream.toString());
-                fileInputStream.available();
-                data = new byte[fileInputStream.available()];
-                inputStream.read(data);
-                inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                fileInputStream = new FileInputStream(file);
+//                Log.e("fileInputStream", fileInputStream.toString());
+//                fileInputStream.available();
+//                data = new byte[fileInputStream.available()];
+//                inputStream.read(data);
+//                inputStream.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
+        } else {//如果没有图片，则不能上传
+            Toast.makeText(PostServiceActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
+            return;
         }
-
         //拼接参数
-        PostRequest okGo = OkGo.post("http://112.74.13.51:8080/carmgr/upload")//
+        PostRequest okGo = OkGo.post(UrlString.APP_UPLOAD)//
                 .tag(this);//
         okGo.params("username", "13560102795")
+                .params("type", "service_introduce_img")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", UrlString.APP_VERSION)
                 .params("file_count", files.size());
         for (int i = 0; i < files.size(); i++) {
-            okGo.params("file" + i, files.get(i));
+            okGo.params("file" + (i + 1), files.get(i));
         }
         okGo.execute(
                 new MyStringCallback(PostServiceActivity.this, "test") {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         Log.e("string", s);
+                        String imgPaths = "";//所有图片路径
                         try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            if (TextUtils.equals(jsonObject.getString("opt_state"),"success")){
-                                Intent intent = new Intent();
-                                intent.setAction("action.post_manage");
-                                sendBroadcast(intent);
-                                Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
-                                startActivity(loginInten);
-                                finish();
+                            final JSONObject jsonObject = new JSONObject(s);
+                            JSONObject storePaht;
+                            int listSize;
+                            if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
+                                listSize = jsonObject.getInt("list_size");
+                                JSONArray fileStoreList = jsonObject.getJSONArray("file_store_list");
+                                for (int i = 0; i < listSize; i++) {
+//                                    imgPaths = imgPaths + fileStoreList.get(i);
+                                    storePaht = (JSONObject) fileStoreList.get(i);
+                                    imgPaths = imgPaths + storePaht.getString("store_path") + "^";
+                                }
+                                imgPaths = imgPaths.substring(0, imgPaths.length() - 1);
+
+
+                                Log.e("imgpaths", imgPaths);
+                                OkGo.post(UrlString.POST_SERVICE_URL)
+                                        .tag(this)
+                                        .params("username", UrlString.USERNAME)
+                                        .params("name", titleEd.getText().toString())
+                                        .params("detail", contentEd.getText().toString())//服务内容的详细描述。不超过300个字
+                                        .params("price", priceEd.getText().toString().trim())
+                                        .params("type", serviceType.getText().toString().trim())
+                                        .params("scope", serviceScope.getText().toString())
+                                        .params("imgpath", imgPaths)
+                                        .params("token", sharedPreferences.getString("TOKEN", "null"))
+                                        .params("version", UrlString.APP_VERSION)
+                                        .execute(new MyStringCallback(PostServiceActivity.this, getResources().getString(R.string.loading)) {
+                                            @Override
+                                            public void onSuccess(String s, Call call, Response response) {
+                                                Log.e("success", s);
+                                                try {
+                                                    JSONObject jsonObject1 = new JSONObject(s);
+                                                    if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
+                                                        Intent intent = new Intent();
+                                                        intent.setAction("action.post_manage");
+                                                        sendBroadcast(intent);
+                                                        Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
+                                                        startActivity(loginInten);
+                                                        finish();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

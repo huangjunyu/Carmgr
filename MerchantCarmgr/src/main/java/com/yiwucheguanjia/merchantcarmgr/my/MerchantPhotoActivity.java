@@ -1,7 +1,11 @@
 package com.yiwucheguanjia.merchantcarmgr.my;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.request.PostRequest;
+import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 
 /**
@@ -12,18 +16,36 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
+import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
+import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class MerchantPhotoActivity extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
@@ -34,12 +56,15 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
+    private SharedPreferences sharedPreferences;
+    @BindView(R.id.merchant_pho_submit_btn)
+    Button submitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.merchant_photo_activity);
-
+        ButterKnife.bind(this);
         //最好放到 Application oncreate执行
         initImagePicker();
         initWidget();
@@ -74,7 +99,7 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
     public void onItemClick(View view, int position) {
         switch (position) {
             case IMAGE_ITEM_ADD:
-                Log.e("kwq","jwnw");
+                Log.e("kwq", "jwnw");
                 //打开选择,本次允许选择的数量
                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
                 Intent intent = new Intent(this, ImageGridActivity.class);
@@ -86,6 +111,17 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
                 intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
                 intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
                 startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
+                break;
+        }
+    }
+
+    @OnClick({R.id.merchant_pho_submit_btn})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.merchant_pho_submit_btn:
+                formUpload();
+                break;
+            default:
                 break;
         }
     }
@@ -109,6 +145,63 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
                 adapter.setImages(selImageList);
             }
         }
+    }
+
+    public void formUpload() {
+        sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
+        ArrayList<File> files = new ArrayList<>();
+        File file = null;
+        InputStream inputStream = null;
+        byte[] data = null;
+        if (selImageList != null && selImageList.size() > 0) {
+            for (int i = 0; i < selImageList.size(); i++) {
+                files.add(new File(selImageList.get(i).path));
+            }
+            file = files.get(0);
+            String fileString = file.toString();
+            Log.e("big", file.length() + "," + fileString);
+
+            try {
+//                fileInputStream = new FileInputStream(file);
+//                Log.e("fileInputStream", fileInputStream.toString());
+//                fileInputStream.available();
+//                data = new byte[fileInputStream.available()];
+//                inputStream.read(data);
+//                inputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {//如果没有图片，则不能上传
+            Toast.makeText(MerchantPhotoActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //拼接参数
+        PostRequest okGo = OkGo.post(UrlString.APP_UPLOAD)//
+                .tag(this);//
+        okGo.params("username", "13560102795")
+                .params("type", "merchants_introduce_img")
+                .params("token", sharedPreferences.getString("TOKEN", "null"))
+                .params("version", UrlString.APP_VERSION)
+                .params("file_count", files.size());
+        for (int i = 0; i < files.size(); i++) {
+            okGo.params("file" + (i + 1), files.get(i));
+        }
+        okGo.execute(
+                new MyStringCallback(MerchantPhotoActivity.this, "test") {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("string", s);
+                        String imgPaths = "";//所有图片路径
+                        try {
+                            final JSONObject jsonObject = new JSONObject(s);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+        );
     }
 }
 

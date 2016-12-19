@@ -149,7 +149,7 @@
         android:background="@color/white">
 
     <Button
-        android:id="@+id/enter_data_id_rv_btn"
+        android:id="@+id/enter_data_id_submit_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"

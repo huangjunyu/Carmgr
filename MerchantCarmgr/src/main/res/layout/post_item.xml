@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/merchant_item_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -57,7 +58,7 @@
                 android:layout_marginTop="7dp">
 
                 <TextView
-                    android:id="@+id/post_it_progress_tv"
+                    android:id="@+id/post_it_state_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -79,7 +80,8 @@
                     android:id="@+id/post_it_time_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    tools:text="2016-10-8"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -93,8 +95,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="null"
+                    android:text="@string/access"
                     android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/post_it_access"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/post_it_read_tv"
+                    android:layout_marginLeft="3dp"
+                    tools:text="已被浏览1000次"
+                    android:textSize="10sp"
+                    />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

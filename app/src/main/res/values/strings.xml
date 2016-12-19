@@ -72,6 +72,16 @@
     <string name="my_car">我的车辆</string>
     <string name="records_business">历史业务</string>
     <string name="post_address">邮寄地址</string>
+    <string name="order_record">订单记录</string>
+    <string name="add_address">新增地址</string>
+    <string name="save">保存</string>
+    <string name="name">姓名</string>
+    <string name="two_or_more">最少2个汉字</string>
+    <string name="post_num">邮编</string>
+    <string name="area">地区</string>
+    <string name="addr_detail">详细地址</string>
+    <string name="set_to_default_address">设置为默认收货地址</string>
+    <string name="add_post_address">新增邮寄地址</string>
     <string name="add_car">添加车辆</string>
     <string name="number_type">号码类型</string>
     <string name="small_car">小型汽车</string>
@@ -124,6 +134,7 @@
     <string name="account_login">账号登录</string>
     <string name="system_msg">系统消息</string>
     <string name="check_and_login">验证并登录</string>
+    <string name="edit">编辑</string>
     <string name="input_msg_code">请输入你接收到的短信验证码</string>
     <string name="appointment_service">预约服务</string>
     <string name="appointment_business">业务预约</string>

@@ -3,7 +3,10 @@ package com.yiwucheguanjia.merchantcarmgr.city.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +32,7 @@ public class SecondCityItemAdapter extends RecyclerView.Adapter<SecondCityItemAd
     private Context context;
     private SharedPreferences sharedPreferences;
     private Handler handler;
+    private static final int SORT_SECOND_CITY_CALLBACK = 0;
     public SecondCityItemAdapter(Context context, ArrayList<SecondCityModel> recyclerBeens, Handler handler) {
         this.recyclerBeens = recyclerBeens;
         this.context = context;
@@ -66,10 +70,16 @@ public class SecondCityItemAdapter extends RecyclerView.Adapter<SecondCityItemAd
         viewHolder.cityNameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("re",merchantItemBean.getSecondCityName().toString());
-                Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);
-                handler.sendEmptyMessage(0);
+//                viewHolder.cityNameTv.setTextColor(ContextCompat.getColor(context,R.color.orange));
+                Bundle cityBundle = new Bundle();
+                Log.e("settest",merchantItemBean.getSecondCityName().toString());
+                cityBundle.putString("area",merchantItemBean.getSecondCityName().toString());
+                Message message = new Message();
+                message.what = SORT_SECOND_CITY_CALLBACK;
+                message.setData(cityBundle);
+                handler.sendMessage(message);
+
+
             }
         });
     }

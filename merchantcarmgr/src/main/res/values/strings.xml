@@ -74,6 +74,7 @@
     <string name="edit">编辑</string>
     <string name="delte">删除</string>
     <string name="share">分享</string>
+    <string name="access">已被浏览</string>
     <string name="clear_cache">清除缓存</string>
     <string name="push_msg_offon">推送消息开关</string>
     <string name="account_binding">账号绑定</string>
@@ -110,6 +111,9 @@
     <string name="what_is_cash_deposit">什么是保证金？</string>
     <string name="income_detail">收入明细</string>
     <string name="my_grade">我的等级</string>
+    <string name="merchant_intro">企业简介</string>
+    <string name="checked">确认</string>
+    <string name="mul_select">可多选</string>
     <string name="goole_reputation">好评量：</string>
     <string name="upgraed_next">距离下次升级还有：</string>
     <string name="grade_help">等级有什么用呢？</string>

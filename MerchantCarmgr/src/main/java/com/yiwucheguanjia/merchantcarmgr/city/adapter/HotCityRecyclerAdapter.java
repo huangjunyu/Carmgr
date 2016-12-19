@@ -6,6 +6,9 @@ package com.yiwucheguanjia.merchantcarmgr.city.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,13 +33,15 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
     private ArrayList<RegionInfo> regionInfos;
     private CityActivity cityActivity;
     private SharedPreferences sharedPreferences;
-
-    public HotCityRecyclerAdapter(CityActivity cityActivity, ArrayList<RegionInfo> hotCitys) {
+    private Handler handler;
+    private static final int HOT_CITY_CALLBACK = 1;
+    public HotCityRecyclerAdapter(CityActivity cityActivity, ArrayList<RegionInfo> hotCitys, Handler handler) {
         Log.e("seze", hotCitys.size() + "789");
         this.cityActivity = cityActivity;
         this.regionInfos = hotCitys;
         mInflater = LayoutInflater.from(cityActivity);
         sharedPreferences = cityActivity.getSharedPreferences("CARMGR", cityActivity.MODE_PRIVATE);
+        this.handler = handler;
     }
 
 
@@ -53,8 +58,6 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
         View view = mInflater.inflate(R.layout.item_hot_city,
                 viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
-
-
         return viewHolder;
     }
 
@@ -66,27 +69,22 @@ public class HotCityRecyclerAdapter extends RecyclerView.Adapter<HotCityRecycler
 
             @Override
             public void onClick(View v) {
+                Log.e("hotv",merchantItemBean.getName());
                 // 这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 String cityName = merchantItemBean.getName();
+
+                Bundle cityBundle = new Bundle();
+                cityBundle.putString("hot_city",merchantItemBean.getName());
+                Message message = new Message();
+                message.what = HOT_CITY_CALLBACK;
+                message.setData(cityBundle);
+                handler.sendMessage(message);
+
                 if (cityName != null && cityName.length() > 0) {
                     KeyBoard.closeSoftKeyboard(cityActivity);
                     SharedPreferencesUtils.saveCityName(cityActivity, cityName);
 //                    cityActivity.filterData(cityName);
                     cityActivity.searchKey(cityName);
-
-//                    Intent intent = new Intent();
-//                    setResult(10);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-////                            finish();
-//                            Log.e("htise","iwiiwiiw");
-//                            setPopupwindow();
-//                            //此处选择地区后进入其他界面
-//
-//
-//                        }
-//                    }, 500);
                 }
             }
         });

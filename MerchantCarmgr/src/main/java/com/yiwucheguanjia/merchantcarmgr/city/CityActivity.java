@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.city;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -55,7 +57,7 @@ import java.util.List;
 /**
  * 城市选择的主类
  */
-public class CityActivity extends CheckPermissionsActivity {
+public class CityActivity extends CheckPermissionsActivity implements View.OnClickListener{
 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = new AMapLocationClientOption();
@@ -84,12 +86,18 @@ public class CityActivity extends CheckPermissionsActivity {
     private RecyclerView popupwindowRv;
     //根据拼音来排列ListView里面的数据类
     private PinyinComparator pinyinComparator;
-    RelativeLayout topRl;
+    private RelativeLayout topRl;
     private ArrayList<SecondCityModel> secondCityModels;
     private RecyclerView hotCityRv;
     private RelativeLayout positionRl;
     private TextView positionTv;
-    private Button testlocation;
+    private RelativeLayout gobackRl;
+//    private TextView submit;
+    private Intent cityIntent;
+    private String cityNameStr = "";//记录城市名称
+    private int CITY_RESULT = 1021;
+    private static final int HOT_CITY_CALLBACK = 1;
+    private static final int SORT_SECOND_CITY_CALLBACK = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +107,10 @@ public class CityActivity extends CheckPermissionsActivity {
         startLocation();
         // 透明状态栏
         setContentView(R.layout.activity_city);
+        gobackRl = (RelativeLayout)findViewById(R.id.city_goback_rl);
+//        submit = (TextView)findViewById(R.id.city_submit);
+        gobackRl.setOnClickListener(this);
+//        submit.setOnClickListener(this);
         popupwindowinflater = LayoutInflater.from(CityActivity.this);
         initData();
         initViews();
@@ -176,11 +188,12 @@ public class CityActivity extends CheckPermissionsActivity {
         hotCityRv = (RecyclerView) view.findViewById(R.id.header_hot_city_rv);
         positionRl = (RelativeLayout) view.findViewById(R.id.header_position_rl);
         positionTv = (TextView) view.findViewById(R.id.header_position_tv);
+        positionTv.setOnClickListener(this);
         sideBar = (SideBar) findViewById(R.id.sidrbar);
         dialog = (TextView) findViewById(R.id.dialog);
         clearEditText = (ClearEditText) findViewById(R.id.filter_edit);
         topRl = (RelativeLayout) findViewById(R.id.rl_top);
-        hotCityRvAdapter = new HotCityRecyclerAdapter(this, hotCity);
+        hotCityRvAdapter = new HotCityRecyclerAdapter(this, hotCity,handler);
         hotCityRv.setAdapter(hotCityRvAdapter);
         hotCityRv.addItemDecoration(new RecyclerViewDivider(this,LinearLayoutManager.HORIZONTAL,1,ContextCompat.getColor(this,R.color.gray_divide)));
         citySortAdapter = new CitySortAdapter(CityActivity.this, SourceDateList);
@@ -212,6 +225,7 @@ public class CityActivity extends CheckPermissionsActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 String cityName = ((CityModel) adapter.getItem(position - 1)).getName();
+                cityNameStr = cityName;
                 if (cityName != null && cityName.length() > 0) {
                     Toast.makeText(CityActivity.this, cityName, Toast.LENGTH_SHORT).show();
                     KeyBoard.closeSoftKeyboard(CityActivity.this);
@@ -227,7 +241,6 @@ public class CityActivity extends CheckPermissionsActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
-                Log.e("clear", s.toString());
                 filterData(s.toString());
             }
 
@@ -433,6 +446,7 @@ public class CityActivity extends CheckPermissionsActivity {
                 secondCityModels = new ArrayList<>();
                 for (int i = 1; i < filterDateList.size(); i++) {
                     SharedPreferencesUtils.saveAreaName(CityActivity.this, filterDateList.get(i).getName(), i);
+                    Log.e("getna",filterDateList.get(i).getName());
                     SecondCityModel secondCityModel = new SecondCityModel();
                     secondCityModel.setSecondCityName(filterDateList.get(i).getName());
                     secondCityModels.add(secondCityModel);
@@ -455,10 +469,22 @@ public class CityActivity extends CheckPermissionsActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case 0:
+                case SORT_SECOND_CITY_CALLBACK:
+                    Bundle cityBundle = msg.getData();
+                    cityIntent = new Intent();
+                    String cityArea = cityNameStr + cityBundle.getString("area","null");
+                    cityIntent.putExtra("city_area",cityArea);
+                    setResult(CITY_RESULT,cityIntent);
                     //如果不加这行代码，会报错
                     popupWindow.dismiss();
                     finish();
+                    break;
+                case HOT_CITY_CALLBACK://热门城市回调
+                    Bundle hotCityBundle = msg.getData();
+                    cityIntent = new Intent();
+                    cityIntent.putExtra("city_area",hotCityBundle.getString("hot_city","null"));
+                    cityNameStr = hotCityBundle.getString("hot_city","null");
+                    setResult(CITY_RESULT,cityIntent);
                     break;
                 default:
                     break;
@@ -480,8 +506,6 @@ public class CityActivity extends CheckPermissionsActivity {
 //        locationClient.setLocationOption(getDefaultOption());
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
-        Log.e("location","location");
-
     }
 
     /**
@@ -564,6 +588,25 @@ public class CityActivity extends CheckPermissionsActivity {
             locationClient.onDestroy();
             locationClient = null;
             locationOption = null;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.city_goback_rl:
+                finish();
+                break;
+//            case R.id.city_submit:
+//                break;
+            case R.id.header_position_tv:
+                String positionCity = positionTv.getText().toString();
+                positionCity = positionCity.substring(0,positionCity.length() - 1);
+                cityNameStr = positionCity;//将定位得到的赋给全局变量
+                searchKey(positionCity);
+                secondCityModels = new ArrayList<>();
+            default:
+                break;
         }
     }
 }

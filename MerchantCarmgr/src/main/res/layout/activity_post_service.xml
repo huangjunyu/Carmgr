@@ -46,9 +46,10 @@
         android:background="@color/white"
         android:hint="@string/input_title"
         android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/buseness_black"/>
 
     <EditText
         android:id="@+id/post_sc_content"
@@ -59,10 +60,23 @@
         android:gravity="top"
         android:hint="@string/input_content"
         android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:textSize="18sp" />
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/service_img_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+        android:background="@color/white"
+        tools:listitem="@layout/list_item_image"
+        android:textColor="@color/buseness_black"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -76,7 +90,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:text="@string/price"
-            android:textSize="16sp" />
+            android:textColor="@color/buseness_black"/>
 
         <EditText
             android:id="@+id/post_sc_price_ed"
@@ -85,23 +99,12 @@
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/post_sc_price"
+            android:inputType="number"
+            android:textSize="12sp"
             android:background="@color/white" />
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/service_img_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice"
-        android:divider="@null"
-        android:fadingEdge="none"
-        android:listSelector="@android:color/transparent"
-        android:scrollbarStyle="outsideOverlay"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="4"
-        android:background="@color/white"
-        tools:listitem="@layout/list_item_image"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -116,16 +119,18 @@
             android:layout_marginTop="1px"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="@string/service_type" />
+            android:text="@string/service_type"
+            android:textColor="@color/buseness_black"/>
 
         <TextView
             android:id="@+id/post_sc_service_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_toRightOf="@+id/post_sc_service_type"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:textSize="12sp"
             android:hint="@string/service_type" />
 
     </RelativeLayout>
@@ -144,7 +149,8 @@
             android:layout_marginTop="1px"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="@string/service_limits" />
+            android:text="@string/service_limits"
+            android:textColor="@color/buseness_black"/>
 
         <EditText
             android:id="@+id/post_sc_sc_scope_ed"
@@ -158,6 +164,7 @@
             android:textSize="12sp"
             />
     </RelativeLayout>
+
 
     <Button
         android:id="@+id/post_sc_post_btn"

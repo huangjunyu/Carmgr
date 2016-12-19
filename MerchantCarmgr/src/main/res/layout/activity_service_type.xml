@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yiwucheguanjia.merchantcarmgr.account.ServiceTypeActivity">
+    <RelativeLayout
+        android:id="@+id/type_bar_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/type_checkbox_goback_rl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp">
+
+            <ImageButton
+                android:id="@+id/type_goback_imgbtn"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/service_type"
+            android:textColor="@color/gray_default"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/type_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="20dp"
+            android:text="@string/checked"
+            android:textColor="@color/orange"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/type_mul_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/type_bar_rl"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/mul_select"
+        />
+    <View
+        android:id="@+id/divide_view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/type_mul_select"
+        android:background="@color/gray_divide"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/service_type_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divide_view"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:background="@color/white" >
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

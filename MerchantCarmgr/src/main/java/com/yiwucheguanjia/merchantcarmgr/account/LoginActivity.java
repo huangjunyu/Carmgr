@@ -1,6 +1,8 @@
 package com.yiwucheguanjia.merchantcarmgr.account;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,7 +47,6 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-
     @BindView(R.id.login_account_edit)
     EditText accountEdit;
     @BindView(R.id.login_password_edit)
@@ -56,14 +57,11 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.login_button)
     void loginAccount() {
-//        NewActivityUtil newActivityUtil = new NewActivityUtil(LoginActivity.this,MainActivity.class);
-//        newActivityUtil.newActivity();
-//        finishActivity();
         if (checkString(accountEdit, passwordEdit)) {
             OkGo.post(UrlString.LOGIN_URL)
                     .tag(this)
-                    .params("username", "13560102795")
-                    .params("password", "952788")
+                    .params("username", accountEdit.getText().toString().trim())
+                    .params("password", passwordEdit.getText().toString().trim())
                     .params("type", "0")
                     .params("verf_code", "")
                     .params("uuid", UUID.randomUUID().toString())
@@ -77,10 +75,21 @@ public class LoginActivity extends BaseActivity {
                                     try {
                                         JSONObject jsonObject = new JSONObject(s);
                                         if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
-
                                             setSharePrefrence(jsonObject.getString("username"), jsonObject.getString("token"));
                                             NewActivityUtil newActivityUtil = new NewActivityUtil(LoginActivity.this,MainActivity.class);
                                             newActivityUtil.newActivity();
+                                        }else if (TextUtils.equals(jsonObject.getString("opt_state"), "fail")){
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                            builder.setTitle(LoginActivity.this.getString(R.string.hint))
+                                                    .setMessage(LoginActivity.this.getString(R.string.login_fail))
+                                                    .setPositiveButton(LoginActivity.this.getString(R.string.i_know),
+                                                            new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                    dialog.cancel();
+                                                                }
+                                                            });
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
                                         }
                                         ;
                                     } catch (JSONException e) {
@@ -115,7 +124,6 @@ public class LoginActivity extends BaseActivity {
             return false;
         } else {
             this.usernameString = usernameString;
-            setSharePrefrence(usernameString, "token");
             return true;
         }
 
@@ -124,6 +132,7 @@ public class LoginActivity extends BaseActivity {
     private void setSharePrefrence(String account, String token) {
         SharedPreferences p = getSharedPreferences("CARMGR_MERCHANT", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
+        Log.e("acount",account + token);
         edit.putString("ACCOUNT", account);
         edit.putString("TOKEN", token);
         edit.commit();

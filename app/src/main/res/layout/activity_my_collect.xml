@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yiwucheguanjia.carmgr.my.RecordTradeActivity">
+    tools:context=".my.MyCollectActivity">
     <RelativeLayout
-        android:id="@+id/record_trade_bar"
+        android:id="@+id/collect_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/add_addr_goback_rl"
+            android:id="@+id/collect_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -29,20 +29,20 @@
 
 
         <TextView
-            android:id="@+id/add_addr_title_tv"
+            android:id="@+id/collect_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/order_record"
+            android:text="@string/my_collect"
             android:textColor="@color/gray_default"
             android:textSize="16sp" />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/record_trade_rv"
+        android:id="@+id/collect_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/record_trade_bar"></android.support.v7.widget.RecyclerView>
+        android:layout_below="@+id/collect_bar"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>

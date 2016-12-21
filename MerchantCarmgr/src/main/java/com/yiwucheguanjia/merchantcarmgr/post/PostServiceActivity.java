@@ -211,7 +211,7 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
         //拼接参数
         PostRequest okGo = OkGo.post(UrlString.APP_UPLOAD)//
                 .tag(this);//
-        okGo.params("username", "13560102795")
+        okGo.params("username", sharedPreferences.getString("ACCOUNT",null))
                 .params("type", "service_introduce_img")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", UrlString.APP_VERSION)
@@ -262,8 +262,8 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
                                                         Intent intent = new Intent();
                                                         intent.setAction("action.post_manage");
                                                         sendBroadcast(intent);
-                                                        Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
-                                                        startActivity(loginInten);
+//                                                        Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
+//                                                        startActivity(loginInten);
                                                         finish();
                                                     }
                                                 } catch (JSONException e) {

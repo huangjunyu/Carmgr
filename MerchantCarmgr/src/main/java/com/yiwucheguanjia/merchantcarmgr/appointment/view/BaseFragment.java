@@ -29,7 +29,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeView = (View)inflater.inflate(R.layout.activity_allapoint_fragment,container,false);
         ButterKnife.bind(this,homeView);
-        appointAdapter = new AppointAdapter(getActivity());
+        analysis();
+//        appointAdapter = new AppointAdapter(getActivity());
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -37,4 +38,5 @@ public abstract class BaseFragment extends Fragment {
         itemRv.setAdapter(appointAdapter);
         return homeView;
     }
+    public abstract void analysis();
 }

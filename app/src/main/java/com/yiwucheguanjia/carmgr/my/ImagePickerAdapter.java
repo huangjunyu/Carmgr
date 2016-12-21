@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.carmgr.personal;
+package com.yiwucheguanjia.carmgr.my;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.yiwucheguanjia.carmgr.R;
 
 import java.util.ArrayList;
 import java.util.List;

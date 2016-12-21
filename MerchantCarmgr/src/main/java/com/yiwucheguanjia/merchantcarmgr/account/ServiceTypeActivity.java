@@ -25,7 +25,7 @@ import butterknife.OnClick;
 
 public class ServiceTypeActivity extends AppCompatActivity {
     ServiceTypeCheckBoxAdapter serviceTypeAdapter;
-    String[] serviceTypeArrStr;
+    private String[] serviceTypeArrStr;
     private ArrayList<String> serviceTypeArrList;
     @BindView(R.id.service_type_rv)
     protected RecyclerView recyclerView;

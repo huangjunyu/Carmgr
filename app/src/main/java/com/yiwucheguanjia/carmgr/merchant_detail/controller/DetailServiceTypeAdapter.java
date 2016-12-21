@@ -74,7 +74,8 @@ public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailService
         viewHolder.merchantRoad.setText(merchantItemBean.getDetailMerchantRoad());
         String numberStr = merchantItemBean.getDetailMerchantStarsStr();
         selectStar(numberStr,viewHolder.merchantStarImg);
-        Picasso.with(context).load(recyclerBeens.get(position).getDetailMerchantImgUrl()).tag(PicassoOnScrollListener.TAG)
+        Log.e("imgurl",recyclerBeens.get(position).getDetailMerchantImgUrl());
+        Picasso.with(context).load(recyclerBeens.get(position).getDetailMerchantImgUrl().toString()).tag(PicassoOnScrollListener.TAG)
                 .error(R.mipmap.picture_default).into(viewHolder.merchantImg);
         viewHolder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override

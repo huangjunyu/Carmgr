@@ -28,6 +28,8 @@ public class UrlString {
     public static final String UPLOAD_INTRODUCE = "http://112.74.13.51:8080/carmgr/mappuploadintroduce.action";
     //入驻资料提交
     public static final String SUBMIT_PARKINFO = "http://112.74.13.51:8080/carmgr/mappsubmitparkinfo.action";
+    //商家预约管理
+    public static final String APPOINTMENT_MANAGER = "http://112.74.13.51:8080/carmgr/mappgetsubscribe.action";
     //临时用户
     public static final  String USERNAME = "13560102795";
     //临时密码

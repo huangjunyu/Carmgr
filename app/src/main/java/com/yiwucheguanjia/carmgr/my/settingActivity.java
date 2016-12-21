@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.carmgr.personal;
+package com.yiwucheguanjia.carmgr.my;
 
 import android.app.Activity;
 import android.content.Intent;

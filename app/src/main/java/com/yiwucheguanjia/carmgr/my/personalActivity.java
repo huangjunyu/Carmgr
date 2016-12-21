@@ -1,24 +1,6 @@
-package com.yiwucheguanjia.carmgr.personal;
+package com.yiwucheguanjia.carmgr.my;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.jaeger.library.StatusBarUtil;
-import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
-import com.yiwucheguanjia.carmgr.account.view.PersonalDataActivity;
 
 /**
  * Created by Administrator on 2016/6/23.

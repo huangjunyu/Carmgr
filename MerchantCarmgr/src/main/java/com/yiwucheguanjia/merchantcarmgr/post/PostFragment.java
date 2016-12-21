@@ -44,21 +44,23 @@ public class PostFragment extends Fragment {
     @BindView(R.id.post_ft_item_rv)
     RecyclerView postItemRv;
     PostServiceItemAdapter postServiceItemAdapter;//选择图片后的图片展示列表
-    private int POST_MANAGE_REQUEST = 20;//发布服务后的请求码
-    private int POST_MANAGE_RESULT = 20;//发布服务后的结果码
-    private SharedPreferences sharedPreferences;
+    private int POST_MANAGE_REQUEST = 201;//发布服务后的请求码
+    private int POST_MANAGE_RESULT = 202;//发布服务后的结果码
+    SharedPreferences sharedPreferences;
     private ArrayList<ServiceItemBean> serviceItemBeenList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT", getActivity().MODE_PRIVATE);
+//        Log.e("data", sharedPreferences.getString("TOKEN", null));
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         postFragmentHomeLl = (LinearLayout) inflater.inflate(R.layout.activity_post_fragment, container, false);
         ButterKnife.bind(this, postFragmentHomeLl);
         getData();
@@ -87,29 +89,33 @@ public class PostFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == POST_MANAGE_REQUEST && resultCode == POST_MANAGE_RESULT) {
+            Log.e("shewww", "haheheh");
             //刷新界面
+            getData();
         }
     }
 
     private void getData() {
-        Log.e("data", "data");
+
+
         OkGo.post(UrlString.APP_GET_PUBEDSERVICE)
                 .tag(this)
-                .params("username", UrlString.USERNAME)
+                .params("username", sharedPreferences.getString("ACCOUNT", null))
                 .params("token", sharedPreferences.getString("TOKEN", null))
                 .params("version", UrlString.APP_VERSION)
                 .execute(new MyStringCallback(getActivity(), getResources().getString(R.string.loading)) {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("getpost", s);
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             serviceItemBeenList = new ArrayList<ServiceItemBean>();
-                            ServiceItemBean serviceItemBean = new ServiceItemBean();
                             JSONObject itemJson;
-                            if (jsonObject.getJSONArray("service_list").length() > 0) {
-                                for (int i = 0; i < jsonObject.getJSONArray("service_list").length(); i++) {
-                                    itemJson = jsonObject.getJSONArray("service_list").getJSONObject(i);
+                            Log.e("jsong",s);
+                            if (jsonObject.getJSONArray("services_list").length() > 0) {
+                                for (int i = 0; i < jsonObject.getJSONArray("services_list").length(); i++) {
+                                    ServiceItemBean serviceItemBean = new ServiceItemBean();
+                                    itemJson = jsonObject.getJSONArray("services_list").getJSONObject(i);
+                                    Log.e("getpost", itemJson.getString("img_path"));
                                     serviceItemBean.setImg_path(itemJson.getString("img_path"));
                                     serviceItemBean.setState(itemJson.getString("state"));
                                     serviceItemBean.setService_name(itemJson.getString("service_name"));
@@ -117,11 +123,12 @@ public class PostFragment extends Fragment {
                                     serviceItemBean.setDate_time(itemJson.getString("date_time"));
                                     serviceItemBeenList.add(serviceItemBean);
                                 }
-                                PostedAdapter postedAdapter = new PostedAdapter(getActivity(),serviceItemBeenList);
+                                PostedAdapter postedAdapter = new PostedAdapter(getActivity(), serviceItemBeenList);
                                 postItemRv.setAdapter(postedAdapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 });

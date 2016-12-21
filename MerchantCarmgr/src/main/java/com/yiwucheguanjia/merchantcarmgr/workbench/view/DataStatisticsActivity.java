@@ -106,7 +106,7 @@ public class DataStatisticsActivity extends Activity {
     private void getData() {
         OkGo.post(UrlString.DATA_STATISTICS_URL)
                 .tag(this)
-                .params("username", "13560102795")
+                .params("username", sharedPreferences.getString("ACCOUNT",null))
                 .params("data_time", "952788")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", "1.0")

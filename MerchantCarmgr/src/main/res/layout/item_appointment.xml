@@ -18,7 +18,7 @@
             tools:text="我的预约"
             />
         <TextView
-            android:id="@+id/allappoint_tv"
+            android:id="@+id/allappoint_order_num_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/allappoint_tv"
+            android:layout_toLeftOf="@+id/allappoint_order_num_tv"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:text="@string/order_number"
@@ -42,13 +42,13 @@
         android:paddingLeft="20dp">
         <ImageView
             android:id="@+id/allappoint_header_img"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@mipmap/defualt_header"
             android:layout_centerVertical="true"
             />
         <TextView
-            android:id="@+id/allappoint_client"
+            android:id="@+id/allappoint_customer_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="客户"
@@ -78,6 +78,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:paddingLeft="20dp">
         <ImageView
             android:id="@+id/allapoint_goods_img"
@@ -112,6 +114,7 @@
         android:background="@color/white"
         >
         <TextView
+            android:id="@+id/appoin_goods_num_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -119,7 +122,7 @@
             tools:text="共计一件商品"
             />
         <TextView
-            android:id="@+id/allappoint_price"
+            android:id="@+id/appoint_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -135,6 +138,7 @@
         android:background="@color/white"
         >
         <TextView
+            android:id="@+id/it_appoint_refuse_tv"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -142,6 +146,7 @@
             android:text="@string/refuse"
             />
         <TextView
+            android:id="@+id/it_appoin_edit_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -149,6 +154,7 @@
             android:text="@string/edit"
             />
         <TextView
+            android:id="@+id/it_appoin_accept_tv"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"

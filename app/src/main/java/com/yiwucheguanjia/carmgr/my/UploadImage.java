@@ -1,4 +1,4 @@
-package com.yiwucheguanjia.carmgr.personal;
+package com.yiwucheguanjia.carmgr.my;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,10 +20,7 @@ import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/7/5.

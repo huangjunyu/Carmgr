@@ -135,8 +135,11 @@
     <string name="system_msg">系统消息</string>
     <string name="check_and_login">验证并登录</string>
     <string name="edit">编辑</string>
+    <string name="cancel_collect">取消收藏</string>
     <string name="input_msg_code">请输入你接收到的短信验证码</string>
     <string name="appointment_service">预约服务</string>
+    <string name="appointment">预约</string>
+    <string name="share">分享</string>
     <string name="appointment_business">业务预约</string>
     <string name="deel_business">业务办理</string>
     <string name="done_business">完成业务</string>

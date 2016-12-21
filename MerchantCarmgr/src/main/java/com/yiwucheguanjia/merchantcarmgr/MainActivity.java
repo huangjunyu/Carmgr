@@ -59,7 +59,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     // 以下四个是底部标签切换的Fragment
     private Fragment workbenchFragment;
-    private Fragment postFragment;
+    private PostFragment postFragment;
     private Fragment progressFragment;
     private Fragment callYiwuFragment;
     //当前显示的Fragment
@@ -69,13 +69,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int ft_pos;
     Subscription mSubscription;
     private Toolbar mToolbar;
-    private int POST_MANAGE_REQUEST = 20;//发布服务后的请求码
-    private int POST_MANAGE_RESULT = 20;//发布服务后的结果码
+    private int POST_MANAGE_REQUEST = 201;//发布服务后的请求码
+    private int POST_MANAGE_RESULT = 202;//发布服务后的结果码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.orange), 0);
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("CARMGR", MainActivity.MODE_PRIVATE);
         //联网判断是否登录或登录过期，过期则跳到登录界面，登录界面不可返回
@@ -340,9 +340,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 Log.e("kdkw", "jjppw");
                 if (postFragment == null) {
                     postFragment = new PostFragment();
+                    addOrShowFragment(fragmentManager.beginTransaction(), postFragment);
+                } else {
+                    addOrShowFragment(fragmentManager.beginTransaction(), postFragment);
+                    postFragment.onActivityResult(POST_MANAGE_REQUEST, POST_MANAGE_RESULT, null);//此处实现跳转，用名称变量比较好
                 }
-                postFragment.onActivityResult(POST_MANAGE_REQUEST,POST_MANAGE_RESULT,null);//此处实现跳转，用名称变量比较好
-                addOrShowFragment(fragmentManager.beginTransaction(), postFragment);
 //                fragmentManager.beginTransaction().remove(workbenchFragment).commitAllowingStateLoss();
 //                workbenchFragment = new WorkbenchFragment();
 //                postFragment = new PostFragment();
@@ -354,7 +356,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             } else if (action.equals("action.appointment")) {
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
-                }else {
+                } else {
                     Log.e("kdkw", "jjppp");
                     addOrShowFragment(fragmentManager.beginTransaction(), new MyFragment());
                 }

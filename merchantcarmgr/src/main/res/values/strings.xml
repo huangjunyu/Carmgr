@@ -119,6 +119,8 @@
     <string name="grade_help">等级有什么用呢？</string>
     <string name="hint">提示</string>
     <string name="post_fail">请求数据失败，请稍候重试</string>
+    <string name="login_fail">登录失败，请检查账号或密码</string>
+    <string name="analysis_fail">数据解析失败</string>
     <string name="i_know">知道了</string>
     <string name="loading">加载中...</string>
     <string name="sending">正在发送验证码...</string>

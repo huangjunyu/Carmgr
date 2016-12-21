@@ -28,9 +28,10 @@ import butterknife.OnClick;
  */
 public class ServiceTypeActivity extends Activity{
     private ServiceTypeAdapter serviceTypeAdapter;
-    private ArrayList<String> typeList;
+    private ArrayList<String> serviceTypeArrList;
     private final static int SELECTED = 0;
     private final static int NOTHING_SELECT = 1;
+    private String[] serviceTypeArrStr;
     @BindView(R.id.service_type_rv)
     protected RecyclerView recyclerView;
     @BindView(R.id.type_goback_rl)
@@ -38,27 +39,20 @@ public class ServiceTypeActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceTypeArrStr = getResources().getStringArray(R.array.service_type);
         setContentView(R.layout.activity_post_service_type);
+        serviceTypeArrList = new ArrayList<>();
         ButterKnife.bind(this);
-        typeList = new ArrayList<>();
-        typeList.add("上牌");
-        typeList.add("驾考");
-        typeList.add("车检");
-        typeList.add("维修");
-        typeList.add("租车");
-        typeList.add("保养");
-        typeList.add("二手车");
-        typeList.add("车贷");
-        typeList.add("新车");
-        typeList.add("急救");
-        typeList.add("用品");
+        for (int i = 0; i < serviceTypeArrStr.length; i++) {
+            serviceTypeArrList.add(serviceTypeArrStr[i]);
+        }
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ServiceTypeActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new RecyclerViewDivider(ServiceTypeActivity.this,LinearLayoutManager.HORIZONTAL,
                 1,ContextCompat.getColor(ServiceTypeActivity.this,R.color.gray_divide)));
-        serviceTypeAdapter = new ServiceTypeAdapter(ServiceTypeActivity.this,typeList,handler);
+        serviceTypeAdapter = new ServiceTypeAdapter(ServiceTypeActivity.this,serviceTypeArrList,handler);
         recyclerView.setAdapter(serviceTypeAdapter);
 
     }
@@ -71,7 +65,7 @@ public class ServiceTypeActivity extends Activity{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            String serviceType = typeList.get(msg.what);
+            String serviceType = serviceTypeArrList.get(msg.what);
             Intent intent = new Intent();
             intent.putExtra("serviceType",serviceType);
             setResult(SELECTED,intent);

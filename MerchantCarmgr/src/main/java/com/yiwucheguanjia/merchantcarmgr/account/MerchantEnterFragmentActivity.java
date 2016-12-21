@@ -158,7 +158,7 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
        Log.e("post",operateDataFragment.nameEd.getText().toString());
         OkGo.post(UrlString.SUBMIT_PARKINFO)
                 .tag(this)
-                .params("username",UrlString.USERNAME)
+                .params("username",sharedPreferences.getString("ACCOUNT",null))
                 .params("operator_name",operateDataFragment.nameEd.getText().toString())
                 .params("operator_id",operateDataFragment.idCarEd.getText().toString().trim())
                 .params("operator_id_img_a",operateDataFragment.imgPathFrontResponse)
@@ -176,6 +176,9 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         Log.e("enter",s);
+                        Intent dataCheckIntent = new Intent(MerchantEnterFragmentActivity.this,DataCheckActivity.class);
+                        startActivity(dataCheckIntent);
+                        finish();
                     }
                 });
     }

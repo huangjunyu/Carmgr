@@ -70,17 +70,17 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".personal.personalActivity" />
+        <activity android:name=".my.personalActivity" />
         <activity android:name=".account.view.RegisterActivity" />
-        <activity android:name=".personal.UploadImage" />
-        <activity android:name=".personal.AddCarActivity" />
-        <activity android:name=".personal.settingActivity" />
+        <activity android:name=".my.UploadImage" />
+        <activity android:name=".my.AddCarActivity" />
+        <activity android:name=".my.settingActivity" />
         <activity android:name=".account.view.UserAgreement" />
         <activity android:name=".account.view.LoginBaseFragmentActivity" />
         <activity android:name=".account.view.GetPassword" />
         <activity android:name=".account.view.PhoneLoginActivity" />
         <activity android:name=".account.view.SetPasswordActivity" />
-        <activity android:name=".account.view.PersonalDataActivity" />
+        <activity android:name=".my.PersonalDataActivity" />
         <activity android:name=".commercial.view.MerchantListActivity" />
         <activity android:name=".scanner.CaptureActivity" />
         <activity android:name=".merchant_detail.view.MerchantDetail" />
@@ -109,7 +109,8 @@
         <activity android:name=".my.MapActivity" />
         <activity android:name=".my.PostAddressListActivity" />
         <activity android:name=".my.AddAddressActivity" />
-        <activity android:name=".my.RecordTradeActivity"></activity>
+        <activity android:name=".my.RecordTradeActivity" />
+        <activity android:name=".my.MyCollectActivity"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,10 @@ import com.yiwucheguanjia.merchantcarmgr.R;
  * Created by Administrator on 2016/10/27.
  */
 public class MyAppointmentFragment extends BaseFragment {
+    @Override
+    public void analysis() {
+
+    }
 //    View homeView;
 //
 //    @Nullable

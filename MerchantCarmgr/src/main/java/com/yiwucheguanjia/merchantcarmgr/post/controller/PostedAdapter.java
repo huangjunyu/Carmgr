@@ -2,6 +2,7 @@ package com.yiwucheguanjia.merchantcarmgr.post.controller;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class PostedAdapter extends RecyclerView.Adapter<PostedAdapter.HolderView
     @Override
     public void onBindViewHolder(HolderView holder, int position) {
         ServiceItemBean serviceItemBean = serviceItemBeanArrayList.get(position);
+        Log.e("imgpaht",serviceItemBean.getImg_path());
         Glide.with(activity).load(serviceItemBean.getImg_path()).error(R.mipmap.default_image).centerCrop().into(holder.serviceImg);
         holder.serviceNameTv.setText(serviceItemBean.getService_name());
         holder.stateTv.setText(serviceItemBean.getState());

@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yiwucheguanjia.carmgr.my.RecordTradeActivity">
+    tools:context="com.yiwucheguanjia.merchantcarmgr.account.DataCheckActivity">
     <RelativeLayout
-        android:id="@+id/record_trade_bar"
+        android:id="@+id/type_bar_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/add_addr_goback_rl"
+            android:id="@+id/type_checkbox_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp">
+            android:paddingLeft="20dp">
 
             <ImageButton
-                android:id="@+id/goback_imgbtn"
+                android:id="@+id/type_goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
@@ -29,20 +29,19 @@
 
 
         <TextView
-            android:id="@+id/add_addr_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:clickable="true"
             android:gravity="center"
-            android:text="@string/order_record"
+            android:text="@string/service_type"
             android:textColor="@color/gray_default"
             android:textSize="16sp" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/record_trade_rv"
+    <ImageView
+        android:id="@+id/data_check_check_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/record_trade_bar"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/type_bar_rl"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/data_check"/>
 </RelativeLayout>

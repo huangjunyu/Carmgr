@@ -1,31 +1,28 @@
 package com.yiwucheguanjia.carmgr.my;
 
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.utils.RecyclerViewDivider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecordTradeActivity extends AppCompatActivity {
-    OrderAdapter orderAdapter;
-    @BindView(R.id.record_trade_rv)
+public class MyCollectActivity extends AppCompatActivity {
+    @BindView(R.id.collect_rv)
     RecyclerView recyclerView;
+    private MyCollectAdapter myCollectAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_trade);
+        setContentView(R.layout.activity_my_collect);
         ButterKnife.bind(this);
-        orderAdapter = new OrderAdapter(RecordTradeActivity.this,null);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.addItemDecoration(new RecyclerViewDivider(RecordTradeActivity.this,LinearLayoutManager.HORIZONTAL,1, ContextCompat.getColor(RecordTradeActivity.this,R.color.gray_divide)));
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(orderAdapter);
+        myCollectAdapter = new MyCollectAdapter(MyCollectActivity.this,null);
+        recyclerView.setAdapter(myCollectAdapter);
     }
 }

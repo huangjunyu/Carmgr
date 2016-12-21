@@ -15,7 +15,6 @@ import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.carmgr.order.OrderActivity;
-import com.yiwucheguanjia.carmgr.personal.settingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +69,7 @@ public class MyFragment extends Fragment {
             R.id.my_header_tv, R.id.my_mycar_rl, R.id.my_addcar_img, R.id.my_order_rl,
             R.id.progress_all_rl, R.id.pro_wait_pay_rl, R.id.pro_wait_use_rl, R.id.pro_going_rl,
             R.id.pro_done_rl, R.id.pro_wait_assess_rl, R.id.pro_after_sale__rl,R.id.my_records_rl,
-            R.id.my_account_balance_rl,R.id.my_post_rl})
+            R.id.my_account_balance_rl,R.id.my_post_rl,R.id.my_data_rl,R.id.my_collect_rl})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_setting_img:
@@ -123,8 +122,12 @@ public class MyFragment extends Fragment {
                 startActivity(accountBalanceIntent);
                 break;
             case R.id.my_collect_rl://我的收藏
+                Intent myCollectIntent = new Intent(getActivity(),MyCollectActivity.class);
+                startActivity(myCollectIntent);
                 break;
             case R.id.my_data_rl://个人资料
+                Intent personalDataIntent = new Intent(getActivity(), PersonalDataActivity.class);
+                startActivity(personalDataIntent);
                 break;
             case R.id.my_records_rl://历史业务
                 Intent recordTradeIntent = new Intent(getActivity(),RecordTradeActivity.class);

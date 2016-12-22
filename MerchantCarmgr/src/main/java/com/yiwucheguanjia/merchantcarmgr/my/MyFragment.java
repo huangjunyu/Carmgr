@@ -1,25 +1,39 @@
 package com.yiwucheguanjia.merchantcarmgr.my;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.sax.RootElement;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.R;
+import com.yiwucheguanjia.merchantcarmgr.account.MerchantEnterFragmentActivity;
+import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.merchantcarmgr.my.view.AccountBalanceActivity;
 import com.yiwucheguanjia.merchantcarmgr.my.view.CashDepositActivity;
 import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantGradeActivity;
 import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantIntroActivity;
+import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/10/17.
@@ -49,9 +63,20 @@ public int anInt;
     RelativeLayout systemMsgRl;
     @BindView(R.id.myft_setting_rl)
     RelativeLayout settingRl;
+    @BindView(R.id.myft_order_week)
+    TextView orderWeekTv;//本周订单
+    @BindView(R.id.myft_income)
+    TextView incomeTv;
+    @BindView(R.id.mytf_rate_star_img)
+    ImageView rateStarImg;
+    private int merchantLevelInt;//商家等级
+    private String merchantBalanceStr;//余额
+    private SharedPreferences sharedPreferences;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT",getActivity().MODE_PRIVATE);
+
     }
 
     @Nullable
@@ -59,6 +84,7 @@ public int anInt;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myFragmentView = (LinearLayout)inflater.inflate(R.layout.activity_my_fragment,container,false);
         ButterKnife.bind(this,myFragmentView);
+        getData();
         return myFragmentView;
     }
 
@@ -89,11 +115,84 @@ public int anInt;
                 break;
             case R.id.myft_balance_rl:
                 Intent balanceIntent = new Intent(getActivity(),AccountBalanceActivity.class);
+                balanceIntent.putExtra("balance",merchantBalanceStr);
                 startActivity(balanceIntent);
                 break;
             case R.id.myft_grade_rl:
+
+
+//                Intent intent;
+//                intent = new Intent();
+//                intent.setClass(getActivity(), MerchantEnterFragmentActivity.class);//从一个activity跳转到另一个activity
+//                intent.putExtra("password", "kk");//给intent添加额外数据，key为“str”,key值为"Intent Demo"
+//                startActivity(intent);
+
                 Intent gradeIntent = new Intent(getActivity(),MerchantGradeActivity.class);
+                gradeIntent.putExtra("grade",merchantLevelInt);
                 startActivity(gradeIntent);
+                break;
+            default:
+                break;
+        }
+    }
+    private void getData(){
+        OkGo.post(UrlString.APP_GETSHOPINFO)
+                .tag(this)
+                .params("username",sharedPreferences.getString("ACCOUNT",null))
+                .params("token",sharedPreferences.getString("TOKEN",null))
+                .params("version",UrlString.APP_VERSION)
+                .execute(new MyStringCallback(getActivity(),getResources().getString(R.string.loading)) {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("calllll",s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            orderWeekTv.setText(jsonObject.getString("week_total_orders").toString());
+                            incomeTv.setText(jsonObject.getString("week_total_income").toString());
+                            drawScore(jsonObject.getString("merchants_score"));
+                            Log.e("merchants",jsonObject.getInt("merchants_level") + "");
+                            merchantLevelInt = jsonObject.getInt("merchants_level");
+                            merchantBalanceStr = jsonObject.getString("account_balance");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+    }
+    private void drawScore(String score){
+        switch (score){
+            case "0.5":
+                Glide.with(getActivity()).load(R.mipmap.star_half).into(rateStarImg);
+                break;
+            case "1":
+                Glide.with(getActivity()).load(R.mipmap.star).into(rateStarImg);
+                break;
+            case "1.5":
+                Glide.with(getActivity()).load(R.mipmap.star_one_hafl).into(rateStarImg);
+                break;
+            case "2":
+                Glide.with(getActivity()).load(R.mipmap.star_two).into(rateStarImg);
+                break;
+            case "2.5":
+                Glide.with(getActivity()).load(R.mipmap.star_two_half).into(rateStarImg);
+                break;
+            case "3":
+                Glide.with(getActivity()).load(R.mipmap.star_three).into(rateStarImg);
+                break;
+            case "3.5":
+                Glide.with(getActivity()).load(R.mipmap.star_three_half).into(rateStarImg);
+                break;
+            case "4":
+                Glide.with(getActivity()).load(R.mipmap.star_four).into(rateStarImg);
+                break;
+            case "4.5":
+                Glide.with(getActivity()).load(R.mipmap.star_four_half).into(rateStarImg);
+                break;
+            case "5":
+                Glide.with(getActivity()).load(R.mipmap.star_five).into(rateStarImg);
                 break;
             default:
                 break;

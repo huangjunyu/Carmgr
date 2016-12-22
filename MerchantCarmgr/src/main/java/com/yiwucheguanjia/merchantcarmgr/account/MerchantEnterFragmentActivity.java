@@ -51,12 +51,18 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
     TextView jionDataTv;
     @BindView(R.id.enter_data_goback_rl)
     RelativeLayout gobackRl;
+    public String pwdString;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         setContentView(R.layout.activity_merchant_enter);
         ButterKnife.bind(this);
+
+        Intent intent=getIntent();//getIntent将该项目中包含的原始intent检索出来，将检索出来的intent赋值给一个Intent类型的变量intent
+        Bundle bundle=intent.getExtras();//.getExtras()得到intent所附带的额外数据
+        pwdString = bundle.getString("password");//getString()返回指定key的值
+        Log.e("password",pwdString);
         initTab();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action.next_one");
@@ -163,15 +169,17 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
                 .params("operator_id",operateDataFragment.idCarEd.getText().toString().trim())
                 .params("operator_id_img_a",operateDataFragment.imgPathFrontResponse)
                 .params("operator_id_img_b",operateDataFragment.imgPathReverseResponse)
-                .params("shop_introduce",merchantFragment.storeNameEd.getText().toString())
-                .params("shop_imgs",merchantFragment.businessLicensePathResponse)
                 .params("shop_name",merchantFragment.storeNameEd.getText().toString())
+                .params("shop_imgs",merchantFragment.businessLicensePathResponse)
                 .params("shop_area",merchantFragment.areaTv.getText().toString())
                 .params("shop_address",merchantFragment.detailAddrEd.getText().toString())
                 .params("shop_mobile",merchantFragment.servicePhoEd.getText().toString().trim())
                 .params("shop_license_img",merchantFragment.businessLicensePathResponse)
                 .params("token",sharedPreferences.getString("TOKEN","null"))
                 .params("version",UrlString.APP_VERSION)
+                .params("shop_type",jionFragment.serviceTypeTv.getText().toString().trim())
+                .params("shop_introduce",jionFragment.introEd.getText().toString().trim())
+                .params("password",pwdString)
                 .execute(new MyStringCallback(MerchantEnterFragmentActivity.this,getResources().getString(R.string.loading)) {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

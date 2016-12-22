@@ -138,9 +138,11 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     }
 
     private void checkData(){
-        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
-        startActivity(mainIntent);
-        EnterRegisterActivity.this.finish();
+//        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
+//        startActivity(mainIntent);
+//        EnterRegisterActivity.this.finish();
+
+
         //如果输入的账号与验证的手机号码相同
         if (TextUtils.equals(accountEdit.getText().toString(),phoneNumStr)){
             //如果密码里面不包含空格
@@ -148,7 +150,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                 OkGo.post(UrlString.REGISTER_URL)
                         .tag(this)
                         .params("username",phoneNumStr)
-                        .params("password",passwordEdit.getText().toString())
+                        .params("password",passwordEdit.getText().toString().trim())
                         .params("mobile",phoneNumStr)
                         .params("terminal_os","Android")
                         .params("terminal_type", Build.MODEL)
@@ -158,8 +160,15 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 Log.e("sussess",s);
-                                Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
-                                startActivity(mainIntent);
+
+
+
+
+                                Intent intent = new Intent();
+                                intent.setClass(EnterRegisterActivity.this, MerchantEnterFragmentActivity.class);//从一个activity跳转到另一个activity
+                                intent.putExtra("password", passwordEdit.getText().toString().trim());//给intent添加额外数据，key为“str”,key值为"Intent Demo"
+                                startActivity(intent);
+
                                 EnterRegisterActivity.this.finish();
                             }
 

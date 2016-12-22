@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.my.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,11 +14,15 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/11/2.
  */
 public class AccountBalanceActivity extends Activity {
+
+    private String intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_balance);
         ButterKnife.bind(this);
+        intent = getIntent().getExtras().getString("balance");
+
     }
 
     @OnClick({R.id.balance_goback_rl,R.id.balance_income_detail,R.id.balance_pay_manager,

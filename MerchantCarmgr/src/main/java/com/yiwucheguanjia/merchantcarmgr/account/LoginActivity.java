@@ -135,6 +135,7 @@ public class LoginActivity extends BaseActivity {
         Log.e("acount",account + token);
         edit.putString("ACCOUNT", account);
         edit.putString("TOKEN", token);
+        edit.putString("VERSION",UrlString.APP_VERSION);//登录过这个APP之后的标记
         edit.commit();
     }
 }

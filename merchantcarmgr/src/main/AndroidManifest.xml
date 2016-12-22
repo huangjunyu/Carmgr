@@ -56,13 +56,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="7ed968e8a42edbbe653583c631066d2e" />
 
-        <activity android:name=".account.HomeActivty">
+        <activity android:name=".account.JudgeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".account.HomeActivty"/>
         <activity android:name=".account.LoginActivity" />
         <activity android:name=".account.EnterRegisterActivity" />
         <activity android:name=".account.MerchantEnterFragmentActivity" />

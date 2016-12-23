@@ -61,7 +61,7 @@
             android:text="@string/your_account_balance"
             />
         <TextView
-            android:id="@+id/deposit_cash_tv"
+            android:id="@+id/balance_balance_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"

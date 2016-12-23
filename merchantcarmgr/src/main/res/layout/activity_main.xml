@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/main_workbench_img"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
                 android:src="@mipmap/workbench_pre" />
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/main_workbench_img"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
                 android:text="@string/workbench"
                 android:textColor="@color/main_tab_gray"
                 android:textSize="12sp" />
@@ -50,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/main_post_img"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
                 android:src="@mipmap/post_manage_nor" />
@@ -62,7 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/main_post_img"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
                 android:text="@string/post"
+                android:textColor="@color/main_tab_gray"
                 android:textSize="12sp" />
         </RelativeLayout>
 
@@ -74,8 +77,8 @@
 
             <ImageView
                 android:id="@+id/main_appoint_img"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
                 android:src="@mipmap/appoint_manage_nor" />
@@ -87,7 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/main_appoint_img"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
                 android:text="@string/appointment"
+                android:textColor="@color/main_tab_gray"
                 android:textSize="12sp" />
 
         </RelativeLayout>
@@ -100,8 +105,8 @@
 
             <ImageView
                 android:id="@+id/main_my_img"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
                 android:src="@mipmap/my_nor" />
@@ -113,7 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/main_my_img"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
                 android:text="@string/my"
+                android:textColor="@color/main_tab_gray"
                 android:textSize="12sp" />
 
         </RelativeLayout>

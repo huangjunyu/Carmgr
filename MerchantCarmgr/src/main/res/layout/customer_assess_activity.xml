@@ -9,7 +9,7 @@
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/setting_goback_rl"
+            android:id="@+id/assess_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

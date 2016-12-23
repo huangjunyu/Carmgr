@@ -19,7 +19,7 @@
             android:padding="20dp">
 
             <ImageView
-                android:id="@+id/personal_header_img"
+                android:id="@+id/my_header_img"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
@@ -27,10 +27,10 @@
                 android:src="@mipmap/defualt_header" />
 
             <TextView
-                android:id="@+id/personal_header_txt"
+                android:id="@+id/my_shopname_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/personal_header_img"
+                android:layout_below="@+id/my_header_img"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="@string/stor_name" />
@@ -100,8 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_assess_img"
@@ -109,28 +108,28 @@
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
             android:src="@mipmap/assess" />
 
         <TextView
             android:id="@+id/myft_gool_assess_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_assess_img"
             android:text="@string/merchant_assess"
-            android:textSize="15dp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/mytf_rate_star_img"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="11dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/myft_gool_assess_tv"
-            android:adjustViewBounds="true"
-            android:maxHeight="10dp"
             android:scaleType="fitStart"
-            android:src="@mipmap/star_solid" />
+            android:layout_toRightOf="@+id/myft_gool_assess_tv"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/star_three" />
 
     </RelativeLayout>
 
@@ -139,14 +138,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_grade_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/grade" />
 
         <TextView
@@ -154,22 +153,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_grade_img"
             android:text="@string/merchant_grade"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/myft_merchant_grade_flag"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/myft_grade_tv"
             android:src="@mipmap/grade_flag" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>
@@ -179,14 +181,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_balance_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/balance" />
 
         <TextView
@@ -194,14 +196,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_balance_img"
             android:text="@string/account_balance"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>
@@ -211,28 +215,29 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_cash_deposit_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/cash_deposit" />
 
         <TextView
             android:id="@+id/myft_cash_deposit_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/myft_cash_deposit_img"
             android:text="@string/cash_deposit"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
@@ -243,14 +248,15 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:layout_centerVertical="true"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_merchant_profile_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/merchant_profile" />
 
         <TextView
@@ -258,14 +264,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_merchant_profile_img"
             android:text="@string/merchant_profile"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>
@@ -275,14 +283,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_merchant_photo_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/merchant_photo" />
 
         <TextView
@@ -290,14 +298,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_merchant_photo_img"
             android:text="@string/merchant_photo"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>
@@ -307,14 +317,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_system_msg_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/system_msg" />
 
         <TextView
@@ -322,14 +332,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_system_msg_img"
             android:text="@string/system_msg"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>
@@ -339,14 +351,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/myft_setting_img"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:src="@mipmap/setting" />
 
         <TextView
@@ -354,13 +366,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/myft_setting_img"
             android:text="@string/setting"
-            android:textSize="15dp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />

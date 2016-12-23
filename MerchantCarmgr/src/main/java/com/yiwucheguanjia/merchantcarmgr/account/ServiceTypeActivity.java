@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.utils.RecyclerViewDivider;
 
@@ -36,6 +37,7 @@ public class ServiceTypeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         serviceTypeArrStr = getResources().getStringArray(R.array.service_type);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.activity_service_type);
         serviceTypeArrList = new ArrayList<>();
         for (int i = 0; i < serviceTypeArrStr.length; i++) {

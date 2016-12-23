@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.merchantcarmgr.my.view;
 
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.BaseActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
@@ -24,20 +26,28 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class MerchantIntroActivity extends BaseActivity {
+public class MerchantIntroActivity extends AppCompatActivity {
     @BindView(R.id.intro_goback_rl)
     RelativeLayout gobackRl;
     @BindView(R.id.intro_merchant_intro_ed)
     EditText introEdit;
     private SharedPreferences sharedPreferences;
+    private String introduce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         setContentView(R.layout.activity_merchant_intro);
         ButterKnife.bind(this);
-
+        try{
+            introduce = getIntent().getExtras().getString("introduce");
+        }catch (Exception e){
+            e.printStackTrace();
+            introduce = "";
+        }
+        introEdit.setText(introduce);
     }
 
     @OnClick({R.id.intro_goback_rl, R.id.intro_submit_bt})

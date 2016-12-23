@@ -1,9 +1,8 @@
-package com.yiwucheguanjia.merchantcarmgr.my;
+package com.yiwucheguanjia.merchantcarmgr.my.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.sax.RootElement;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,12 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.account.MerchantEnterFragmentActivity;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.my.view.AccountBalanceActivity;
-import com.yiwucheguanjia.merchantcarmgr.my.view.CashDepositActivity;
-import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantGradeActivity;
-import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantIntroActivity;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
 import org.json.JSONException;
@@ -39,7 +33,6 @@ import okhttp3.Response;
  * Created by Administrator on 2016/10/17.
  */
 public class MyFragment extends Fragment {
-public int anInt;
     LinearLayout myFragmentView;
     @BindView(R.id.myft_user_header_rl)
     RelativeLayout userHeaderRl;
@@ -69,14 +62,19 @@ public int anInt;
     TextView incomeTv;
     @BindView(R.id.mytf_rate_star_img)
     ImageView rateStarImg;
+    @BindView(R.id.my_shopname_tv)
+    TextView shopNameTv;
+    @BindView(R.id.my_header_img)
+    ImageView shopHeaderImg;
     private int merchantLevelInt;//商家等级
     private String merchantBalanceStr;//余额
+    private String deposit;
+    private String introduce;
     private SharedPreferences sharedPreferences;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT",getActivity().MODE_PRIVATE);
-
     }
 
     @Nullable
@@ -107,10 +105,12 @@ public int anInt;
                 break;
             case R.id.myft_merchant_profile_rl:
                 Intent introIntent = new Intent(getActivity(), MerchantIntroActivity.class);
+                introIntent.putExtra("introduce",introduce);
                 startActivity(introIntent);
                 break;
             case R.id.myft_cash_deposit_rl:
                 Intent depositIntent = new Intent(getActivity(),CashDepositActivity.class);
+                depositIntent.putExtra("deposit",deposit);
                 startActivity(depositIntent);
                 break;
             case R.id.myft_balance_rl:
@@ -119,14 +119,6 @@ public int anInt;
                 startActivity(balanceIntent);
                 break;
             case R.id.myft_grade_rl:
-
-
-//                Intent intent;
-//                intent = new Intent();
-//                intent.setClass(getActivity(), MerchantEnterFragmentActivity.class);//从一个activity跳转到另一个activity
-//                intent.putExtra("password", "kk");//给intent添加额外数据，key为“str”,key值为"Intent Demo"
-//                startActivity(intent);
-
                 Intent gradeIntent = new Intent(getActivity(),MerchantGradeActivity.class);
                 gradeIntent.putExtra("grade",merchantLevelInt);
                 startActivity(gradeIntent);
@@ -149,10 +141,14 @@ public int anInt;
                             JSONObject jsonObject = new JSONObject(s);
                             orderWeekTv.setText(jsonObject.getString("week_total_orders").toString());
                             incomeTv.setText(jsonObject.getString("week_total_income").toString());
+                            Log.e("shop",jsonObject.getString("shop_name".toString()));
+                            shopNameTv.setText(jsonObject.getString("shop_name".toString()));
                             drawScore(jsonObject.getString("merchants_score"));
                             Log.e("merchants",jsonObject.getInt("merchants_level") + "");
                             merchantLevelInt = jsonObject.getInt("merchants_level");
                             merchantBalanceStr = jsonObject.getString("account_balance");
+                            deposit = jsonObject.getString("deposit");
+                            introduce = jsonObject.getString("merchants_introduce");
 
 
                         } catch (JSONException e) {

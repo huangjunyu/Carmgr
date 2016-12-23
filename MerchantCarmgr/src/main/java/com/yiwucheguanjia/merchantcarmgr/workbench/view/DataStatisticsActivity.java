@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.yiwucheguanjia.merchantcarmgr.MainActivity;
@@ -26,13 +29,14 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/10/25.
  */
-public class DataStatisticsActivity extends Activity {
+public class DataStatisticsActivity extends AppCompatActivity {
 
     @BindView(R.id.data_order_chart)
     HistogramView orderHistogramView;
@@ -66,13 +70,15 @@ public class DataStatisticsActivity extends Activity {
     TextView oneStarTv;
     @BindView(R.id.data_total_contrack)
     TextView totalContrackTv;
-
+    @BindView(R.id.statistics_dat_goback_rl)
+    RelativeLayout gobackRl;
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", this.MODE_PRIVATE);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.data_statistics_activity);
         ButterKnife.bind(this);
         getData();
@@ -160,5 +166,9 @@ public class DataStatisticsActivity extends Activity {
                             }
                         }
                 );
+    }
+    @OnClick(R.id.statistics_dat_goback_rl)
+    void click(){
+        finish();
     }
 }

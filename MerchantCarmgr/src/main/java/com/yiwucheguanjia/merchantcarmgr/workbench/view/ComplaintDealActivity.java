@@ -5,8 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.RelativeLayout;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.MyFragmentPagerAdapter;
 
@@ -15,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 用户投诉处理.
@@ -27,9 +31,12 @@ public class ComplaintDealActivity extends FragmentActivity {
     TabLayout mTabLayout;
     @BindView(R.id.complain_deal_viewpager)
     ViewPager mViewPager;
+    @BindView(R.id.complain_deal_goback_rl)
+    RelativeLayout gobackRl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.activity_complain_deal);
         ButterKnife.bind(this);
         initView();
@@ -53,5 +60,9 @@ public class ComplaintDealActivity extends FragmentActivity {
         mViewPager.setAdapter(myFragmentPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(myFragmentPagerAdapter);
+    }
+    @OnClick(R.id.complain_deal_goback_rl)
+    void click(){
+        finish();
     }
 }

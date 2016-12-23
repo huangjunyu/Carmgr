@@ -80,8 +80,8 @@ public class MerchantDataFragment extends Fragment {
         } else if (TextUtils.isEmpty(servicePhoEd.getText().toString())) {
             Toast.makeText(getActivity(), "电话号码不能为空", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (!uploadImgState){
-            Toast.makeText(getActivity(),"请上传相关照片",Toast.LENGTH_SHORT).show();
+        } else if (!uploadImgState) {
+            Toast.makeText(getActivity(), "请上传相关照片", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -180,7 +180,12 @@ public class MerchantDataFragment extends Fragment {
                                 if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
                                     uploadImgState = true;
                                     JSONArray fileStoreList = jsonObject.getJSONArray("file_store_list");
-                                    businessLicensePathResponse = fileStoreList.getJSONObject(0).getString("store_path");
+                                    for (int i = 0; i < fileStoreList.length(); i++) {
+
+                                        businessLicensePathResponse = fileStoreList.getJSONObject(i).getString("store_path");
+                                        businessLicensePathResponse = businessLicensePathResponse + "^";
+                                    }
+                                    businessLicensePathResponse = businessLicensePathResponse.substring(0,businessLicensePathResponse.length() - 1);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

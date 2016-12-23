@@ -1,11 +1,11 @@
-package com.yiwucheguanjia.merchantcarmgr.my;
+package com.yiwucheguanjia.merchantcarmgr.my.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.PostRequest;
-import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 
 /**
@@ -13,10 +13,10 @@ import com.yiwucheguanjia.merchantcarmgr.R;
  */
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,12 +32,10 @@ import com.yiwucheguanjia.merchantcarmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -63,6 +61,7 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.merchant_photo_activity);
         ButterKnife.bind(this);
         //最好放到 Application oncreate执行

@@ -3,6 +3,8 @@ package com.yiwucheguanjia.merchantcarmgr.post;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -47,7 +50,7 @@ import okhttp3.Response;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class PostServiceActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
+public class PostServiceActivity extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
     private final static int RESULT_SELECTED = 0;
     private final static int RESULT_NOTHING_SELECT = 1;
@@ -85,6 +88,7 @@ public class PostServiceActivity extends BaseActivity implements ImagePickerAdap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.activity_post_service);
         ButterKnife.bind(this);
         //最好放到 Application oncreate执行

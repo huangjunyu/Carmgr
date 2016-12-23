@@ -67,7 +67,7 @@
         <activity android:name=".account.LoginActivity" />
         <activity android:name=".account.EnterRegisterActivity" />
         <activity android:name=".account.MerchantEnterFragmentActivity" />
-        <activity android:name=".my.SettingActivity" />
+        <activity android:name=".my.view.SettingActivity" />
         <activity
             android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -75,8 +75,8 @@
         <activity
             android:name=".post.PostServiceActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".my.SystemMsgActivity" />
-        <activity android:name=".my.MerchantPhotoActivity" />
+        <activity android:name=".my.view.SystemMsgActivity" />
+        <activity android:name=".my.view.MerchantPhotoActivity" />
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity" />
         <activity android:name=".workbench.view.CustomerAssessActivity" />
         <activity android:name=".workbench.view.DataStatisticsActivity" />

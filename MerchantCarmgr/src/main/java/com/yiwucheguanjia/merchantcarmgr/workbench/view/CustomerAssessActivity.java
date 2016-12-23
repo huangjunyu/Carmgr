@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.RelativeLayout;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.MyFragmentPagerAdapter;
 
@@ -16,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/10/23.
@@ -23,6 +27,8 @@ import butterknife.ButterKnife;
 public class CustomerAssessActivity extends FragmentActivity {
     @BindView(R.id.customer_assess_tl)
     protected TabLayout mTabLayout;
+    @BindView(R.id.assess_goback_rl)
+    RelativeLayout gobackRl;
     private Fragment fragment1,fragment2,fragment3,fragment4,fragment5;//5星好评的各界面
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
@@ -32,6 +38,7 @@ public class CustomerAssessActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.customer_assess_activity);
         ButterKnife.bind(this);
         initView();
@@ -69,6 +76,8 @@ public class CustomerAssessActivity extends FragmentActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(myFragmentPagerAdapter);
     }
-
-
+    @OnClick(R.id.assess_goback_rl)
+    void click(){
+        finish();
+    }
 }

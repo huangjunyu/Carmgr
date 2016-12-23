@@ -34,9 +34,6 @@ public class ContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //布局文件中只有一个居中的TextView
         viewContent = inflater.inflate(R.layout.activity_my_fragment,container,false);
-        TextView textView = (TextView) viewContent.findViewById(R.id.personal_header_txt);
-        textView.setText(this.mTitle);
-
         return viewContent;
     }
 

@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,7 +27,7 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.appointment.view.AppointmentFragment;
-import com.yiwucheguanjia.merchantcarmgr.my.MyFragment;
+import com.yiwucheguanjia.merchantcarmgr.my.view.MyFragment;
 import com.yiwucheguanjia.merchantcarmgr.post.PostFragment;
 import com.yiwucheguanjia.merchantcarmgr.workbench.view.WorkbenchFragment;
 
@@ -336,7 +337,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals("action.post_manage")) {
+            if (action.equals("action.post_manage")) {//跳到发布管理界面
                 Log.e("kdkw", "jjppw");
                 if (postFragment == null) {
                     postFragment = new PostFragment();
@@ -351,9 +352,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //                progressFragment = new AppointmentFragment();
 //                callYiwuFragment = new MyFragment();
 //                addOrShowFragment(fragmentManager.beginTransaction(), workbenchFragment);
-            } else if (action.equals("action.loginout")) {
+            } else if (TextUtils.equals(action,"action.loginout")) {//退出此界面以及所管理的fragment
                 MainActivity.this.finish();
-            } else if (action.equals("action.appointment")) {
+            } else if (action.equals("action.appointment")) {//跳到预约界面
                 if (callYiwuFragment != null) {
                     addOrShowFragment(fragmentManager.beginTransaction(), callYiwuFragment);
                 } else {

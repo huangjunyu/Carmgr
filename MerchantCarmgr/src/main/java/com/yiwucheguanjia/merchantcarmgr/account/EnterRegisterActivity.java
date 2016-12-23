@@ -68,7 +68,6 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_enter);
         timeCount = new TimeCount(60000, 1000);
         ButterKnife.bind(this);

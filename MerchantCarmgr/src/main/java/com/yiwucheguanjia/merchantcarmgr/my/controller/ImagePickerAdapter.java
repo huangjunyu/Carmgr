@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.my.MerchantPhotoActivity;
+import com.yiwucheguanjia.merchantcarmgr.my.view.MerchantPhotoActivity;
 
 import java.util.ArrayList;
 import java.util.List;

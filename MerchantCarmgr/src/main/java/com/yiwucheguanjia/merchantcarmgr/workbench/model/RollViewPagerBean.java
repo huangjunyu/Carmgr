@@ -5,15 +5,15 @@ package com.yiwucheguanjia.merchantcarmgr.workbench.model;
  */
 public class RollViewPagerBean {
     private String rollViewPagerUrl;
-    private String rollViewPagerClickUrl;
+//    private String rollViewPagerClickUrl;
 
-    public String getRollViewPagerClickUrl() {
-        return rollViewPagerClickUrl;
-    }
+//    public String getRollViewPagerClickUrl() {
+//        return rollViewPagerClickUrl;
+//    }
 
-    public void setRollViewPagerClickUrl(String rollViewPagerClickUrl) {
-        this.rollViewPagerClickUrl = rollViewPagerClickUrl;
-    }
+//    public void setRollViewPagerClickUrl(String rollViewPagerClickUrl) {
+//        this.rollViewPagerClickUrl = rollViewPagerClickUrl;
+//    }
 
     public String getRollViewPagerUrl() {
         return rollViewPagerUrl;

@@ -1,5 +1,9 @@
 package com.yiwucheguanjia.merchantcarmgr.my.view;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +16,9 @@ import android.widget.RelativeLayout;
 
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
-import com.yiwucheguanjia.merchantcarmgr.BaseActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
+import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity1;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
 import org.json.JSONException;
@@ -33,7 +37,6 @@ public class MerchantIntroActivity extends AppCompatActivity {
     EditText introEdit;
     private SharedPreferences sharedPreferences;
     private String introduce;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +44,9 @@ public class MerchantIntroActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         setContentView(R.layout.activity_merchant_intro);
         ButterKnife.bind(this);
-        try{
+        try {
             introduce = getIntent().getExtras().getString("introduce");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             introduce = "";
         }
@@ -64,13 +67,12 @@ public class MerchantIntroActivity extends AppCompatActivity {
             default:
                 break;
         }
-
     }
 
     private void submit(EditText editText) {
         OkGo.post(UrlString.UPLOAD_INTRODUCE)
                 .tag(this)
-                .params("username", UrlString.USERNAME)
+                .params("username", sharedPreferences.getString("ACCOUNT", null))
                 .params("introduce", editText.getText().toString().trim())
                 .params("token", sharedPreferences.getString("TOKEN", null))
                 .params("version", UrlString.APP_VERSION)
@@ -79,7 +81,7 @@ public class MerchantIntroActivity extends AppCompatActivity {
                     public void onSuccess(String s, Call call, Response response) {
                         try {
                             JSONObject jsonObject = new JSONObject(s);
-                            if (TextUtils.equals(jsonObject.getString("opt_state").toString(),"success")){
+                            if (TextUtils.equals(jsonObject.getString("opt_state").toString(), "success")) {
                                 finish();
                             }
                         } catch (JSONException e) {
@@ -89,4 +91,6 @@ public class MerchantIntroActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

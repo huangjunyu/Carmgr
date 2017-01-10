@@ -223,10 +223,23 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             }
             nothingTv.setVisibility(View.GONE);
             myRecyclerView.setVisibility(View.VISIBLE);
+            String imgpath;
             for (int i = 0; i < jsonObject.getJSONArray("merchants_list").length(); i++) {
+
+//                String imgpath;
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonObject.getJSONArray("merchants_list").getJSONObject(i);
-                merchantItemBean.setMerchantImgUrl(merchantJson.getString("img_path"));
+
+                if (TextUtils.isEmpty(merchantJson.getString("img_path"))) {
+                    imgpath = "path";
+                } else {
+                    imgpath = merchantJson.optString("img_path", "path");
+                    if (imgpath.contains("^")) {//如果返回了多张图片，则只显示第一张图片
+                        imgpath = imgpath.replace(imgpath.substring(imgpath.indexOf("^"), imgpath.length()), "");
+                    }
+                }
+                        Log.e("imgppath", imgpath);
+                merchantItemBean.setMerchantImgUrl(imgpath);
                 merchantItemBean.setMerchantDistance(merchantJson.getString("distance"));
                 merchantItemBean.setMerchantArea(merchantJson.getString("area"));
                 merchantItemBean.setMerchantIntroduce(merchantJson.getString("merchant_introduce"));
@@ -355,13 +368,13 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 }
             }
         });
-        if (popupWindow.isShowing() && i == 1){
+        if (popupWindow.isShowing() && i == 1) {
             businessSelectTxt.setTextColor(getResources().getColor(R.color.orange));
             businessPullDownImg.setImageResource(R.mipmap.pull_down_pre);
-        }else if (popupWindow.isShowing() && i == 2){
+        } else if (popupWindow.isShowing() && i == 2) {
             citySelectTv.setTextColor(getResources().getColor(R.color.orange));
             cityDirection.setImageResource(R.mipmap.pull_down_pre);
-        }else if (popupWindow.isShowing() && i == 3){
+        } else if (popupWindow.isShowing() && i == 3) {
             sortSelectTv.setTextColor(getResources().getColor(R.color.orange));
             sortPullDownImg.setImageResource(R.mipmap.pull_down_pre);
         }

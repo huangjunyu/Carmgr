@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.yiwucheguanjia.carmgr.R;
@@ -212,7 +214,34 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
             selectStar(merchantStarStr,starImg);
             merchantDetailTv.setDesc(jsonObject.getString("merchant_introduce"), TextView.BufferType.NORMAL);
             handler.sendEmptyMessage(1);
-            Picasso.with(this).load(jsonObject.getString("img_path")).error(R.mipmap.picture_default).into(
+            Log.e("im_path",jsonObject.optString("img_path","paht"));
+//            jsonObject.optString("img_path");
+            if (TextUtils.isEmpty(jsonObject.optString("img_path"))){
+                Picasso.with(this).load(R.mipmap.picture_default).error(R.mipmap.picture_default).into(
+                        new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                                merchantBg.setBackground(new BitmapDrawable(bitmap));
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable drawable) {
+
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable drawable) {
+
+                            }
+                        }
+                );
+            }else {
+                String imgpaht = jsonObject.optString("img_path","path");
+                if (jsonObject.optString("img_path","path").contains("^")){//如果返回了多张图片，则只显示第一张图片
+                    imgpaht = imgpaht.replace(imgpaht.substring(imgpaht.indexOf("^"),imgpaht.length()),"");
+                    Log.e("imgppath",imgpaht);
+                }
+            Picasso.with(this).load(imgpaht).error(R.mipmap.picture_default).into(
                     new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
@@ -230,6 +259,8 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
                         }
                     }
             );
+            }
+//            Glide.with(MerchantDetail.this).load(jsonObject.optString("img_path","path")).error(R.mipmap.picture_default).into(merchantBg.setBackgroundResource();)
             readMoreDetail.setText(getText(R.string.read_more));
             readMoredDetailImg.setImageResource(R.mipmap.pull_down_black);
             serviceTypeItemBeens = new ArrayList<>();

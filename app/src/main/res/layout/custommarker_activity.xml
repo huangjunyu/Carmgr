@@ -2,59 +2,105 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/marker_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="searchByBound"
+            android:text="获取marker" />
+
+        <TextView
+            android:id="@+id/mark_listenter_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="拖动marker1" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_gravity="bottom|right"
+            android:background="#D999"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-            <ToggleButton
-                android:id="@+id/animate"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/clearMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="clear_map" />
+
+                <Button
+                    android:id="@+id/resetMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="reset_map" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/custom_info_window_options"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:textOff="animate"
-                android:textOn="animate" />
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/default_info_window"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="default_info_window" />
+
+                <RadioButton
+                    android:id="@+id/custom_info_contents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="custom_info_contents" />
+
+                <RadioButton
+                    android:id="@+id/custom_info_window"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="custom_info_window" />
+            </RadioGroup>
+
         </LinearLayout>
 
+        <com.yiwucheguanjia.carmgr.progress.PageRecyclerView
+            android:id="@+id/cusom_swipe_view"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            />
 
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <com.yiwucheguanjia.carmgr.progress.PageIndicatorView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="5dp"
-            android:orientation="horizontal" >
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp" />
+    </FrameLayout>
 
-            <Button
-                android:id="@+id/zoom_in"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:text="zoom_in" />
-
-            <Button
-                android:id="@+id/zoom_out"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:layout_toRightOf="@id/zoom_in"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:text="zoom_out" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <com.amap.api.maps2d.MapView
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

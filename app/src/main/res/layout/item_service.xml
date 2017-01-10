@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:id="@+id/item_service_first_rang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+        <TextView
+            android:id="@+id/item_service_title"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="标题"/>
+        <TextView
+            android:id="@+id/item_service_price"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="价格"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/item_service_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_service_first_rang"
+        tools:text="内容"
+        android:background="@color/white"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:gravity="center" />-->
+
+</RelativeLayout>

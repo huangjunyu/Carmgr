@@ -1,8 +1,13 @@
 package com.yiwucheguanjia.merchantcarmgr.post;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,7 +29,6 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.PostRequest;
-import com.yiwucheguanjia.merchantcarmgr.BaseActivity;
 import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
@@ -48,10 +52,9 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2016/10/19.
+ * Created by Administrator on 2016/12/29.
  */
-public class PostServiceActivity extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
-
+public class PostServiceActivity1 extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
     private final static int RESULT_SELECTED = 0;
     private final static int RESULT_NOTHING_SELECT = 1;
     private final static int REQUEST_ZERO = 0;
@@ -84,16 +87,41 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
     private ArrayList<ImageItem> imageItems;
     FileInputStream fileInputStream = null;
     private SharedPreferences sharedPreferences;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.edit");
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.activity_post_service);
         ButterKnife.bind(this);
         //最好放到 Application oncreate执行
         initImagePicker();
         initWidget();
+        Bundle bundle = getIntent().getExtras();
+        if (TextUtils.equals(bundle.getString("postType", "nothing"), "post")) {//如果来自于首发
+
+        } else if (TextUtils.equals(bundle.getString("postType", "nothing"), "edit")) {//如果来自于重新编辑
+            try {
+                if (bundle.getString("serviceTittle", null) != null &&
+                        bundle.getString("serviceContent", null) != null &&
+                        bundle.getString("servicePrice", null) != null &&
+                        bundle.getString("serviceType", null) != null &&
+                        bundle.getString("serviceScope", null) != null) {
+                    titleEd.setText(bundle.getString("serviceTittle"));
+                    contentEd.setText(bundle.getString("serviceContent"));
+                    priceEd.setText(bundle.getString("servicePrice"));
+                    serviceTypeSelTv.setText(bundle.getString("serviceType"));
+                    serviceScope.setText(bundle.getString("serviceScope"));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+        }
+
     }
 
     @OnClick({R.id.post_sc_goback, R.id.post_sc_post_btn, R.id.post_sc_service_tv})
@@ -110,13 +138,12 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
             case R.id.post_sc_price_ed:
                 break;
             case R.id.post_sc_service_tv:
-                Intent serviceTypeIntent = new Intent(PostServiceActivity.this, ServiceTypeActivity.class);
+                Intent serviceTypeIntent = new Intent(PostServiceActivity1.this, ServiceTypeActivity.class);
                 startActivityForResult(serviceTypeIntent, 0);
                 break;
             case R.id.post_sc_service_scope:
                 break;
             case R.id.post_sc_post_btn:
-                Log.e("kwkw", "ppppp");
                 if (checkData()) {
                     formUpload();
                 }
@@ -161,14 +188,10 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
             }
         } else if (requestCode == REQUEST_ZERO && resultCode == RESULT_NOTHING_SELECT) {
             //没有选择服务类型
-            Log.e("nnw", "kkk");
-        }
-
-        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+        } else if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
                 imageItems = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                Log.e("imaget", imageItems.get(0).path);
                 selImageList.addAll(imageItems);
                 adapter.setImages(selImageList);
             }
@@ -180,6 +203,14 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                 selImageList.addAll(images);
                 adapter.setImages(selImageList);
             }
+        } else if (requestCode == 22) {
+            Intent editIntent = getIntent();
+            Bundle editBundle = editIntent.getExtras();
+            titleEd.setText(editBundle.getString("serviceTittle"));
+            contentEd.setText(editBundle.getString("serviceContent"));
+            priceEd.setText(editBundle.getString("servicePrice"));
+            serviceTypeSelTv.setText(editBundle.getString("serviceType"));
+            serviceScope.setText(editBundle.getString("serviceScope"));
         }
     }
 
@@ -195,27 +226,14 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
             }
             file = files.get(0);
             String fileString = file.toString();
-            Log.e("big", file.length() + "," + fileString);
-
-//            try {
-//                fileInputStream = new FileInputStream(file);
-//                Log.e("fileInputStream", fileInputStream.toString());
-//                fileInputStream.available();
-//                data = new byte[fileInputStream.available()];
-//                inputStream.read(data);
-//                inputStream.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
         } else {//如果没有图片，则不能上传
-            Toast.makeText(PostServiceActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostServiceActivity1.this, "请选择图片", Toast.LENGTH_SHORT).show();
             return;
         }
         //拼接参数
         PostRequest okGo = OkGo.post(UrlString.APP_UPLOAD)//
                 .tag(this);//
-        okGo.params("username", sharedPreferences.getString("ACCOUNT",null))
+        okGo.params("username", sharedPreferences.getString("ACCOUNT", null))
                 .params("type", "service_introduce_img")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", UrlString.APP_VERSION)
@@ -224,10 +242,9 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
             okGo.params("file" + (i + 1), files.get(i));
         }
         okGo.execute(
-                new MyStringCallback(PostServiceActivity.this, "test") {
+                new MyStringCallback(PostServiceActivity1.this, "test") {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("string", s);
                         String imgPaths = "";//所有图片路径
                         try {
                             final JSONObject jsonObject = new JSONObject(s);
@@ -242,12 +259,9 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                                     imgPaths = imgPaths + storePaht.getString("store_path") + "^";
                                 }
                                 imgPaths = imgPaths.substring(0, imgPaths.length() - 1);
-
-
-                                Log.e("imgpaths", imgPaths);
                                 OkGo.post(UrlString.POST_SERVICE_URL)
                                         .tag(this)
-                                        .params("username", UrlString.USERNAME)
+                                        .params("username", sharedPreferences.getString("ACCOUNT", "null"))
                                         .params("name", titleEd.getText().toString())
                                         .params("detail", contentEd.getText().toString())//服务内容的详细描述。不超过300个字
                                         .params("price", priceEd.getText().toString().trim())
@@ -256,18 +270,17 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                                         .params("imgpath", imgPaths)
                                         .params("token", sharedPreferences.getString("TOKEN", "null"))
                                         .params("version", UrlString.APP_VERSION)
-                                        .execute(new MyStringCallback(PostServiceActivity.this, getResources().getString(R.string.loading)) {
+                                        .execute(new MyStringCallback(PostServiceActivity1.this, getResources().getString(R.string.loading)) {
                                             @Override
                                             public void onSuccess(String s, Call call, Response response) {
-                                                Log.e("success", s);
                                                 try {
                                                     JSONObject jsonObject1 = new JSONObject(s);
                                                     if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
                                                         Intent intent = new Intent();
                                                         intent.setAction("action.post_manage");
                                                         sendBroadcast(intent);
-//                                                        Intent loginInten = new Intent(PostServiceActivity.this, MainActivity.class);
-//                                                        startActivity(loginInten);
+                                                        Intent loginInten = new Intent(PostServiceActivity1.this, MainActivity.class);
+                                                        startActivity(loginInten);
                                                         finish();
                                                     }
                                                 } catch (JSONException e) {
@@ -279,7 +292,6 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-//                        if ()
                     }
 
                 }
@@ -302,7 +314,6 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
     public void onItemClick(View view, int position) {
         switch (position) {
             case IMAGE_ITEM_ADD:
-                Log.e("kwq", "jwnw");
                 //打开选择,本次允许选择的数量
                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
                 Intent intent = new Intent(this, ImageGridActivity.class);

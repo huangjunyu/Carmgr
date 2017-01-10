@@ -16,6 +16,7 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.utils.RecyclerViewDivider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class ServiceTypeActivity extends AppCompatActivity {
     protected RecyclerView recyclerView;
     private static final int CHECKBOX_RESULT = 301;
     private String allType = "";
-
+    private Map<Integer, Integer> map = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

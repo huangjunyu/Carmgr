@@ -50,7 +50,6 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
 
     @Override
     public void onBindViewHolder(HolderView holder, final int position) {
-        Log.e("itementi", itemEntities.size() + "");
         ItemEntity itemEntity = itemEntities.get(position);
         Glide.with(activity).load(R.mipmap.defualt_header).error(R.mipmap.default_image).into(holder.headerImg);
         holder.rateContent.setText(itemEntity.getContent());
@@ -59,11 +58,6 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.HolderView> {
         if (imageUrls == null || imageUrls.size() == 0) {
             holder.rateImgRv.setVisibility(View.GONE);
         } else {
-            for (int i = 0 ;i < imageUrls.size();i++){
-
-                Log.e("item", imageUrls.get(i) + "n");
-
-            }
             holder.rateImgRv.setAdapter(new RateImgAdapter(activity, imageUrls));
         }
     }

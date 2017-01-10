@@ -72,7 +72,7 @@ public class JionDataFragment extends Fragment implements ImagePickerAdapter.OnR
     private Boolean uploadImgState = false;
     private static final int CHECKBOX_REQUEST = 300;
     private static final int CHECKBOX_RESULT = 301;
-
+    public String SHOP_IMG_PATH_RESPONSE = "";//所有图片路径
     private Boolean checked() {
         if (TextUtils.isEmpty(serviceTypeTv.getText().toString().trim())) {
             Toast.makeText(getActivity(), "请选择服务类型", Toast.LENGTH_SHORT).show();
@@ -197,7 +197,7 @@ public class JionDataFragment extends Fragment implements ImagePickerAdapter.OnR
         //拼接参数
         PostRequest okGo = OkGo.post(UrlString.APP_UPLOAD)//
                 .tag(this);//
-        okGo.params("username", "13560102795")
+        okGo.params("username", sharedPreferences.getString("ACCOUNT", "null"))
                 .params("type", "service_introduce_img")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", UrlString.APP_VERSION)
@@ -211,7 +211,7 @@ public class JionDataFragment extends Fragment implements ImagePickerAdapter.OnR
                     public void onSuccess(String s, Call call, Response response) {
                         uploadImgState = true;
                         Log.e("string", s);
-                        String imgPaths = "";//所有图片路径
+
                         try {
                             final JSONObject jsonObject = new JSONObject(s);
                             JSONObject storePaht;
@@ -221,10 +221,10 @@ public class JionDataFragment extends Fragment implements ImagePickerAdapter.OnR
                                 JSONArray fileStoreList = jsonObject.getJSONArray("file_store_list");
                                 for (int i = 0; i < listSize; i++) {
                                     storePaht = (JSONObject) fileStoreList.get(i);
-                                    imgPaths = imgPaths + storePaht.getString("store_path") + "^";
+                                    SHOP_IMG_PATH_RESPONSE = SHOP_IMG_PATH_RESPONSE + storePaht.getString("store_path") + "^";
                                 }
-                                imgPaths = imgPaths.substring(0, imgPaths.length() - 1);
-                                Log.e("imgpaths", imgPaths);
+                                SHOP_IMG_PATH_RESPONSE = SHOP_IMG_PATH_RESPONSE.substring(0, SHOP_IMG_PATH_RESPONSE.length() - 1);
+                                Log.e("imgpaths", SHOP_IMG_PATH_RESPONSE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

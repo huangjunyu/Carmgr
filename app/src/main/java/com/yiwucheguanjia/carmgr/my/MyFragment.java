@@ -98,6 +98,8 @@ public class MyFragment extends Fragment {
             case R.id.my_mycar_rl:
                 break;
             case R.id.my_addcar_img:
+                Intent uploadImageIntent = new Intent(getActivity(),UploadImage.class);
+                startActivity(uploadImageIntent);
                 break;
             case R.id.my_order_rl:
                 break;

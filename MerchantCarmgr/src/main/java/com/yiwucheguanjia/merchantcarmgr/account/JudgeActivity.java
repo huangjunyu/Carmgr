@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -64,6 +65,21 @@ public class JudgeActivity extends AppCompatActivity{
                                 e.printStackTrace();
                             }
 
+                        }
+
+                        @Override
+                        public void onError(Call call, Response response, Exception e) {
+                            Log.e("onerror",call.request().toString());
+                            super.onError(call, response, e);
+
+                        }
+
+                        @Override
+                        public void onAfter(@Nullable String s, @Nullable Exception e) {
+                            super.onAfter(s, e);
+                            Intent mainIntent = new Intent(JudgeActivity.this, MainActivity.class);
+                            startActivity(mainIntent);
+                            finish();
                         }
                     });
         }

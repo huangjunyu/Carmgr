@@ -27,6 +27,15 @@ public class AppointmentBean  {
     private String subscribe_service_name;
     private String subscribe_service_img;
 
+    public String getSubscribe_service_id() {
+        return subscribe_service_id;
+    }
+
+    public void setSubscribe_service_id(String subscribe_service_id) {
+        this.subscribe_service_id = subscribe_service_id;
+    }
+
+    private String subscribe_service_id;
     public String getSubscribe_state() {
         return subscribe_state;
     }

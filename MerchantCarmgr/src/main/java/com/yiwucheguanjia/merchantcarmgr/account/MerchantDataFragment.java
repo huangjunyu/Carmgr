@@ -166,7 +166,7 @@ public class MerchantDataFragment extends Fragment {
         if (images != null && images.size() > 0) {
             OkGo.post(UrlString.APP_UPLOAD)
                     .tag(this)
-                    .params("username", "13560102795")
+                    .params("username", sharedPreferences.getString("ACCOUNT", "null"))
                     .params("type", "shop_license_img")
                     .params("token", sharedPreferences.getString("TOKEN", "null"))
                     .params("version", UrlString.APP_VERSION)

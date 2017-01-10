@@ -3,6 +3,8 @@ package com.yiwucheguanjia.merchantcarmgr.post;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,13 +50,11 @@ public class PostFragment extends Fragment {
     private int POST_MANAGE_RESULT = 202;//发布服务后的结果码
     SharedPreferences sharedPreferences;
     private ArrayList<ServiceItemBean> serviceItemBeenList;
-
+    private PostedAdapter postedAdapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT", getActivity().MODE_PRIVATE);
-//        Log.e("data", sharedPreferences.getString("TOKEN", null));
-
     }
 
     @Nullable
@@ -64,8 +64,6 @@ public class PostFragment extends Fragment {
         postFragmentHomeLl = (LinearLayout) inflater.inflate(R.layout.activity_post_fragment, container, false);
         ButterKnife.bind(this, postFragmentHomeLl);
         getData();
-//        postServiceItemAdapter = new PostServiceItemAdapter(getActivity());
-//        postItemRv.setAdapter(postServiceItemAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         postItemRv.setLayoutManager(linearLayoutManager);
@@ -76,9 +74,8 @@ public class PostFragment extends Fragment {
     void onClickView(View view) {
         switch (view.getId()) {
             case R.id.postfragment_post_tv:
-                Intent postSIntent = new Intent(getActivity(), PostServiceActivity.class);
+                Intent postSIntent = new Intent(getActivity(), PostServiceActivity1.class);
                 startActivity(postSIntent);
-//                getActivity().finish();
                 break;
             default:
                 break;
@@ -94,7 +91,22 @@ public class PostFragment extends Fragment {
             getData();
         }
     }
-
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    serviceItemBeenList.remove(msg.arg1);
+                    postedAdapter.notifyItemRemoved(msg.arg1);
+                    postedAdapter.notifyItemRangeChanged(msg.arg1,serviceItemBeenList.size() - 1);
+                    break;
+                default:
+                    break;
+            }
+            postedAdapter.notifyDataSetChanged();
+        }
+    };
     private void getData() {
 
 
@@ -116,14 +128,21 @@ public class PostFragment extends Fragment {
                                     ServiceItemBean serviceItemBean = new ServiceItemBean();
                                     itemJson = jsonObject.getJSONArray("services_list").getJSONObject(i);
                                     Log.e("getpost", itemJson.getString("img_path"));
+                                    serviceItemBean.setService_id(itemJson.optString("service_id",""));
                                     serviceItemBean.setImg_path(itemJson.getString("img_path"));
                                     serviceItemBean.setState(itemJson.getString("state"));
                                     serviceItemBean.setService_name(itemJson.getString("service_name"));
                                     serviceItemBean.setAccess_times(itemJson.getString("access_times"));
                                     serviceItemBean.setDate_time(itemJson.getString("date_time"));
+                                    serviceItemBean.setDetail(itemJson.getString("detail"));
+                                    serviceItemBean.setScope("scope");
+                                    serviceItemBean.setService_name("service_name");
+                                    serviceItemBean.setPrice("price");
+
                                     serviceItemBeenList.add(serviceItemBean);
+
                                 }
-                                PostedAdapter postedAdapter = new PostedAdapter(getActivity(), serviceItemBeenList);
+                                postedAdapter = new PostedAdapter(getActivity(),handler, serviceItemBeenList);
                                 postItemRv.setAdapter(postedAdapter);
                             }
                         } catch (JSONException e) {

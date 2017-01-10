@@ -105,7 +105,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
         if (!allFragment.isAdded()){
             getChildFragmentManager().beginTransaction().add(R.id.one_view, allFragment).commit();
             currentFragment = allFragment;
-            Log.e("fragment","fragment3");
         }
     }
 
@@ -176,7 +175,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
         //设置标题被点击
         rbButton.setChecked(true);
 
-//        List<HeadTab> headTabs = HeadTabContent.getSelected();
         for (int i = 0; i < 4; i++){
             RadioButton radioButton = (RadioButton) radioGroup.getChildAt(i);
             radioButton.setTextColor(ContextCompat.getColor(getActivity(),R.color.buseness_black));

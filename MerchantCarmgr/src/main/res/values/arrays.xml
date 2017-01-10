@@ -13,4 +13,11 @@
         <item>急救</item>
         <item>用品</item>
     </string-array>
+    <string-array name="stars">
+        <item>1星</item>
+        <item>2星</item>
+        <item>3星</item>
+        <item>4星</item>
+        <item>5星</item>
+    </string-array>
 </resources>

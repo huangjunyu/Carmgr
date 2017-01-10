@@ -111,6 +111,7 @@
         <activity android:name=".my.AddAddressActivity" />
         <activity android:name=".my.RecordTradeActivity" />
         <activity android:name=".my.MyCollectActivity"></activity>
+        <activity android:name=".MainActivity_te"/>
     </application>
 
 </manifest>

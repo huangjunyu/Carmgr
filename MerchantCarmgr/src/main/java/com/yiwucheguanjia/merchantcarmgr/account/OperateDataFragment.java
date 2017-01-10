@@ -178,7 +178,7 @@ public class OperateDataFragment extends Fragment {
     private void postImg(ArrayList<ImageItem> imageItems, final String imgType) {
         OkGo.post(UrlString.APP_UPLOAD)
                 .tag(this)
-                .params("username", "13560102795")
+                .params("username", sharedPreferences.getString("ACCOUNT", "null"))
                 .params("type", imgType)
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
                 .params("version", UrlString.APP_VERSION)

@@ -129,7 +129,9 @@
     <string name="three_star">3星</string>
     <string name="four_star">4星</string>
     <string name="five_star">5星</string>
-
+    <string name="delete">删除</string>
+    <string name="delete_it">你确定要删除该服务吗？</string>
+    <string name="alert">警告！</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
     <array name="home_video_tab">
         <item>全部@dream@0</item>
@@ -140,4 +142,7 @@
         <item>广告@dream@5</item>
         <item>剧情@dream@6</item>
     </array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

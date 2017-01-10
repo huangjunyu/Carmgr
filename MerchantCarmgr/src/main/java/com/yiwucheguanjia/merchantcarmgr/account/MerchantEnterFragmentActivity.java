@@ -163,7 +163,7 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
     * 提交几个fragment填写的数据
     * */
     public void postData(){
-       Log.e("post",operateDataFragment.nameEd.getText().toString());
+       Log.e("post",sharedPreferences.getString("ACCOUNT",null));
         OkGo.post(UrlString.SUBMIT_PARKINFO)
                 .tag(this)
                 .params("username",sharedPreferences.getString("ACCOUNT",null))
@@ -172,7 +172,7 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
                 .params("operator_id_img_a",operateDataFragment.imgPathFrontResponse)
                 .params("operator_id_img_b",operateDataFragment.imgPathReverseResponse)
                 .params("shop_name",merchantFragment.storeNameEd.getText().toString())
-                .params("shop_imgs",merchantFragment.businessLicensePathResponse)
+                .params("shop_imgs",jionFragment.SHOP_IMG_PATH_RESPONSE)
                 .params("shop_area",merchantFragment.areaTv.getText().toString())
                 .params("shop_address",merchantFragment.detailAddrEd.getText().toString())
                 .params("shop_mobile",merchantFragment.servicePhoEd.getText().toString().trim())
@@ -192,6 +192,7 @@ public class MerchantEnterFragmentActivity extends AppCompatActivity {
                     }
                 });
     }
+
     @Override
     protected void onDestroy() { // TODO Auto-generated method stub
         super.onDestroy();

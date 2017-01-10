@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.RelativeLayout;
@@ -15,6 +13,7 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,50 +28,31 @@ public class CustomerAssessActivity extends FragmentActivity {
     protected TabLayout mTabLayout;
     @BindView(R.id.assess_goback_rl)
     RelativeLayout gobackRl;
-    private Fragment fragment1,fragment2,fragment3,fragment4,fragment5;//5星好评的各界面
+    private Fragment[] fragmentCollect = {new OneStarFragment(),new TwoStarFragment(),new ThreeStarFragment(),new FourStarFragment(),new FiveStarFragment()};
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     @BindView(R.id.customer_assess_viewpager)
     protected ViewPager mViewPager;
-
+    private String[] stars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.customer_assess_activity);
         ButterKnife.bind(this);
+        stars = getResources().getStringArray(R.array.stars);
         initView();
-
     }
-
     public void initView(){
-        fragment5 = new FiveStarFragment();
-        fragment4 = new FourStarFragment();
-        fragment3 = new ThreeStarFragment();
-        fragment2 = new TwoStarFragment();
-        fragment1 = new OneStarFragment();
-        fragments.add(fragment1);
-        fragments.add(fragment2);
-        fragments.add(fragment3);
-        fragments.add(fragment4);
-        fragments.add(fragment5);
-
-        //添加页卡标题
-        mTitleList.add("1星");
-        mTitleList.add("2星");
-        mTitleList.add("3星");
-        mTitleList.add("4星");
-        mTitleList.add("5星");
-
+        for (int i = 0;i < 5;i++){
+            fragments.add(fragmentCollect[i]);
+            mTitleList.add(stars[i]);
+            mTabLayout.addTab(mTabLayout.newTab().setText(stars[i]));
+        }
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(0)));//添加tab选项卡
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(1)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(2)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
-
         MyFragmentPagerAdapter myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments,mTitleList);
         mViewPager.setAdapter(myFragmentPagerAdapter);
+        mViewPager.setOffscreenPageLimit(5);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(myFragmentPagerAdapter);
     }

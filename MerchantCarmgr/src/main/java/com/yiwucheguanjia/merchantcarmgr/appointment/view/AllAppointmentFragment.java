@@ -74,6 +74,7 @@ public class AllAppointmentFragment extends Fragment {
                                 for (int i = 0;i < serviceListJN.length();i++){
                                     appointmentBean = new AppointmentBean();
                                     JSONObject serviceItem = serviceListJN.getJSONObject(i);
+                                    appointmentBean.setSubscribe_service_id(serviceItem.optString("subscribe_service_id","null"));
                                     appointmentBean.setSubscribe_state(serviceItem.getString("subscribe_state"));
                                     appointmentBean.setSubscribe_service_total(serviceItem.getString("subscribe_service_total"));
                                     appointmentBean.setSubscribe_price(serviceItem.getString("subscribe_price"));
@@ -86,7 +87,6 @@ public class AllAppointmentFragment extends Fragment {
                                     appointmentBeanArrayList.add(appointmentBean);
                                 }
                                 Log.e("appoint",s);
-
                                 appointAdapter = new AppointAdapter(getActivity(),appointmentBeanArrayList);
                                 itemRv.setAdapter(appointAdapter);
                             }

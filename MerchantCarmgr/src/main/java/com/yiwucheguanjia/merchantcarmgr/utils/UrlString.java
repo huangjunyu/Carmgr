@@ -32,8 +32,10 @@ public class UrlString {
     public static final String APPOINTMENT_MANAGER = "http://112.74.13.51:8080/carmgr/mappgetsubscribe.action";
     //商家基本数据
     public static final String APP_GETSHOPINFO = "http://112.74.13.51:8080/carmgr/mappgetshopinfo.action";
+    //删除服务
+    public static final String APP_DELETESERVICE = "http://112.74.13.51:8080/carmgr/mappdeleteservice.action";
     //临时用户
-    public static final  String USERNAME = "13560102795";
+//    public static final  String USERNAME = "13560102795";
     //临时密码
 //    public static final  String PASSWORD = ""
 }

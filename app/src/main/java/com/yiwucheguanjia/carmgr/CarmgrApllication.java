@@ -11,6 +11,8 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.store.PersistentCookieStore;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.socialize.PlatformConfig;
 import com.yiwucheguanjia.carmgr.city.db.DBManager;
 import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
@@ -19,10 +21,13 @@ import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
  * Created by Administrator on 2016/7/31.
  */
 public class CarmgrApllication extends Application {
-
+    ImageLoaderConfiguration configuration;
     @Override
     public void onCreate() {
         super.onCreate();
+
+        configuration  = ImageLoaderConfiguration.createDefault(this);
+
         dbManager = new DBManager(getApplicationContext());
         dbManager.openDatabase();
         ImagePicker imagePicker = ImagePicker.getInstance();
@@ -132,7 +137,7 @@ public class CarmgrApllication extends Application {
             e.printStackTrace();
 
         }
-
+        ImageLoader.getInstance().init(configuration);
     }
 
     {

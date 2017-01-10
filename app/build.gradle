@@ -70,4 +70,6 @@ dependencies {
     compile 'com.lzy.net:okrx:0.1.0'
     compile 'com.lzy.net:okserver:1.1.0'
     compile files('libs/AMapNavi_1.9.4_AMapLocation_3.1.0_20161201.jar')
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile 'com.android.support:recyclerview-v7:22.2.0'
 }

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -339,6 +340,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 callYiwuFragment = new MyFragment();
                 addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
             } else if (action.equals("action.loginout")) {
+                Log.e("action","logint");
                 MainActivity.this.finish();
             } else if (action.equals("action.appointment")) {
                 if (callYiwuFragment != null) {

@@ -1,6 +1,8 @@
 package com.yiwucheguanjia.merchantcarmgr.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -63,10 +65,11 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     private TimeCount timeCount;
     private Boolean checkBool = true;
     private String serviceUUid;
-
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
         setContentView(R.layout.activity_enter);
         timeCount = new TimeCount(60000, 1000);
@@ -103,6 +106,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     protected void getPhoneNum() {
         if (Tools.getInstance().isMobileNO(phoneNumEdit.getText().toString().trim())) {
             phoneNumStr = phoneNumEdit.getText().toString().trim();
+            Log.e("phone",phoneNumStr);
             final String uuid = UUID.randomUUID().toString();
             OkGo.post(UrlString.SEND_CODE_URL)
                     .tag(this)
@@ -137,11 +141,6 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     }
 
     private void checkData(){
-//        Intent mainIntent = new Intent(EnterRegisterActivity.this,MerchantEnterFragmentActivity.class);
-//        startActivity(mainIntent);
-//        EnterRegisterActivity.this.finish();
-
-
         //如果输入的账号与验证的手机号码相同
         if (TextUtils.equals(accountEdit.getText().toString(),phoneNumStr)){
             //如果密码里面不包含空格
@@ -159,15 +158,11 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
                                 Log.e("sussess",s);
-
-
-
-
                                 Intent intent = new Intent();
                                 intent.setClass(EnterRegisterActivity.this, MerchantEnterFragmentActivity.class);//从一个activity跳转到另一个activity
                                 intent.putExtra("password", passwordEdit.getText().toString().trim());//给intent添加额外数据，key为“str”,key值为"Intent Demo"
                                 startActivity(intent);
-
+                                setSharePrefrence(phoneNumStr);
                                 EnterRegisterActivity.this.finish();
                             }
 
@@ -202,6 +197,13 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
         }
     }
 
+    private void setSharePrefrence(String account) {
+        SharedPreferences p = getSharedPreferences("CARMGR_MERCHANT", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = p.edit();
+        edit.putString("ACCOUNT", account);
+        edit.putString("VERSION",UrlString.APP_VERSION);//登录过这个APP之后的标记
+        edit.commit();
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

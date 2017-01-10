@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
+
 import com.yiwucheguanjia.merchantcarmgr.appointment.view.AppointmentFragment;
 import com.yiwucheguanjia.merchantcarmgr.my.view.MyFragment;
 import com.yiwucheguanjia.merchantcarmgr.post.PostFragment;
@@ -39,13 +40,11 @@ import rx.Subscription;
  * @author
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
-
     // 以下四个是底部控件
     private RelativeLayout workbenchRl;
     private RelativeLayout commercialLayout;
     private RelativeLayout progressLayout;
     private RelativeLayout callYiwuLayout;
-
     // 以下四个是底部标签的文本
     private TextView homeTxt;
     private TextView commercialTxt;

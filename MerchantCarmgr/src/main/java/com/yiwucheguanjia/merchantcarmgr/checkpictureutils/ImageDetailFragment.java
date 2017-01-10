@@ -36,7 +36,6 @@ public class ImageDetailFragment extends Fragment {
     private ImageView mImageView;
     private ProgressBar progressBar;
     private PhotoViewAttacher mAttacher;
-
     public static ImageDetailFragment newInstance(String imageUrl) {
         final ImageDetailFragment f = new ImageDetailFragment();
 
@@ -78,23 +77,21 @@ public class ImageDetailFragment extends Fragment {
                 .into(new ImageViewTarget<GlideDrawable>(mImageView) {
                     @Override
                     protected void setResource(GlideDrawable resource) {
-                        Log.e("nwq","nnnnaaa");
                         mImageView.setImageDrawable(resource);
 
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        Log.e("nwq","nnnnaa888a");
                         super.onLoadFailed(e, errorDrawable);
                     }
 
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         super.onResourceReady(resource, glideAnimation);
-                        Log.e("kwkq","naewq");
+                        Log.e("kwkq", "naewq");
                         mAttacher.update();
-                        
+
                     }
                 });
         return v;

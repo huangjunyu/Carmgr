@@ -3,12 +3,20 @@ package com.yiwucheguanjia.merchantcarmgr;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.yiwucheguanjia.merchantcarmgr.city.db.DBManager;
 import com.yiwucheguanjia.merchantcarmgr.utils.GlideImageLoader;
 
@@ -47,8 +55,11 @@ public class MerchantCarmgrApplication extends Application {
 
         //必须调用初始化
         OkGo.init(this);
+        ImageLoader.getInstance().init(configuration);
+
 
     }
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
 
 
 

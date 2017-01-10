@@ -1,91 +1,100 @@
 package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lzy.okgo.OkGo;
-import com.yiwucheguanjia.merchantcarmgr.R;
-import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.checkpictureutils.ItemEntity;
-import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
-import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RateAdapter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Response;
-
 /**
- * Created by Administrator on 2016/11/17.
+ * 若把初始化内容放到initData实现,就是采用Lazy方式加载的Fragment
+ * 若不需要Lazy加载则initData方法内留空,初始化内容放到initViews即可
+ * -
+ * -注1: 如果是与ViewPager一起使用，调用的是setUserVisibleHint。
+ * ------可以调用mViewPager.setOffscreenPageLimit(size),若设置了该属性 则viewpager会缓存指定数量的Fragment
+ * -注2: 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
+ * -注3: 针对初始就show的Fragment 为了触发onHiddenChanged事件 达到lazy效果 需要先hide再show
  */
 public abstract class AssessBaseFragment extends Fragment {
-    @BindView(R.id.star_rv)
-    RecyclerView recyclerView;
-    RateAdapter rateAdapter;
-    private SharedPreferences sharedPreferences;
-    LinearLayoutManager linearLayoutManager;
-    //Item数据实体集合
-    private ArrayList<ItemEntity> itemEntities;
 
-    @Nullable
+    protected String fragmentTitle;             //fragment标题
+    private boolean isVisible;                  //是否可见状态
+    private boolean isPrepared;                 //标志位，View已经初始化完成。
+    private boolean isFirstLoad = true;         //是否第一次加载
+    protected LayoutInflater inflater;
+    protected String param;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.fragment_star, container, false);
-        ButterKnife.bind(this, homeView);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        getData();
-        return homeView;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.inflater = inflater;
+        isFirstLoad = true;
+        View view = initView(inflater, container, savedInstanceState);
+        isPrepared = true;
+        lazyLoad();
+        return view;
     }
 
-    protected abstract int getStar();
+    /** 如果是与ViewPager一起使用，调用的是setUserVisibleHint */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
-    private void getData() {
+    /**
+     * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
+     * 若是初始就show的Fragment 为了触发该事件 需要先hide再show
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
-        itemEntities = new ArrayList<ItemEntity>();
-        final ArrayList<String> urls_1 = new ArrayList<String>();
-        urls_1.add("http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg");
-        sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT", getActivity().MODE_PRIVATE);
-        OkGo.post(UrlString.GET_ADVISE)
-                .tag(this)
-                .params("username", "13560102795")
-                .params("token", sharedPreferences.getString("TOKEN", "null"))
-                .params("version", UrlString.APP_VERSION)
-                .execute(new MyStringCallback(getActivity(), getResources().getString(R.string.loading)) {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            String username = jsonObject.getString("username");
-                            String content = jsonObject.getString("advise_content");
-                            String time = jsonObject.getString("advise_date");
-                            String nickName = jsonObject.getString("custom_username");
-                            int star = jsonObject.getInt("advise_star");
-                            ItemEntity entity = new ItemEntity(urls_1, content, nickName, time);
-                            itemEntities.add(entity);
-                            //筛选后的数据传给adapter处理
-                            rateAdapter = new RateAdapter(getActivity(), itemEntities, getStar());
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            recyclerView.setAdapter(rateAdapter);
-                        } catch (JSONException e) {
+    protected void onVisible() {
+        lazyLoad();
+    }
 
-                            e.printStackTrace();
-                        }
-                        Log.e("ssssssss", s);
-                    }
-                });
+    protected void onInvisible() {
+    }
+
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible || !isFirstLoad) {
+            return;
+        }
+        isFirstLoad = false;
+        initData();//如果是第一次加载的话，初始化数据
+    }
+
+    protected abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+
+    protected abstract void initData();
+
+    public String getTitle() {
+        return TextUtils.isEmpty(fragmentTitle) ? "" : fragmentTitle;
+    }
+
+    public void setTitle(String title) {
+
+        fragmentTitle = title;
+    }
+    public void setParam(String param){
+        this.param = param;
+    }
+    public String getParam(){
+        return TextUtils.isEmpty(this.param) ? "头条" : this.param;
     }
 }

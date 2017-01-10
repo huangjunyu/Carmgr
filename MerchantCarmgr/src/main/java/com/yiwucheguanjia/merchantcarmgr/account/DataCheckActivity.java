@@ -25,10 +25,10 @@ public class DataCheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_check);
         ButterKnife.bind(this);
     }
-    @OnClick({R.id.type_bar_rl})
+    @OnClick({R.id.type_checkbox_goback_rl})
     void click(View view){
         switch (view.getId()){
-            case R.id.type_bar_rl:
+            case R.id.type_checkbox_goback_rl:
                 Intent mainIntent = new Intent(DataCheckActivity.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();

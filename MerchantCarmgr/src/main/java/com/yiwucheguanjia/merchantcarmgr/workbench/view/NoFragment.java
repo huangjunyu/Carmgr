@@ -62,7 +62,6 @@ public class NoFragment extends Fragment {
                 .execute(new MyStringCallback(getActivity(), getResources().getString(R.string.loading)) {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("complain", s);
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
@@ -70,7 +69,6 @@ public class NoFragment extends Fragment {
                                 rateImgBean.setComplaint_content(jsonObject.getString("complaint_content"));
                                 rateImgBean.setCustom_username(jsonObject.getString("custom_username"));
                                 rateImgBeens.add(rateImgBean);
-                                Log.e("comn", ",ww");
                                 complaintAdapter = new ComplaintAdapter(getActivity(), rateImgBeens);
                                 recyclerView.setAdapter(complaintAdapter);
                             }

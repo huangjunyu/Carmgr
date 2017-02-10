@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/enter_rootview_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/enter_data_operator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/gray_default"
+            android:text="@string/operator_name" />
+
+        <EditText
+            android:id="@+id/enter_data_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/enter_data_operator"
+            android:background="@color/white"
+            android:hint="@string/id_name"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/enter_data_id_car_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/gray_default"
+            android:text="@string/id_num" />
+
+        <EditText
+            android:id="@+id/enter_data_id_car_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/enter_data_id_car_tv"
+            android:background="@color/white"
+            android:hint="@string/input_id"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="20dp"
+        android:textColor="@color/gray_default"
+        android:text="@string/id_img" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="40dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/enter_data_id_front_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/gray_default"
+                android:text="@string/id_front" />
+
+            <ImageView
+                android:id="@+id/enter_data_id_img_front"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_below="@+id/enter_data_id_front_tv"
+                android:layout_marginBottom="20dp"
+                android:background="@color/gray" />
+
+            <!--<Button-->
+                <!--android:id="@+id/enter_data_id_fr_btn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/enter_data_id_img_front"-->
+                <!--android:background="@color/orange"-->
+                <!--android:text="@string/upload"-->
+                <!--android:textColor="@color/white" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="40dp"
+
+            >
+
+            <TextView
+                android:id="@+id/enter_data_id_reverse_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/gray_default"
+                android:text="@string/id_reverse" />
+
+            <ImageView
+                android:id="@+id/enter_data_id_img_reverse"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_below="@+id/enter_data_id_reverse_tv"
+                android:layout_marginBottom="20dp"
+                android:background="@color/gray" />
+
+            <!--<Button-->
+                <!--android:id="@+id/enter_data_id_rv_btn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/enter_data_id_img_reverse"-->
+                <!--android:background="@color/orange"-->
+                <!--android:text="@string/upload"-->
+                <!--android:textColor="@color/white" />-->
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+    <Button
+        android:id="@+id/enter_data_id_submit_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/orange"
+        android:text="@string/upload"
+        android:textColor="@color/white" />
+        <Button
+            android:id="@+id/enter_data_next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/orange"
+            android:text="@string/next"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>

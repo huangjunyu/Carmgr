@@ -25,8 +25,6 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/11/1.
  */
 public class CashDepositActivity extends AppCompatActivity {
-    @BindView(R.id.deposit_goback_imgbtn)
-    ImageButton gobackImgBtn;
     @BindView(R.id.deposit_cash_tv)
     TextView depositCashTv;
     @BindView(R.id.deposit_recharge_Btn)
@@ -39,7 +37,7 @@ public class CashDepositActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.activity_cash_deposit);
         ButterKnife.bind(this);
         try{
@@ -51,9 +49,9 @@ public class CashDepositActivity extends AppCompatActivity {
         depositCashTv.setText(depositCashStr);
     }
 
-    @OnClick({R.id.deposit_goback_imgbtn})void onClick(View view){
+    @OnClick({R.id.deposit_goback_rl})void onClick(View view){
         switch (view.getId()){
-            case R.id.deposit_goback_imgbtn:
+            case R.id.deposit_goback_rl:
                 finish();
                 break;
             case R.id.deposit_cash_tv:

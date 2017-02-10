@@ -40,10 +40,8 @@ public class OneStarFragment extends AssessBaseFragment {
     LinearLayoutManager linearLayoutManager;
     //Item数据实体集合
     private ArrayList<ItemEntity> itemEntities;
-
     private View view;
     public OneStarFragment() {
-        Log.e("ssssssss", "world");
     }
 
     @Override
@@ -57,8 +55,6 @@ public class OneStarFragment extends AssessBaseFragment {
     protected void initData() {
         getData();
     }
-
-
     //    protected abstract int getStar();
     Handler handler = new Handler(){
         @Override
@@ -67,7 +63,6 @@ public class OneStarFragment extends AssessBaseFragment {
         }
     };
     private void getData() {
-
         itemEntities = new ArrayList<ItemEntity>();
         final ArrayList<String> urls_1 = new ArrayList<String>();
         urls_1.add("http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg");

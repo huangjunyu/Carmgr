@@ -13,7 +13,6 @@ import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,8 +36,8 @@ public class CustomerAssessActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
-        setContentView(R.layout.customer_assess_activity);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
+        setContentView(R.layout.activity_customer_assess);
         ButterKnife.bind(this);
         stars = getResources().getStringArray(R.array.stars);
         initView();

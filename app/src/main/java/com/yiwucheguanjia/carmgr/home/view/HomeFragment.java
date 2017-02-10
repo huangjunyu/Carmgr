@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
-import com.yiwucheguanjia.carmgr.MainActivity_te;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
@@ -388,18 +387,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_personal_rl:
-//                if (sharedPreferences.getString("ACCOUNT", null) != null) {
+                if (sharedPreferences.getString("ACCOUNT", null) != null) {
 //                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
 //                    getActivity().startActivity(intentPersonal);
-//                } else {
-//                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
-//                    getActivity().startActivityForResult(personalIntent, 1);
-//                }
-//                ;
-//                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
-//                getActivity().startActivityForResult(personalIntent, 1);
-                Intent main_te = new Intent(getActivity(), MainActivity_te.class);
-                getActivity().startActivity(main_te);
+                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
+                getActivity().startActivityForResult(personalIntent, 1);
+                } else {
+                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
+                    getActivity().startActivityForResult(personalIntent, 1);
+                }
                 break;
             case R.id.home_position_rl:
                 Intent cityIntent = new Intent(getActivity(), CityActivity.class);

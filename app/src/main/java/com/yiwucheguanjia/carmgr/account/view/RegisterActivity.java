@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -44,7 +45,7 @@ import okhttp3.Call;
  */
 public class RegisterActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private String phoneNumString;
-    private RippleView gobackImgRpw;
+    private RelativeLayout gobackRl;
     private static String usernameString = null;
     private static String passwordString = null;
     private RelativeLayout inputPhoneNumRl;
@@ -73,16 +74,13 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),50);
         setContentView(R.layout.activity_register);
         initView();
     }
 
     private void initView() {
-        gobackImgRpw = (RippleView) findViewById(R.id.register_goback_rpw);
+        gobackRl = (RelativeLayout) findViewById(R.id.register_goback_rl);
         register_number_txt = (TextView) findViewById(R.id.register_number_txt);
         register_first_img = (ImageView) findViewById(R.id.register_first_img);
         register_code_txt = (TextView) findViewById(R.id.register_code_txt);
@@ -97,7 +95,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
         register_button = (Button) findViewById(R.id.register_button);
         registerCb = (CheckBox) findViewById(R.id.register_agree_check);
         register_button.setOnClickListener(this);
-        gobackImgRpw.setOnClickListener(this);
+        gobackRl.setOnClickListener(this);
         userAgreement.setOnClickListener(this);
         registerCb.setOnCheckedChangeListener(this);
     }
@@ -248,7 +246,7 @@ public class RegisterActivity extends FragmentActivity implements View.OnClickLi
             case R.id.register_button:
                 getPhoneNum();
                 break;
-            case R.id.register_goback_rpw:
+            case R.id.register_goback_rl:
                 this.finish();
                 break;
             case R.id.yiwu_agreement_txt:

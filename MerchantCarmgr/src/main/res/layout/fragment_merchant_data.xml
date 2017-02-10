@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/merchant_operator"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/gray_default"
+                    android:text="@string/stor_name" />
+
+                <EditText
+                    android:id="@+id/merchant_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/merchant_operator"
+                    android:background="@color/white"
+                    android:hint="@string/can_not_reset"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/merchant_id_car_tv"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/gray_default"
+                    android:text="@string/local" />
+
+                <TextView
+                    android:id="@+id/merchant_area_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/merchant_id_car_tv"
+                    android:background="@color/white"
+                    android:hint="@string/select"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/merchant_addr"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/gray_default"
+                    android:text="@string/detail_addr" />
+
+                <EditText
+                    android:id="@+id/merchant_detail_addr_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/merchant_addr"
+                    android:background="@color/white"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/merchant_service_pho_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/gray_default"
+                    android:text="@string/service_phone" />
+
+                <EditText
+                    android:id="@+id/merchant_service_pho_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/merchant_service_pho_tv"
+                    android:background="@color/white"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:inputType="phone"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/gray_default"
+                android:text="@string/business_license" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/merchant_license_img"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/gray" />
+
+                <Button
+                    android:id="@+id/merchant_upload_btn"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/merchant_license_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/orange"
+                    android:text="@string/upload"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/merchant_next_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/orange"
+                    android:text="@string/next"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

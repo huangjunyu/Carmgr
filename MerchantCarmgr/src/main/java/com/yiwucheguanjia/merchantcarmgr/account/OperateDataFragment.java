@@ -111,7 +111,7 @@ public class OperateDataFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        operateDataView = (LinearLayout) inflater.inflate(R.layout.activity_enter_data, null, false);
+        operateDataView = (LinearLayout) inflater.inflate(R.layout.fragment_operate_data, null, false);
         Log.e("jwk", "jjwkwkw44");
         ButterKnife.bind(this, operateDataView);
         return operateDataView;

@@ -3,6 +3,7 @@ package com.yiwucheguanjia.carmgr.progress;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -161,6 +162,7 @@ public class PageRecyclerView extends RecyclerView {
                 // 修改指示器选中项
                 mIndicatorView.setSelectedPage(currentPage - 1);
                 slideDistance = 0;
+                Log.e("currentPage",currentPage + "");
                 break;
         }
         super.onScrollStateChanged(state);
@@ -254,6 +256,7 @@ public class PageRecyclerView extends RecyclerView {
 
         @Override
         public int getItemCount() {
+            Log.e("ttttitle", ",ew"+itemCount);
             return itemCount;
         }
 
@@ -341,7 +344,6 @@ public class PageRecyclerView extends RecyclerView {
 
         void onItemClickListener(View view, int position);
         void onItemLongClickListener(View view, int position);
-
     }
 
 }

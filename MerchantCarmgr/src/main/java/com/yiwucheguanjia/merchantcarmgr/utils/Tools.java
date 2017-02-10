@@ -2,7 +2,9 @@ package com.yiwucheguanjia.merchantcarmgr.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Display;
@@ -33,6 +35,17 @@ public class Tools {
         }
         return instance;
     }
+
+
+    public String getVersionName(Activity activity) {
+        try {
+            return activity.getPackageManager().getPackageInfo(activity.getPackageName(),0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return UrlString.APP_VERSION;
+    }
+
     /***
      * 判断 String 是否是 int
      *

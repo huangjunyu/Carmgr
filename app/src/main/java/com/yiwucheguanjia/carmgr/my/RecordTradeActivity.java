@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.my.controller.OrderAdapter;
 import com.yiwucheguanjia.carmgr.utils.RecyclerViewDivider;
 
 import butterknife.BindView;
@@ -19,6 +21,7 @@ public class RecordTradeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this,ContextCompat.getColor(this,R.color.white),50);
         setContentView(R.layout.activity_record_trade);
         ButterKnife.bind(this);
         orderAdapter = new OrderAdapter(RecordTradeActivity.this,null);

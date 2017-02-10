@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">MerchantCarmgr</string>
+    <string name="app_name">易务车宝商家版</string>
+    <string name="user_agreement">用户协议</string>
+    <string name="must_agreet">您必须同意《易务车宝平台用户协议》才能注册使用</string>
     <string name="login">登录</string>
     <string name="enter_yiwubao">入驻易务宝</string>
     <string name="input_account">请输入账号</string>
@@ -13,8 +15,8 @@
     <string name="enter">入驻</string>
     <string name="send_code">发送验证码</string>
     <string name="geting_code">正在获验证码...</string>
-    <string name="operator_name">经营者姓名</string>
-    <string name="id_img">身份证照片</string>
+    <string name="operator_name">经营者姓名：</string>
+    <string name="id_img">身份证照片：</string>
     <string name="id_front">身份证正面</string>
     <string name="id_reverse">身份证反面</string>
     <string name="upload">上传</string>
@@ -23,20 +25,21 @@
     <string name="merchant_data">商家信息</string>
     <string name="join_data">加盟信息</string>
     <string name="id_name">填写身份证上的姓名</string>
-    <string name="id_num">身份证号码</string>
-    <string name="stor_name">店面名称</string>
+    <string name="id_num">身份证号码：</string>
+    <string name="input_id">请填写身份证号码</string>
+    <string name="stor_name">店面名称：</string>
     <string name="can_not_reset">一旦填写不可修改</string>
-    <string name="local">所在地区</string>
+    <string name="local">所在地区：</string>
     <string name="select">选择</string>
-    <string name="detail_addr">详细地址</string>
-    <string name="service_phone">咨询/服务电话</string>
-    <string name="business_license">营业执照</string>
-    <string name="stor_service_type">店面服务类型</string>
-    <string name="stor_intro">店面简介</string>
+    <string name="detail_addr">详细地址：</string>
+    <string name="service_phone">咨询/服务电话：</string>
+    <string name="business_license">营业执照：</string>
+    <string name="stor_service_type">店面服务类型：</string>
+    <string name="stor_intro">店面简介：</string>
     <string name="input">在此输入...</string>
     <string name="stor_img">店面图片</string>
     <string name="readed_and_agree">我已阅读并同意</string>
-    <string name="yiwu_agreenment">《易车易宝平台用户协定》</string>
+    <string name="yiwu_agreenment">《易车易宝平台用户协议》</string>
     <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
     <string name="notifyTitle">提示</string>
     <string name="setting">设置</string>
@@ -72,6 +75,8 @@
     <string name="service_limits">服务范围</string>
     <string name="submit_service">发布</string>
     <string name="edit">编辑</string>
+    <string name="done">已完成</string>
+    <string name="going">进行中</string>
     <string name="delte">删除</string>
     <string name="share">分享</string>
     <string name="access">已被浏览</string>
@@ -98,7 +103,7 @@
     <string name="three_star_assess">3星评价</string>
     <string name="two_star_assess">2星评价</string>
     <string name="one_star_assess">1星评价</string>
-    <string name="order_number">订单号:</string>
+    <string name="order_number">订单号：</string>
     <string name="refuse">拒绝</string>
     <string name="accept">接收</string>
     <string name="complaint_deal">投诉处理</string>
@@ -120,6 +125,7 @@
     <string name="hint">提示</string>
     <string name="post_fail">请求数据失败，请稍候重试</string>
     <string name="login_fail">登录失败，请检查账号或密码</string>
+    <string name="do_not_entry">你还没入驻或申请入驻尚未通过审核</string>
     <string name="analysis_fail">数据解析失败</string>
     <string name="i_know">知道了</string>
     <string name="loading">加载中...</string>
@@ -133,15 +139,6 @@
     <string name="delete_it">你确定要删除该服务吗？</string>
     <string name="alert">警告！</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
-    <array name="home_video_tab">
-        <item>全部@dream@0</item>
-        <item>视频@dream@1</item>
-        <item>声音@dream@2</item>
-        <item>图片@dream@3</item>
-        <item>段子@dream@4</item>
-        <item>广告@dream@5</item>
-        <item>剧情@dream@6</item>
-    </array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

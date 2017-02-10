@@ -4,6 +4,8 @@ package com.yiwucheguanjia.carmgr.utils;
  * Created by Administrator on 2016/6/27.
  */
 public class UrlString {
+    //APP版本号
+    public static final String APP_VERSION = "1.0";
     public static final String APPKEY = "1442cff959563";
     public static final String APP_SECRET = "0c0b28ae632b7c05021da8881af48aac";
     //注册接口
@@ -33,6 +35,14 @@ public class UrlString {
     //APP商家请求
     public static final  String APPGETMERCHANTS = "http://112.74.13.51:8080/carmgr/appgetmerchants.action";
     public static final  String APPADVISE = "http://112.74.13.51:8080/carmgr/appadvise.action";
-    //APP版本号
-    public static final String APP_VERSION = "1.0";
+    //APP添加车辆信息请求
+    public static final  String APP_ADD_CAR_INFO = "http://112.74.13.51:8080/carmgr/appaddcarinfo.action";
+    //APP用户预约服务请求
+    public static final String APP_APPOINTMENT_SERVICE = "http://112.74.13.51:8080/carmgr/appsubscribeservice.action";
+    //APP用户获取服务的详细信息
+    public static final String APP_GETMERCHANTS_SERVICE = "http://112.74.13.51:8080/carmgr/appgetmerchantsservice.action";
+    //APP用户获取个人信息请求
+    public static final String APP_GETPRIVATE = "http://112.74.13.51:8080/carmgr/appgetprivate.action";
+    //APP获取车辆信息请求
+    public static final String APP_GET_CAR_INFO = "http://112.74.13.51:8080/carmgr/appgetcarinfo.action";
 }

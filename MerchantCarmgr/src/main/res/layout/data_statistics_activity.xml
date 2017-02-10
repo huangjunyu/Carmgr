@@ -18,9 +18,9 @@
             android:paddingLeft="10dp">
 
             <ImageButton
-                android:id="@+id/setting_goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:clickable="false"
                 android:layout_alignParentLeft="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
@@ -76,12 +76,16 @@
                         android:id="@+id/data_total_appoin_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
+                        android:textSize="16sp"
                         android:text="@string/appointment_total" />
 
                     <TextView
                         android:id="@+id/data_total_appoin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_total_appoin_tv"
                         tools:text="1000" />
 
@@ -89,6 +93,10 @@
                         android:id="@+id/data_total_read_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/buseness_black"
+                        android:textSize="16sp"
                         android:layout_below="@+id/data_total_appoin"
                         android:text="@string/read_total"/>
 
@@ -96,6 +104,7 @@
                         android:id="@+id/data_total_read"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_total_read_tv"
                         tools:text="1000" />
 
@@ -103,6 +112,10 @@
                         android:id="@+id/data_total_contrack_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/buseness_black"
+                        android:textSize="16sp"
                         android:layout_below="@+id/data_total_read"
                         android:text="@string/contract_total" />
 
@@ -110,6 +123,7 @@
                         android:id="@+id/data_total_contrack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_total_contrack_tv"
                         tools:text="1000" />
 
@@ -157,12 +171,15 @@
                         android:id="@+id/data_today_point_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
                         android:text="@string/appoint_today" />
 
                     <TextView
                         android:id="@+id/data_today_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_today_point_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -177,12 +194,15 @@
                         android:id="@+id/data_month_point_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
                         android:text="@string/appoint_month" />
 
                     <TextView
                         android:id="@+id/data_month_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_month_point_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -213,12 +233,15 @@
                         android:id="@+id/data_today_order_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
                         android:text="@string/order_today" />
 
                     <TextView
                         android:id="@+id/data_today_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_today_order_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -233,12 +256,15 @@
                         android:id="@+id/data_month_order_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
                         android:text="@string/order_today" />
 
                     <TextView
                         android:id="@+id/data_month_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_month_order_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -261,12 +287,15 @@
                         android:id="@+id/data_withdraw_total_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/buseness_black"
                         android:text="@string/withdraw_total" />
 
                     <TextView
                         android:id="@+id/data_withdraw_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_withdraw_total_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -281,6 +310,8 @@
                         android:id="@+id/data_account_balance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
                         android:text="@string/account_balance"
                         tools:text="账户余额" />
 
@@ -288,6 +319,7 @@
                         android:id="@+id/data_account_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_account_balance_tv"
                         tools:text="1000.00" />
                 </RelativeLayout>
@@ -319,12 +351,15 @@
                         android:id="@+id/data_five_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
                         android:text="@string/five_star_assess" />
 
                     <TextView
                         android:id="@+id/data_five_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_five_star_tv"
                         tools:text="1000" />
 
@@ -332,6 +367,9 @@
                         android:id="@+id/data_three_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
                         android:layout_below="@+id/data_five_star"
                         android:text="@string/three_star_assess" />
 
@@ -339,6 +377,7 @@
                         android:id="@+id/data_three_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_three_star_tv"
                         tools:text="1000" />
 
@@ -346,6 +385,9 @@
                         android:id="@+id/data_one_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
                         android:layout_below="@+id/data_three_star"
                         android:text="@string/one_star_assess" />
 
@@ -353,6 +395,7 @@
                         android:id="@+id/data_one_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_one_star_tv"
                         tools:text="1000" />
                 </RelativeLayout>
@@ -368,12 +411,15 @@
                         android:id="@+id/data_four_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
                         android:text="@string/four_star_assess" />
 
                     <TextView
                         android:id="@+id/data_four_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_four_star_tv"
                         tools:text="1000" />
 
@@ -381,6 +427,9 @@
                         android:id="@+id/data_two_star_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/buseness_black"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
                         android:layout_below="@+id/data_four_star"
                         android:text="@string/two_star_assess" />
 
@@ -388,6 +437,7 @@
                         android:id="@+id/data_two_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/data_two_star_tv"
                         tools:text="1000" />
                 </RelativeLayout>

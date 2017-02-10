@@ -33,7 +33,9 @@
                 android:layout_below="@+id/my_header_img"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="@string/stor_name" />
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                tools:text="@string/stor_name" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -54,6 +56,8 @@
                 android:id="@+id/myft_order_week_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/buseness_black"
+                android:textSize="16sp"
                 android:layout_centerHorizontal="true"
                 android:text="@string/order_week" />
 
@@ -81,6 +85,8 @@
                 android:id="@+id/myfragment_income_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/buseness_black"
+                android:textSize="16sp"
                 android:layout_centerHorizontal="true"
                 android:text="@string/incom_week" />
 
@@ -239,6 +245,7 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/go" />
     </RelativeLayout>

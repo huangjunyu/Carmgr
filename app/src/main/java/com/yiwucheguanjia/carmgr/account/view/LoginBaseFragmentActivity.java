@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.controller.MyFragmentPagerAdapter;
 
@@ -32,6 +34,7 @@ public class LoginBaseFragmentActivity extends FragmentActivity implements View.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_fragment);
+        StatusBarUtil.setColor(LoginBaseFragmentActivity.this, ContextCompat.getColor(LoginBaseFragmentActivity.this,R.color.white),50);
         ButterKnife.bind(this);
         mTabLayout = (TabLayout)findViewById(R.id.complain_deal_tl);
         mViewPager = (ViewPager)findViewById(R.id.complain_deal_viewpager);

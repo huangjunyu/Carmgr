@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.my.controller.AddressAdapter;
 import com.yiwucheguanjia.carmgr.utils.RecyclerViewDivider;
 
 import butterknife.BindView;

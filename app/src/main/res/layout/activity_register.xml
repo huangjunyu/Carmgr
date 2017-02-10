@@ -6,18 +6,15 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:paddingTop="20dp"
         android:background="@color/white"
         >
-        <com.andexert.library.RippleView
-            android:id="@+id/register_goback_rpw"
+        <RelativeLayout
+            android:id="@+id/register_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:paddingLeft="20dp"
-            app:rv_color="@color/gray_default"
-            app:rv_rippleDuration="200"
-            app:rv_type="rectangle">
+            android:paddingLeft="20dp">
         <ImageButton
             android:id="@+id/register_goback_imgbtn"
             android:layout_width="15dp"
@@ -27,7 +24,7 @@
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:src="@mipmap/register_left_pre" />
-        </com.andexert.library.RippleView>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/add_addr_title_tv"

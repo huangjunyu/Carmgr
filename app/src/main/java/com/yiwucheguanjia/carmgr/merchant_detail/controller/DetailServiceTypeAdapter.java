@@ -5,8 +5,9 @@ package com.yiwucheguanjia.carmgr.merchant_detail.controller;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.home.controller.PicassoOnScrollListener;
 import com.yiwucheguanjia.carmgr.merchant_detail.model.ServiceTypeItemBean;
-import com.yiwucheguanjia.carmgr.merchant_detail.view.MerchantDetail;
 import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,10 +36,11 @@ public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailService
     private ArrayList<ServiceTypeItemBean> recyclerBeens;
     private Context context;
     private SharedPreferences sharedPreferences;
-
-    public DetailServiceTypeAdapter(Context context, ArrayList<ServiceTypeItemBean> recyclerBeens) {
+    private Handler handler;
+    public DetailServiceTypeAdapter(Context context, ArrayList<ServiceTypeItemBean> recyclerBeens, Handler handler) {
         this.recyclerBeens = recyclerBeens;
         this.context = context;
+        this.handler = handler;
         mInflater = LayoutInflater.from(context);
         sharedPreferences = context.getSharedPreferences("CARMGR", context.MODE_PRIVATE);
     }
@@ -64,13 +65,12 @@ public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailService
         return viewHolder;
     }
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         final ServiceTypeItemBean merchantItemBean = recyclerBeens.get(position);
         viewHolder.merchantDistance.setText(merchantItemBean.getDetailMerchantDistance());
         viewHolder.merchantArea.setText(merchantItemBean.getDetailMerchantAddr());
         viewHolder.merchantInstroduce.setText(merchantItemBean.getDetailMerchantIntroduce());
-//        myItemViewHolder.merchantStars.setText(merchantItemBean.getMerchantStars() + activity.getResources().getText(R.string.point).toString());
-        viewHolder.merchantName.setText(merchantItemBean.getDetailMerchantName());
+        viewHolder.merchantName.setText(merchantItemBean.getServiceName());
         viewHolder.merchantRoad.setText(merchantItemBean.getDetailMerchantRoad());
         String numberStr = merchantItemBean.getDetailMerchantStarsStr();
         selectStar(numberStr,viewHolder.merchantStarImg);
@@ -80,9 +80,10 @@ public class DetailServiceTypeAdapter extends RecyclerView.Adapter<DetailService
         viewHolder.itemLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
-//                merchantDetailInten.putExtra("merchantName",merchantItemBean.getDetailMerchantName());
-//                context.startActivity(merchantDetailInten);
+                Message message = Message.obtain();
+                message.what = 0;
+                message.arg1 = position;
+                handler.sendMessage(message);
             }
         });
     }

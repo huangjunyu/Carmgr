@@ -16,7 +16,7 @@
             android:padding="5dp"
             android:text="@string/post"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
         <TextView
             android:id="@+id/postfragment_post_tv"
             android:layout_width="wrap_content"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/item_service_first_rang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,32 +14,33 @@
         >
         <TextView
             android:id="@+id/item_service_title"
-            android:layout_weight="5"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="16sp"
             tools:text="标题"/>
         <TextView
             android:id="@+id/item_service_price"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
             tools:text="价格"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <TextView
         android:id="@+id/item_service_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         android:layout_below="@+id/item_service_first_rang"
         tools:text="内容"
         android:background="@color/white"
         />
-    <!--<TextView-->
-        <!--android:id="@+id/text"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:background="@color/white"-->
-        <!--android:gravity="center" />-->
-
 </RelativeLayout>

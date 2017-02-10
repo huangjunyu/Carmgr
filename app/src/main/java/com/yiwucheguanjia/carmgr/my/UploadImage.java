@@ -8,14 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.my.controller.ImagePickerAdapter;
 import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
     private ImageView uploadPolicyImg;//保险单
     private Button uploadPolicyBtn;//上传保险
     private Button nextBtn;//下一步
-    private RippleView gobackrpw;
+    private RelativeLayout gobackrl;
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList;
     private ImagePicker imagePicker;
@@ -45,7 +46,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
         StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),1);
         setContentView(R.layout.activity_uploadimage);
         initView();
-        gobackrpw.setOnClickListener(this);
+        gobackrl.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
     }
 
@@ -60,7 +61,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
         uploadPolicyImg = (ImageView) findViewById(R.id.upload_policy_img);
         uploadPolicyBtn = (Button) findViewById(R.id.upload_policy_btn);
         nextBtn = (Button) findViewById(R.id.upload_next_btn);
-        gobackrpw = (RippleView) findViewById(R.id.addcar_goback_rpw);
+        gobackrl = (RelativeLayout) findViewById(R.id.addcar_goback_rl);
         uploadDriveCredBtn.setOnClickListener(this);
         uploadPolicyBtn.setOnClickListener(this);
     }
@@ -103,7 +104,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.addcar_goback_rpw:
+            case R.id.addcar_goback_rl:
                 finish();
                 break;
             case R.id.upload_drive_cred_btn:

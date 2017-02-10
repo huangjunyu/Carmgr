@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="province_short">
+        <item>未知</item>
+        <item>未知</item>
+        <item>京</item>
+        <item>皖</item>
+        <item>闽</item>
+        <item>甘</item>
+        <item>粤</item>
+        <item>桂</item>
+        <item>贵</item>
+        <item>琼</item>
+        <item>冀</item>
+        <item>豫</item>
+        <item>黑</item>
+        <item>鄂</item>
+        <item>湘</item>
+        <item>吉</item>
+        <item>苏</item>
+        <item>赣</item>
+        <item>辽</item>
+        <item>蒙</item>
+        <item>宁</item>
+        <item>青</item>
+        <item>鲁</item>
+        <item>晋</item>
+        <item>陕</item>
+        <item>沪</item>
+        <item>川</item>
+        <item>津</item>
+        <item>藏</item>
+        <item>新</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="car_brand">
+        <item>大众</item>
+        <item>丰田</item>
+        <item>本田</item>
+        <item>日产</item>
+        <item>奥迪</item>
+        <item>雪佛兰</item>
+        <item>现代</item>
+        <item>宝马</item>
+        <item>别克</item>
+        <item>奇瑞</item>
+        <item>比亚迪</item>
+        <item>福特</item>
+        <item>马自达</item>
+        <item>法拉利</item>
+        <item>劳斯莱斯</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="service_type">
+        <item>上牌</item>
+        <item>驾考</item>
+        <item>检车</item>
+        <item>维修</item>
+        <item>租车</item>
+        <item>保养</item>
+        <item>二手车</item>
+        <item>车贷</item>
+        <item>新车</item>
+        <item>急救</item>
+        <item>用品</item>
+    </string-array>
+</resources>

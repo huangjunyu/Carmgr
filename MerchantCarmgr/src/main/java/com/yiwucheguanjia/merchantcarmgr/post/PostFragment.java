@@ -74,8 +74,12 @@ public class PostFragment extends Fragment {
     void onClickView(View view) {
         switch (view.getId()) {
             case R.id.postfragment_post_tv:
-                Intent postSIntent = new Intent(getActivity(), PostServiceActivity1.class);
-                startActivity(postSIntent);
+//                Intent postSIntent = new Intent(getActivity(), PostServiceActivity.class);
+//                startActivity(postSIntent);
+                Intent postServiceIntent = new Intent(getActivity(),PostServiceActivity.class);
+                postServiceIntent.putExtra("postType","postFragment");//来自于哪里的标识，首发或者编辑修改
+                postServiceIntent.putExtra("serviceType","type");
+                getActivity().startActivity(postServiceIntent);
                 break;
             default:
                 break;
@@ -135,9 +139,8 @@ public class PostFragment extends Fragment {
                                     serviceItemBean.setAccess_times(itemJson.getString("access_times"));
                                     serviceItemBean.setDate_time(itemJson.getString("date_time"));
                                     serviceItemBean.setDetail(itemJson.getString("detail"));
-                                    serviceItemBean.setScope("scope");
-                                    serviceItemBean.setService_name("service_name");
-                                    serviceItemBean.setPrice("price");
+                                    serviceItemBean.setScope(itemJson.optString("scope"));
+                                    serviceItemBean.setPrice(itemJson.optString("price"));
 
                                     serviceItemBeenList.add(serviceItemBean);
 

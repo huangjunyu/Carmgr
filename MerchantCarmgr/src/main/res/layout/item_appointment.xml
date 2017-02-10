@@ -7,6 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
         >
         <TextView
             android:id="@+id/allappoint_type"
@@ -42,8 +44,8 @@
         android:paddingLeft="20dp">
         <ImageView
             android:id="@+id/allappoint_header_img"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@mipmap/defualt_header"
             android:layout_centerVertical="true"
             />
@@ -65,15 +67,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             />
-        <TextView
-            android:id="@+id/allappoint_operate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="操作"
-            android:layout_toLeftOf="@+id/allappoint_phone_tv"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -83,24 +76,29 @@
         android:paddingLeft="20dp">
         <ImageView
             android:id="@+id/allapoint_goods_img"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:src="@mipmap/default_image"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:id="@+id/allappoint_goods_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="商品名称"
+            android:textSize="18sp"
+            android:textColor="@color/buseness_black"
             android:layout_toRightOf="@+id/allapoint_goods_img"
             android:layout_alignTop="@+id/allapoint_goods_img"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             />
         <TextView
+            android:id="@+id/allapoint_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2016-2-27"
+            android:textSize="13sp"
             android:layout_toRightOf="@+id/allapoint_goods_img"
             android:layout_marginLeft="20dp"
             android:layout_alignBottom="@+id/allapoint_goods_img"
@@ -128,6 +126,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             tools:text="1699.00"
+            android:textColor="@color/orange"
             android:layout_marginRight="20dp"
             />
 
@@ -135,6 +134,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="1dp"
         android:background="@color/white"
         >
         <TextView
@@ -151,7 +151,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/edit"
+            android:text="@string/done"
             />
         <TextView
             android:id="@+id/it_appoin_accept_tv"

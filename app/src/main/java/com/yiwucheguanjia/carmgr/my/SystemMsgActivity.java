@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.my.controller.SystemMsgAdapter;
+
 /**
  * Created by Administrator on 2016/10/21.
  */

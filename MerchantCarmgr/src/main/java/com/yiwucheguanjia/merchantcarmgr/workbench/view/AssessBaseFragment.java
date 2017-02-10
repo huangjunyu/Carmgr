@@ -94,7 +94,4 @@ public abstract class AssessBaseFragment extends Fragment {
     public void setParam(String param){
         this.param = param;
     }
-    public String getParam(){
-        return TextUtils.isEmpty(this.param) ? "头条" : this.param;
-    }
 }

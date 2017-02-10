@@ -42,12 +42,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
     //当前显示的Fragment
     private Fragment currentFragment;
     private Fragment allFragment;
-//    private Fragment myFragment;
-//    private Fragment underwayFragment;
-//    private Fragment finishFragment;
-//    android.support.v4.app.FragmentManager fragmentManager = getActivity().getChildFragmentManager();
-//    FragmentManager fragmentManager = getChildFragmentManager();
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -67,7 +61,7 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (view == null) {
             //初始化view
-            view = inflater.inflate(R.layout.activity_appointment, container,false);
+            view = inflater.inflate(R.layout.fragment_appointment, container,false);
             radioGroup = (RadioGroup) view.findViewById(R.id.appoint_radiogroup);
             viewPager = (ViewPager) view.findViewById(R.id.one_view);
             horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.appoint_hscrollview);
@@ -100,7 +94,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
     private void initFraagment(){
         if (allFragment == null){
             allFragment = new AllAppointmentFragment();
-            Log.e("fragment","fragment2");
         }
         if (!allFragment.isAdded()){
             getChildFragmentManager().beginTransaction().add(R.id.one_view, allFragment).commit();
@@ -131,7 +124,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
         viewPager.setCurrentItem(0);
         //设置viewpager监听事件
         viewPager.setOnPageChangeListener(this);
-
     }
     /***
      * 初始化头部导航栏
@@ -178,7 +170,6 @@ public class AppointmentFragment extends Fragment implements OnPageChangeListene
         for (int i = 0; i < 4; i++){
             RadioButton radioButton = (RadioButton) radioGroup.getChildAt(i);
             radioButton.setTextColor(ContextCompat.getColor(getActivity(),R.color.buseness_black));
-
         }
         rbButton.setTextColor(ContextCompat.getColor(getActivity(),R.color.orange));
         //偏移设置

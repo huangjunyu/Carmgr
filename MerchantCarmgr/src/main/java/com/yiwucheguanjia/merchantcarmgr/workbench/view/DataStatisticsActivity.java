@@ -78,7 +78,7 @@ public class DataStatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", this.MODE_PRIVATE);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.data_statistics_activity);
         ButterKnife.bind(this);
         getData();
@@ -113,9 +113,9 @@ public class DataStatisticsActivity extends AppCompatActivity {
         OkGo.post(UrlString.DATA_STATISTICS_URL)
                 .tag(this)
                 .params("username", sharedPreferences.getString("ACCOUNT",null))
-                .params("data_time", "952788")
+                .params("data_time", "")
                 .params("token", sharedPreferences.getString("TOKEN", "null"))
-                .params("version", "1.0")
+                .params("version", UrlString.APP_VERSION)
                 .execute(
                         new MyStringCallback(this, getResources().getString(R.string.loading)) {
                             @Override

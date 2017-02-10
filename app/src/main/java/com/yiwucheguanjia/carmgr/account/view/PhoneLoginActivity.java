@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
 import com.yiwucheguanjia.carmgr.MainActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
@@ -38,12 +38,12 @@ import okhttp3.Call;
  * Created by Administrator on 2016/7/24.
  */
 public class PhoneLoginActivity extends FragmentActivity implements View.OnClickListener {
-    private RippleView gobackRpw;
+    private RelativeLayout gobackRl;
     private EditText phoneNumEdit;
     private EditText msgCodeEdit;
     private Button sendCodeTv;
     private TimeCount timeCount;
-    private RippleView loginRpw;
+    private RelativeLayout loginRl;
     private SharedPreferences sharedPreferences;
     private String phoneNumStr;
     private String uuidStr;
@@ -65,14 +65,14 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
     }
 
     protected void initView() {
-        gobackRpw = (RippleView) findViewById(R.id.phone_login_goback_rpw);
+        gobackRl = (RelativeLayout) findViewById(R.id.phone_login_goback_rl);
         phoneNumEdit = (EditText) findViewById(R.id.phone_num_et);
         msgCodeEdit = (EditText) findViewById(R.id.phone_code_et);
         sendCodeTv = (Button) findViewById(R.id.phone_send_code);
-        loginRpw = (RippleView) findViewById(R.id.phone_check_login_rpw);
-        gobackRpw.setOnClickListener(this);
+        loginRl = (RelativeLayout) findViewById(R.id.phone_check_login);
+        gobackRl.setOnClickListener(this);
         sendCodeTv.setOnClickListener(this);
-        loginRpw.setOnClickListener(this);
+        loginRl.setOnClickListener(this);
     }
 
     //获取手机号码，并且判断格式、发送手机号码
@@ -129,7 +129,7 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.phone_login_goback_rpw:
+            case R.id.phone_login_goback_rl:
                 this.finish();
                 break;
             case R.id.phone_code_et://验证码编辑框
@@ -139,7 +139,7 @@ public class PhoneLoginActivity extends FragmentActivity implements View.OnClick
             case R.id.phone_send_code://发送验证码
                 getPhoneNum();
                 break;
-            case R.id.phone_check_login_rpw://验证并登录的按钮
+            case R.id.phone_check_login://验证并登录的按钮
                 String msgCode = msgCodeEdit.getText().toString().trim();
                 checkLogin(phoneNumStr, "1", msgCode, uuidStr,
                         UrlString.APP_VERSION, UrlString.LOGIN_URL, 2);

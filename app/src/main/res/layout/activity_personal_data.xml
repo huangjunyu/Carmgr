@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -11,14 +10,11 @@
         android:layout_height="50dp"
         android:background="@color/white">
 
-        <com.andexert.library.RippleView
+        <RelativeLayout
             android:id="@+id/personal_data_goback_rpw"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:paddingLeft="20dp"
-            app:rv_color="@color/gray_default"
-            app:rv_rippleDuration="200"
-            app:rv_type="rectangle">
+            android:paddingLeft="10dp">
 
             <ImageButton
                 android:id="@+id/personal_data_goback"
@@ -29,7 +25,7 @@
                 android:background="@color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/register_left_pre" />
-        </com.andexert.library.RippleView>
+        </RelativeLayout>
 
 
         <TextView

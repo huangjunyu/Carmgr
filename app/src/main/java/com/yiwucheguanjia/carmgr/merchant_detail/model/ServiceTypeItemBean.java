@@ -6,20 +6,8 @@ package com.yiwucheguanjia.carmgr.merchant_detail.model;
 public class ServiceTypeItemBean {
 
     private String servicePrice;
-    private double service_stars;//服务星星数据
-    private String detailMerchantImgUrl;
-    private String detailMerchantAddr;
-
-    public String getServicePrice() {
-        return servicePrice;
-    }
-
-    public void setServicePrice(String servicePrice) {
-        this.servicePrice = servicePrice;
-    }
-
     private String detailMerchantIntroduce;//介绍
-    private String detailMerchantName;
+    private String serviceName;
     private String detailMerchantDistance;//离我距离
     private String detailMerchantStarsStr;
     private String detailMrovince;
@@ -28,6 +16,33 @@ public class ServiceTypeItemBean {
     private String detailMerchantCity;//广州
     private String detailMerchantTag;
     private String detailMerchantMobile;
+    private String serviceId;
+    private double service_stars;//服务星星数据
+    private String detailMerchantImgUrl;
+    private String detailMerchantAddr;
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+    public String getServicePrice() {
+        return servicePrice;
+    }
+
+    public void setServicePrice(String servicePrice) {
+        this.servicePrice = servicePrice;
+    }
+
 
     public String getDetailMerchantImgUrl() {
         return detailMerchantImgUrl;
@@ -75,14 +90,6 @@ public class ServiceTypeItemBean {
 
     public void setDetailMerchantStarsStr(String detailMerchantStarsStr) {
         this.detailMerchantStarsStr = detailMerchantStarsStr;
-    }
-
-    public String getDetailMerchantName() {
-        return detailMerchantName;
-    }
-
-    public void setDetailMerchantName(String detailMerchantName) {
-        this.detailMerchantName = detailMerchantName;
     }
 
     public String getDetailMrovince() {

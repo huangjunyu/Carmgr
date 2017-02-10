@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
@@ -61,44 +62,46 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     TextView sendCodeTv;
     @BindView(R.id.register_agree_check)
     CheckBox checkBox;
+    @BindView(R.id.yiwu_agreement_txt)
+    TextView agreementTv;
 
     private TimeCount timeCount;
     private Boolean checkBool = true;
     private String serviceUUid;
     private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.activity_enter);
         timeCount = new TimeCount(60000, 1000);
         ButterKnife.bind(this);
         checkBox.setOnCheckedChangeListener(this);
     }
 
-    @OnClick({R.id.enter_enter_btn, R.id.enter_goback_rl, R.id.enter_send_code})
+    @OnClick({R.id.enter_enter_btn, R.id.enter_goback_rl, R.id.enter_send_code,R.id.yiwu_agreement_txt})
     void enterNext(View view) {
         switch (view.getId()) {
             case R.id.enter_enter_btn:
+                if (checkBool == true) {
                 checkData();
+                }else Toast.makeText(EnterRegisterActivity.this,getResources().getString(R.string.must_agreet),Toast.LENGTH_SHORT).show();
                 break;
             case R.id.enter_goback_rl:
                 finish();
                 break;
             case R.id.enter_send_code:
-                getPhoneNum();
+                    getPhoneNum();
                 break;
+            case R.id.yiwu_agreement_txt:
+                Intent userAgreementInten = new Intent(EnterRegisterActivity.this, UserAgreement.class);
+                startActivity(userAgreementInten);
             default:
                 break;
         }
-//        Intent intent = new Intent(EnterRegisterActivity.this, MerchantEnterFragmentActivity.class);
-//        startActivity(intent);
     }
-
-//    @OnCheckedChanged(R.id.register_agree_check) void onChecked(){
-//        Log.e("jj","nwkwn");
-//    }
 
     /**
      * 获取手机号码，并且判断格式、发送手机号码
@@ -106,7 +109,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     protected void getPhoneNum() {
         if (Tools.getInstance().isMobileNO(phoneNumEdit.getText().toString().trim())) {
             phoneNumStr = phoneNumEdit.getText().toString().trim();
-            Log.e("phone",phoneNumStr);
+            Log.e("phone", phoneNumStr);
             final String uuid = UUID.randomUUID().toString();
             OkGo.post(UrlString.SEND_CODE_URL)
                     .tag(this)
@@ -140,24 +143,24 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
 
     }
 
-    private void checkData(){
+    private void checkData() {
         //如果输入的账号与验证的手机号码相同
-        if (TextUtils.equals(accountEdit.getText().toString(),phoneNumStr)){
+        if (TextUtils.equals(accountEdit.getText().toString(), phoneNumStr)) {
             //如果密码里面不包含空格
-            if (formalRegex(passwordEdit.getText().toString()) && !TextUtils.isEmpty(msgCode.getText().toString())){
+            if (formalRegex(passwordEdit.getText().toString()) && !TextUtils.isEmpty(msgCode.getText().toString())) {
                 OkGo.post(UrlString.REGISTER_URL)
                         .tag(this)
-                        .params("username",phoneNumStr)
-                        .params("password",passwordEdit.getText().toString().trim())
-                        .params("mobile",phoneNumStr)
-                        .params("terminal_os","Android")
+                        .params("username", phoneNumStr)
+                        .params("password", passwordEdit.getText().toString().trim())
+                        .params("mobile", phoneNumStr)
+                        .params("terminal_os", "Android")
                         .params("terminal_type", Build.MODEL)
-                        .params("verf_code",msgCode.getText().toString().trim())
-                        .params("user_type","1")
-                        .execute(new MyStringCallback(this,getResources().getString(R.string.loading)) {
+                        .params("verf_code", msgCode.getText().toString().trim())
+                        .params("user_type", "1")
+                        .execute(new MyStringCallback(this, getResources().getString(R.string.loading)) {
                             @Override
                             public void onSuccess(String s, Call call, Response response) {
-                                Log.e("sussess",s);
+                                Log.e("sussess", s);
                                 Intent intent = new Intent();
                                 intent.setClass(EnterRegisterActivity.this, MerchantEnterFragmentActivity.class);//从一个activity跳转到另一个activity
                                 intent.putExtra("password", passwordEdit.getText().toString().trim());//给intent添加额外数据，key为“str”,key值为"Intent Demo"
@@ -169,18 +172,18 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
                             @Override
                             public void onError(Call call, Response response, Exception e) {
                                 super.onError(call, response, e);
-                                Log.e("eee",e.toString());
+                                Log.e("eee", e.toString());
                             }
                         });
-            }else {
-                Log.e("hwhw","nnn");
+            } else {
+                Log.e("hwhw", "nnn");
                 //密码格式不对或验证码为空
-                AlertDialog alertDialog = new AlertDialog(EnterRegisterActivity.this,"密码格式不对或验证码为空");
+                AlertDialog alertDialog = new AlertDialog(EnterRegisterActivity.this, "密码格式不对或验证码为空");
                 alertDialog.instance().showAlertDialog();
             }
-        }else {
+        } else {
             //输入的账号与验证的手机号不同
-            AlertDialog alertDialog = new AlertDialog(EnterRegisterActivity.this,"输入的账号与验证的手机号不同");
+            AlertDialog alertDialog = new AlertDialog(EnterRegisterActivity.this, "输入的账号与验证的手机号不同");
             alertDialog.instance().showAlertDialog();
         }
     }
@@ -188,11 +191,11 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
     public Boolean formalRegex(String passwordStr) {
         Pattern pattern = Pattern.compile("[0-9a-zA-Z\u4E00-\u9FA5]+");
         Matcher matcher = pattern.matcher(passwordStr);
-        if (!matcher.matches() ) {
-            Log.e("nnn","no");
+        if (!matcher.matches()) {
+            Log.e("nnn", "no");
             return false;
         } else {
-            Log.e("nnn","no4");
+            Log.e("nnn", "no4");
             return true;
         }
     }
@@ -201,7 +204,7 @@ public class EnterRegisterActivity extends AppCompatActivity implements Compound
         SharedPreferences p = getSharedPreferences("CARMGR_MERCHANT", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
         edit.putString("ACCOUNT", account);
-        edit.putString("VERSION",UrlString.APP_VERSION);//登录过这个APP之后的标记
+        edit.putString("VERSION", UrlString.APP_VERSION);//登录过这个APP之后的标记
         edit.commit();
     }
 

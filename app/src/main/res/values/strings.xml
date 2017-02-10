@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">易务车宝</string>
     <string name="progress">进度</string>
+    <string name="nearby">附近</string>
     <string name="commercial">商家</string>
     <string name="home">首页</string>
     <string name="yiwu">易务</string>
@@ -14,6 +15,8 @@
     <string name="registration">上牌</string>
     <string name="car_credit">车贷</string>
     <string name="user_name">用户名</string>
+    <string name="click_add_car">点击添加车辆</string>
+    <string name="nekwork_error">网络错误，请检查网络后重新操作</string>
     <string name="title_activity_login">Sign in</string>
     <string name="login_account_hint">手机/邮箱/用户名</string>
     <string name="login_password_hint">密码</string>
@@ -70,6 +73,8 @@
     <string name="withdraw_deposit">提现</string>
     <string name="my_collect">我的收藏</string>
     <string name="my_car">我的车辆</string>
+    <string name="service_order">服务订单</string>
+    <string name="help_order">求助订单</string>
     <string name="records_business">历史业务</string>
     <string name="post_address">邮寄地址</string>
     <string name="order_record">订单记录</string>
@@ -85,8 +90,10 @@
     <string name="add_car">添加车辆</string>
     <string name="number_type">号码类型</string>
     <string name="small_car">小型汽车</string>
+    <string name="middle_car">中型汽车</string>
     <string name="large_car">大型汽车</string>
     <string name="car_type">车　　型</string>
+    <string name="car_brand">品 牌</string>
     <string name="select_car">请选择车辆（选填）</string>
     <string name="search_city">查询城市</string>
     <string name="car_number">车牌号码</string>
@@ -115,6 +122,7 @@
     <string name="contact_merchant">联系商家</string>
     <string name="distance">商家与我距离</string>
     <string name="setting">设置</string>
+    <string name="brand">品牌</string>
     <string name="order_num">订单号：</string>
     <string name="order">订单</string>
     <string name="use_gprs">移动网络下载图片</string>

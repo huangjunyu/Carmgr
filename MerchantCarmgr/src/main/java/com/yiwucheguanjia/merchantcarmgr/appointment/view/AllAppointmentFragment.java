@@ -2,6 +2,8 @@ package com.yiwucheguanjia.merchantcarmgr.appointment.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +58,23 @@ public class AllAppointmentFragment extends Fragment {
         return homeView;
     }
 
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+//                    serviceItemBeenList.remove(msg.arg1);
+//                    postedAdapter.notifyItemRemoved(msg.arg1);
+//                    postedAdapter.notifyItemRangeChanged(msg.arg1,serviceItemBeenList.size() - 1);
+                    break;
+                default:
+                    break;
+            }
+//            postedAdapter.notifyDataSetChanged();
+        }
+    };
+
     private void getData(){
         OkGo.post(UrlString.APPOINTMENT_MANAGER)
                 .tag(this)
@@ -87,7 +106,7 @@ public class AllAppointmentFragment extends Fragment {
                                     appointmentBeanArrayList.add(appointmentBean);
                                 }
                                 Log.e("appoint",s);
-                                appointAdapter = new AppointAdapter(getActivity(),appointmentBeanArrayList);
+                                appointAdapter = new AppointAdapter(getActivity(),appointmentBeanArrayList,handler);
                                 itemRv.setAdapter(appointAdapter);
                             }
                         } catch (JSONException e) {

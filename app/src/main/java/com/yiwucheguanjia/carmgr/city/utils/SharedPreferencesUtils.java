@@ -27,14 +27,6 @@ public class SharedPreferencesUtils {
 		String cityName = PreferenceManager.getDefaultSharedPreferences(context).getString("cityName", "广州");
 		PreferenceManager.getDefaultSharedPreferences(context).edit().clear().commit();
 		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("cityName", cityName).commit();
-//		int i = 0;
-//		while (true){
-//			if (PreferenceManager.getDefaultSharedPreferences(context).getString(i + "",null) != null){
-//				PreferenceManager.getDefaultSharedPreferences(context).edit().remove(i + "").commit();
-//			}else {
-//				break;
-//			}
-//		}
 	}
 	public static void saveAreaName(Context context, String cityName,int i) {
 		PreferenceManager.getDefaultSharedPreferences(context).edit().putString(i + "", cityName).commit();

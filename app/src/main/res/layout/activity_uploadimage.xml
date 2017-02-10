@@ -13,7 +13,7 @@
         android:background="@color/white">
 
         <com.andexert.library.RippleView
-            android:id="@+id/addcar_goback_rpw"
+            android:id="@+id/addcar_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"

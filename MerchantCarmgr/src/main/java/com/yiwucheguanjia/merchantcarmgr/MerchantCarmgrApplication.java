@@ -51,16 +51,9 @@ public class MerchantCarmgrApplication extends Application {
         HttpParams params = new HttpParams();
         params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
         params.put("commonParamsKey2", "这里支持中文参数");
-        //-----------------------------------------------------------------------------------//
-
         //必须调用初始化
         OkGo.init(this);
-        ImageLoader.getInstance().init(configuration);
-
-
     }
-        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
-
 
 
     @Override

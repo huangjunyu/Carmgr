@@ -15,12 +15,12 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="20dp">
+            android:paddingLeft="10dp">
 
             <ImageButton
-                android:id="@+id/type_goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:clickable="false"
                 android:layout_alignParentLeft="true"
                 android:background="@color/white"
                 android:scaleType="fitCenter"

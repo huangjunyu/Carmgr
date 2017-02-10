@@ -28,14 +28,15 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT",MODE_PRIVATE);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.setting_activity);
         ButterKnife.bind(this);
     }
     @OnClick({R.id.setting_goback_rl,R.id.setting_exit})
     void click(View view){
         switch (view.getId()){
-            case R.id.goback_imgbtn:
+            case R.id.setting_goback_rl:
+                finish();
                 break;
             case R.id.setting_exit:
                 SharedPreferences.Editor editor = sharedPreferences.edit();

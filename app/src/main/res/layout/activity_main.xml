@@ -78,7 +78,7 @@
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
-                android:src="@mipmap/tab_progress_img_nor" />
+                android:src="@mipmap/nearby_nor" />
 
 
             <TextView
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tabProgressImg"
                 android:layout_centerHorizontal="true"
-                android:text="@string/progress"
+                android:text="@string/nearby"
                 android:textSize="12sp" />
 
         </RelativeLayout>
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tabCallYiwuImg"
                 android:layout_centerHorizontal="true"
-                android:text="@string/yiwu"
+                android:text="@string/my"
                 android:textSize="12sp" />
 
         </RelativeLayout>

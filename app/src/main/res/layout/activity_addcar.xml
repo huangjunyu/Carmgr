@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -11,23 +12,22 @@
         android:layout_height="50dp"
         android:background="@color/white">
 
-        <com.andexert.library.RippleView
-            android:id="@+id/addcar_goback_rpw"
+        <RelativeLayout
+            android:id="@+id/addcar_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            app:rv_color="@color/gray_default">
+            android:paddingLeft="10dp">
 
             <ImageButton
-                android:id="@+id/addcar_goback_imgbtn"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:background="@color/transparent"
+                android:clickable="false"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/register_left_pre" />
-        </com.andexert.library.RippleView>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/add_addr_title_tv"
@@ -53,7 +53,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
@@ -64,23 +64,55 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:text="@string/number_type" />
 
-                <TextView
-                    android:id="@+id/addcar_small_car_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_toRightOf="@+id/addcar_number_type_txt"
-                    android:text="@string/small_car" />
+                -->
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/addcar_small_car_txt"
-                    android:text="@string/large_car" />
+                <RadioGroup
+                    android:id="@+id/addcar_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/addcar_number_type_txt"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <RadioButton
+                        android:id="@+id/addcar_small_car"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_radiobutton"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/small_car"
+                        android:textColor="@drawable/style_textcolor" />
+
+                    <RadioButton
+                        android:id="@+id/addcar_middle_car"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_middle_radiobutton"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/middle_car"
+                        android:textColor="@drawable/style_textcolor" />
+
+                    <RadioButton
+                        android:id="@+id/addcar_large_car"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_largecar_radiobutton"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/large_car"
+                        android:textColor="@drawable/style_textcolor" />
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout
@@ -97,27 +129,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:text="@string/car_type" />
+                    android:text="@string/car_brand" />
 
-                <EditText
-                    android:id="@+id/addcar_select_car_hint"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/addcar_type_Rl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/addcar_car_type_txt"
-                    android:background="@null"
-                    android:enabled="true"
-                    android:hint="@string/select_car"
-                    android:textSize="14sp" />
+                    android:layout_toRightOf="@+id/addcar_car_type_txt">
 
-                <ImageView
-                    android:id="@+id/addcar_select_car_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/go" />
+
+                    <TextView
+                        android:id="@+id/addcar_car_brand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:enabled="true"
+                        android:hint="@string/select_car"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/addcar_select_car_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/go" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/addcar_search_city_rl"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -138,8 +178,7 @@
                     android:id="@+id/addcar_city_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/addcar_search_city"
-                    android:text="null" />
+                    android:layout_toRightOf="@+id/addcar_search_city" />
 
                 <ImageView
                     android:id="@+id/addcar_city_go"
@@ -167,17 +206,19 @@
                     android:text="@string/car_number" />
 
                 <TextView
-                    android:id="@+id/addcar_another_name_txt"
+                    android:id="@+id/addcar_province_short"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:layout_toRightOf="@+id/addcar_car_number_txt"
-                    android:text="@string/another_name" />
+                    android:background="@color/gray_divide"
+                    tools:text="京" />
 
                 <EditText
-                    android:id="@+id/addcar_car_number_Edt"
+                    android:id="@+id/addcar_car_number_Et"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/addcar_another_name_txt"
+                    android:layout_toRightOf="@id/addcar_province_short"
                     android:background="@null"
                     android:hint="@string/input_car_number"
                     android:textSize="12sp" />
@@ -227,7 +268,7 @@
                     android:text="@string/frame_number" />
 
                 <EditText
-                    android:id="@+id/addcar_frame_num_et"
+                    android:id="@+id/addcar_frame_num_ed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/addcar_frame_number"
@@ -236,116 +277,6 @@
                     android:textSize="12sp" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:id="@+id/addcar_insurance_date_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/insurance_date" />
-
-                <EditText
-                    android:id="@+id/addcar_insurance_date_edt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/addcar_insurance_date_txt"
-                    android:background="@null"
-                    android:hint="@string/input_insurance_date"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:id="@+id/first_attendance_date_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-
-                    android:layout_marginRight="20dp"
-                    android:text="@string/first_attendance_date" />
-
-                <EditText
-                    android:id="@+id/first_attendance_date_edt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_toRightOf="@+id/first_attendance_date_txt"
-                    android:background="@null"
-                    android:hint="@string/first_attendance_date"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:id="@+id/drive_distance_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-
-                    android:layout_marginRight="20dp"
-                    android:text="@string/drive_distance" />
-
-                <EditText
-                    android:id="@+id/drive_distance_edt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/drive_distance_txt"
-                    android:background="@null"
-                    android:hint="@string/input_drive_distance"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:id="@+id/addcar_remark_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/remark" />
-
-                <EditText
-                    android:id="@+id/addcar_remark_edt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/addcar_remark_txt"
-                    android:background="@null"
-                    android:hint="@string/input_car_about"
-                    android:textSize="12sp" />
-            </RelativeLayout>
 
             <Button
                 android:id="@+id/search_btn"
@@ -355,7 +286,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/orange"
-                android:text="@string/search_begin" />
+                android:text="@string/search_begin"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/addcar_note"

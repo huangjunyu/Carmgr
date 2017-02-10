@@ -10,16 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.andexert.library.RippleView;
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
-//import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
-//import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
 import com.yiwucheguanjia.carmgr.commercial.controller.MerchantItemAdapter;
 import com.yiwucheguanjia.carmgr.commercial.model.MerchantItemBean;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -40,7 +36,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     private SharedPreferences sharedPreferences;
     private ArrayList<MerchantItemBean> merchantItemBeens;
     private RecyclerView recyclerView;
-    private RippleView gobackRpw;
+    private RelativeLayout gobackRl;
     private String business;
     private TextView titleTv;
     private TextView nothingTv;
@@ -49,7 +45,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 透明状态栏
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),50);
         setContentView(R.layout.activity_merchantlist);
         initView();
         Bundle bundle = getIntent().getExtras();
@@ -71,10 +67,10 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
 
     protected void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.merchant_list_lv);
-        gobackRpw = (RippleView) findViewById(R.id.merchant_list_goback_rpw);
+        gobackRl = (RelativeLayout) findViewById(R.id.merchant_list_goback_rl);
         titleTv = (TextView) findViewById(R.id.merchant_list_title);
         nothingTv = (TextView) findViewById(R.id.merchantlist_nothing_tv);
-        gobackRpw.setOnClickListener(this);
+        gobackRl.setOnClickListener(this);
     }
 
     //一个Okhttputils封装类的示例
@@ -135,7 +131,7 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.merchant_list_goback_rpw:
+            case R.id.merchant_list_goback_rl:
                 finish();
                 break;
             default:
@@ -152,7 +148,6 @@ public class MerchantListActivity extends Activity implements View.OnClickListen
         public void onResponse(String response, int id) {
             switch (id) {
                 case 1:
-                    Log.e("mer", response);
                     analysisJson(response);
                     break;
                 default:

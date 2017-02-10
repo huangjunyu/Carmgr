@@ -21,7 +21,7 @@ public class DataCheckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.activity_data_check);
         ButterKnife.bind(this);
     }

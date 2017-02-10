@@ -44,9 +44,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="null"
+                    tools:text="服务名称"
                     android:textColor="@color/buseness_black"
-                    android:textSize="13sp" />
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/post_item_servic_name_rl"
-                android:layout_marginTop="7dp">
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/post_it_state_tv"
@@ -64,8 +64,9 @@
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="null"
-                    android:textSize="11sp" />
+                    tools:text="状态"
+                    android:textColor="@color/orange"
+                    android:textSize="13sp" />
 
             </RelativeLayout>
 
@@ -74,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/post_it_progress_rl"
-                android:layout_marginTop="7dp">
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/post_it_time_tv"
@@ -88,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/post_it_time_rl"
-                android:layout_marginTop="7dp">
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/post_it_read_tv"
@@ -96,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="@string/access"
-                    android:textSize="10sp" />
+                    android:textSize="13sp" />
                 <TextView
                     android:id="@+id/post_it_access"
                     android:layout_width="wrap_content"
@@ -104,7 +105,7 @@
                     android:layout_toRightOf="@+id/post_it_read_tv"
                     android:layout_marginLeft="3dp"
                     tools:text="已被浏览1000次"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     />
             </RelativeLayout>
         </RelativeLayout>

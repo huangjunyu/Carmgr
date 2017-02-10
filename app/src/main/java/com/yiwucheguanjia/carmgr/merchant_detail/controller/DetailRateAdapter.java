@@ -75,7 +75,7 @@ public class DetailRateAdapter extends RecyclerView.Adapter<DetailRateAdapter.Vi
             @Override
             public void onClick(View v) {
 //                Intent merchantDetailInten = new Intent(context, MerchantDetail.class);
-//                merchantDetailInten.putExtra("merchantName",rateBean.getDetailMerchantName());
+//                merchantDetailInten.putExtra("merchantName",rateBean.getServiceName());
 //                context.startActivity(merchantDetailInten);
             }
         });

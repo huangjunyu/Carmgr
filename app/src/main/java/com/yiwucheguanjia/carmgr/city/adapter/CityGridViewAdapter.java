@@ -1,6 +1,7 @@
 package com.yiwucheguanjia.carmgr.city.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class CityGridViewAdapter extends CityBaseAdapter<RegionInfo, GridView> {
         }
         RegionInfo info = list.get(position);
         holder.cityname.setText(info.getName());
+        Log.e("citynameeee",info.getName());
         return convertView;
     }
 

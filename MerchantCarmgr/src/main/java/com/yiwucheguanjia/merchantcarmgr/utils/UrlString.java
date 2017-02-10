@@ -4,8 +4,11 @@ package com.yiwucheguanjia.merchantcarmgr.utils;
  * Created by Administrator on 2016/11/10.
  */
 public class UrlString {
+
     //登录接口
     public static final String LOGIN_URL = "http://112.74.13.51:8080/carmgr/mapplogin.action";
+    //判断是否入驻
+    public static final String MAPP_CHECKPARKSTATE = "http://112.74.13.51:8080/carmgr/mappcheckparkstate.action";
     //注册
     public static final String REGISTER_URL = "http://112.74.13.51:8080/carmgr/mappregister.action";
     //发送短信验证
@@ -15,7 +18,7 @@ public class UrlString {
     //数据统计
     public static final String DATA_STATISTICS_URL = "http://112.74.13.51:8080/carmgr/mappgetstatistics.action";
     //APP版本号
-    public static final String APP_VERSION = "1.0";
+    public static final String APP_VERSION = "1.1";
     //用户评价
     public static final  String GET_ADVISE = "http://112.74.13.51:8080/carmgr/mappgetadvise.action" ;
     //投诉
@@ -34,8 +37,6 @@ public class UrlString {
     public static final String APP_GETSHOPINFO = "http://112.74.13.51:8080/carmgr/mappgetshopinfo.action";
     //删除服务
     public static final String APP_DELETESERVICE = "http://112.74.13.51:8080/carmgr/mappdeleteservice.action";
-    //临时用户
-//    public static final  String USERNAME = "13560102795";
-    //临时密码
-//    public static final  String PASSWORD = ""
+    //APP对已预约服务的操作请求
+    public static final String MAPP_SUBSERVICEOPT = "http://112.74.13.51:8080/carmgr/mappsubserviceopt.action";
 }

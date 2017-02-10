@@ -2,8 +2,10 @@ package com.yiwucheguanjia.carmgr.my;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 
 import butterknife.ButterKnife;
@@ -16,6 +18,7 @@ public class AccountBalanceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),50);
         setContentView(R.layout.activity_account_balance);
         ButterKnife.bind(this);
     }

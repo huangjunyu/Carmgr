@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
@@ -57,11 +58,10 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
     private SharedPreferences sharedPreferences;
     @BindView(R.id.merchant_pho_submit_btn)
     Button submitBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.merchant_photo_activity);
         ButterKnife.bind(this);
         //最好放到 Application oncreate执行
@@ -114,12 +114,14 @@ public class MerchantPhotoActivity extends AppCompatActivity implements ImagePic
         }
     }
 
-    @OnClick({R.id.merchant_pho_submit_btn})
+    @OnClick({R.id.merchant_pho_submit_btn,R.id.setting_goback_rl})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.merchant_pho_submit_btn:
                 formUpload();
                 break;
+            case R.id.setting_goback_rl:
+                finish();
             default:
                 break;
         }

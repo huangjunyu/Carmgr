@@ -209,11 +209,8 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
 
     //解析JSON数据
     protected void analysisJson(String response) {
-        Log.e("mer", response);
-
         try {
             JSONObject jsonObject = new JSONObject(response);
-//            JSONArray jsonArray = jsonObject.getJSONArray("merchants_list");
             merchantItemBeens = new ArrayList<>();
             if (jsonObject.getInt("list_size") <= 0) {
                 nothingTv.setVisibility(View.VISIBLE);
@@ -226,7 +223,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
             String imgpath;
             for (int i = 0; i < jsonObject.getJSONArray("merchants_list").length(); i++) {
 
-//                String imgpath;
                 MerchantItemBean merchantItemBean = new MerchantItemBean();
                 JSONObject merchantJson = jsonObject.getJSONArray("merchants_list").getJSONObject(i);
 
@@ -238,7 +234,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                         imgpath = imgpath.replace(imgpath.substring(imgpath.indexOf("^"), imgpath.length()), "");
                     }
                 }
-                        Log.e("imgppath", imgpath);
                 merchantItemBean.setMerchantImgUrl(imgpath);
                 merchantItemBean.setMerchantDistance(merchantJson.getString("distance"));
                 merchantItemBean.setMerchantArea(merchantJson.getString("area"));
@@ -329,6 +324,10 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 backgroundAlpha(1f);
                 businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
                 businessPullDownImg.setImageResource(R.mipmap.pull_down_black);
+                citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                cityDirection.setImageResource(R.mipmap.pull_down_black);
+                sortSelectTv.setTextColor(getResources().getColor(R.color.gray_default));
+                sortPullDownImg.setImageResource(R.mipmap.pull_down_black);
             }
         });
 
@@ -349,6 +348,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                             UrlString.APP_GET_MERCHANTS_LIST, 1);
                     popupWindow.dismiss();
                     businessSelectTxt.setTextColor(getResources().getColor(R.color.gray_default));
+                    Log.e("上","牌");
                 } else if (i == 2) {
                     citySelectTv.setText(SharedPreferencesUtils.getAreaName(getActivity(), position));
                     areaStr = SharedPreferencesUtils.getAreaName(getActivity(), position);
@@ -359,7 +359,7 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                             sharedPreferences.getString("TOKEN", null), UrlString.APP_VERSION,
                             UrlString.APP_GET_MERCHANTS_LIST, 1);
 
-                    popupWindowCity.dismiss();
+                    popupWindow.dismiss();
                     citySelectTv.setTextColor(getResources().getColor(R.color.gray_default));
                 } else if (i == 3) {
                     sortSelectTv.setText(sortArray[position]);
@@ -396,14 +396,6 @@ public class CommercialFragment extends Fragment implements View.OnClickListener
                 initPopupwindow("sort", sortList, 3);
                 break;
             case R.id.merchant_personal_rl:
-//                if (sharedPreferences.getString("ACCOUNT", null) != null) {
-//                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
-//                    getActivity().startActivity(intentPersonal);
-//                } else {
-//                    Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
-//                    getActivity().startActivityForResult(personalIntent, 1);
-//                }
-                ;
                 Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
                 getActivity().startActivityForResult(personalIntent, 1);
                 break;

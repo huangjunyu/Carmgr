@@ -2,6 +2,8 @@ package com.yiwucheguanjia.carmgr.welcome;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,32 +60,29 @@ public class Guide extends Activity implements OnViewChangeListener {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("VERSION", UrlString.APP_VERSION);
             editor.commit();
+        } else if (sharedPreferences.getString("TOKEN", null) == null) {
+            Intent intent = new Intent(
+                    Guide.this,
+                    LoginBaseFragmentActivity.class);
+            Guide.this.startActivity(intent);
+            Guide.this.finish();
         } else {
-            //是否登录或登录过期，跳到登录界面
-//            Intent intent = new Intent(
-//                    Guide.this,
-//                    MainActivity.class);
-//            Log.e("version", "version");
-//            Guide.this.startActivity(intent);
-//            Guide.this.finish();
-            appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
-                    Tools.getInstance().getScreen(Guide.this),
+            appGetConfig(sharedPreferences.getString("ACCOUNT", null),
                     sharedPreferences.getString("TOKEN", null),
-                    UrlString.APP_VERSION, UrlString.APP_GET_CONFIG, 1);
+                    UrlString.APP_VERSION, UrlString.APP_GETPRIVATE, 1);
         }
     }
-    private void appGetConfig(String username, String resouce, String screenSize, String token,
+
+    private void appGetConfig(String username, String token,
                               String version, String url, int id) {
 
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
-                .addParams("config_key", resouce)
-                .addParams("screen_size", screenSize)
                 .addParams("token", token)
                 .addParams("version", version)
                 .id(id)
                 .build()
-                .execute(new CommercialStringCallback());
+                .execute(new PrivateStringCallback());
     }
 
     /**
@@ -140,11 +139,11 @@ public class Guide extends Activity implements OnViewChangeListener {
         return true;
     }
 
-    protected class CommercialStringCallback extends StringCallback {
+    protected class PrivateStringCallback extends StringCallback {
 
         @Override
-        public void onError(Call call, Exception e, int id) {
-            Log.e("logging","lllog");
+        public void onError(Call call, Exception e, int id) {//此处可以实现无网络下的缓存读取操作
+            Exit();
         }
 
         @Override
@@ -160,11 +159,29 @@ public class Guide extends Activity implements OnViewChangeListener {
         }
     }
 
+    /**
+     * 退出事件
+     */
+    public void Exit() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Guide.this);
+        builder.setTitle("友情提示!").setMessage(getString(R.string.nekwork_error)).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                arg0.cancel();
+            }
+        }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Guide.this.finish();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private void parseJson(String response) {
         Log.e("response", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
-            if (TextUtils.equals(jsonObject.getString("opt_state"),"success")) {
+            if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
                 Intent intent = new Intent(
                         Guide.this,
                         MainActivity.class);

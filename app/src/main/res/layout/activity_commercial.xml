@@ -102,7 +102,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/user_img" />
+                android:src="@mipmap/message" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -42,7 +42,7 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.titleTv.setText("nnnnn");
+        holder.titleTv.setText("易务车宝正式上线啦");
 
     }
 

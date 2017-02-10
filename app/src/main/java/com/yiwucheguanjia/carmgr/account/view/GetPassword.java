@@ -14,9 +14,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.animation.DiologLoading;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
@@ -35,11 +36,11 @@ import okhttp3.Call;
  * Created by Administrator on 2016/7/22.
  */
 public class GetPassword extends FragmentActivity implements View.OnClickListener {
-    private RippleView gobackRpw;
+    private RelativeLayout gobackRl;
     private EditText phoneNumEdit;
     private EditText msgCodeEdit;
     private Button sendCodeTv;
-    private RippleView checkRpw;
+    private RelativeLayout checkRl;
     private TimeCount timeCount;
     private SharedPreferences sharedPreferences;
     private DiologLoading diologLoading;
@@ -50,11 +51,8 @@ public class GetPassword extends FragmentActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this,ContextCompat.getColor(this,R.color.white),50);
         sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
-        // 透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         timeCount = new TimeCount(60000, 1000);
         setContentView(R.layout.activity_get_password);
         uuidStr = UUID.randomUUID().toString();
@@ -62,20 +60,20 @@ public class GetPassword extends FragmentActivity implements View.OnClickListene
     }
 
     private void initView() {
-        gobackRpw = (RippleView) findViewById(R.id.setpwd_goback_rpw);
+        gobackRl = (RelativeLayout) findViewById(R.id.setpwd_goback_rl);
         phoneNumEdit = (EditText) findViewById(R.id.getpwd_phone_num_edit);
         msgCodeEdit = (EditText) findViewById(R.id.getpwd_code_edit);
         sendCodeTv = (Button) findViewById(R.id.getpwd_send_code);
-        checkRpw = (RippleView) findViewById(R.id.getpwd_check_code_rpw);
-        gobackRpw.setOnClickListener(this);
+        checkRl = (RelativeLayout) findViewById(R.id.getpwd_check_code_rl);
+        gobackRl.setOnClickListener(this);
         sendCodeTv.setOnClickListener(this);
-        checkRpw.setOnClickListener(this);
+        checkRl.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.setpwd_goback_rpw:
+            case R.id.setpwd_goback_rl:
                 this.finish();
                 break;
             case R.id.getpwd_phone_num_edit:

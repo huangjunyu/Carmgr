@@ -38,7 +38,7 @@ public class ServiceTypeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         serviceTypeArrStr = getResources().getStringArray(R.array.service_type);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         setContentView(R.layout.activity_service_type);
         serviceTypeArrList = new ArrayList<>();
         for (int i = 0; i < serviceTypeArrStr.length; i++) {
@@ -77,12 +77,6 @@ public class ServiceTypeActivity extends AppCompatActivity {
             case R.id.type_submit:
                 //获取你选中的item
                 Map<Integer, Boolean> map = serviceTypeAdapter.getMap();
-
-        /*        Set keySet = map.keySet(); // key的set集合
-        Iterator it = keySet.iterator();
-        while (it.hasNext()){
-            Log.e("ks",map.get(0).toString() + " " + it.next());
-        }*/
                 Set keySet = map.keySet();
                 Iterator iterator = keySet.iterator();
                 while (iterator.hasNext()){

@@ -11,13 +11,12 @@
         android:layout_height="50dp"
         android:background="@color/white">
 
-        <com.andexert.library.RippleView
+        <RelativeLayout
             android:id="@+id/setting_goback_rl"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
-            ripple:rv_color="@color/gray_default"
             >
 
             <ImageButton
@@ -28,7 +27,7 @@
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/register_left_pre" />
-        </com.andexert.library.RippleView>
+        </RelativeLayout>
 
 
         <TextView
@@ -193,21 +192,15 @@
             android:layout_alignParentLeft="true"
             android:text="@string/user_agreement" />
 
-        <!--        <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/go" />-->
     </RelativeLayout>
 
-    <com.andexert.library.RippleView
+    <RelativeLayout
         android:id="@+id/setting_exit_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
         android:gravity="center_vertical"
         android:background="@color/white"
-        ripple:rv_color="@color/gray_default"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -218,11 +211,6 @@
             android:layout_alignParentLeft="true"
             android:text="@string/exit" />
 
-        <!--        <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/go" />-->
-    </com.andexert.library.RippleView>
+    </RelativeLayout>
 
 </LinearLayout>

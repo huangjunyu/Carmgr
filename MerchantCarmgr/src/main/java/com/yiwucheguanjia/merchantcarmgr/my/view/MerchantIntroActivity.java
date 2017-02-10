@@ -1,15 +1,10 @@
 package com.yiwucheguanjia.merchantcarmgr.my.view;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -18,7 +13,6 @@ import com.jaeger.library.StatusBarUtil;
 import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity1;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
 import org.json.JSONException;
@@ -40,7 +34,7 @@ public class MerchantIntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white),50);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
         setContentView(R.layout.activity_merchant_intro);
         ButterKnife.bind(this);

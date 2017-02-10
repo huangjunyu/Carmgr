@@ -11,8 +11,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
@@ -23,6 +25,7 @@ import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.merchantcarmgr.utils.NewActivityUtil;
+import com.yiwucheguanjia.merchantcarmgr.utils.SharedPreferencesUtil;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 
 import org.json.JSONException;
@@ -45,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", this.MODE_PRIVATE);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
@@ -55,11 +58,21 @@ public class LoginActivity extends AppCompatActivity {
     EditText accountEdit;
     @BindView(R.id.login_password_edit)
     EditText passwordEdit;
-    @BindView(R.id.login_goback_img_btn)
-    ImageView gobackImg;
     private String usernameString;
 
-    @OnClick(R.id.login_button)
+    @OnClick({R.id.login_button,R.id.login_goback_rl})
+    void click(View view){
+        switch (view.getId()){
+            case R.id.login_button:
+                loginAccount();
+                break;
+            case R.id.login_goback_rl:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
     void loginAccount() {
         if (checkString(accountEdit, passwordEdit)) {
             OkGo.post(UrlString.LOGIN_URL)
@@ -74,15 +87,16 @@ public class LoginActivity extends AppCompatActivity {
                             new MyStringCallback(this, getResources().getString(R.string.loading)) {
                                 @Override
                                 public void onSuccess(String s, Call call, Response response) {
-                                    Log.e("re", s);
                                     //保存账号与token
                                     try {
                                         JSONObject jsonObject = new JSONObject(s);
                                         if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
-                                            setSharePrefrence(jsonObject.getString("username"), jsonObject.getString("token"));
-                                            NewActivityUtil newActivityUtil = new NewActivityUtil(LoginActivity.this,MainActivity.class);
-                                            newActivityUtil.newActivity();
-                                        }else if (TextUtils.equals(jsonObject.getString("opt_state"), "fail")){
+                                            Intent intent = new Intent();
+                                            intent.setAction("action.login_success");
+                                            sendBroadcast(intent);
+                                            setSharePrefrence(jsonObject.getString("username"), jsonObject.getString("token"), jsonObject.getString("merchant_id"));
+                                            checkParkState();
+                                        } else if (TextUtils.equals(jsonObject.getString("opt_state"), "fail")) {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                             builder.setTitle(LoginActivity.this.getString(R.string.hint))
                                                     .setMessage(LoginActivity.this.getString(R.string.login_fail))
@@ -105,10 +119,42 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.login_goback_img_btn)
-    void finishActivity() {
-        finish();
+    private void checkParkState() {
+        OkGo.post(UrlString.MAPP_CHECKPARKSTATE)
+                .params("username", SharedPreferencesUtil.getInstance(LoginActivity.this).usernameSharedPreferences())
+                .params("merchant_id", SharedPreferencesUtil.getInstance(LoginActivity.this).merchantIdSharedPreferences())
+                .params("token", SharedPreferencesUtil.getInstance(LoginActivity.this).tokenSharedPreference())
+                .params("version", UrlString.APP_VERSION)
+                .execute(new MyStringCallback(LoginActivity.this, getString(R.string.loading)) {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("ssewww", s);
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(s);
+                            if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
+                                NewActivityUtil newActivityUtil = new NewActivityUtil(LoginActivity.this, MainActivity.class);
+                                newActivityUtil.newActivity();
+                            }else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                builder.setTitle(LoginActivity.this.getString(R.string.hint))
+                                        .setMessage(LoginActivity.this.getString(R.string.do_not_entry))
+                                        .setPositiveButton(LoginActivity.this.getString(R.string.i_know),
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
+
 
     /**
      * 核审登录资料
@@ -133,13 +179,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void setSharePrefrence(String account, String token) {
+    private void setSharePrefrence(String account, String token, String merchantId) {
         SharedPreferences p = getSharedPreferences("CARMGR_MERCHANT", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = p.edit();
-        Log.e("acount",account + token);
+        Log.e("acount", account + token);
         edit.putString("ACCOUNT", account);
         edit.putString("TOKEN", token);
-        edit.putString("VERSION",UrlString.APP_VERSION);//登录过这个APP之后的标记
+        edit.putString("VERSION", UrlString.APP_VERSION);//登录过这个APP之后的标记
+        edit.putString("MERCHANTID", merchantId);
         edit.commit();
     }
 }

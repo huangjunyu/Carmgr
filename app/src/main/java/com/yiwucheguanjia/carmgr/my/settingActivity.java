@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.RelativeLayout;
 
-import com.andexert.library.RippleView;
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
@@ -15,29 +15,25 @@ import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
 /**
  * Created by Administrator on 2016/7/13.
  */
-public class settingActivity extends Activity implements View.OnClickListener{
-    private RippleView exitRpw;
-    private RippleView gobackRpw;
+public class SettingActivity extends Activity implements View.OnClickListener{
+    private RelativeLayout exitRl;
+    private RelativeLayout gobackRl;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 透明状态栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 透明导航栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         sharedPreferences = getSharedPreferences("CARMGR", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),10);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white),50);
         setContentView(R.layout.setting);
         initView();
     }
     private void initView(){
-        exitRpw = (RippleView) findViewById(R.id.setting_exit_rl);
-        gobackRpw = (RippleView) findViewById(R.id.setting_goback_rl);
-        gobackRpw.setOnClickListener(this);
-        exitRpw.setOnClickListener(this);
+        exitRl = (RelativeLayout) findViewById(R.id.setting_exit_rl);
+        gobackRl = (RelativeLayout) findViewById(R.id.setting_goback_rl);
+        gobackRl.setOnClickListener(this);
+        exitRl.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -49,12 +45,10 @@ public class settingActivity extends Activity implements View.OnClickListener{
                 editor.remove("TOKEN");
                 editor.remove("ACCOUNT");
                 editor.commit();
-//                setResult(1);
-//                getCallingActivity();
                 Intent intent = new Intent();
                 intent.setAction("action.loginout");
                 sendBroadcast(intent);
-                Intent loginInten = new Intent(settingActivity.this, LoginBaseFragmentActivity.class);
+                Intent loginInten = new Intent(SettingActivity.this, LoginBaseFragmentActivity.class);
                 startActivity(loginInten);
                 finish();
                 break;

@@ -42,7 +42,7 @@ public class RollViewPagerAdapter extends LoopPagerAdapter {
     public View getView(ViewGroup container, final int position) {
         ImageView view = new ImageView(container.getContext());
         rollViewPagerBean = rollViewPagerBeanArrayList.get(position);
-        Glide.with(container.getContext()).load(rollViewPagerBean.getRollViewPagerUrl()).error(R.mipmap.default_image).into(view);
+        Glide.with(container.getContext()).load(rollViewPagerBean.getRollViewPagerUrl()).into(view);
 
         /*
         *         Glide.with(activity)                             //配置上下文

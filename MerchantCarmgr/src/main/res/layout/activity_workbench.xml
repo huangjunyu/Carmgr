@@ -17,6 +17,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/workbench"
+            android:textSize="22sp"
             android:textColor="@color/white" />
     </RelativeLayout>
 
@@ -32,6 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
         android:background="@color/white">
 
         <RelativeLayout
@@ -44,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textSize="16sp"
                 android:text="@string/read_total"
                 android:textColor="@color/buseness_black" />
 
@@ -52,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_read_total_tv"
+                android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
@@ -65,7 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/read_total"
+                android:textSize="16sp"
+                android:text="@string/contract_total"
                 android:textColor="@color/buseness_black" />
 
             <TextView
@@ -73,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_appoint_total_tv"
+                android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
@@ -86,7 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/read_total"
+                android:textSize="16sp"
+                android:text="@string/appointment_total"
                 android:textColor="@color/buseness_black" />
 
             <TextView
@@ -94,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workbench_talk_total_tv"
+                android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 

@@ -26,8 +26,7 @@ import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
 import com.yiwucheguanjia.carmgr.myrxjava.rxbus.ChangeAnswerEvent;
 import com.yiwucheguanjia.carmgr.myrxjava.rxbus.RxBus;
-import com.yiwucheguanjia.carmgr.progress.view.NearbyFragment;
-import com.yiwucheguanjia.carmgr.progress.view.ProgressFragment;
+import com.yiwucheguanjia.carmgr.progress.view.NearbyFragment1;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -38,7 +37,8 @@ import rx.functions.Action1;
  * @author
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
-
+    private static final int ADD_CAR_REQUEST = 6000;
+    private static final int ADD_CAR_RESULT = 6001;
     // 以下四个是底部控件
     private RelativeLayout homeLayout;
     private RelativeLayout commercialLayout;
@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     //以下四个是底部标签的图标
     private ImageView homeImg;
     private ImageView commercialImg;
-    private ImageView progressImg;
+    private ImageView nearbyImg;
     private ImageView callYiwuImg;
 
     // 以下四个是底部标签切换的Fragment
@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         callYiwuTxt = (TextView) findViewById(R.id.tabCallYiwutext);
         homeImg = (ImageView) findViewById(R.id.tabHomeImg);
         commercialImg = (ImageView) findViewById(R.id.tabCommercialImg);
-        progressImg = (ImageView) findViewById(R.id.tabProgressImg);
+        nearbyImg = (ImageView) findViewById(R.id.tabProgressImg);
         callYiwuImg = (ImageView) findViewById(R.id.tabCallYiwuImg);
 
         homeLayout.setOnClickListener(this);
@@ -139,7 +139,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeTxt.setTextColor(getResources().getColor(R.color.orange));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
             commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
-            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            nearbyImg.setImageResource(R.mipmap.nearby_nor);
             progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
@@ -174,7 +174,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
-            progressFragment = new NearbyFragment();
+            progressFragment = new NearbyFragment1();
             callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
         } else if (requestCode == 1 && resultCode == 10) {//HomeFragment选择地区
@@ -185,12 +185,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             progressFragment.onActivityResult(3, 10, null);
         } else if (requestCode == 4 && resultCode == 10) {//CallYiwu选择地区
             callYiwuFragment.onActivityResult(4, 10, null);
-        }
-        else if (resultCode == 1 && requestCode == 3) {
+        } else if (resultCode == 1 && requestCode == 3) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
             commercialFragment = new CommercialFragment();
-            progressFragment = new NearbyFragment();
+            progressFragment = new NearbyFragment1();
             callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
         } else if (requestCode == 1 && resultCode == 20) {//扫描界面返回了homeFragment
@@ -201,6 +200,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         } else if (requestCode == 4 && resultCode == 20) {//扫描界面返回了yiwuFragment
 
+        } else if (requestCode == ADD_CAR_REQUEST && resultCode == ADD_CAR_RESULT){
+            callYiwuFragment.onActivityResult(ADD_CAR_REQUEST,ADD_CAR_RESULT,null);
         }
 
     }
@@ -221,7 +222,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeTxt.setTextColor(getResources().getColor(R.color.orange));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
             commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
-            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            nearbyImg.setImageResource(R.mipmap.nearby_nor);
             progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
@@ -234,20 +235,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_pre);
             commercialTxt.setTextColor(getResources().getColor(R.color.orange));
-            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            nearbyImg.setImageResource(R.mipmap.nearby_nor);
             progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         } else if (id == 2) {
             if (progressFragment == null) {
-                progressFragment = new NearbyFragment();
+                progressFragment = new NearbyFragment1();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), progressFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
             homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
             commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
-            progressImg.setImageResource(R.mipmap.tab_progress_img_pre);
+            nearbyImg.setImageResource(R.mipmap.nearby_pre);
             progressTxt.setTextColor(getResources().getColor(R.color.orange));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_nor);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
@@ -260,7 +261,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             homeTxt.setTextColor(getResources().getColor(R.color.gray_default));
             commercialImg.setImageResource(R.mipmap.tab_commercial_img_nor);
             commercialTxt.setTextColor(getResources().getColor(R.color.gray_default));
-            progressImg.setImageResource(R.mipmap.tab_progress_img_nor);
+            nearbyImg.setImageResource(R.mipmap.nearby_nor);
             progressTxt.setTextColor(getResources().getColor(R.color.gray_default));
             callYiwuImg.setImageResource(R.mipmap.tab_callyiwu_img_pre);
             callYiwuTxt.setTextColor(getResources().getColor(R.color.orange));
@@ -336,7 +337,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 fragmentManager.beginTransaction().remove(homeFragment).commitAllowingStateLoss();
                 homeFragment = new HomeFragment();
                 commercialFragment = new CommercialFragment();
-                progressFragment = new NearbyFragment();
+                progressFragment = new NearbyFragment1();
                 callYiwuFragment = new MyFragment();
                 addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
             } else if (action.equals("action.loginout")) {

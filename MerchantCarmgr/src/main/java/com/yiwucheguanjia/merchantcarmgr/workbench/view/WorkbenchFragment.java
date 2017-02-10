@@ -2,6 +2,7 @@ package com.yiwucheguanjia.merchantcarmgr.workbench.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,13 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.lzy.okgo.OkGo;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity1;
+import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
 import com.yiwucheguanjia.merchantcarmgr.workbench.controller.RollViewPagerAdapter;
 import com.yiwucheguanjia.merchantcarmgr.workbench.model.RollViewPagerBean;
@@ -51,6 +53,12 @@ public class WorkbenchFragment extends Fragment {
     RelativeLayout userAssessRl;
     @BindView(R.id.workbench_complaint_rl)
     RelativeLayout compliantRl;
+    @BindView(R.id.workbench_read_num_tv)
+    TextView readNumTv;
+    @BindView(R.id.workbench_appoint_num_tv)
+    TextView appointNumTv;
+    @BindView(R.id.workbench_talk_num_tv)
+    TextView talkNumTv;
     private SharedPreferences sharedPreferences;
     private String imgPaths[];
     private ArrayList<RollViewPagerBean> rollViewPagerBeanArrayList;
@@ -66,14 +74,45 @@ public class WorkbenchFragment extends Fragment {
         ButterKnife.bind(this, workbenchHomeViewLl);
         sharedPreferences = getActivity().getSharedPreferences("CARMGR_MERCHANT", getActivity().MODE_PRIVATE);
         getData();
+        getMerchantData();
         return workbenchHomeViewLl;
+    }
+
+    private void getMerchantData() {
+        OkGo.post(UrlString.DATA_STATISTICS_URL)
+                .tag(this)
+                .params("username", sharedPreferences.getString("ACCOUNT",null))
+                .params("data_time", "")
+                .params("token", sharedPreferences.getString("TOKEN", "null"))
+                .params("version", UrlString.APP_VERSION)
+                .execute(
+                        new MyStringCallback(getActivity(), getResources().getString(R.string.loading)) {
+                            @Override
+                            public void onSuccess(String s, Call call, Response response) {
+                                Log.e("re", s);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    int totalAppointInt = Integer.parseInt(jsonObject.getString("total_subscribe"));
+                                    int totalReadInt = Integer.parseInt(jsonObject.getString("total_access"));
+                                    int totalContrackInt = Integer.parseInt(jsonObject.getString("total_communicate"));
+                                    //总预约量
+                                    appointNumTv.setText(jsonObject.getString("total_subscribe"));
+                                    //总浏览量
+                                    readNumTv.setText(jsonObject.getString("total_access"));
+                                    talkNumTv.setText(jsonObject.getString("total_communicate"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                );
     }
 
     @OnClick({R.id.workbench_post_rl, R.id.workbench_data_stat_Rl, R.id.user_assess_rl, R.id.workbench_complaint_rl})
     void onClickView(View view) {
         switch (view.getId()) {
             case R.id.workbench_post_rl:
-                Intent postIntent = new Intent(getActivity(), PostServiceActivity1.class);
+                Intent postIntent = new Intent(getActivity(), PostServiceActivity.class);
                 postIntent.putExtra("postType","post");//来自于哪里的标识，首发或者编辑修改
                 startActivity(postIntent);
                 break;
@@ -95,6 +134,7 @@ public class WorkbenchFragment extends Fragment {
     }
 
     private void getData() {
+
         OkGo.post(UrlString.APP_GETSHOPINFO)
                 .tag(this)
                 .params("username", sharedPreferences.getString("ACCOUNT", null))
@@ -130,6 +170,7 @@ public class WorkbenchFragment extends Fragment {
                                     rollPagerView.setAdapter(new RollViewPagerAdapter(rollPagerView, rollViewPagerBeanArrayList, getActivity()));
                                     initView(rollViewPagerBeanArrayList);
                                 }
+                                Log.e("loging",s);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

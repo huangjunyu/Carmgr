@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1px"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/setting_goback_rl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:clickable="false"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/publishTopicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/system_msg"
+            android:textColor="@color/gray_default"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/system_msg_rv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</android.support.v7.widget.RecyclerView>
+</LinearLayout>

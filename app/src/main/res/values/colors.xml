@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#FFA700</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="gray">#EAEAEA</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray">#F4F4F4</color>
     <color name="orange">#FFA700</color>
     <color name="orange1">#FFA700</color>
     <color name="gray_divide">#ADADAD</color>

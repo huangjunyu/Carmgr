@@ -70,11 +70,10 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".my.personalActivity" />
         <activity android:name=".account.view.RegisterActivity" />
         <activity android:name=".my.UploadImage" />
         <activity android:name=".my.AddCarActivity" />
-        <activity android:name=".my.settingActivity" />
+        <activity android:name=".my.SettingActivity" />
         <activity android:name=".account.view.UserAgreement" />
         <activity android:name=".account.view.LoginBaseFragmentActivity" />
         <activity android:name=".account.view.GetPassword" />
@@ -87,16 +86,11 @@
         <activity
             android:name=".city.CityActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".account.view.LoginBaseFragmentActivity" />
         <activity android:name=".my.SystemMsgActivity" />
         <activity android:name=".order.OrderActivity" />
         <activity android:name=".my.AccountBalanceActivity" />
-        <!-- <activity -->
-        <!-- android:name="com.mob.tools.MobUIShell" -->
-        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
-        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
-        <!-- android:windowSoftInputMode="stateHidden|adjustResize" /> -->
         <activity android:name=".WaitActivity" />
+        <activity android:name=".city.CityForCarActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -104,14 +98,14 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="95145000a8ba7721b28caa6fd579a02d" />
-
-        <activity android:name=".order.OrderActivity" />
         <activity android:name=".my.MapActivity" />
         <activity android:name=".my.PostAddressListActivity" />
         <activity android:name=".my.AddAddressActivity" />
         <activity android:name=".my.RecordTradeActivity" />
-        <activity android:name=".my.MyCollectActivity"></activity>
-        <activity android:name=".MainActivity_te"/>
+        <activity android:name=".my.MyCollectActivity" />
+        <activity android:name=".merchant_detail.view.GoodsDetailActivity" />
+        <activity android:name=".my.CarBrandActivity"></activity>
+        <service android:name="com.amap.api.location.APSService"></service>
     </application>
 
 </manifest>

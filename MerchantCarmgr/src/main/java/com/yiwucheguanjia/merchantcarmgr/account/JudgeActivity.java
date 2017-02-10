@@ -24,23 +24,28 @@ import okhttp3.Response;
 /**
  * 用于判断是否首次使用APP
  */
-public class JudgeActivity extends AppCompatActivity{
+public class JudgeActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("CARMGR_MERCHANT", MODE_PRIVATE);
-        Log.e("login","judege");
         setSharedPreferences();
 
     }
-    private void setSharedPreferences(){
-        //如果是首次使用该APP
-        if (sharedPreferences.getString("VERSION",null) == null){
-            Intent homeIntent = new Intent(JudgeActivity.this,HomeActivty.class);
+
+    private void setSharedPreferences() {
+        //如果是首次使用该APP,后期可以加入欢迎页
+        if (sharedPreferences.getString("VERSION", null) == null) {
+            Intent homeIntent = new Intent(JudgeActivity.this, HomeActivty.class);
             startActivity(homeIntent);
             finish();
-        }else {
+        } else if (sharedPreferences.getString("VERSION", null) != null && sharedPreferences.getString("TOKEN", null) == null) {
+            Intent homeIntent = new Intent(JudgeActivity.this, HomeActivty.class);
+            startActivity(homeIntent);
+            finish();
+        } else {
             OkGo.post(UrlString.DATA_STATISTICS_URL)
                     .tag(this)
                     .params("username", sharedPreferences.getString("ACCOUNT", null))
@@ -52,12 +57,12 @@ public class JudgeActivity extends AppCompatActivity{
                         public void onSuccess(String s, Call call, Response response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(s);
-                                if (TextUtils.equals(jsonObject.getString("opt_state"), "success")){
+                                if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
                                     Intent mainIntent = new Intent(JudgeActivity.this, MainActivity.class);
                                     startActivity(mainIntent);
                                     finish();
-                                }else {
-                                    Intent loginIntent = new Intent(JudgeActivity.this,LoginActivity.class);
+                                } else {
+                                    Intent loginIntent = new Intent(JudgeActivity.this, LoginActivity.class);
                                     startActivity(loginIntent);
                                     finish();
                                 }
@@ -69,7 +74,7 @@ public class JudgeActivity extends AppCompatActivity{
 
                         @Override
                         public void onError(Call call, Response response, Exception e) {
-                            Log.e("onerror",call.request().toString());
+                            Log.e("onerror", call.request().toString());
                             super.onError(call, response, e);
 
                         }
@@ -77,11 +82,9 @@ public class JudgeActivity extends AppCompatActivity{
                         @Override
                         public void onAfter(@Nullable String s, @Nullable Exception e) {
                             super.onAfter(s, e);
-                            Intent mainIntent = new Intent(JudgeActivity.this, MainActivity.class);
-                            startActivity(mainIntent);
-                            finish();
                         }
                     });
         }
     }
 }
+

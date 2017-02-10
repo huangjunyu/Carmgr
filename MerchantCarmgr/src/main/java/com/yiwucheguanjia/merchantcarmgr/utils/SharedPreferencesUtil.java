@@ -22,18 +22,6 @@ public class SharedPreferencesUtil {
         return sharedPreferencesUtil;
     }
 
-//    public volatile static Tools tools;
-//    public static Tools getInstance(){
-//        Tools instance = null;
-//        if (tools == null){
-//            if (instance == null){
-//                instance = new Tools();
-//                tools = instance;
-//            }
-//        }
-//        return instance;
-//    }
-
     SharedPreferencesUtil(Activity activity) {
         this.activity = activity;
         sharedPreferences = activity.getSharedPreferences("CARMGR_MERCHANT", activity.MODE_PRIVATE);
@@ -41,12 +29,13 @@ public class SharedPreferencesUtil {
 
     public String usernameSharedPreferences() {
         return sharedPreferences.getString("ACCOUNT", null);
-//        return null;
+    }
+    public String merchantIdSharedPreferences(){
+        return sharedPreferences.getString("MERCHANTID",null);
     }
 
     public String tokenSharedPreference() {
         return sharedPreferences.getString("TOKEN", null);
     }
-
     ;
 }

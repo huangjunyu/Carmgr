@@ -17,10 +17,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
-import com.yiwucheguanjia.merchantcarmgr.MainActivity;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.callback.MyStringCallback;
-import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity1;
+import com.yiwucheguanjia.merchantcarmgr.post.PostServiceActivity;
 import com.yiwucheguanjia.merchantcarmgr.post.model.ServiceItemBean;
 import com.yiwucheguanjia.merchantcarmgr.utils.SharedPreferencesUtil;
 import com.yiwucheguanjia.merchantcarmgr.utils.UrlString;
@@ -67,7 +66,7 @@ public class PostedAdapter extends RecyclerView.Adapter<PostedAdapter.HolderView
         Glide.with(activity).load(serviceItemBean.getImg_path()).error(R.mipmap.default_image).centerCrop().into(holder.serviceImg);
         holder.serviceNameTv.setText(serviceItemBean.getService_name());
         holder.stateTv.setText(serviceItemBean.getState());
-        holder.postTimeTv.setText(serviceItemBean.getState());
+        holder.postTimeTv.setText(serviceItemBean.getDate_time());
         holder.access.setText(serviceItemBean.getAccess_times() + " 次");
         holder.deleteTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +77,12 @@ public class PostedAdapter extends RecyclerView.Adapter<PostedAdapter.HolderView
         holder.editTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent postServiceIntent = new Intent(activity,PostServiceActivity1.class);
+                Intent postServiceIntent = new Intent(activity,PostServiceActivity.class);
                 postServiceIntent.putExtra("postType","edit");//来自于哪里的标识，首发或者编辑修改
                 postServiceIntent.putExtra("serviceTittle",serviceItemBean.getService_name());
                 postServiceIntent.putExtra("serviceContent",serviceItemBean.getDetail());
                 postServiceIntent.putExtra("servicePrice",serviceItemBean.getPrice());
-                postServiceIntent.putExtra("serviceType","type");
+                postServiceIntent.putExtra("serviceType","");
                 postServiceIntent.putExtra("serviceScope",serviceItemBean.getScope());
                 activity.getApplicationContext().sendBroadcast(postServiceIntent);
                 activity.startActivity(postServiceIntent);
@@ -100,7 +99,7 @@ public class PostedAdapter extends RecyclerView.Adapter<PostedAdapter.HolderView
             }
         }).setPositiveButton(activity.getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                refuseService(serviceId,position);
+                deleteService(serviceId,position);
             }
         });
         AlertDialog alert = builder.create();
@@ -135,8 +134,7 @@ public class PostedAdapter extends RecyclerView.Adapter<PostedAdapter.HolderView
             this.activity = activity;
         }
     }
-    private void refuseService(final String position, final int listPosition){
-        Log.e("yesposition",position + "");
+    private void deleteService(final String position, final int listPosition){
         OkGo.post(UrlString.APP_DELETESERVICE)
                 .params("username", SharedPreferencesUtil.getInstance(activity).usernameSharedPreferences())
                 .params("token",SharedPreferencesUtil.getInstance(activity).tokenSharedPreference())

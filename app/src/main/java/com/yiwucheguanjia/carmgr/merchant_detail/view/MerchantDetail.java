@@ -24,15 +24,17 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.callback.MyStringCallback;
 import com.yiwucheguanjia.carmgr.merchant_detail.controller.DetailRateAdapter;
 import com.yiwucheguanjia.carmgr.merchant_detail.controller.DetailServiceTypeAdapter;
 import com.yiwucheguanjia.carmgr.merchant_detail.controller.myScrollView;
 import com.yiwucheguanjia.carmgr.merchant_detail.model.RateBean;
 import com.yiwucheguanjia.carmgr.merchant_detail.model.ServiceTypeItemBean;
+import com.yiwucheguanjia.carmgr.utils.SharedPreferencesUtil;
 import com.yiwucheguanjia.carmgr.utils.StringCallback;
 import com.yiwucheguanjia.carmgr.utils.Tools;
 import com.yiwucheguanjia.carmgr.utils.UrlString;
@@ -44,6 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/8/9.
@@ -52,7 +55,6 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
     private SharedPreferences sharedPreferences;
     private RecyclerView serviceTypeRView;
     private RecyclerView rateRView;
-    //    private RelativeLayout merchantdetail;
     private RelativeLayout merchantdetailTitle;
     private myScrollView scrollview;
     private ImageView merchantBg;
@@ -77,7 +79,7 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
     private String merchantAddress;
     private TextView positionTv;
     private TextView appoinBusTv;
-
+    private String merchantId;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,13 +88,9 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // 透明导航栏
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);
         setContentView(R.layout.activity_merchantdetail);
         initView();
-        Log.e("px",Tools.getInstance().pxTodip(MerchantDetail.this,504) + "");
-//        drawable = getDrawable(R.drawable.orange);
         drawable = getResources().getDrawable(R.drawable.orange);
         drawable.setAlpha(0);
         merchantdetailTitle.setBackground(drawable);
@@ -142,20 +140,6 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
                 break;
         }
     }
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-
-                    break;
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     protected void initView() {
         scrollview = (myScrollView) findViewById(R.id.merchantdetail_scroll);
@@ -208,14 +192,12 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
     protected void analysisJson(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            //jsonObject.getString("merchant_introduce") + e
             merchantNameTv.setText(jsonObject.getString("merchant_name"));
+            merchantId = jsonObject.optString("merchant_id","");
             positionTv.setText(merchantAddress);
             selectStar(merchantStarStr,starImg);
             merchantDetailTv.setDesc(jsonObject.getString("merchant_introduce"), TextView.BufferType.NORMAL);
             handler.sendEmptyMessage(1);
-            Log.e("im_path",jsonObject.optString("img_path","paht"));
-//            jsonObject.optString("img_path");
             if (TextUtils.isEmpty(jsonObject.optString("img_path"))){
                 Picasso.with(this).load(R.mipmap.picture_default).error(R.mipmap.picture_default).into(
                         new Target() {
@@ -260,29 +242,26 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
                     }
             );
             }
-//            Glide.with(MerchantDetail.this).load(jsonObject.optString("img_path","path")).error(R.mipmap.picture_default).into(merchantBg.setBackgroundResource();)
             readMoreDetail.setText(getText(R.string.read_more));
             readMoredDetailImg.setImageResource(R.mipmap.pull_down_black);
             serviceTypeItemBeens = new ArrayList<>();
-//                serviceTypeItemBeen.setDetailMerchantImgUrl(merchantJson.getString("img_path"));
             for (int i = 0; i < jsonObject.getJSONArray("services_list").length(); i++) {
                 ServiceTypeItemBean serviceTypeItemBeen = new ServiceTypeItemBean();
                 JSONObject merchantJson = jsonObject.getJSONArray("services_list").getJSONObject(i);
                 serviceTypeItemBeen.setServicePrice(merchantJson.getString("service_price"));
+                serviceTypeItemBeen.setServiceId(merchantJson.getString("service_id"));
                 serviceTypeItemBeen.setService_stars(merchantJson.getDouble("service_stars"));
                 serviceTypeItemBeen.setDetailMerchantStarsStr(merchantJson.getString("service_stars"));
                 serviceTypeItemBeen.setDetailMerchantImgUrl(merchantJson.getString("service_img"));
                 serviceTypeItemBeen.setDetailMerchantAddr(merchantJson.getString("service_address"));
                 serviceTypeItemBeen.setDetailMerchantIntroduce(merchantJson.getString("service_introduce"));
-                serviceTypeItemBeen.setDetailMerchantName(merchantJson.getString("service_name"));
+                serviceTypeItemBeen.setServiceName(merchantJson.getString("service_name"));
                 serviceTypeItemBeen.setDetailMerchantDistance(merchantJson.getString("service_distance"));
                 Log.e("ewqvv", merchantJson.getString("service_distance"));
-
                 serviceTypeItemBeens.add(serviceTypeItemBeen);
             }
-            DetailServiceTypeAdapter merchantItemAdapter = new DetailServiceTypeAdapter(MerchantDetail.this, serviceTypeItemBeens);
+            DetailServiceTypeAdapter merchantItemAdapter = new DetailServiceTypeAdapter(MerchantDetail.this, serviceTypeItemBeens,handler);
             serviceTypeRView.setAdapter(merchantItemAdapter);
-
             readMoredRate.setText(getText(R.string.read_more));
             readMoredRateImg.setImageResource(R.mipmap.pull_down_black);
             rateBeens = new ArrayList<>();
@@ -303,6 +282,22 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    Intent intent = new Intent(MerchantDetail.this,GoodsDetailActivity.class);
+                    intent.putExtra("serviceId",serviceTypeItemBeens.get(msg.arg1).getServiceId());
+                    intent.putExtra("merchantId",merchantId);
+                    intent.putExtra("merchantName",merchantNameStr);
+                    intent.putExtra("serviceName",serviceTypeItemBeens.get(msg.arg1).getServiceName());
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -312,15 +307,17 @@ public class MerchantDetail extends Activity implements View.OnClickListener {
                 break;
             case R.id.detail_appoin_buse_tv:
 
-                Intent intent = new Intent();
-                intent.setAction("action.appointment");
-                sendBroadcast(intent);
-                finish();
+//                Intent intent = new Intent();
+//                intent.setAction("action.appointment");
+//                sendBroadcast(intent);
+//                finish();
+
                 break;
             default:
                 break;
         }
     }
+
 
     protected class detailStringCallback extends StringCallback {
 

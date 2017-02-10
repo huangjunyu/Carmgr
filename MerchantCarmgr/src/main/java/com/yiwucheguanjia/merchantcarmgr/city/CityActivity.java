@@ -31,6 +31,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.merchantcarmgr.R;
 import com.yiwucheguanjia.merchantcarmgr.city.adapter.CitySortAdapter;
 import com.yiwucheguanjia.merchantcarmgr.city.adapter.HotCityRecyclerAdapter;
@@ -92,7 +93,6 @@ public class CityActivity extends CheckPermissionsActivity implements View.OnCli
     private RelativeLayout positionRl;
     private TextView positionTv;
     private RelativeLayout gobackRl;
-//    private TextView submit;
     private Intent cityIntent;
     private String cityNameStr = "";//记录城市名称
     private int CITY_RESULT = 1021;
@@ -105,12 +105,10 @@ public class CityActivity extends CheckPermissionsActivity implements View.OnCli
         initMap();
         initLocation();
         startLocation();
-        // 透明状态栏
         setContentView(R.layout.activity_city);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.white), 50);
         gobackRl = (RelativeLayout)findViewById(R.id.city_goback_rl);
-//        submit = (TextView)findViewById(R.id.city_submit);
         gobackRl.setOnClickListener(this);
-//        submit.setOnClickListener(this);
         popupwindowinflater = LayoutInflater.from(CityActivity.this);
         initData();
         initViews();
@@ -534,7 +532,7 @@ public class CityActivity extends CheckPermissionsActivity implements View.OnCli
         @Override
         public void onLocationChanged(AMapLocation loc) {
             if (null != loc) {
-                positionRl.setVisibility(View.VISIBLE);
+//                positionRl.setVisibility(View.VISIBLE);
 
                 //将最后一个“市”字去掉，适配对数据库的检索
                 positionTv.setText(loc.getCity());

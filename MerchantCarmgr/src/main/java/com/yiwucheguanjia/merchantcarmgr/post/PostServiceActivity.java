@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -250,7 +251,6 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                                 listSize = jsonObject.getInt("list_size");
                                 JSONArray fileStoreList = jsonObject.getJSONArray("file_store_list");
                                 for (int i = 0; i < listSize; i++) {
-//                                    imgPaths = imgPaths + fileStoreList.get(i);
                                     storePaht = (JSONObject) fileStoreList.get(i);
                                     imgPaths = imgPaths + storePaht.getString("store_path") + "^";
                                 }
@@ -270,7 +270,6 @@ public class PostServiceActivity extends AppCompatActivity implements ImagePicke
                                             @Override
                                             public void onSuccess(String s, Call call, Response response) {
                                                 try {
-                                                    JSONObject jsonObject1 = new JSONObject(s);
                                                     if (TextUtils.equals(jsonObject.getString("opt_state"), "success")) {
                                                         Intent intent = new Intent();
                                                         intent.setAction("action.post_manage");

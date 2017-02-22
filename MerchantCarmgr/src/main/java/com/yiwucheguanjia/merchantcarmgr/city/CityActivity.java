@@ -274,7 +274,6 @@ public class CityActivity extends CheckPermissionsActivity implements View.OnCli
             }
         });
         if (popupWindow.isShowing()) {
-            Log.e("wiwi", "show");
         }
     }
 

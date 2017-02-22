@@ -1,6 +1,5 @@
 package com.yiwucheguanjia.carmgr;
 
-import android.app.Activity;
 import android.app.Application;
 
 import com.lzy.imagepicker.ImagePicker;
@@ -10,12 +9,11 @@ import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.store.PersistentCookieStore;
 import com.lzy.okgo.model.HttpHeaders;
-import com.lzy.okgo.model.HttpParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.socialize.PlatformConfig;
 import com.yiwucheguanjia.carmgr.city.db.DBManager;
-import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
+import com.yiwucheguanjia.carmgr.utils.GlideImageLoader;
 
 /**
  * Created by Administrator on 2016/7/31.
@@ -31,7 +29,7 @@ public class CarmgrApllication extends Application {
         dbManager = new DBManager(getApplicationContext());
         dbManager.openDatabase();
         ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(true);        //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存

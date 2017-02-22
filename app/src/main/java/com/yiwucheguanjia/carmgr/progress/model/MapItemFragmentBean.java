@@ -1,15 +1,44 @@
 package com.yiwucheguanjia.carmgr.progress.model;
 
+import com.yiwucheguanjia.carmgr.progress.view.MapItemFragment;
+
 /**
  * Created by Administrator on 2017/1/9.
  */
-public class ServiceBean {
+public class MapItemFragmentBean {
+
+    private MapItemFragment mapItemFragment;
     private String serviceType;
     private String servicePrice;
     private String serviceTitle;
     private String headerUrl;
     private String id;
+    private String content;
+    private int star;
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
+
+    public MapItemFragment getMapItemFragment() {
+        return mapItemFragment;
+    }
+
+    public void setMapItemFragment(MapItemFragment mapItemFragment) {
+        this.mapItemFragment = mapItemFragment;
+    }
     public String getId() {
         return id;
     }

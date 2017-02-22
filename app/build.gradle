@@ -31,9 +31,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/picasso-2.5.2.jar')
     //版本号使用 + 可以自动引用最新版
-
-    //版本号使用 + 可以自动引用最新版
-
     //    compile 'in.srain.cube:ultra-ptr:1.0.10'
     compile files('libs/guideshowlib.jar')
     compile files('libs/jpinyin-jdk1.6.jar')
@@ -70,4 +67,6 @@ dependencies {
     compile files('libs/AMapNavi_1.9.4_AMapLocation_3.1.0_20161201.jar')
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:support-v4:25.1.1'
+    compile files('libs/AMap_Location_V3.3.0_20170118.jar')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:+'
 }

@@ -17,7 +17,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.my.controller.ImagePickerAdapter;
-import com.yiwucheguanjia.carmgr.utils.PicassoImageLoader;
+import com.yiwucheguanjia.carmgr.utils.GlideImageLoader;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
         selImageList = new ArrayList<>();
         imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new PicassoImageLoader());
+        imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setMultiMode(false);
         uploadDriveCredImg = (ImageView) findViewById(R.id.upload_drive_cred_img);
         uploadDriveCredBtn = (Button) findViewById(R.id.upload_drive_cred_btn);
@@ -67,7 +67,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
     }
 
     public void uploadDriveCred() {
-        imagePicker.setImageLoader(new PicassoImageLoader());
+        imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setCrop(false);
         //打开选择,本次允许选择的数量
         ImagePicker.getInstance().setSelectLimit(5);
@@ -75,7 +75,7 @@ public class UploadImage extends Activity implements View.OnClickListener {
         startActivityForResult(intent, 1);
     }
     public void uploadPolicy(){
-        imagePicker.setImageLoader(new PicassoImageLoader());
+        imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setCrop(false);
         //打开选择,本次允许选择的数量
         ImagePicker.getInstance().setSelectLimit(5);

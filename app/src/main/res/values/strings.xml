@@ -10,6 +10,20 @@
     <string name="qq_contact">QQ</string>
     <string name="phone_contact">电话</string>
     <string name="position">地区</string>
+    <string name="goback">返回</string>
+    <string name="want">我要</string>
+    <string name="reward">赏金</string>
+    <string name="here">我在</string>
+    <string name="select_type">请选择类型</string>
+    <string name="help_type">求助类型</string>
+    <string name="time_to">有效期至</string>
+    <string name="setting_time">为求助设置一个截止时间</string>
+    <string name="hao_money_to_pay">我愿意支付多少报酬给帮助者</string>
+    <string name="need_to_help">我需要别人帮助我什么</string>
+    <string name="descrip">描述</string>
+    <string name="descrip_hint">说一说具体的求助信息，清楚明确的描述更容易获得帮助</string>
+    <string name="navigation">导航</string>
+    <string name="car_serve">汽车服务</string>
     <string name="home_search_hint">输入商家、品类、商圈</string>
     <string name="car_service">车务</string>
     <string name="registration">上牌</string>
@@ -141,6 +155,8 @@
     <string name="phone_login_quick">手机号快捷登录</string>
     <string name="account_login">账号登录</string>
     <string name="system_msg">系统消息</string>
+    <string name="post_help">发布求助</string>
+    <string name="post">发布</string>
     <string name="check_and_login">验证并登录</string>
     <string name="edit">编辑</string>
     <string name="cancel_collect">取消收藏</string>
@@ -186,6 +202,7 @@
     <string name="no_order">您当前没有订单</string>
     <string name="service_exception">服务器异常</string>
     <string name="get_data_fail">获取数据失败</string>
+    <string name="position_fail">定位失败</string>
     <string name="login_fail">登录失败，请检查网络以及核对短信验证码</string>
     <string name="code_error">验证码有误，请核对后再进行</string>
     <string name="request_fail">请求失败，请重新点击发送</string>
@@ -198,6 +215,7 @@
     <string name="post_fail">请求数据失败，请稍候重试</string>
     <string name="i_know">知道了</string>
     <string name="loading">加载中...</string>
+    <string name="finish_post_data">请完善发布信息</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

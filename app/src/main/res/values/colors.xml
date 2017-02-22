@@ -8,6 +8,10 @@
     <color name="orange">#FFA700</color>
     <color name="orange1">#FFA700</color>
     <color name="gray_divide">#ADADAD</color>
+    <color name="rc_divide">	#DBDBDB</color>
+    <color name="frame_divide">#D9D9D9</color>
+    <color name="hint_edit_color">#CCCCCC</color>
+    <color name="hint_text_color">#999999</color>
     <color name="item_gray">#EBEBEB</color>
     <color name="gray_back">#ADADAD</color>
     <color name="gray_default">#555555</color>

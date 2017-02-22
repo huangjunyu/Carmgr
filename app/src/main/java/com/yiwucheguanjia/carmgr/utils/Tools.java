@@ -9,11 +9,14 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yiwucheguanjia.carmgr.R;
 
 import java.util.regex.Matcher;
@@ -113,10 +116,6 @@ public class Tools {
     }
     //获取屏幕分辨率
     public static String getScreen(Activity activity){
-
-
-
-
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -158,5 +157,16 @@ public class Tools {
     public static int pxTodip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+    public AlertDialog dialog(String title,String content,String checked,Activity context){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(title).setMessage(content).setNegativeButton(checked, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    arg0.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        return alert;
     }
 }

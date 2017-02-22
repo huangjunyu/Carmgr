@@ -98,14 +98,22 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="95145000a8ba7721b28caa6fd579a02d" />
+
         <activity android:name=".my.MapActivity" />
         <activity android:name=".my.PostAddressListActivity" />
         <activity android:name=".my.AddAddressActivity" />
         <activity android:name=".my.RecordTradeActivity" />
         <activity android:name=".my.MyCollectActivity" />
         <activity android:name=".merchant_detail.view.GoodsDetailActivity" />
-        <activity android:name=".my.CarBrandActivity"></activity>
-        <service android:name="com.amap.api.location.APSService"></service>
+        <activity android:name=".my.CarBrandActivity" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".order_detail.MerchantDetailAmapActivity" />
+        <activity
+            android:name=".post_help.PostHelpActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".post_help.HelpTypeActivity"></activity>
     </application>
 
 </manifest>

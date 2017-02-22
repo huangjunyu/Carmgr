@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/nearby_position_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/progress_position_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/position"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/nearby_position_img"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/progress_position_Tv"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/position_pulldown" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nearby_search_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_toLeftOf="@+id/nearby_scan_rl"
+            android:layout_toRightOf="@+id/nearby_position_rl"
+            android:background="@mipmap/search_frame">
+
+            <ImageView
+                android:id="@+id/nearby_search_img"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/nearby_search_img"
+                android:text="@string/home_search_hint"
+                android:textColor="@color/main_search_gray"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nearby_scan_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/nearby_personal_rl"
+            android:paddingLeft="15dp"
+            android:paddingRight="7dp">
+
+            <ImageView
+                android:id="@+id/nearby_scan"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/scan" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nearby_personal_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="20dp">
+
+            <ImageView
+                android:id="@+id/nearby_personal_img"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/message" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.yiwucheguanjia.carmgr.overwrite.WrapcontentViewpager
+            android:id="@+id/fragment_nearby_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_gravity="top" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/nearby_ft_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"></android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="15dp">
+
+            <ImageView
+                android:id="@+id/post_help_post1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="25dp"
+                android:src="@mipmap/service_order" />
+
+            <ImageView
+                android:id="@+id/post_help_post2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/post_help_post1"
+                android:layout_marginTop="25dp"
+                android:src="@mipmap/service_order" />
+
+            <ImageView
+                android:id="@+id/post_help_post3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/post_help_post2"
+                android:src="@mipmap/service_order" />
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

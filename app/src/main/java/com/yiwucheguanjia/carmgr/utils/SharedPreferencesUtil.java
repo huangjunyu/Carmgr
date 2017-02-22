@@ -34,6 +34,10 @@ public class SharedPreferencesUtil {
     public String tokenSharedPreference() {
         return sharedPreferences.getString("TOKEN", null);
     }
-
-    ;
+    public float longitudeSharedPreferences(){
+        return sharedPreferences.getFloat("longitude",23.125178f);
+    }
+    public float latitudeSharedPreferences(){
+        return sharedPreferences.getFloat("latitude",113.280637f);
+    }
 }

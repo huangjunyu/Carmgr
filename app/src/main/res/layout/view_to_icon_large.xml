@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/header_bg_white"
+    android:background="@mipmap/header_bg_orange"
     android:gravity="center"
     android:orientation="vertical">
 
     <com.yiwucheguanjia.carmgr.utils.CircularImage
-        android:id="@+id/view_to_icon_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="5dp" />
+        android:id="@+id/view_to_larger_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:src="@mipmap/ic_back" />
 </LinearLayout>

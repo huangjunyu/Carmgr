@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
+import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.post_help.PostHelpActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +59,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
 
     @Override
     public SelectedPicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        return new SelectedPicViewHolder(mInflater.inflate(R.layout.list_item_image, parent, false));
-        return null;
+        return new SelectedPicViewHolder(mInflater.inflate(R.layout.list_item_image, parent, false));
+//        return null;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
 
         public SelectedPicViewHolder(View itemView) {
             super(itemView);
-//            iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
+            iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
         }
 
         public void bind(int position) {
@@ -87,8 +89,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
             //根据条目位置设置图片
             ImageItem item = mData.get(position);
             if (isAdded && position == getItemCount() - 1) {
-//                iv_img.setImageResource(R.drawable.selector_image_add);
-//                clickPosition = WxDemoActivity.IMAGE_ITEM_ADD;
+                iv_img.setImageResource(R.drawable.selector_image_add);
+                clickPosition = PostHelpActivity.IMAGE_ITEM_ADD;
             } else {
                 ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, item.path, iv_img, 0, 0);
                 clickPosition = position;

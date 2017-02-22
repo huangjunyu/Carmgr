@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yiwucheguanjia.carmgr.post_help.PostHelpActivity">
+
+    <RelativeLayout
+        android:id="@+id/post_help_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/frame_bottom">
+
+        <RelativeLayout
+            android:id="@+id/post_help_goback_rl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/goback" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/post_help_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/post_help"
+            android:textColor="@color/gray_default"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <com.yiwucheguanjia.carmgr.merchant_detail.controller.myScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/post_help_post_bn"
+        android:layout_below="@+id/post_help_bar">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/post_help_want_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frame_top"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/want"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/post_help_want_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:hint="@string/need_to_help"
+                    android:textColorHint="@color/hint_edit_color"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/post_help_descr_ll"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/post_help_want_ll"
+                android:background="@drawable/frame_top"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/descrip"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/post_help_descr_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:hint="@string/descrip_hint"
+                    android:textColorHint="@color/hint_edit_color"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/post_help_reward_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_help_descr_ll"
+                android:background="@drawable/frame_my"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/reward"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/post_help_reward_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:hint="@string/hao_money_to_pay"
+                    android:inputType="number"
+                    android:textColorHint="@color/hint_edit_color"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/post_help_position_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_help_reward_ll"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_my"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/here"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:id="@+id/post_help_position_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:id="@+id/post_help_position_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/post_help_position_img"
+                        android:background="@null"
+                        android:singleLine="false"
+                        android:textColor="@color/buseness_black"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/post_help_position_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/go" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/post_help_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_help_position_ll"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_my"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/help_type"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:id="@+id/post_help_type_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:id="@+id/post_help_type_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/post_help_type_img"
+                        android:hint="@string/select_type"
+                        android:textColorHint="@color/hint_text_color"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/post_help_type_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/go" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/post_help_timeup_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_help_type_ll"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/frame_top"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/time_to"
+                    android:textColor="@color/buseness_black"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:id="@+id/post_help_timeup_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:id="@+id/post_help_timeup_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/post_help_timeup_img"
+                        android:hint="@string/setting_time"
+                        android:textColorHint="@color/hint_text_color"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/post_help_timeup_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/go" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/post_help_img_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_help_timeup_ll"
+                android:background="@drawable/frame_top"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/post_help_img_rv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:choiceMode="multipleChoice"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:textColor="@color/buseness_black"
+                    app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                    app:spanCount="1"
+                    tools:listitem="@layout/list_item_image" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.yiwucheguanjia.carmgr.merchant_detail.controller.myScrollView>
+    <Button
+        android:id="@+id/post_help_post_bn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange"
+        android:text="@string/post"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

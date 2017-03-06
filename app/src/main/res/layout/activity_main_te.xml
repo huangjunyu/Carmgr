@@ -8,12 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.yiwucheguanjia.carmgr.progress.PageRecyclerView
+    <com.yiwucheguanjia.carmgr.nearby.PageRecyclerView
         android:id="@+id/cusom_swipe_view"
         android:layout_width="match_parent"
         android:layout_height="70dp" />
 
-    <com.yiwucheguanjia.carmgr.progress.PageIndicatorView
+    <com.yiwucheguanjia.carmgr.nearby.PageIndicatorView
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="0dp"

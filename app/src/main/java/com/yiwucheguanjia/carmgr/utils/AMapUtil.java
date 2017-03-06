@@ -13,8 +13,7 @@ import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusStep;
 import com.amap.api.services.route.RouteBusLineItem;
 import com.amap.api.services.route.RouteRailwayItem;
-import com.yiwucheguanjia.carmgr.R;
-import com.yiwucheguanjia.carmgr.progress.ChString;
+import com.yiwucheguanjia.carmgr.nearby.ChString;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

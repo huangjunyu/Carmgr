@@ -21,6 +21,7 @@ public class RoundRectImageView extends ImageView {
 //        super(context, attrs);
 //    }
     private Paint paint;
+    private int roundRadius = 12;
 
     public RoundRectImageView(Context context) {
         this(context,null);
@@ -45,7 +46,7 @@ public class RoundRectImageView extends ImageView {
         Drawable drawable = getDrawable();
         if (null != drawable) {
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            Bitmap b = getRoundBitmap(bitmap, Tools.getInstance().dipTopx(getContext(),2));
+            Bitmap b = getRoundBitmap(bitmap, Tools.getInstance().dipTopx(getContext(),roundRadius));
             final Rect rectSrc = new Rect(0, 0, b.getWidth(), b.getHeight());
             final Rect rectDest = new Rect(0,0,getWidth(),getHeight());
             paint.reset();
@@ -54,6 +55,9 @@ public class RoundRectImageView extends ImageView {
         } else {
             super.onDraw(canvas);
         }
+    }
+    public void setRoundRadius(int roundRadius){
+        this.roundRadius = roundRadius;
     }
 
     /**

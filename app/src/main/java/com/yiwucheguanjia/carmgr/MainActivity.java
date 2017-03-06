@@ -22,11 +22,11 @@ import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.my.MyFragment;
-import com.yiwucheguanjia.carmgr.commercial.view.CommercialFragment;
 import com.yiwucheguanjia.carmgr.home.view.HomeFragment;
 import com.yiwucheguanjia.carmgr.myrxjava.rxbus.ChangeAnswerEvent;
 import com.yiwucheguanjia.carmgr.myrxjava.rxbus.RxBus;
-import com.yiwucheguanjia.carmgr.progress.view.NearbyFragment;
+import com.yiwucheguanjia.carmgr.nearby.view.NearbyFragment;
+import com.yiwucheguanjia.carmgr.transaction.TransactionFragment;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -102,15 +102,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private void initUI() {
         homeLayout = (RelativeLayout) findViewById(R.id.rl_home);
-        commercialLayout = (RelativeLayout) findViewById(R.id.rl_commercial);
+        commercialLayout = (RelativeLayout) findViewById(R.id.rl_transact);
         progressLayout = (RelativeLayout) findViewById(R.id.rl_progress);
         callYiwuLayout = (RelativeLayout) findViewById(R.id.rl_callyiwu);
         homeTxt = (TextView) findViewById(R.id.tabHomeTxt);
-        commercialTxt = (TextView) findViewById(R.id.tabCommercialTxt);
+        commercialTxt = (TextView) findViewById(R.id.tab_transact_tv);
         progressTxt = (TextView) findViewById(R.id.tabProgressTxt);
         callYiwuTxt = (TextView) findViewById(R.id.tabCallYiwutext);
         homeImg = (ImageView) findViewById(R.id.tabHomeImg);
-        commercialImg = (ImageView) findViewById(R.id.tabCommercialImg);
+        commercialImg = (ImageView) findViewById(R.id.tab_transact_img);
         nearbyImg = (ImageView) findViewById(R.id.tabProgressImg);
         callYiwuImg = (ImageView) findViewById(R.id.tabCallYiwuImg);
 
@@ -152,7 +152,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.rl_home: // 首页标签
                 clickTab1Layout(0);
                 break;
-            case R.id.rl_commercial: // 商户标签
+            case R.id.rl_transact: // 商户标签
                 clickTab1Layout(1);
                 break;
             case R.id.rl_progress: // 进度标签
@@ -173,7 +173,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (requestCode == 1 && resultCode == 1) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
-            commercialFragment = new CommercialFragment();
+            commercialFragment = new TransactionFragment();
             progressFragment = new NearbyFragment();
             callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else if (resultCode == 1 && requestCode == 3) {
             fragmentManager.beginTransaction().remove(homeFragment).commit();
             homeFragment = new HomeFragment();
-            commercialFragment = new CommercialFragment();
+            commercialFragment = new TransactionFragment();
             progressFragment = new NearbyFragment();
             callYiwuFragment = new MyFragment();
             addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);
@@ -228,7 +228,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             callYiwuTxt.setTextColor(getResources().getColor(R.color.gray_default));
         } else if (id == 1) {
             if (commercialFragment == null) {
-                commercialFragment = new CommercialFragment();
+                commercialFragment = new TransactionFragment();
             }
             addOrShowFragment(fragmentManager.beginTransaction(), commercialFragment);
             homeImg.setImageResource(R.mipmap.tab_home_img_nor);
@@ -336,7 +336,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (action.equals("action.loginfresh")) {
                 fragmentManager.beginTransaction().remove(homeFragment).commitAllowingStateLoss();
                 homeFragment = new HomeFragment();
-                commercialFragment = new CommercialFragment();
+                commercialFragment = new TransactionFragment();
                 progressFragment = new NearbyFragment();
                 callYiwuFragment = new MyFragment();
                 addOrShowFragment(fragmentManager.beginTransaction(), homeFragment);

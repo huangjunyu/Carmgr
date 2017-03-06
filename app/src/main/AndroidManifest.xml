@@ -69,6 +69,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".account.view.RegisterActivity" />
         <activity android:name=".my.UploadImage" />
@@ -109,11 +110,12 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".order_detail.MerchantDetailAmapActivity" />
+        <activity android:name=".merchant_detail.MerchantDetailAmapActivity" />
         <activity
             android:name=".post_help.PostHelpActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".post_help.HelpTypeActivity"></activity>
+        <activity android:name=".commercial.view.CommercialActivity"/>
     </application>
 
 </manifest>

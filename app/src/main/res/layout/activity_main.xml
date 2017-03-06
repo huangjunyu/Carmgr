@@ -43,13 +43,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_commercial"
+            android:id="@+id/rl_transact"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1.0">
 
             <ImageView
-                android:id="@+id/tabCommercialImg"
+                android:id="@+id/tab_transact_img"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
@@ -57,12 +57,12 @@
                 android:src="@mipmap/tab_commercial_img_nor" />
 
             <TextView
-                android:id="@+id/tabCommercialTxt"
+                android:id="@+id/tab_transact_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tabCommercialImg"
+                android:layout_below="@+id/tab_transact_img"
                 android:layout_centerHorizontal="true"
-                android:text="@string/commercial"
+                android:text="@string/transact"
                 android:textSize="12sp" />
         </RelativeLayout>
 

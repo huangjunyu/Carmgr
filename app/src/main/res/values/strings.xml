@@ -11,6 +11,10 @@
     <string name="phone_contact">电话</string>
     <string name="position">地区</string>
     <string name="goback">返回</string>
+    <string name="my_service">我的服务</string>
+    <string name="car_manager">爱车管理</string>
+    <string name="saled">已售</string>
+    <string name="transact">办理</string>
     <string name="want">我要</string>
     <string name="reward">赏金</string>
     <string name="here">我在</string>
@@ -30,6 +34,20 @@
     <string name="car_credit">车贷</string>
     <string name="user_name">用户名</string>
     <string name="click_add_car">点击添加车辆</string>
+    <string name="add_car_descrip">爱车添加，车务无忧办理</string>
+    <string name="car_maintain">爱车保养</string>
+    <string name="validity_insurance">有效车险</string>
+    <string name="next_annual_inspection">下次年检</string>
+    <string name="query_break_rules">查询违章</string>
+    <string name="park_pay">停车缴费</string>
+    <string name="car_appraisement">爱车估值</string>
+    <string name="technician_online">技师在线</string>
+    <string name="more_service">更多服务</string>
+    <string name="refuel_up">加油充值</string>
+    <string name="insurance_service">车险服务</string>
+    <string name="bread_rules_query">车辆违法查询</string>
+    <string name="bread_rules_pay">交通违法缴罚</string>
+    <string name="valid_car_insurance">车险</string>
     <string name="nekwork_error">网络错误，请检查网络后重新操作</string>
     <string name="title_activity_login">Sign in</string>
     <string name="login_account_hint">手机/邮箱/用户名</string>
@@ -134,6 +152,9 @@
     <string name="hot_second_car">热门二手车</string>
     <string name="hot_recommend">热门推荐</string>
     <string name="contact_merchant">联系商家</string>
+    <string name="merchant">商家</string>
+    <string name="service_window">服务窗</string>
+    <string name="group_buying">团购</string>
     <string name="distance">商家与我距离</string>
     <string name="setting">设置</string>
     <string name="brand">品牌</string>
@@ -142,8 +163,13 @@
     <string name="use_gprs">移动网络下载图片</string>
     <string name="clean_cache">清理缓存</string>
     <string name="about_us">关于我们</string>
+    <string name="merchant_data">商家信息</string>
+    <string name="refund_everytime">随时退</string>
+    <string name="refund_timesup">过期自动退</string>
     <string name="canvass_news">招商信息</string>
     <string name="praise">给个好评</string>
+    <string name="retail">门市价：¥</string>
+    <string name="rmb_symbol">¥ </string>
     <string name="use_help">使用帮助</string>
     <string name="user_agreement">用户协议</string>
     <string name="call_yiwu">呼叫易务宝</string>
@@ -203,6 +229,9 @@
     <string name="service_exception">服务器异常</string>
     <string name="get_data_fail">获取数据失败</string>
     <string name="position_fail">定位失败</string>
+    <string name="brand_story">品牌故事</string>
+    <string name="picture">相册</string>
+    <string name="buy_now">立即抢购</string>
     <string name="login_fail">登录失败，请检查网络以及核对短信验证码</string>
     <string name="code_error">验证码有误，请核对后再进行</string>
     <string name="request_fail">请求失败，请重新点击发送</string>
@@ -216,6 +245,7 @@
     <string name="i_know">知道了</string>
     <string name="loading">加载中...</string>
     <string name="finish_post_data">请完善发布信息</string>
+    
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

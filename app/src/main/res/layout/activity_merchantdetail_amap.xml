@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".merchant_detail.MerchantDetailAmapActivity">
+
+    <RelativeLayout
+        android:id="@+id/merchantdetail_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/frame_bottom">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/merchantdetail_back_img"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/goback" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/merchantdetail_back_img"
+                android:layout_centerVertical="true"
+                android:text="@string/goback"
+                android:textColor="@color/orange"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/merchantdetail_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="@color/orange"
+            tools:text="标题"
+            />
+        <ImageView
+            android:id="@+id/merchantdetail_share"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/image_share"/>
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/post_help_post_bn"
+        android:layout_below="@+id/merchantdetail_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/order_detail_album_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:id="@+id/order_detail_star_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:id="@+id/order_detail_car_serv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/car_serve" />
+
+                <LinearLayout
+                    android:id="@+id/order_detail_addview_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/order_detail_car_serv"
+                    android:orientation="horizontal"></LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/order_detail_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/order_detail_position_img"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/position" />
+
+                <TextView
+                    android:id="@+id/order_detail_position_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toLeftOf="@+id/order_detail_navigation_img"
+                    android:layout_toRightOf="@+id/order_detail_position_img"
+                    android:text="广州天河车陂路东宏国际广场"
+                    android:textColor="@color/buseness_black" />
+
+                <ImageView
+                    android:id="@+id/order_detail_navigation_img"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/order_detail_navigation"
+                    android:src="@mipmap/position" />
+
+                <TextView
+                    android:id="@+id/order_detail_navigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/navigation" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/order_detail_phone_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/order_detail_phone_img"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@mipmap/phone" />
+
+                <TextView
+                    android:id="@+id/order_detail_phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/order_detail_phone_img"
+                    android:text="020-37348080"
+                    android:textColor="@color/buseness_black" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/order_detail_service_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/amap_mdetail_appoint_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/service_order" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/amap_mdetail_appoint_img"
+                        android:text="@string/appointment" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/amap_mdetail_merchant_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/service_order" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/amap_mdetail_merchant_img"
+                        android:text="@string/merchant" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/amap_mdetail_servicewindow_img"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@mipmap/service_order" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/amap_mdetail_servicewindow_img"
+                        android:text="@string/service_window" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/mdetail_ticket_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/frame_top">
+
+                <ImageView
+                    android:id="@+id/amap_mdetail_ticket_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/service_order" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/amap_mdetail_ticket_img"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/group_buying" />
+            </RelativeLayout>
+
+            <com.yiwucheguanjia.carmgr.utils.MyRecyclerView
+                android:id="@+id/merchantdetail_gools_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:background="@color/white"
+                android:scrollbars="none"></com.yiwucheguanjia.carmgr.utils.MyRecyclerView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

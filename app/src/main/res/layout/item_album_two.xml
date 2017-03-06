@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/album_photo_img"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="2dp"
+        android:src="@mipmap/yangmin_test"/>
+    <TextView
+        android:id="@+id/item_album_two_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="2dp"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="kskskka"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:background="#30000000"/>
+</FrameLayout>

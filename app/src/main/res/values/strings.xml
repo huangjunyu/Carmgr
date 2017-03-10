@@ -36,6 +36,7 @@
     <string name="click_add_car">点击添加车辆</string>
     <string name="add_car_descrip">爱车添加，车务无忧办理</string>
     <string name="car_maintain">爱车保养</string>
+    <string name="maintain">保养</string>
     <string name="validity_insurance">有效车险</string>
     <string name="next_annual_inspection">下次年检</string>
     <string name="query_break_rules">查询违章</string>
@@ -174,6 +175,7 @@
     <string name="user_agreement">用户协议</string>
     <string name="call_yiwu">呼叫易务宝</string>
     <string name="get_password">找回密码</string>
+    <string name="nearby_service">附近服务</string>
     <string name="send_code">发送验证码</string>
     <string name="input_phone_number_get_pwd">请输入手机号码</string>
     <string name="check_code">验证</string>

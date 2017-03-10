@@ -13,7 +13,7 @@ import com.yiwucheguanjia.carmgr.utils.RoundRectImageView;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/2/21.
+ * 商家界面的服务商品adapter
  */
 public class GoolsAdapter extends BaseQuickAdapter<GoolsBean, BaseViewHolder> {
     Activity activity;

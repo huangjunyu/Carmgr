@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.my.SystemMsgActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
@@ -118,6 +120,7 @@ public class CommercialActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.orange),0);
         setContentView(R.layout.activity_commercial);
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CARMGR", Context.MODE_PRIVATE);

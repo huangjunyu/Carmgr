@@ -1,5 +1,6 @@
 package com.yiwucheguanjia.carmgr.transaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.yiwucheguanjia.carmgr.R;
+import com.yiwucheguanjia.carmgr.my.AddCarActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +48,8 @@ public class TransactionFragment extends Fragment {
     void click(View view){
         switch (view.getId()){
             case R.id.transaction_addcar_rl:
+                Intent addCarIntent = new Intent(getActivity(), AddCarActivity.class);
+                startActivity(addCarIntent);
                 break;
             case R.id.transaction_maintain_rl:
                 break;

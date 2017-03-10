@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,7 +28,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/*
+* 从地图的服务贴进来的商家详情界面
+* */
 public class MerchantDetailAmapActivity extends AppCompatActivity {
     @BindView(R.id.order_detail_album_rv)
     RecyclerView albumRv;//相册
@@ -35,9 +38,16 @@ public class MerchantDetailAmapActivity extends AppCompatActivity {
     MyRecyclerView goolsRv;
     @BindView(R.id.order_detail_addview_ll)
     LinearLayout addViewLl;
+    @BindView(R.id.order_detail_position_tv)
+    TextView positionTv;//商家地址
+    @BindView(R.id.merchantdetail_title_tv)
+    TextView merchantNameTv;
     private AlbumAdapter albumAdapter;
     private GoolsAdapter goolsAdapter;
     private ArrayList<GoolsBean> goolsBeanArrayList;
+    private String merchantNameStr;
+    private String merchantStarStr;
+    private String merchantAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +75,24 @@ public class MerchantDetailAmapActivity extends AppCompatActivity {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent goodsDetailIntent = new Intent(MerchantDetailAmapActivity.this, GoodsDetailActivity.class);
+
+                goodsDetailIntent.putExtra("serviceId","2");
+                goodsDetailIntent.putExtra("merchantId","33");
+                goodsDetailIntent.putExtra("merchantName",merchantNameStr);
+                goodsDetailIntent.putExtra("serviceName","上牌");
+
                 startActivity(goodsDetailIntent);
             }
         });
         createImagview(4);
     }
     private void getData(){
+        Bundle bundle = getIntent().getExtras();
+        merchantNameStr = bundle.getString("merchantName");
+        merchantStarStr = bundle.getString("merchantStar","5");
+        merchantAddress = bundle.getString("merchantAddress","");
+        merchantNameTv.setText(bundle.getString("merchantName"));
+        positionTv.setText(bundle.getString("merchantAddress",""));
         for (int i = 0;i < 10;i++){
             GoolsBean goolsBean = new GoolsBean();
             goolsBean.setPicUrl("");

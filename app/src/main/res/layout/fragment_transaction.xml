@@ -73,7 +73,7 @@
 
             <ImageView
                 android:id="@+id/transaction_maintain"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -95,7 +95,7 @@
 
             <ImageView
                 android:id="@+id/transaction_insurance"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -117,7 +117,7 @@
 
             <ImageView
                 android:id="@+id/transaction_annual_inspection"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -139,7 +139,7 @@
 
             <ImageView
                 android:id="@+id/transaction_break_rules"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -170,7 +170,7 @@
 
             <ImageView
                 android:id="@+id/transaction_refuel_up_img"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -192,7 +192,7 @@
 
             <ImageView
                 android:id="@+id/transaction_insurance_service_img"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -214,7 +214,7 @@
 
             <ImageView
                 android:id="@+id/transaction_bread_rules_query"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -236,7 +236,7 @@
 
             <ImageView
                 android:id="@+id/transaction_bread_rules_pay"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -266,7 +266,7 @@
 
             <ImageView
                 android:id="@+id/transaction_park_pay_img"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -288,7 +288,7 @@
 
             <ImageView
                 android:id="@+id/transaction_car_appraisement_img"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -309,7 +309,7 @@
 
             <ImageView
                 android:id="@+id/transaction_technician_online"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -331,7 +331,7 @@
 
             <ImageView
                 android:id="@+id/transaction_more_service"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/yangmin_test" />
@@ -340,6 +340,110 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/transaction_more_service"
+                android:layout_centerHorizontal="true"
+                android:text="@string/more_service"
+                android:textColor="@color/hint_edit_color" />
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/buseness_black"
+        android:text="@string/nearby_service"
+        android:background="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+        <!--加油充值-->
+        <RelativeLayout
+            android:id="@+id/transaction_car_wash_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/transaction_car_wash_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/yangmin_test" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_car_wash_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/park_pay"
+                android:textColor="@color/hint_edit_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/transaction_car_maintain_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/transaction_car_maintain_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/yangmin_test" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_car_maintain_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/car_appraisement"
+                android:textColor="@color/hint_edit_color" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/transaction_park_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/transaction_park_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/yangmin_test" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_park_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/technician_online"
+                android:textColor="@color/hint_edit_color" />
+        </RelativeLayout>
+        <!--交通违法缴罚-->
+        <RelativeLayout
+            android:id="@+id/transaction_gas_station_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/transaction_gas_station"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/yangmin_test" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_gas_station"
                 android:layout_centerHorizontal="true"
                 android:text="@string/more_service"
                 android:textColor="@color/hint_edit_color" />

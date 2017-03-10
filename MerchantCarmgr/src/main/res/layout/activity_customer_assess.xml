@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@drawable/frame_bottom">
 
         <RelativeLayout
             android:id="@+id/assess_goback_rl"

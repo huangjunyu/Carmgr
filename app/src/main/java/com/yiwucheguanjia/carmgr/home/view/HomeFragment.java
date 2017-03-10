@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import com.yiwucheguanjia.carmgr.MyGridView;
 import com.yiwucheguanjia.carmgr.R;
 import com.yiwucheguanjia.carmgr.account.view.LoginBaseFragmentActivity;
+import com.yiwucheguanjia.carmgr.home.controller.HotRecommendAdapter;
 import com.yiwucheguanjia.carmgr.my.SystemMsgActivity;
 import com.yiwucheguanjia.carmgr.city.CityActivity;
 import com.yiwucheguanjia.carmgr.city.utils.SharedPreferencesUtils;
@@ -203,7 +204,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                Log.e("refresh", "refresh");
                 mPtrFrame.refreshComplete();
                 appGetConfig(sharedPreferences.getString("ACCOUNT", null), "ZY_0001",
                         Tools.getInstance().getScreen(getActivity()),
@@ -247,7 +247,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 return super.checkCanDoRefresh(frame, myScrollview, header);
             }
         });
-//        hotRecommendRclV.setLayoutManager(layoutManager);
+        hotRecommendRclV.setLayoutManager(layoutManager);
         //进入Activity就进行自动下拉刷新
 /*        mPtrFrame.postDelayed(new Runnable() {
             @Override
@@ -312,6 +312,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         secondHandGridView = (MyGridView) homeView.findViewById(R.id.second_hand_gridview);
         secondHandGridView.setFocusable(false);
         hotSecondCarView = (RecyclerView) homeView.findViewById(R.id.id_recyclerview_horizontal);
+        hotRecommendRclV = (RecyclerView) homeView.findViewById(R.id.home_hot_recommend);
         recommendImg1 = (ImageView) homeView.findViewById(R.id.recommend_1);
         recommendImg2 = (ImageView) homeView.findViewById(R.id.recommend_2);
         recommendImg3 = (ImageView) homeView.findViewById(R.id.recommend_3);
@@ -390,8 +391,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (sharedPreferences.getString("ACCOUNT", null) != null) {
 //                    Intent intentPersonal = new Intent(getActivity(), personalActivity.class);
 //                    getActivity().startActivity(intentPersonal);
-                Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
-                getActivity().startActivityForResult(personalIntent, 1);
+                    Intent personalIntent = new Intent(getActivity(), SystemMsgActivity.class);
+                    getActivity().startActivityForResult(personalIntent, 1);
                 } else {
                     Intent personalIntent = new Intent(getActivity(), LoginBaseFragmentActivity.class);
                     getActivity().startActivityForResult(personalIntent, 1);
@@ -487,6 +488,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (TextUtils.isEmpty(token)) {
             return;
         }
+        Log.e("second", "second");
         OkHttpUtils.get().url(url)
                 .addParams("username", username)
                 .addParams("token", token)
@@ -665,17 +667,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void parseHotRecommend(String response) {
-        hotRecommendBeens = new ArrayList<>();
+        ArrayList<HotRecommendBean.ServicesListBean> servicesListBeanArrayList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(response);
             int listSize = jsonObject.getInt("list_size");
             JSONArray servicesList = jsonObject.getJSONArray("services_list");
             for (int n = 0; n < listSize; n++) {
+                HotRecommendBean.ServicesListBean servicesListBean = new HotRecommendBean.ServicesListBean();
                 HotRecommendBean hotRecommendBean = new HotRecommendBean();
                 JSONObject listItem = servicesList.getJSONObject(n);
                 hotRecommendBean.setHotRecommendUrlImg(listItem.getString("img_path"));
-                hotRecommendBeens.add(hotRecommendBean);
+//                hotRecommendBean.setServices_list(servicesListBean);
+                servicesListBean.setImg_path(listItem.optString("img_path"));
+                servicesListBean.setPrice(listItem.optString("price"));
+                servicesListBean.setService_name(listItem.optString("service_name"));
+                servicesListBeanArrayList.add(servicesListBean);
             }
+            HotRecommendAdapter hotRecommendAdapter = new HotRecommendAdapter(getActivity(), servicesListBeanArrayList);
+            hotRecommendRclV.setAdapter(hotRecommendAdapter);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@drawable/frame_bottom">
 
         <RelativeLayout
             android:id="@+id/post_sc_goback"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1px"
-        android:background="@color/white"
+        android:background="@drawable/frame_bottom"
         android:hint="@string/input_title"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white">
+        android:background="@drawable/frame_bottom_top">
 
         <TextView
             android:id="@+id/post_sc_price"
@@ -100,6 +100,8 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
             android:layout_toRightOf="@+id/post_sc_price"
             android:background="@color/white"
             android:inputType="number"
@@ -112,7 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1px"
-        android:background="@color/white">
+        android:background="@drawable/frame_bottom">
 
         <TextView
             android:id="@+id/post_sc_service_type"
@@ -140,7 +142,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@drawable/frame_bottom">
 
 
         <TextView
@@ -158,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="1px"
+            android:layout_marginBottom="2px"
             android:layout_toRightOf="@id/post_sc_service_scope"
             android:background="@color/white"
             android:hint="@string/input_content"

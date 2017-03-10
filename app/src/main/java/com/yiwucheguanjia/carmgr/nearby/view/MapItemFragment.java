@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,15 @@ public class MapItemFragment extends Fragment {
     @OnClick()
     void click(){
         Intent intent = new Intent(getActivity(), MerchantDetailAmapActivity.class);
+
+        intent.putExtra("merchantName",bundle.getString("service_title",""));
+        intent.putExtra("merchantStar",bundle.getString("service_price",""));
+        intent.putExtra("merchantAddress",bundle.getString("service_content"));
+        Log.e("merchantaddress",bundle.getString("service_content"));
+//        intent.putExtra("serviceId",serviceTypeItemBeens.get(msg.arg1).getServiceId());
+//        intent.putExtra("merchantId",merchantId);
+//        intent.putExtra("serviceName",serviceTypeItemBeens.get(msg.arg1).getServiceName());
+
         startActivity(intent);
     }
     private void createImagview(int length) {
